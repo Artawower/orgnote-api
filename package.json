@@ -1,0 +1,43 @@
+{
+  "name": "orgnote-api",
+  "version": "0.0.1",
+  "description": "Official API for creating extensions for OrgNote app",
+  "type": "module",
+  "main": "dist/index.ts",
+  "scripts": {
+    "codegen:api": "openapi-generator-cli generate",
+    "codegen:css-doc": "node collect-css-variables.js --docs",
+    "codegen:css-types": "node collect-css-variables.js --types",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run clear && tsc --project tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artawower/orgnote-api.git"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "keywords": [
+    "orgnote",
+    "org-mode",
+    "org-roam",
+    "api",
+    "extensions"
+  ],
+  "author": "darkawower <app.orgnote@gmail.com> (https://org-note.com)",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/artawower/orgnote-api/issues"
+  },
+  "homepage": "https://github.com/artawower/orgnote-api#readme",
+  "dependencies": {
+    "codemirror": "6.0.1",
+    "org-mode-ast": "0.11.2",
+    "vue-router": "4.2.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@openapitools/openapi-generator-cli": "2.9.0"
+  }
+}
