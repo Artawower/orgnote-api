@@ -5,11 +5,12 @@
   "type": "module",
   "main": "dist/index.ts",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run clear && tsc --project tsconfig.json",
+    "clear": "rm -rf dist",
     "codegen:api": "openapi-generator-cli generate",
     "codegen:css-doc": "node collect-css-variables.js --docs",
-    "codegen:css-types": "node collect-css-variables.js --types",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run clear && tsc --project tsconfig.json"
+    "codegen:css-types": "node collect-css-variables.js --types"
   },
   "repository": {
     "type": "git",

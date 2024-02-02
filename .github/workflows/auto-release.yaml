@@ -1,0 +1,35 @@
+name: Auto release
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      - name: install dependencies
+        run: bun install --frozen-lockfile
+      - name: build
+        run: bun run build
+  release:
+    name: Create release
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Release
+        uses: justincy/github-action-npm-release@2.0.2
+        id: release
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+      - name: Print release output
+        if: ${{ steps.release.outputs.released == 'true' }}
+        run: echo Release ID ${{ steps.release.outputs.release_id }}
