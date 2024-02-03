@@ -1,6 +1,6 @@
 {
   "name": "orgnote-api",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Official API for creating extensions for OrgNote app",
   "type": "module",
   "main": "dist/index.ts",
@@ -9,8 +9,8 @@
     "build": "npm run clear && tsc --project tsconfig.json",
     "clear": "rm -rf dist",
     "codegen:api": "openapi-generator-cli generate",
-    "codegen:css-doc": "node collect-css-variables.js --docs",
-    "codegen:css-types": "node collect-css-variables.js --types",
+    "codegen:css-doc": "node collect-css-variables.cjs --docs",
+    "codegen:css-types": "node collect-css-variables.cjs --types",
     "prepublish": "npm run build"
   },
   "repository": {
