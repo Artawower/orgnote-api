@@ -1,4 +1,4 @@
-import { OrgNoteApi } from 'src/api';
+import { OrgNoteApi } from '../api';
 
 export interface ExtensionManifest {
   /* Should be unique in the extension repo */
