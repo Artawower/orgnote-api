@@ -1,6 +1,6 @@
 {
   "name": "orgnote-api",
-  "version": "0.0.4",
+  "version": "0.0.7",
   "description": "Official API for creating extensions for OrgNote app",
   "type": "module",
   "main": "dist/index.ts",
@@ -17,9 +17,10 @@
     "type": "git",
     "url": "git+https://github.com/artawower/orgnote-api.git"
   },
-  "files": [
-    "dist/**"
-  ],
+  "files": ["dist/**"],
+  "exports": {
+    ".": "./dist/index.d.ts"
+  },
   "keywords": [
     "orgnote",
     "org-mode",

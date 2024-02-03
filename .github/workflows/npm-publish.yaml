@@ -18,6 +18,10 @@ jobs:
           bun-version: latest
       - name: install dependencies
         run: bun install --frozen-lockfile
+      - name: build script
+        run: bun build
+      - name: ls dist directory
+        run: ls dist
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
