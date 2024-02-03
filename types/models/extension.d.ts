@@ -1,4 +1,4 @@
-import { OrgNoteApi } from 'src/api';
+import { OrgNoteApi } from '../api';
 export interface ExtensionManifest {
     name: string;
     version: string;
