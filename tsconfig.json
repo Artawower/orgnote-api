@@ -8,7 +8,6 @@
     "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
     "emitDeclarationOnly": true,
-    "emitDeclarationOnly": true,
     "declaration": true,
     "declarationDir": "./dist",
     "esModuleInterop": true,
