@@ -21,7 +21,7 @@ jobs:
       - name: build script
         run: bun run build
       - name: ls dist directory
-        run: ls dist
+        run: ls
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
