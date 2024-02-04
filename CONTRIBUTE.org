@@ -3,6 +3,7 @@
 :END:
 
 #+TITLE: How to contribute?
+#+STARTUP: content
 
 
 * Few words
@@ -41,3 +42,109 @@ export default {
     }
 };
 #+END_SRC
+* Creating your own extension, example
+/Do you use Emacs? My respect! You can easily tangle this code into ready to start project!/
+Just copy this document to your working directory and run =M-x org-babel-tangle=. or just press =C-c C-v t=
+
+** Init tsconfig (skip if you prefer to work with js)
+#+BEGIN_SRC json :tangle tsconfig.json
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "rootDir": "src",
+    "module": "es2015",
+    "target": "es2022",
+    "lib": ["es2022", "dom"],
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "emitDecoratorMetadata": true,
+    "declaration": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
+
+#+END_SRC
+** Init package.json file
+#+BEGIN_SRC json :tangle package.json
+{
+  "name": "<PACKAGE NAME>",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "<DESCRIPTION>",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf ./dist && tsc -p .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+<REPO URL>"
+  },
+  "keywords": [
+    "orgnote",
+    "extension"
+  ],
+  "author": "<AUTHOR>",
+  "license": "MIT",
+  "homepage": "<REPO URL>",
+  "devDependencies": {
+    "typescript": "5.3.3"
+  },
+  "dependencies": {
+    "orgnote-api": "0.0.19"
+  }
+}
+
+#+END_SRC
+** Create extension entrypoint
+create source folder
+
+#+BEGIN_SRC sh
+mkdir src
+#+END_SRC
+
+
+#+BEGIN_SRC typescript :tangle src/index.ts
+import { Extension, ExtensionManifest, OrgNoteApi } from 'orgnote-api';
+
+const packageName = 'my-awesome-package';
+
+export default {
+  onMounted: async (api: OrgNoteApi): Promise<void> => {
+    api.interaction.confirm('Arrrr!', 'Whoooo Lives in a under the sea!?');
+  },
+
+  onUnmounted: async (api: OrgNoteApi): Promise<void> => {
+    api.interaction.confirm('Good bye!', '');
+  }
+} as Extension;
+
+
+export const manifest: ExtensionManifest = {
+  name: 'My first extension',
+  description: '🦄🌈',
+  version: '0.0.1',
+  sourceType: 'git',
+  sourceUrl: 'https://github.com/artawower/orgnote-colorful-headlines',
+  author: 'artawower',
+  category: 'other',
+  keywords: ['color', 'headline', 'styles'],
+}
+#+END_SRC
+
+** Install dependencies
+#+BEGIN_SRC sh
+npm install
+#+END_SRC
+** Compile your code
+#+BEGIN_SRC sh
+npm run build
+#+END_SRC
+
+You can find compiled =index.js= file in the =dist= directory. For debug just drag & drop it into opened OrgNote window.
