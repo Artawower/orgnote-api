@@ -1,9 +1,9 @@
 {
   "name": "orgnote-api",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Official API for creating extensions for OrgNote app",
   "type": "module",
-  "main": "src/index.ts",
+  "main": "./index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run clear && tsc --project tsconfig.json",
@@ -11,17 +11,13 @@
     "codegen:api": "openapi-generator-cli generate",
     "codegen:css-doc": "node collect-css-variables.cjs --docs",
     "codegen:css-types": "node collect-css-variables.cjs --types",
-    "prepublish": "npm run build"
+    "prepublish": "mv -rf ./src/* . && rm -rf ./src"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/artawower/orgnote-api.git"
   },
-  "files": ["src/**"],
-  "exports": {
-    ".": "./src/index.ts",
-    "./sdk": "./src/generated/api/index.ts"
-  },
+  "files": ["index.ts", "api.ts", "remote-api/**", "models/**"],
   "keywords": [
     "orgnote",
     "org-mode",
