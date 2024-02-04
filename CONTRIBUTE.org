@@ -1,0 +1,43 @@
+:PROPERTIES:
+:ID: contributino-guide
+:END:
+
+#+TITLE: How to contribute?
+
+
+* Few words
+/Some of these rules and tips may be very subjective. Perhaps you may disagree with some of them, because you really have more experience and knowledge than I do./
+/But I ask you to follow these rules because even you can write code with a better approach, once you are done, I will be forced to maintain the existing code. Thanks for your understanding!/
+* Style guides.
+- User prettier to format your code
+- Don't use =switch/case=
+- Try to avoid =else= construction.
+- Try to avoid nested blocks with more than 3 levels
+
+  /Work in progress/
+* How to write good extension!?
+- Consider to import only types from =orgnote-api= package. It could significantly reduce the size of your extension!
+- Clean resources after unmount! It's important to avoid memory leaks.
+  For example:
+ #+BEGIN_SRC typescript
+export default {
+    onMounted: async (api) => {
+        api.ui.applyStyles('unique-id', `.org-keyword-title-line { color: blue }`);
+    },
+};
+#+END_SRC
+
+This code will preserve style block after user disable your extension.
+
+To avoid it use =onUnmounted= hook
+
+#+BEGIN_SRC typescript
+export default {
+    onMounted: async (api) => {
+        api.ui.applyStyles('unique-id', `.org-keyword-title-line { color: blue }`);
+    },
+    onUnmounted: async (api) => {
+        api.ui.removeStyles('unique-id');
+    }
+};
+#+END_SRC
