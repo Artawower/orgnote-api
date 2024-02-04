@@ -33,7 +33,7 @@ You can find all available methods here. They are currently undocumented.
 - [[https://github.com/artawower/orgnote][OrgNote entrypoint]]
 - [[https://org-note.com/][Official website]]
 - [[https://github.com/Artawower/orgnote-client][Org Note client]]
-- [[./EXTENSIONS.org][List of extensions]] 
+- [[https://github.com/Artawower/orgnote-extensions][Repository with collection of extensions]] 
 - [[https://github.com/Artawower/org-mode-ast][Typescript abstract syntax tree for org mode.]] 
 
 * Extension structure
@@ -84,8 +84,8 @@ with =ExtensionManifest=
 * Extensions example
 /Themes/
 - [[https://github.com/Artawower/orgnote-atom-one-dark][Atom One Dark theme (pure js)]]
-/UI/ (WIP)
-- Colorful Headlines (typescript + API package)
+/UI/ 
+- [[https://github.com/Artawower/orgnote-colorful-headlines][Colorful Headlines (typescript + API package)]]
 
 * Contribute guide
 Any contribution is very much appreciated! Please read the [[./CONTRIBUTE.org][style guide]] before contributing to avoid misunderstandings!
