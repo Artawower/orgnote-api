@@ -1,4 +1,4 @@
-import type { ModelsPublicNote, ModelsPublicUser } from '../generated/api';
+import type { ModelsPublicNote, ModelsPublicUser } from '../remote-api';
 
 export interface NotesFilter {
   searchText?: string;
