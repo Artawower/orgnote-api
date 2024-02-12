@@ -11,7 +11,7 @@ export interface ExtensionManifest {
   description?: string;
   keywords?: string[];
   // Repository url
-  sourceType: 'git' | 'file';
+  sourceType: 'git' | 'file' | 'builtin';
   /* Default value is README.org */
   readmeFilePath?: string;
   /* WIP */
