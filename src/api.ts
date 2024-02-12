@@ -1,5 +1,21 @@
-import { Command , CSSVariable, ThemeVariable, Note  } from './models';
+import {
+  Command,
+  CSSVariable,
+  ThemeVariable,
+  Note,
+  InlineEmbeddedWidget,
+  MultilineEmbeddedWidget,
+  OrgLineClass,
+} from './models';
 import type { NavigationFailure } from 'vue-router';
+import { WidgetType } from './models/widget-type';
+import type { Component } from 'vue';
+import { EmbeddedWidget } from './models';
+
+export type WidgetMeta =
+  | ({ type: WidgetType.Inline } & InlineEmbeddedWidget)
+  | ({ type: WidgetType.Multiline } & MultilineEmbeddedWidget)
+  | ({ type: WidgetType.LineClass } & OrgLineClass);
 
 export interface OrgNoteApi {
   [key: string]: unknown;
@@ -30,12 +46,13 @@ export interface OrgNoteApi {
   currentNote: {
     get: () => Note;
   };
-  // hooks: {
-  //   add: () => void;
-  // };
   editor: {
     widgets: {
-      add: () => void;
+      add: (...widgetMeta: WidgetMeta[]) => void;
+      createEmbeddedWidget: (
+        cmp: Component,
+        props: { [key: string]: unknown }
+      ) => EmbeddedWidget;
     };
   };
   commands: {
@@ -50,21 +67,21 @@ export interface OrgNoteConfig {
   editor: {
     showSpecialSymbols: boolean;
     showPropertyDrawer: boolean;
-  },
+  };
   common: {
     developerMode: boolean;
     maximumLogsCount: number;
-  },
+  };
   completion: {
     showGroup: boolean;
     defaultCompletionLimit: number;
-  },
+  };
   ui: {
     theme: 'light' | 'dark';
     darkThemeName?: string;
     lightThemeName?: string;
-  },
+  };
   extensions: {
     sources: string[];
-  }
+  };
 }

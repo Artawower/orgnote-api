@@ -54,3 +54,6 @@ export type EmbeddedWidgetBuilder = (
   wrap: HTMLElement,
   dynamicProps?: { [key: string]: unknown }
 ) => EmbeddedWidget;
+
+export type OrgLineClass = { class: string | ((orgNode: OrgNode) => string) };
+export type OrgLineClasses = { [key in NodeType]?: OrgLineClass };
