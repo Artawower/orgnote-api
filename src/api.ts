@@ -11,6 +11,7 @@ import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
 import type { Component } from 'vue';
 import { EmbeddedWidget } from './models';
+import { WidgetBuilder } from './models';
 
 export type WidgetMeta =
   | ({ type: WidgetType.Inline } & InlineEmbeddedWidget)
@@ -49,10 +50,10 @@ export interface OrgNoteApi {
   editor: {
     widgets: {
       add: (...widgetMeta: WidgetMeta[]) => void;
-      createEmbeddedWidget: (
+      createWidgetBuilder: (
         cmp: Component,
-        props: { [key: string]: unknown }
-      ) => EmbeddedWidget;
+        props?: { [key: string]: unknown }
+      ) => WidgetBuilder;
     };
   };
   commands: {
