@@ -6,17 +6,19 @@ import {
   InlineEmbeddedWidget,
   MultilineEmbeddedWidget,
   OrgLineClass,
+  WidgetBuilder,
 } from './models';
 import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
 import type { Component } from 'vue';
-import { EmbeddedWidget } from './models';
-import { WidgetBuilder } from './models';
+import { NodeType } from 'org-mode-ast';
+
+type WithNodeType<T> = { nodeType: NodeType } & T;
 
 export type WidgetMeta =
-  | ({ type: WidgetType.Inline } & InlineEmbeddedWidget)
-  | ({ type: WidgetType.Multiline } & MultilineEmbeddedWidget)
-  | ({ type: WidgetType.LineClass } & OrgLineClass);
+  | ({ type: WidgetType.Inline } & WithNodeType<InlineEmbeddedWidget>)
+  | ({ type: WidgetType.Multiline } & WithNodeType<MultilineEmbeddedWidget>)
+  | ({ type: WidgetType.LineClass } & WithNodeType<OrgLineClass>);
 
 export interface OrgNoteApi {
   [key: string]: unknown;
