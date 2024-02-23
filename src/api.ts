@@ -13,6 +13,7 @@ import { WidgetType } from './models/widget-type';
 import type { Component } from 'vue';
 import { NodeType } from 'org-mode-ast';
 import type { Extension } from '@codemirror/state';
+import { EditorExtensionParams } from './models/editor';
 
 type WithNodeType<T> = { nodeType: NodeType } & T;
 
@@ -52,7 +53,7 @@ export interface OrgNoteApi {
   };
   editor: {
     extensions: {
-      add: () => Extension;
+      add: (params: EditorExtensionParams) => Extension;
     };
     widgets: {
       add: (...widgetMeta: WidgetMeta[]) => void;
