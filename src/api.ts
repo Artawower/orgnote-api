@@ -12,6 +12,7 @@ import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
 import type { Component } from 'vue';
 import { NodeType } from 'org-mode-ast';
+import type { Extension } from '@codemirror/state';
 
 type WithNodeType<T> = { nodeType: NodeType } & T;
 
@@ -50,6 +51,9 @@ export interface OrgNoteApi {
     get: () => Note;
   };
   editor: {
+    extensions: {
+      add: () => Extension;
+    };
     widgets: {
       add: (...widgetMeta: WidgetMeta[]) => void;
       createWidgetBuilder: (
