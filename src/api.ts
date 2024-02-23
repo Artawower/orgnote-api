@@ -52,8 +52,8 @@ export interface OrgNoteApi {
   };
   editor: {
     extensions: {
-      add: (extension: EditorExtension) => void;
-      remove: (extension: EditorExtension) => void;
+      add: (...extension: EditorExtension[]) => void;
+      remove: (...extension: EditorExtension[]) => void;
     };
     widgets: {
       add: (...widgetMeta: WidgetMeta[]) => void;
