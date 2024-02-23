@@ -3,8 +3,19 @@ name: Auto release
 on: [push, pull_request]
 
 jobs:
+  check_commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: webiny/action-conventional-commits@v1.3.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Optional, for private repositories.
+          allowed-commit-types: 'feat,fix' # Optional, set if you want a subset of commit types to be allowed.
+
   build:
     name: Build
+    needs: [check_commit]
     runs-on: ubuntu-latest
     steps:
       - name: checkout repository
