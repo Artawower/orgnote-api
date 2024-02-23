@@ -6,3 +6,4 @@ export * from './theme-variables';
 export * from './widget';
 export * from './modal';
 export * from './widget-type';
+export * from './editor';
