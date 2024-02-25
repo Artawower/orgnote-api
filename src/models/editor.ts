@@ -1,7 +1,7 @@
 import type { OrgNode } from 'org-mode-ast';
 import type { Component } from 'vue';
 import type { EditorView } from 'codemirror';
-import type { Extension } from './extension';
+import type { Extension } from '@codemirror/state';
 
 interface DynamicComponent {
   mount: (
