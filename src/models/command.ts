@@ -25,6 +25,9 @@ export interface Command {
   group?: CommandGroup;
   allowOnInput?: boolean;
   ignorePrompt?: boolean;
+
+  /* When command is system command, it will not be shown for users */
+  system?: boolean;
   /* arguments depend on the current scope */
   handler: (params?: CommandHandlerParams) => unknown | Promise<unknown>;
 }

@@ -2,6 +2,7 @@ import type { OrgNode } from 'org-mode-ast';
 import type { Component } from 'vue';
 import type { EditorView } from 'codemirror';
 import type { Extension } from '@codemirror/state';
+import { InlineEmbeddedWidget } from './widget';
 
 interface DynamicComponent {
   mount: (
@@ -19,6 +20,7 @@ export interface EditorExtensionParams {
   readonly: boolean;
   showSpecialSymbols?: boolean;
   dynamicComponent: DynamicComponent;
+  foldWidget?: InlineEmbeddedWidget;
   editorViewGetter: () => EditorView;
 }
 

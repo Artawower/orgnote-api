@@ -65,8 +65,11 @@ export interface OrgNoteApi {
   };
   commands: {
     add(...commands: Command[]): void;
-    // delete(...commands: Command[]): void;
-    // update(...commands: Command[]): void;
+    remove(...commands: Command[]): void;
+    addCommandToSidebar(...commands: Command[]): void;
+    removeCommandFromSidebar(...commands: Command[]): void;
+    addCommandToEditorPanel(...commands: Command[]): void;
+    removeCommandFromEditorPanel(...commands: Command[]): void;
   };
   configuration: () => OrgNoteConfig;
 }
