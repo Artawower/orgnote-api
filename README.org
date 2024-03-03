@@ -30,6 +30,8 @@ You can find all available methods here. They are currently undocumented.
 
 
 * Connected links
+- [[https://github.com/Artawower/orgnote-client/tree/master/src/components/extensions][Built-in extensions]]
+- [[https://github.com/Artawower/orgnote-api/blob/master/src/api.ts#L24][Type definition for existing extension API]]
 - [[https://github.com/artawower/orgnote][OrgNote entrypoint]]
 - [[https://org-note.com/][Official website]]
 - [[https://github.com/Artawower/orgnote-client][Org Note client]]
@@ -51,6 +53,8 @@ interface Extension {
 }
 #+END_SRC
 
+You can find available methods of =OrgNoteApi= [[https://github.com/Artawower/orgnote-api/blob/master/src/api.ts#L24][here]]
+
 ** Extension manifest
 Also, each extension should export manifest const:
 #+BEGIN_SRC typescript
@@ -65,7 +69,7 @@ interface ExtensionManifest {
   description?: string;
   keywords?: string[];
   // Repository url
-  sourceType: 'git' | 'file';
+  sourceType: 'git' | 'file' | 'builtin';
   /* Default value is README.org */
   readmeFilePath?: string;
   /* WIP */
@@ -77,6 +81,7 @@ interface ExtensionManifest {
   icon?: string;
 }
 #+END_SRC
+** Extension API
 * Publish to official repository
 OrgNote has an official [[https://github.com/Artawower/orgnote-extensions][repository]] for user-based extensions. You can easily add new =recipes/<package>.json=
 with =ExtensionManifest=
