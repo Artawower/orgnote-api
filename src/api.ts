@@ -67,6 +67,7 @@ export interface OrgNoteApi {
     add(...commands: Command[]): void;
     remove(...commands: Command[]): void;
     get(name: string): Command;
+    getAll(): Command[];
     addCommandToSidebar(...commands: Command[]): void;
     removeCommandFromSidebar(...commands: Command[]): void;
     addCommandToEditorPanel(...commands: Command[]): void;
