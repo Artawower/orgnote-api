@@ -7,6 +7,7 @@ import {
   MultilineEmbeddedWidget,
   OrgLineClass,
   WidgetBuilder,
+  CommandPreview,
 } from './models';
 import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
@@ -68,10 +69,10 @@ export interface OrgNoteApi {
     remove(...commands: Command[]): void;
     get(name: string): Command;
     getAll(): Command[];
-    addCommandToSidebar(...commands: Command[]): void;
-    removeCommandFromSidebar(...commands: Command[]): void;
-    addCommandToEditorPanel(...commands: Command[]): void;
-    removeCommandFromEditorPanel(...commands: Command[]): void;
+    addCommandToSidebar(...commands: CommandPreview[]): void;
+    removeCommandFromSidebar(...commands: CommandPreview[]): void;
+    addCommandToEditorPanel(...commands: CommandPreview[]): void;
+    removeCommandFromEditorPanel(...commands: CommandPreview[]): void;
   };
   configuration: () => OrgNoteConfig;
 }
