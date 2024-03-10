@@ -1,3 +1,5 @@
+import { DefaultCommands } from './default-commands';
+
 export const DEFAULT_KEYBINDING_GROUP = 'default';
 
 export type CommandGroup =
@@ -16,7 +18,7 @@ export interface CommandHandlerParams<T = any> {
 
 export interface CommandPreview {
   description?: string;
-  command?: string;
+  command?: DefaultCommands | string;
   title?: string | (() => string);
   icon?: string | (() => string);
 }

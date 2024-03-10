@@ -1,0 +1,30 @@
+/*
+ * This are default commands. It's not a complete list
+ * Some of the commands are dynamically generated or
+ * can be added by user extensions.
+ */
+export enum DefaultCommands {
+  // Global commands
+  REPORT_BUG = 'report bug',
+  OPEN_DEBUG_INFO = 'open debug info',
+  SHOW_LOGS = 'show logs',
+  TOGGLE_SIDEBAR = 'toggle sidebar',
+  TOGGLE_FILE_MANAGER = 'toggle file manager',
+  CREATE_NOTE = 'create note',
+  PROJECT_INFO = 'project info',
+
+  // Completion commands
+  SEARCH = 'search',
+  TOGGLE_COMMANDS = 'toggle commands',
+  RESTORE_COMPLETION = 'restore last completion',
+  EXIT_COMMAND_EXECUTOR = 'exit command executor',
+  NEXT_CANDIDATE = 'next candidate',
+  PREV_CANDIDATE = 'previous candidate',
+  EXECUTE_CANDIDATE = 'execute candidate',
+
+  // Settings
+  SETTINGS = 'settings',
+  RESET_THEME = 'reset theme',
+  TOGGLE_DARK_MODE = 'toggle dark mode',
+  TOGGLE_DEBUG_MODE = 'toggle debug mode',
+}
