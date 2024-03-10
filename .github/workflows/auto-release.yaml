@@ -11,7 +11,7 @@ jobs:
       - uses: webiny/action-conventional-commits@v1.3.0
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Optional, for private repositories.
-          allowed-commit-types: 'feat,fix,chore' # Optional, set if you want a subset of commit types to be allowed.
+          allowed-commit-types: 'feat,fix,chore,refactor' # Optional, set if you want a subset of commit types to be allowed.
 
   build:
     name: Build

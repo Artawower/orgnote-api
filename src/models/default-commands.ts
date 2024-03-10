@@ -27,4 +27,5 @@ export enum DefaultCommands {
   RESET_THEME = 'reset theme',
   TOGGLE_DARK_MODE = 'toggle dark mode',
   TOGGLE_DEBUG_MODE = 'toggle debug mode',
+  SELECT_THEME = 'select theme',
 }
