@@ -28,4 +28,13 @@ export enum DefaultCommands {
   TOGGLE_DARK_MODE = 'toggle dark mode',
   TOGGLE_DEBUG_MODE = 'toggle debug mode',
   SELECT_THEME = 'select theme',
+
+  // Routing
+  OPEN_MY_NOTES = 'my notes',
+  OPEN_DASHBOARD = 'dashboard',
+  OPEN_PUBLIC_NOTE_LIST = 'public note list',
+  OPEN_NOTE_EDITOR = 'edit mode',
+  OPEN_NOTE_VIEWER = 'view mode',
+  OPEN_GRAPH = 'graph',
+  OPEN_EXTENSIONS = 'extensions',
 }
