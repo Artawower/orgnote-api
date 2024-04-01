@@ -573,6 +573,12 @@ export interface ModelsPublicNote {
      */
     'createdAt'?: string;
     /**
+     * Encrypted note content
+     * @type {string}
+     * @memberof ModelsPublicNote
+     */
+    'encrypted'?: ModelsPublicNoteEncryptedEnum;
+    /**
      * 
      * @type {Array<string>}
      * @memberof ModelsPublicNote
@@ -615,6 +621,13 @@ export interface ModelsPublicNote {
      */
     'updatedAt'?: string;
 }
+
+export const ModelsPublicNoteEncryptedEnum = {
+    Gpg: 'gpg'
+} as const;
+
+export type ModelsPublicNoteEncryptedEnum = typeof ModelsPublicNoteEncryptedEnum[keyof typeof ModelsPublicNoteEncryptedEnum];
+
 /**
  * 
  * @export
