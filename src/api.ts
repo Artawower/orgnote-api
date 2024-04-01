@@ -77,6 +77,27 @@ export interface OrgNoteApi {
   configuration: () => OrgNoteConfig;
 }
 
+export interface OrgNoteGpgEncryption {
+  type: 'gpg';
+  privateKey: string;
+  publicKey: string;
+  privateKeyPassphrase?: string;
+}
+
+export interface OrgNotePasswordEncryption {
+  type: 'password';
+  password: string;
+}
+
+export interface OrgNoteDisabledEncryption {
+  type: 'disabled';
+}
+
+export type OrgNoteEncryption =
+  | OrgNoteGpgEncryption
+  | OrgNotePasswordEncryption
+  | OrgNoteDisabledEncryption;
+
 export interface OrgNoteConfig {
   editor: {
     showSpecialSymbols: boolean;
@@ -98,4 +119,5 @@ export interface OrgNoteConfig {
   extensions: {
     sources: string[];
   };
+  encryption: OrgNoteEncryption;
 }
