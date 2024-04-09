@@ -8,6 +8,7 @@ import {
   OrgLineClass,
   WidgetBuilder,
   CommandPreview,
+  OrgNoteEncryption,
 } from './models';
 import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
@@ -76,27 +77,6 @@ export interface OrgNoteApi {
   };
   configuration: () => OrgNoteConfig;
 }
-
-export interface OrgNoteGpgEncryption {
-  type: 'gpg';
-  privateKey: string;
-  publicKey: string;
-  privateKeyPassphrase?: string;
-}
-
-export interface OrgNotePasswordEncryption {
-  type: 'password';
-  password: string;
-}
-
-export interface OrgNoteDisabledEncryption {
-  type: 'disabled';
-}
-
-export type OrgNoteEncryption =
-  | OrgNoteGpgEncryption
-  | OrgNotePasswordEncryption
-  | OrgNoteDisabledEncryption;
 
 export interface OrgNoteConfig {
   editor: {

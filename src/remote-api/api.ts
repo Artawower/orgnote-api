@@ -56,6 +56,12 @@ export interface HandlersCreatingNote {
     'createdAt'?: string;
     /**
      * 
+     * @type {string}
+     * @memberof HandlersCreatingNote
+     */
+    'encrypted'?: HandlersCreatingNoteEncryptedEnum;
+    /**
+     * 
      * @type {Array<string>}
      * @memberof HandlersCreatingNote
      */
@@ -85,6 +91,14 @@ export interface HandlersCreatingNote {
      */
     'updatedAt'?: string;
 }
+
+export const HandlersCreatingNoteEncryptedEnum = {
+    Gpg: 'gpg',
+    Password: 'password'
+} as const;
+
+export type HandlersCreatingNoteEncryptedEnum = typeof HandlersCreatingNoteEncryptedEnum[keyof typeof HandlersCreatingNoteEncryptedEnum];
+
 /**
  * 
  * @export
@@ -623,7 +637,9 @@ export interface ModelsPublicNote {
 }
 
 export const ModelsPublicNoteEncryptedEnum = {
-    Gpg: 'gpg'
+    GpgKeys: 'gpgKeys',
+    GpgPassword: 'gpgPassword',
+    Disabled: 'disabled'
 } as const;
 
 export type ModelsPublicNoteEncryptedEnum = typeof ModelsPublicNoteEncryptedEnum[keyof typeof ModelsPublicNoteEncryptedEnum];
