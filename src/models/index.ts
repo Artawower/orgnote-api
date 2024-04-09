@@ -8,3 +8,4 @@ export * from './modal';
 export * from './widget-type';
 export * from './editor';
 export * from './default-commands';
+export * from './encryption';
