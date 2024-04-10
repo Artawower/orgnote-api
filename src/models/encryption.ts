@@ -1,4 +1,4 @@
-import type { ModelsPublicNoteEncryptedEnum } from 'src/remote-api';
+import type { ModelsPublicNoteEncryptedEnum } from '../remote-api';
 
 export interface OrgNoteGpgEncryption {
   type: typeof ModelsPublicNoteEncryptedEnum.GpgKeys;
