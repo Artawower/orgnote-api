@@ -579,7 +579,7 @@ export interface ModelsPublicNote {
      * @type {string}
      * @memberof ModelsPublicNote
      */
-    'content'?: string;
+    'content': string;
     /**
      * 
      * @type {string}
@@ -615,7 +615,7 @@ export interface ModelsPublicNote {
      * @type {ModelsNoteMeta}
      * @memberof ModelsPublicNote
      */
-    'meta'?: ModelsNoteMeta;
+    'meta': ModelsNoteMeta;
     /**
      * 
      * @type {number}
