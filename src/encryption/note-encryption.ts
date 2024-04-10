@@ -13,7 +13,7 @@ import { parse, withMetaInfo } from 'org-mode-ast';
 
 export interface AbstractEncryptedNote {
   content: string;
-  encrypted: ModelsPublicNote['encrypted'];
+  encrypted?: ModelsPublicNote['encrypted'];
   meta: {
     [key: string]: any;
     published: boolean;
@@ -25,6 +25,7 @@ export async function encryptNote<T extends AbstractEncryptedNote>(
   encryptionParams: OrgNoteEncryption
 ): Promise<T> {
   if (
+    !encryptionParams.type ||
     encryptionParams.type === ModelsPublicNoteEncryptedEnum.Disabled ||
     note.meta.published
   ) {
@@ -79,7 +80,10 @@ export async function decryptNote<T extends AbstractEncryptedNote>(
   note: T,
   encryptionParams: OrgNoteEncryption
 ): Promise<T> {
-  if (encryptionParams.type === ModelsPublicNoteEncryptedEnum.Disabled) {
+  if (
+    !encryptionParams.type ||
+    encryptionParams.type === ModelsPublicNoteEncryptedEnum.Disabled
+  ) {
     return note;
   }
   const decryptedNote =
