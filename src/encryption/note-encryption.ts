@@ -16,7 +16,7 @@ export interface AbstractEncryptedNote {
   encrypted?: ModelsPublicNote['encrypted'];
   meta: {
     [key: string]: any;
-    published: boolean;
+    published?: boolean;
   };
 }
 
