@@ -1,14 +1,12 @@
-import {
-  ModelsPublicNote,
-  ModelsPublicNoteEncryptedEnum,
-} from 'src/remote-api';
+import { ModelsPublicNote, ModelsPublicNoteEncryptedEnum } from '../remote-api';
+
 import {
   decryptViaKeys,
   decryptViaPassword,
   encryptViaKeys,
   encryptViaPassword,
 } from './encryption';
-import { OrgNoteEncryption } from 'src/models/encryption';
+import { OrgNoteEncryption } from '../models/encryption';
 import { parse, withMetaInfo } from 'org-mode-ast';
 
 export interface AbstractEncryptedNote {
