@@ -9,15 +9,15 @@ import {
 import { OrgNoteEncryption } from '../models/encryption';
 import { parse, withMetaInfo } from 'org-mode-ast';
 
+export type NoteEncryptedType = `${ModelsPublicNote['encrypted']}`;
 export interface AbstractEncryptedNote {
   content: string;
-  encrypted?: ModelsPublicNote['encrypted'];
+  encrypted?: NoteEncryptedType;
   meta: {
     [key: string]: any;
     published?: boolean;
   };
 }
-
 export async function encryptNote<T extends AbstractEncryptedNote>(
   note: T,
   encryptionParams: OrgNoteEncryption
