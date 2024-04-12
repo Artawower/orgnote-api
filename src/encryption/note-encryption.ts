@@ -33,20 +33,20 @@ export async function encryptNote<T extends AbstractEncryptedNote>(
   note.meta = { id: note.meta.id, published: note.meta.published };
 
   if (encryptionParams.type === ModelsPublicNoteEncryptedEnum.GpgKeys) {
-    return encryptNoteViaKeys(
+    return await encryptNoteViaKeys(
       note,
       encryptionParams.publicKey,
       encryptionParams.privateKey,
       encryptionParams.privateKeyPassphrase
     );
   }
-  return encryptNoteViaPassword(note, encryptionParams.password);
+  return await encryptNoteViaPassword(note, encryptionParams.password);
 }
 export async function encryptNoteViaPassword<T extends AbstractEncryptedNote>(
   note: T,
   password: string
 ): Promise<T> {
-  const content = encryptViaPassword(note.content, password);
+  const content = await encryptViaPassword(note.content, password);
   return {
     ...note,
     content,
@@ -105,7 +105,7 @@ export async function decryptNoteViaPassword<T extends AbstractEncryptedNote>(
   note: T,
   password: string
 ): Promise<T> {
-  const content = decryptViaPassword(note.content, password);
+  const content = await decryptViaPassword(note.content, password);
   return {
     ...note,
     content,
