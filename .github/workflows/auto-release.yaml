@@ -12,6 +12,19 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Optional, for private repositories.
           allowed-commit-types: 'feat,fix,chore,refactor' # Optional, set if you want a subset of commit types to be allowed.
+  vitest:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      - name: install dependencies
+        run: bun install --frozen-lockfile
+      - name: test
+        run: bun run test
 
   build:
     name: Build
