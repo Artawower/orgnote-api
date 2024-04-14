@@ -23,7 +23,6 @@ export async function encryptNote<T extends AbstractEncryptedNote>(
   encryptionParams: OrgNoteEncryption
 ): Promise<T> {
   if (
-    !note.encrypted ||
     !encryptionParams.type ||
     encryptionParams.type === ModelsPublicNoteEncryptedEnum.Disabled ||
     note.meta.published
@@ -80,7 +79,7 @@ export async function decryptNote<T extends AbstractEncryptedNote>(
   encryptionParams: OrgNoteEncryption
 ): Promise<T> {
   if (
-    !note.encrypted ||
+    note.meta.published ||
     !encryptionParams.type ||
     encryptionParams.type === ModelsPublicNoteEncryptedEnum.Disabled
   ) {
