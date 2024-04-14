@@ -195,7 +195,7 @@ test('Should not encrypt public note', async () => {
   expect(encryptedNote).toMatchSnapshot();
 });
 
-test('Should not encrypt note with disabled encryption', async () => {
+test('Should encrypt note with empty encrypted property', async () => {
   const content = `#+ID: qweqwe
 #+TITLE: Hello worlld
 
@@ -203,7 +203,6 @@ test('Should not encrypt note with disabled encryption', async () => {
 
   const note: Note = {
     id: 'id',
-    encrypted: null,
     meta: {
       title: 'My note title',
       images: [],
@@ -224,7 +223,9 @@ test('Should not encrypt note with disabled encryption', async () => {
   });
 
   expect(encryptedNote.content.startsWith('-----BEGIN PGP MESSAGE-----')).toBe(
-    false
+    true
   );
+
+  delete encryptedNote.content;
   expect(encryptedNote).toMatchSnapshot();
 });
