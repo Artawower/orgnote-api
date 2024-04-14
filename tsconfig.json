@@ -16,7 +16,7 @@
     "skipLibCheck": true,
     "paths": {
       "src/*": ["src/*"],
-      "remote-api/*": ["src/remote-api/*"],
+      "remote-api/*": ["src/remote-api/*"]
     }
   },
   "include": ["src/**/*"],
