@@ -25,6 +25,9 @@ const decriptionFailedErrorMsg =
 const incorrectEncryptionPasswordErrorMsg =
   'Error decrypting message: Modification detected.';
 
+const noSymmetricallyEncryptedSessionKey =
+  'Error decrypting message: No symmetrically encrypted session key packet found.';
+
 export const encryptViaKeys = withCustomErrors(_encryptViaKeys);
 export const encryptViaPassword = withCustomErrors(_encryptViaPassword);
 export const decryptViaPassword = withCustomErrors(_decryptViaPassword);
@@ -136,6 +139,7 @@ function withCustomErrors<P extends unknown[], T>(
           incorrectPrivateKeyPassphraseErrorMsg,
           corruptedPrivateKeyErrorMsg,
           decryptionKeyIsNotDecryptedErrorMsg,
+          noSymmetricallyEncryptedSessionKey,
         ].includes(e.message)
       ) {
         throw new IncorrectOrMissingPrivateKeyPasswordError(e.message);
