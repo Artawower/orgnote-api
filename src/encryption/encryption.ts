@@ -11,8 +11,8 @@ import {
 export class IncorrectOrMissingPrivateKeyPasswordError extends Error {}
 export class ImpossibleToDecryptWithProvidedKeysError extends Error {}
 export class IncorrectEncryptionPasswordError extends Error {}
-export class NoKeysProvided extends Error {}
-export class NoPasswordProvided extends Error {}
+export class NoKeysProvidedError extends Error {}
+export class NoPasswordProvidedError extends Error {}
 
 const noPrivateKeyPassphraseProvidedErrorMsg =
   'Error: Signing key is not decrypted.';
@@ -159,11 +159,11 @@ function withCustomErrors<P extends unknown[], T>(
         throw new IncorrectEncryptionPasswordError();
       }
       if (e.message === noSymmetricallyEncryptedSessionKeyErrorMsg) {
-        throw new NoKeysProvided();
+        throw new NoKeysProvidedError();
       }
 
       if (e.message === notPrivateKeyErrprMsg) {
-        throw new NoPasswordProvided();
+        throw new NoPasswordProvidedError();
       }
 
       throw e;
