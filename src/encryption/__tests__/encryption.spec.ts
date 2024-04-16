@@ -3,8 +3,8 @@ import {
   decryptViaKeys,
   encryptViaPassword,
   decryptViaPassword,
-  NoKeysProvided,
-  NoPasswordProvided,
+  NoKeysProvidedError,
+  NoPasswordProvidedError,
   IncorrectOrMissingPrivateKeyPasswordError,
 } from '../encryption';
 import { test, expect } from 'vitest';
@@ -125,7 +125,7 @@ YQ==
   try {
     await decryptViaPassword(encryptedMsg, 'password');
   } catch (e) {
-    expect(e).toBeInstanceOf(NoKeysProvided);
+    expect(e).toBeInstanceOf(NoKeysProvidedError);
   }
 });
 
@@ -147,7 +147,7 @@ aGW80jwBXEQ7uTjT8akpOKiH7BIuhEUZIXh+vDveG0Uwf63s2dIklznAEo+E
   }
 });
 
-test('Should raise NoPasswordProvided error when try to use keys instead of password', async () => {
+test('Should raise NoPasswordProvidedError error when try to use keys instead of password', async () => {
   const encryptedMsg = `-----BEGIN PGP MESSAGE-----
 
 wy4ECQMI6KFWGqyVV+DgYl0qUEeTe1kAdjkoR4FxFJxx+6QiOP+sZ6h7bn//
@@ -160,6 +160,6 @@ aGW80jwBXEQ7uTjT8akpOKiH7BIuhEUZIXh+vDveG0Uwf63s2dIklznAEo+E
   try {
     await decryptViaKeys(encryptedMsg, armoredPrivateKey, privateKeyPassphrase);
   } catch (e) {
-    expect(e).toBeInstanceOf(NoPasswordProvided);
+    expect(e).toBeInstanceOf(NoPasswordProvidedError);
   }
 });
