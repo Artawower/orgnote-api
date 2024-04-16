@@ -11,6 +11,8 @@ import {
 export class IncorrectOrMissingPrivateKeyPasswordError extends Error {}
 export class ImpossibleToDecryptWithProvidedKeysError extends Error {}
 export class IncorrectEncryptionPasswordError extends Error {}
+export class NoKeysProvided extends Error {}
+export class NoPasswordProvided extends Error {}
 
 const noPrivateKeyPassphraseProvidedErrorMsg =
   'Error: Signing key is not decrypted.';
@@ -25,8 +27,14 @@ const decriptionFailedErrorMsg =
 const incorrectEncryptionPasswordErrorMsg =
   'Error decrypting message: Modification detected.';
 
-const noSymmetricallyEncryptedSessionKey =
+const noSymmetricallyEncryptedSessionKeyErrorMsg =
   'Error decrypting message: No symmetrically encrypted session key packet found.';
+
+const armoredTextNotTypePrivateKeyErrorMsg =
+  'Armored text not of type private key';
+
+const notPrivateKeyErrprMsg =
+  'Error decrypting message: No public key encrypted session key packet found.';
 
 export const encryptViaKeys = withCustomErrors(_encryptViaKeys);
 export const encryptViaPassword = withCustomErrors(_encryptViaPassword);
@@ -139,7 +147,7 @@ function withCustomErrors<P extends unknown[], T>(
           incorrectPrivateKeyPassphraseErrorMsg,
           corruptedPrivateKeyErrorMsg,
           decryptionKeyIsNotDecryptedErrorMsg,
-          noSymmetricallyEncryptedSessionKey,
+          armoredTextNotTypePrivateKeyErrorMsg,
         ].includes(e.message)
       ) {
         throw new IncorrectOrMissingPrivateKeyPasswordError(e.message);
@@ -150,6 +158,14 @@ function withCustomErrors<P extends unknown[], T>(
       if (e.message === incorrectEncryptionPasswordErrorMsg) {
         throw new IncorrectEncryptionPasswordError();
       }
+      if (e.message === noSymmetricallyEncryptedSessionKeyErrorMsg) {
+        throw new NoKeysProvided();
+      }
+
+      if (e.message === notPrivateKeyErrprMsg) {
+        throw new NoPasswordProvided();
+      }
+
       throw e;
     }
   };

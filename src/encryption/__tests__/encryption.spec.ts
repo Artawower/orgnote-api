@@ -3,6 +3,8 @@ import {
   decryptViaKeys,
   encryptViaPassword,
   decryptViaPassword,
+  NoKeysProvided,
+  NoPasswordProvided,
   IncorrectOrMissingPrivateKeyPasswordError,
 } from '../encryption';
 import { test, expect } from 'vitest';
@@ -123,6 +125,41 @@ YQ==
   try {
     await decryptViaPassword(encryptedMsg, 'password');
   } catch (e) {
+    expect(e).toBeInstanceOf(NoKeysProvided);
+  }
+});
+
+test('Should raise IncorrectOrMissingPrivateKeyPasswordError error when incorrect armored key provided', async () => {
+  const password = 'test';
+  const encryptedMsg = `-----BEGIN PGP MESSAGE-----
+
+wy4ECQMI6KFWGqyVV+DgYl0qUEeTe1kAdjkoR4FxFJxx+6QiOP+sZ6h7bn//
+aGW80jwBXEQ7uTjT8akpOKiH7BIuhEUZIXh+vDveG0Uwf63s2dIklznAEo+E
+5iO5mEqoXWXg6nAvNxciA56dKuI=
+=B4Tc
+-----END PGP MESSAGE-----
+`;
+
+  try {
+    await decryptViaKeys(encryptedMsg, armoredPublicKey, privateKeyPassphrase);
+  } catch (e) {
     expect(e).toBeInstanceOf(IncorrectOrMissingPrivateKeyPasswordError);
+  }
+});
+
+test('Should raise NoPasswordProvided error when try to use keys instead of password', async () => {
+  const encryptedMsg = `-----BEGIN PGP MESSAGE-----
+
+wy4ECQMI6KFWGqyVV+DgYl0qUEeTe1kAdjkoR4FxFJxx+6QiOP+sZ6h7bn//
+aGW80jwBXEQ7uTjT8akpOKiH7BIuhEUZIXh+vDveG0Uwf63s2dIklznAEo+E
+5iO5mEqoXWXg6nAvNxciA56dKuI=
+=B4Tc
+-----END PGP MESSAGE-----
+`;
+
+  try {
+    await decryptViaKeys(encryptedMsg, armoredPrivateKey, privateKeyPassphrase);
+  } catch (e) {
+    expect(e).toBeInstanceOf(NoPasswordProvided);
   }
 });
