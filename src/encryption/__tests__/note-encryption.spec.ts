@@ -229,3 +229,33 @@ test('Should encrypt note with empty encrypted property', async () => {
   delete encryptedNote.content;
   expect(encryptedNote).toMatchSnapshot();
 });
+
+test('Should not decrypt note without provided encrypted type', async () => {
+  const content = `#+ID: qweqwe
+#+TITLE: Hello worlld
+
+* Hello?`;
+  const note: Note = {
+    id: 'id',
+    meta: {
+      title: 'My note title',
+      images: [],
+      published: false,
+      description: 'Awesome description',
+    },
+    encrypted: undefined,
+    content,
+    author: {
+      id: '1',
+      name: 'John Doe',
+      email: 'test@mail.com',
+    },
+  };
+
+  const decryptedNote = await decryptNote(note, {
+    type: 'gpgPassword',
+    password: '123',
+  });
+
+  expect(decryptedNote).toMatchSnapshot();
+});
