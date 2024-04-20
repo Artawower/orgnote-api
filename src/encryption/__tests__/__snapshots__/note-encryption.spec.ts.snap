@@ -82,6 +82,28 @@ exports[`Should encrypt note with empty encrypted property 1`] = `
 }
 `;
 
+exports[`Should not decrypt note without provided encrypted type 1`] = `
+{
+  "author": {
+    "email": "test@mail.com",
+    "id": "1",
+    "name": "John Doe",
+  },
+  "content": "#+ID: qweqwe
+#+TITLE: Hello worlld
+
+* Hello?",
+  "encrypted": undefined,
+  "id": "id",
+  "meta": {
+    "description": "Awesome description",
+    "images": [],
+    "published": false,
+    "title": "My note title",
+  },
+}
+`;
+
 exports[`Should not encrypt public note 1`] = `
 {
   "author": {
