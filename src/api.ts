@@ -29,6 +29,7 @@ export interface OrgNoteApi {
 
   system: {
     reload: (params?: { verbose: boolean }) => Promise<void>;
+    setNewFilesAvailable: (status?: boolean) => void;
   };
   navigation: {
     openNote: (id: string) => Promise<void | NavigationFailure>;
