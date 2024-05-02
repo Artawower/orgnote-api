@@ -9,6 +9,7 @@ import {
   WidgetBuilder,
   CommandPreview,
   OrgNoteEncryption,
+  Modal,
 } from './models';
 import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
@@ -46,6 +47,7 @@ export interface OrgNoteApi {
     applyStyles: (scopeName: string, styles: string) => void;
     removeStyles: (scopeName: string) => void;
     resetTheme: () => void;
+    openModal: (modal: Modal) => void;
   };
   interaction: {
     confirm: (title: string, message: string) => Promise<boolean>;
