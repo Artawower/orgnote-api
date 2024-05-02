@@ -47,7 +47,7 @@ export interface HandlersCreatingNote {
      * @type {string}
      * @memberof HandlersCreatingNote
      */
-    'content'?: string;
+    'content': string;
     /**
      * 
      * @type {string}
@@ -537,6 +537,31 @@ export interface ModelsNoteMeta {
 }
 
 
+/**
+ * 
+ * @export
+ * @interface ModelsOrgNoteClientUpdateInfo
+ */
+export interface ModelsOrgNoteClientUpdateInfo {
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsOrgNoteClientUpdateInfo
+     */
+    'changeLog'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsOrgNoteClientUpdateInfo
+     */
+    'url'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ModelsOrgNoteClientUpdateInfo
+     */
+    'version'?: string;
+}
 /**
  * 
  * @export
@@ -1965,6 +1990,111 @@ export class NotesApi extends BaseAPI {
      */
     public notesSyncPost(data: HandlersSyncNotesRequest, options?: AxiosRequestConfig) {
         return NotesApiFp(this.configuration).notesSyncPost(data, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * SystemInfoApi - axios parameter creator
+ * @export
+ */
+export const SystemInfoApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary GetUpdatesFromVersion
+         * @param {string} version provider
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        systemInfoClientUpdateVersionGet: async (version: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'version' is not null or undefined
+            assertParamExists('systemInfoClientUpdateVersionGet', 'version', version)
+            const localVarPath = `/system-info/client-update/{version}`
+                .replace(`{${"version"}}`, encodeURIComponent(String(version)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * SystemInfoApi - functional programming interface
+ * @export
+ */
+export const SystemInfoApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = SystemInfoApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary GetUpdatesFromVersion
+         * @param {string} version provider
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async systemInfoClientUpdateVersionGet(version: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ModelsOrgNoteClientUpdateInfo>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.systemInfoClientUpdateVersionGet(version, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * SystemInfoApi - factory interface
+ * @export
+ */
+export const SystemInfoApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = SystemInfoApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary GetUpdatesFromVersion
+         * @param {string} version provider
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        systemInfoClientUpdateVersionGet(version: string, options?: any): AxiosPromise<ModelsOrgNoteClientUpdateInfo> {
+            return localVarFp.systemInfoClientUpdateVersionGet(version, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * SystemInfoApi - object-oriented interface
+ * @export
+ * @class SystemInfoApi
+ * @extends {BaseAPI}
+ */
+export class SystemInfoApi extends BaseAPI {
+    /**
+     * 
+     * @summary GetUpdatesFromVersion
+     * @param {string} version provider
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SystemInfoApi
+     */
+    public systemInfoClientUpdateVersionGet(version: string, options?: AxiosRequestConfig) {
+        return SystemInfoApiFp(this.configuration).systemInfoClientUpdateVersionGet(version, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
