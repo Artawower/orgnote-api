@@ -99,7 +99,7 @@ export async function decryptNote<T extends AbstractEncryptedNote>(
 
   return {
     ...decryptedNote,
-    meta: { ...decryptedNote.meta, published: parsed.meta.published },
+    meta: parsed.meta,
   };
 }
 

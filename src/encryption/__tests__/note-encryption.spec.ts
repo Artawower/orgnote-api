@@ -259,3 +259,37 @@ test('Should not decrypt note without provided encrypted type', async () => {
 
   expect(decryptedNote).toMatchSnapshot();
 });
+
+test('Should decrypt note and note meta', async () => {
+  const meta = {
+    title: 'My note title',
+    images: ['./image1.png'],
+    published: false,
+    description: 'Awesome description',
+    fileTags: ['tag1', 'tag2'],
+  };
+  const note: Note = {
+    id: 'id',
+    meta: { ...meta },
+    content: `#+TITLE: My note title
+#+DESCRIPTION: Awesome description
+#+PUBLISHED: false
+#+FILETAGS: :tag1:tag2:
+
+[[./image1.png]]
+
+Hello world`,
+  };
+
+  const encryptedNote = await encryptNote(note, {
+    type: 'gpgPassword',
+    password: '123',
+  });
+
+  const decryptedNote = await decryptNote(encryptedNote, {
+    type: 'gpgPassword',
+    password: '123',
+  });
+
+  expect(meta).toEqual(decryptedNote.meta);
+});
