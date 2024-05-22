@@ -9,10 +9,14 @@ exports[`Should decrypt note content via password 1`] = `
   "encrypted": "gpgPassword",
   "id": "id",
   "meta": {
-    "description": "Awesome description",
-    "images": [],
-    "published": undefined,
-    "title": "My note title",
+    "headings": [
+      {
+        "level": 1,
+        "title": "Hello?",
+      },
+    ],
+    "id": "qweqwe",
+    "title": "Hello worlld",
   },
 }
 `;
@@ -26,10 +30,14 @@ exports[`Should decrypt note via provided keys 1`] = `
   "encrypted": "gpgKeys",
   "id": "id",
   "meta": {
-    "description": "Awesome description",
-    "images": [],
-    "published": undefined,
-    "title": "My note title for decryption via keys",
+    "headings": [
+      {
+        "level": 1,
+        "title": "Hello?",
+      },
+    ],
+    "id": "qweqwe",
+    "title": "Hello worlld",
   },
 }
 `;
