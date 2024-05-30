@@ -1,6 +1,6 @@
 {
   "name": "orgnote-api",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "description": "Official API for creating extensions for OrgNote app",
   "type": "module",
   "main": "./index.ts",
@@ -37,8 +37,9 @@
   },
   "homepage": "https://github.com/artawower/orgnote-api#readme",
   "dependencies": {
+    "@codemirror/state": "6.4.1",
+    "@codemirror/view": "6.26.3",
     "axios": "1.6.7",
-    "codemirror": "6.0.1",
     "openpgp": "5.11.1",
     "org-mode-ast": "0.11.2",
     "vue": "^3.4.15",
