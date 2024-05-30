@@ -1,6 +1,6 @@
 import type { OrgNode } from 'org-mode-ast';
 import type { Component } from 'vue';
-import type { EditorView } from 'codemirror';
+import type { EditorView } from '@codemirror/view';
 import type { Extension } from '@codemirror/state';
 import { InlineEmbeddedWidget } from './widget';
 

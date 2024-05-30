@@ -1,5 +1,5 @@
 import type { ChangeSpec } from '@codemirror/state';
-import type { EditorView } from 'codemirror';
+import { EditorView } from '@codemirror/view';
 import type { NodeType, OrgNode } from 'org-mode-ast';
 
 export type EmbeddedWidget = {
