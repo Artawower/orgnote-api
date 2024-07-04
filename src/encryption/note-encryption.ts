@@ -11,6 +11,7 @@ import {
 } from './encryption';
 import { OrgNoteEncryption } from '../models/encryption';
 import { parse, withMetaInfo } from 'org-mode-ast';
+import { isGpgEncrypted } from '..';
 
 export type NoteEncryptionType = `${ModelsPublicNote['encryptionType']}`;
 
@@ -93,7 +94,7 @@ export async function decryptNote<T extends AbstractEncryptedNote>(
     !encryptionParams.type ||
     encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.Disabled
   ) {
-    note.encrypted = false;
+    note.encrypted = isGpgEncrypted(note.content);
     return note;
   }
   note.encrypted = true;
