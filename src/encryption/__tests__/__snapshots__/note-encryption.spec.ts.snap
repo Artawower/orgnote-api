@@ -6,7 +6,8 @@ exports[`Should decrypt note content via password 1`] = `
 #+TITLE: Hello worlld
 
 * Hello?",
-  "encrypted": "gpgPassword",
+  "encrypted": false,
+  "encryptionType": "gpgPassword",
   "id": "id",
   "meta": {
     "headings": [
@@ -27,7 +28,8 @@ exports[`Should decrypt note via provided keys 1`] = `
 #+TITLE: Hello worlld
 
 * Hello?",
-  "encrypted": "gpgKeys",
+  "encrypted": false,
+  "encryptionType": "gpgKeys",
   "id": "id",
   "meta": {
     "headings": [
@@ -49,7 +51,8 @@ exports[`Should encrypt note content via password 1`] = `
     "id": "1",
     "name": "John Doe",
   },
-  "encrypted": "gpgPassword",
+  "encrypted": true,
+  "encryptionType": "gpgPassword",
   "id": "id",
   "meta": {
     "id": undefined,
@@ -65,7 +68,8 @@ exports[`Should encrypt note via keys 1`] = `
     "id": "1",
     "name": "John Doe",
   },
-  "encrypted": "gpgKeys",
+  "encrypted": true,
+  "encryptionType": "gpgKeys",
   "id": "id",
   "meta": {
     "id": undefined,
@@ -81,7 +85,7 @@ exports[`Should encrypt note with empty encrypted property 1`] = `
     "id": "1",
     "name": "John Doe",
   },
-  "encrypted": "gpgPassword",
+  "encrypted": true,
   "id": "id",
   "meta": {
     "id": undefined,
@@ -101,7 +105,7 @@ exports[`Should not decrypt note without provided encrypted type 1`] = `
 #+TITLE: Hello worlld
 
 * Hello?",
-  "encrypted": undefined,
+  "encrypted": false,
   "id": "id",
   "meta": {
     "description": "Awesome description",
@@ -123,7 +127,8 @@ exports[`Should not encrypt public note 1`] = `
 #+TITLE: Hello worlld
 
 * Hello?",
-  "encrypted": "gpgPassword",
+  "encrypted": false,
+  "encryptionType": "gpgPassword",
   "id": "id",
   "meta": {
     "description": "Awesome description",
