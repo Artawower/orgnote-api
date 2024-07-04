@@ -27,6 +27,7 @@ export async function encryptNote<T extends AbstractEncryptedNote>(
   note: T,
   encryptionParams: OrgNoteEncryption
 ): Promise<T> {
+  note.encrypted = false;
   if (
     !encryptionParams.type ||
     encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.Disabled ||
@@ -37,15 +38,18 @@ export async function encryptNote<T extends AbstractEncryptedNote>(
 
   note.meta = { id: note.meta.id, published: note.meta.published };
 
-  if (encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.GpgKeys) {
-    return await encryptNoteViaKeys(
-      note,
-      encryptionParams.publicKey,
-      encryptionParams.privateKey,
-      encryptionParams.privateKeyPassphrase
-    );
-  }
-  return await encryptNoteViaPassword(note, encryptionParams.password);
+  const encryptedNote =
+    encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.GpgKeys
+      ? await encryptNoteViaKeys(
+          note,
+          encryptionParams.publicKey,
+          encryptionParams.privateKey,
+          encryptionParams.privateKeyPassphrase
+        )
+      : await encryptNoteViaPassword(note, encryptionParams.password);
+
+  encryptedNote.encrypted = true;
+  return encryptedNote;
 }
 export async function encryptNoteViaPassword<T extends AbstractEncryptedNote>(
   note: T,
@@ -85,12 +89,14 @@ export async function decryptNote<T extends AbstractEncryptedNote>(
 ): Promise<T> {
   if (
     note.meta.published ||
-    !note.encrypted ||
+    !note.encryptionType ||
     !encryptionParams.type ||
     encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.Disabled
   ) {
+    note.encrypted = false;
     return note;
   }
+  note.encrypted = true;
   const decryptedNote =
     encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.GpgKeys
       ? await decryptNoteViaKeys(
@@ -104,6 +110,7 @@ export async function decryptNote<T extends AbstractEncryptedNote>(
 
   return {
     ...decryptedNote,
+    encrypted: false,
     meta: parsed.meta,
   };
 }

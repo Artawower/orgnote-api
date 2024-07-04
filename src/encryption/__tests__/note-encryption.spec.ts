@@ -16,7 +16,7 @@ test('Should encrypt note content via password', async () => {
 
   const note: Note = {
     id: 'id',
-    encrypted: 'gpgPassword',
+    encryptionType: 'gpgPassword',
     meta: {
       title: 'My note title',
       images: [],
@@ -46,7 +46,7 @@ test('Should encrypt note content via password', async () => {
 test('Should decrypt note content via password', async () => {
   const note: Note = {
     id: 'id',
-    encrypted: 'gpgPassword',
+    encryptionType: 'gpgPassword',
     meta: {
       title: 'My note title',
       images: [],
@@ -79,7 +79,7 @@ test('Should encrypt note via keys', async () => {
 
   const note: Note = {
     id: 'id',
-    encrypted: 'gpgKeys',
+    encryptionType: 'gpgKeys',
     meta: {
       title: 'My note title for encryption via keys',
       images: [],
@@ -111,7 +111,7 @@ test('Should encrypt note via keys', async () => {
 test('Should decrypt note via provided keys', async () => {
   const note: Note = {
     id: 'id',
-    encrypted: 'gpgKeys',
+    encryptionType: 'gpgKeys',
     meta: {
       title: 'My note title for decryption via keys',
       images: [],
@@ -169,7 +169,7 @@ test('Should not encrypt public note', async () => {
 
   const note: Note = {
     id: 'id',
-    encrypted: 'gpgPassword',
+    encryptionType: 'gpgPassword',
     meta: {
       title: 'My note title',
       images: [],
@@ -271,6 +271,7 @@ test('Should decrypt note and note meta', async () => {
   const note: Note = {
     id: 'id',
     meta: { ...meta },
+    encryptionType: 'gpgPassword',
     content: `#+TITLE: My note title
 #+DESCRIPTION: Awesome description
 #+PUBLISHED: false
