@@ -59,7 +59,7 @@ export interface HandlersCreatingNote {
      * @type {string}
      * @memberof HandlersCreatingNote
      */
-    'encrypted'?: HandlersCreatingNoteEncryptedEnum;
+    'encryptionType'?: HandlersCreatingNoteEncryptionTypeEnum;
     /**
      * 
      * @type {Array<string>}
@@ -92,12 +92,12 @@ export interface HandlersCreatingNote {
     'updatedAt'?: string;
 }
 
-export const HandlersCreatingNoteEncryptedEnum = {
+export const HandlersCreatingNoteEncryptionTypeEnum = {
     Gpg: 'gpg',
     Password: 'password'
 } as const;
 
-export type HandlersCreatingNoteEncryptedEnum = typeof HandlersCreatingNoteEncryptedEnum[keyof typeof HandlersCreatingNoteEncryptedEnum];
+export type HandlersCreatingNoteEncryptionTypeEnum = typeof HandlersCreatingNoteEncryptionTypeEnum[keyof typeof HandlersCreatingNoteEncryptionTypeEnum];
 
 /**
  * 
@@ -616,7 +616,7 @@ export interface ModelsPublicNote {
      * @type {string}
      * @memberof ModelsPublicNote
      */
-    'encrypted'?: ModelsPublicNoteEncryptedEnum;
+    'encryptionType'?: ModelsPublicNoteEncryptionTypeEnum;
     /**
      * 
      * @type {Array<string>}
@@ -661,13 +661,13 @@ export interface ModelsPublicNote {
     'updatedAt'?: string;
 }
 
-export const ModelsPublicNoteEncryptedEnum = {
+export const ModelsPublicNoteEncryptionTypeEnum = {
     GpgKeys: 'gpgKeys',
     GpgPassword: 'gpgPassword',
     Disabled: 'disabled'
 } as const;
 
-export type ModelsPublicNoteEncryptedEnum = typeof ModelsPublicNoteEncryptedEnum[keyof typeof ModelsPublicNoteEncryptedEnum];
+export type ModelsPublicNoteEncryptionTypeEnum = typeof ModelsPublicNoteEncryptionTypeEnum[keyof typeof ModelsPublicNoteEncryptionTypeEnum];
 
 /**
  * 

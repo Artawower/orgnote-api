@@ -16,9 +16,11 @@ export interface NotePreview {
   isMy: ModelsPublicNote['isMy'];
   author?: ModelsPublicUser;
   bookmarked?: boolean;
+  contentEncrypted?: boolean;
 }
 
 export interface Note extends ModelsPublicNote {
   deleted?: Date;
   bookmarked?: boolean;
+  contentEncrypted?: boolean;
 }

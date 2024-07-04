@@ -30,6 +30,7 @@ export interface CommandMeta<T = any> extends Partial<CommandPreview> {
   group?: CommandGroup;
   allowOnInput?: boolean;
   ignorePrompt?: boolean;
+  interactive?: boolean;
   /* When command is system command, it will not be shown for users */
   system?: boolean;
   available?: () => boolean;

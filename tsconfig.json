@@ -17,7 +17,8 @@
     "paths": {
       "src/*": ["src/*"],
       "remote-api/*": ["src/remote-api/*"]
-    }
+    },
+    "types": ["node"]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]

@@ -68,6 +68,10 @@ export interface OrgNoteApi {
       ) => WidgetBuilder;
     };
   };
+  // Available only on mobile apps
+  fileSystem: {
+    readPath: () => Promise<string>;
+  };
   commands: {
     add(...commands: Command[]): void;
     remove(...commands: Command[]): void;

@@ -37,4 +37,8 @@ export enum DefaultCommands {
   OPEN_NOTE_VIEWER = 'view mode',
   OPEN_GRAPH = 'graph',
   OPEN_EXTENSIONS = 'extensions',
+
+  // Native mobile specific
+  SELECT_FILE_PATH = 'select file path',
+  PICK_SYNC_DIR = 'pick sync dir',
 }
