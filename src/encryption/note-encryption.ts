@@ -85,7 +85,7 @@ export async function decryptNote<T extends AbstractEncryptedNote>(
 ): Promise<T> {
   if (
     note.meta.published ||
-    !note.encrypted ||
+    !note.encryptionType ||
     !encryptionParams.type ||
     encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.Disabled
   ) {
