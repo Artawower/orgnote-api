@@ -1,6 +1,6 @@
 {
   "name": "orgnote-api",
-  "version": "0.8.4",
+  "version": "0.10.0",
   "description": "Official API for creating extensions for OrgNote app",
   "type": "module",
   "main": "./index.ts",
@@ -37,6 +37,7 @@
   },
   "homepage": "https://github.com/artawower/orgnote-api#readme",
   "dependencies": {
+    "@capacitor/filesystem": "6.0.0",
     "@codemirror/state": "6.4.1",
     "@codemirror/view": "6.26.3",
     "axios": "1.6.7",
@@ -47,6 +48,7 @@
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "2.9.0",
+    "@types/node": "20.13.0",
     "typescript": "^5.3.3",
     "vitest": "^1.5.0"
   }

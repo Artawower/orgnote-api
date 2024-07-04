@@ -7,7 +7,7 @@
       "api": {
         "generatorName": "typescript-axios",
         "output": "./src/remote-api",
-        "inputSpec": "https://org-note.com/api/v1/swagger/doc.json"
+        "inputSpec": "http://localhost:8000/v1/swagger/doc.json"
       }
     }
   }
