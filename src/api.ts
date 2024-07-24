@@ -90,7 +90,7 @@ export interface OrgNoteConfig {
     showSpecialSymbols: boolean;
     showPropertyDrawer: boolean;
   };
-  common: {
+  developer: {
     developerMode: boolean;
     maximumLogsCount: number;
   };
@@ -99,6 +99,7 @@ export interface OrgNoteConfig {
     defaultCompletionLimit: number;
   };
   ui: {
+    showUserProfiles: boolean;
     theme: 'light' | 'dark';
     darkThemeName?: string;
     lightThemeName?: string;
