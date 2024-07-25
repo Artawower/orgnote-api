@@ -1,6 +1,6 @@
 {
   "name": "orgnote-api",
-  "version": "0.10.7",
+  "version": "0.10.9",
   "description": "Official API for creating extensions for OrgNote app",
   "type": "module",
   "main": "./index.ts",
