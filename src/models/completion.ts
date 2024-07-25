@@ -2,7 +2,7 @@ export interface CompletionCandidate<T = unknown> {
   icon?: string | (() => string);
   group?: string;
   title?: string | (() => string);
-  description?: string;
+  description?: string | (() => string);
   command: string;
   data: T;
   /* Command handler could be used instead of command string */
