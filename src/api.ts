@@ -98,9 +98,12 @@ export interface OrgNoteConfig {
     showGroup: boolean;
     defaultCompletionLimit: number;
   };
+  system: {
+    language: string;
+  };
   ui: {
     showUserProfiles: boolean;
-    theme: 'light' | 'dark';
+    theme: 'light' | 'dark' | 'auto';
     darkThemeName?: string;
     lightThemeName?: string;
   };
