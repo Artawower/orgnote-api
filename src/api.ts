@@ -85,6 +85,7 @@ export interface OrgNoteApi {
   configuration: () => OrgNoteConfig;
 }
 
+// TODO: master move model to the backend service
 export interface OrgNoteConfig {
   editor: {
     showSpecialSymbols: boolean;
@@ -100,6 +101,10 @@ export interface OrgNoteConfig {
   };
   system: {
     language: string;
+  };
+  synchronization: {
+    type: 'none' | 'api' | 'filesystem';
+    path?: string;
   };
   ui: {
     showUserProfiles: boolean;
