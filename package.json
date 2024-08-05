@@ -1,6 +1,6 @@
 {
   "name": "orgnote-api",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "Official API for creating extensions for OrgNote app",
   "type": "module",
   "main": "./index.ts",
@@ -41,14 +41,14 @@
     "@capacitor/filesystem": "6.0.0",
     "@codemirror/state": "6.4.1",
     "@codemirror/view": "6.26.3",
-    "axios": "1.6.7",
+    "axios": "1.7.3",
     "openpgp": "5.11.1",
     "org-mode-ast": "0.11.2",
     "vue": "3.4.15",
     "vue-router": "4.2.5"
   },
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "2.9.0",
+    "@openapitools/openapi-generator-cli": "2.13.4",
     "@types/node": "20.13.0",
     "typescript": "^5.3.3",
     "vitest": "^1.5.0"
