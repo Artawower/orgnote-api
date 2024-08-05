@@ -14,14 +14,14 @@
 
 
 import type { Configuration } from './configuration';
-import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from './common';
 import type { RequestArgs } from './base';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
+import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerMap } from './base';
 
 /**
  * 
@@ -93,8 +93,9 @@ export interface HandlersCreatingNote {
 }
 
 export const HandlersCreatingNoteEncryptionTypeEnum = {
-    Gpg: 'gpg',
-    Password: 'password'
+    GpgKeys: 'gpgKeys',
+    GpgPassword: 'gpgPassword',
+    Disabled: 'disabled'
 } as const;
 
 export type HandlersCreatingNoteEncryptionTypeEnum = typeof HandlersCreatingNoteEncryptionTypeEnum[keyof typeof HandlersCreatingNoteEncryptionTypeEnum];
@@ -786,7 +787,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authAccountDelete: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        authAccountDelete: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/auth/account`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -816,7 +817,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authApiTokensGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        authApiTokensGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/auth/api-tokens`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -846,7 +847,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authLogoutGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        authLogoutGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/auth/logout`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -877,7 +878,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authProviderCallbackGet: async (provider: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        authProviderCallbackGet: async (provider: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'provider' is not null or undefined
             assertParamExists('authProviderCallbackGet', 'provider', provider)
             const localVarPath = `/auth/{provider}/callback`
@@ -912,7 +913,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authProviderLoginGet: async (provider: string, state?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        authProviderLoginGet: async (provider: string, state?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'provider' is not null or undefined
             assertParamExists('authProviderLoginGet', 'provider', provider)
             const localVarPath = `/auth/{provider}/login`
@@ -950,7 +951,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authSubscribePost: async (data: HandlersSubscribeBody, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        authSubscribePost: async (data: HandlersSubscribeBody, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'data' is not null or undefined
             assertParamExists('authSubscribePost', 'data', data)
             const localVarPath = `/auth/subscribe`;
@@ -985,7 +986,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authTokenPost: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        authTokenPost: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/auth/token`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1016,7 +1017,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authTokenTokenIdDelete: async (tokenId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        authTokenTokenIdDelete: async (tokenId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'tokenId' is not null or undefined
             assertParamExists('authTokenTokenIdDelete', 'tokenId', tokenId)
             const localVarPath = `/auth/token/{tokenId}`
@@ -1049,7 +1050,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authVerifyGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        authVerifyGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/auth/verify`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1089,9 +1090,11 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authAccountDelete(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async authAccountDelete(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authAccountDelete(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.authAccountDelete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * Return all available API tokens
@@ -1099,9 +1102,11 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authApiTokensGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseArrayModelsAPITokenAny>> {
+        async authApiTokensGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseArrayModelsAPITokenAny>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authApiTokensGet(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.authApiTokensGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
@@ -1109,9 +1114,11 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authLogoutGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async authLogoutGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authLogoutGet(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.authLogoutGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
@@ -1120,9 +1127,11 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authProviderCallbackGet(provider: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async authProviderCallbackGet(provider: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authProviderCallbackGet(provider, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.authProviderCallbackGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * Entrypoint for login
@@ -1132,9 +1141,11 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authProviderLoginGet(provider: string, state?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseHandlersOAuthRedirectDataAny>> {
+        async authProviderLoginGet(provider: string, state?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseHandlersOAuthRedirectDataAny>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authProviderLoginGet(provider, state, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.authProviderLoginGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * Subscribe for backend features, like sync notes
@@ -1143,9 +1154,11 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authSubscribePost(data: HandlersSubscribeBody, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async authSubscribePost(data: HandlersSubscribeBody, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authSubscribePost(data, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.authSubscribePost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * Create API token
@@ -1153,9 +1166,11 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authTokenPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseModelsAPITokenAny>> {
+        async authTokenPost(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseModelsAPITokenAny>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authTokenPost(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.authTokenPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * Delete API token
@@ -1164,9 +1179,11 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authTokenTokenIdDelete(tokenId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async authTokenTokenIdDelete(tokenId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authTokenTokenIdDelete(tokenId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.authTokenTokenIdDelete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * Return found user by provided token
@@ -1174,9 +1191,11 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authVerifyGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseModelsUserPersonalInfoAny>> {
+        async authVerifyGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseModelsUserPersonalInfoAny>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authVerifyGet(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.authVerifyGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
@@ -1291,7 +1310,7 @@ export class AuthApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthApi
      */
-    public authAccountDelete(options?: AxiosRequestConfig) {
+    public authAccountDelete(options?: RawAxiosRequestConfig) {
         return AuthApiFp(this.configuration).authAccountDelete(options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1302,7 +1321,7 @@ export class AuthApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthApi
      */
-    public authApiTokensGet(options?: AxiosRequestConfig) {
+    public authApiTokensGet(options?: RawAxiosRequestConfig) {
         return AuthApiFp(this.configuration).authApiTokensGet(options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1313,7 +1332,7 @@ export class AuthApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthApi
      */
-    public authLogoutGet(options?: AxiosRequestConfig) {
+    public authLogoutGet(options?: RawAxiosRequestConfig) {
         return AuthApiFp(this.configuration).authLogoutGet(options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1325,7 +1344,7 @@ export class AuthApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthApi
      */
-    public authProviderCallbackGet(provider: string, options?: AxiosRequestConfig) {
+    public authProviderCallbackGet(provider: string, options?: RawAxiosRequestConfig) {
         return AuthApiFp(this.configuration).authProviderCallbackGet(provider, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1338,7 +1357,7 @@ export class AuthApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthApi
      */
-    public authProviderLoginGet(provider: string, state?: string, options?: AxiosRequestConfig) {
+    public authProviderLoginGet(provider: string, state?: string, options?: RawAxiosRequestConfig) {
         return AuthApiFp(this.configuration).authProviderLoginGet(provider, state, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1350,7 +1369,7 @@ export class AuthApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthApi
      */
-    public authSubscribePost(data: HandlersSubscribeBody, options?: AxiosRequestConfig) {
+    public authSubscribePost(data: HandlersSubscribeBody, options?: RawAxiosRequestConfig) {
         return AuthApiFp(this.configuration).authSubscribePost(data, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1361,7 +1380,7 @@ export class AuthApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthApi
      */
-    public authTokenPost(options?: AxiosRequestConfig) {
+    public authTokenPost(options?: RawAxiosRequestConfig) {
         return AuthApiFp(this.configuration).authTokenPost(options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1373,7 +1392,7 @@ export class AuthApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthApi
      */
-    public authTokenTokenIdDelete(tokenId: string, options?: AxiosRequestConfig) {
+    public authTokenTokenIdDelete(tokenId: string, options?: RawAxiosRequestConfig) {
         return AuthApiFp(this.configuration).authTokenTokenIdDelete(tokenId, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1384,10 +1403,11 @@ export class AuthApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuthApi
      */
-    public authVerifyGet(options?: AxiosRequestConfig) {
+    public authVerifyGet(options?: RawAxiosRequestConfig) {
         return AuthApiFp(this.configuration).authVerifyGet(options).then((request) => request(this.axios, this.basePath));
     }
 }
+
 
 
 /**
@@ -1403,7 +1423,7 @@ export const FilesApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        filesUploadPost: async (filesUploadPostRequest: FilesUploadPostRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        filesUploadPost: async (filesUploadPostRequest: FilesUploadPostRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'filesUploadPostRequest' is not null or undefined
             assertParamExists('filesUploadPost', 'filesUploadPostRequest', filesUploadPostRequest)
             const localVarPath = `/files/upload`;
@@ -1449,9 +1469,11 @@ export const FilesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async filesUploadPost(filesUploadPostRequest: FilesUploadPostRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async filesUploadPost(filesUploadPostRequest: FilesUploadPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.filesUploadPost(filesUploadPostRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FilesApi.filesUploadPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
@@ -1491,10 +1513,11 @@ export class FilesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FilesApi
      */
-    public filesUploadPost(filesUploadPostRequest: FilesUploadPostRequest, options?: AxiosRequestConfig) {
+    public filesUploadPost(filesUploadPostRequest: FilesUploadPostRequest, options?: RawAxiosRequestConfig) {
         return FilesApiFp(this.configuration).filesUploadPost(filesUploadPostRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
+
 
 
 /**
@@ -1510,7 +1533,7 @@ export const NotesApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        notesBulkUpsertPut: async (notes: Array<HandlersCreatingNote>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        notesBulkUpsertPut: async (notes: Array<HandlersCreatingNote>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'notes' is not null or undefined
             assertParamExists('notesBulkUpsertPut', 'notes', notes)
             const localVarPath = `/notes/bulk-upsert`;
@@ -1546,7 +1569,7 @@ export const NotesApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        notesDelete: async (ids: Array<string>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        notesDelete: async (ids: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'ids' is not null or undefined
             assertParamExists('notesDelete', 'ids', ids)
             const localVarPath = `/notes`;
@@ -1588,7 +1611,7 @@ export const NotesApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        notesGet: async (limit?: number, offset?: number, userId?: string, searchText?: string, my?: boolean, from?: string, includeDeleted?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        notesGet: async (limit?: number, offset?: number, userId?: string, searchText?: string, my?: boolean, from?: string, includeDeleted?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/notes/`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1647,7 +1670,7 @@ export const NotesApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        notesIdGet: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        notesIdGet: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('notesIdGet', 'id', id)
             const localVarPath = `/notes/{id}`
@@ -1681,7 +1704,7 @@ export const NotesApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        notesPost: async (note: HandlersCreatingNote, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        notesPost: async (note: HandlersCreatingNote, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'note' is not null or undefined
             assertParamExists('notesPost', 'note', note)
             const localVarPath = `/notes/`;
@@ -1717,7 +1740,7 @@ export const NotesApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        notesSyncPost: async (data: HandlersSyncNotesRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        notesSyncPost: async (data: HandlersSyncNotesRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'data' is not null or undefined
             assertParamExists('notesSyncPost', 'data', data)
             const localVarPath = `/notes/sync`;
@@ -1763,9 +1786,11 @@ export const NotesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async notesBulkUpsertPut(notes: Array<HandlersCreatingNote>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async notesBulkUpsertPut(notes: Array<HandlersCreatingNote>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.notesBulkUpsertPut(notes, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NotesApi.notesBulkUpsertPut']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * Mark notes as deleted by provided list of ids
@@ -1774,9 +1799,11 @@ export const NotesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async notesDelete(ids: Array<string>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseAnyAny>> {
+        async notesDelete(ids: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseAnyAny>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.notesDelete(ids, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NotesApi.notesDelete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * Get all notes with optional filter
@@ -1791,9 +1818,11 @@ export const NotesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async notesGet(limit?: number, offset?: number, userId?: string, searchText?: string, my?: boolean, from?: string, includeDeleted?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseArrayModelsPublicNoteModelsPagination>> {
+        async notesGet(limit?: number, offset?: number, userId?: string, searchText?: string, my?: boolean, from?: string, includeDeleted?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseArrayModelsPublicNoteModelsPagination>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.notesGet(limit, offset, userId, searchText, my, from, includeDeleted, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NotesApi.notesGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * get note by id
@@ -1802,9 +1831,11 @@ export const NotesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async notesIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseModelsPublicNoteAny>> {
+        async notesIdGet(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseModelsPublicNoteAny>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.notesIdGet(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NotesApi.notesIdGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * Create note
@@ -1813,9 +1844,11 @@ export const NotesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async notesPost(note: HandlersCreatingNote, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async notesPost(note: HandlersCreatingNote, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.notesPost(note, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NotesApi.notesPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * Synchronize notes with specific timestamp
@@ -1824,9 +1857,11 @@ export const NotesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async notesSyncPost(data: HandlersSyncNotesRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseHandlersSyncNotesResponseAny>> {
+        async notesSyncPost(data: HandlersSyncNotesRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseHandlersSyncNotesResponseAny>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.notesSyncPost(data, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NotesApi.notesSyncPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
@@ -1922,7 +1957,7 @@ export class NotesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotesApi
      */
-    public notesBulkUpsertPut(notes: Array<HandlersCreatingNote>, options?: AxiosRequestConfig) {
+    public notesBulkUpsertPut(notes: Array<HandlersCreatingNote>, options?: RawAxiosRequestConfig) {
         return NotesApiFp(this.configuration).notesBulkUpsertPut(notes, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1934,7 +1969,7 @@ export class NotesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotesApi
      */
-    public notesDelete(ids: Array<string>, options?: AxiosRequestConfig) {
+    public notesDelete(ids: Array<string>, options?: RawAxiosRequestConfig) {
         return NotesApiFp(this.configuration).notesDelete(ids, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1952,7 +1987,7 @@ export class NotesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotesApi
      */
-    public notesGet(limit?: number, offset?: number, userId?: string, searchText?: string, my?: boolean, from?: string, includeDeleted?: boolean, options?: AxiosRequestConfig) {
+    public notesGet(limit?: number, offset?: number, userId?: string, searchText?: string, my?: boolean, from?: string, includeDeleted?: boolean, options?: RawAxiosRequestConfig) {
         return NotesApiFp(this.configuration).notesGet(limit, offset, userId, searchText, my, from, includeDeleted, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1964,7 +1999,7 @@ export class NotesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotesApi
      */
-    public notesIdGet(id: string, options?: AxiosRequestConfig) {
+    public notesIdGet(id: string, options?: RawAxiosRequestConfig) {
         return NotesApiFp(this.configuration).notesIdGet(id, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1976,7 +2011,7 @@ export class NotesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotesApi
      */
-    public notesPost(note: HandlersCreatingNote, options?: AxiosRequestConfig) {
+    public notesPost(note: HandlersCreatingNote, options?: RawAxiosRequestConfig) {
         return NotesApiFp(this.configuration).notesPost(note, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -1988,10 +2023,11 @@ export class NotesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NotesApi
      */
-    public notesSyncPost(data: HandlersSyncNotesRequest, options?: AxiosRequestConfig) {
+    public notesSyncPost(data: HandlersSyncNotesRequest, options?: RawAxiosRequestConfig) {
         return NotesApiFp(this.configuration).notesSyncPost(data, options).then((request) => request(this.axios, this.basePath));
     }
 }
+
 
 
 /**
@@ -2007,7 +2043,7 @@ export const SystemInfoApiAxiosParamCreator = function (configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        systemInfoClientUpdateVersionGet: async (version: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        systemInfoClientUpdateVersionGet: async (version: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'version' is not null or undefined
             assertParamExists('systemInfoClientUpdateVersionGet', 'version', version)
             const localVarPath = `/system-info/client-update/{version}`
@@ -2051,9 +2087,11 @@ export const SystemInfoApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async systemInfoClientUpdateVersionGet(version: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ModelsOrgNoteClientUpdateInfo>> {
+        async systemInfoClientUpdateVersionGet(version: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ModelsOrgNoteClientUpdateInfo>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.systemInfoClientUpdateVersionGet(version, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SystemInfoApi.systemInfoClientUpdateVersionGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
@@ -2093,10 +2131,11 @@ export class SystemInfoApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SystemInfoApi
      */
-    public systemInfoClientUpdateVersionGet(version: string, options?: AxiosRequestConfig) {
+    public systemInfoClientUpdateVersionGet(version: string, options?: RawAxiosRequestConfig) {
         return SystemInfoApiFp(this.configuration).systemInfoClientUpdateVersionGet(version, options).then((request) => request(this.axios, this.basePath));
     }
 }
+
 
 
 /**
@@ -2111,7 +2150,7 @@ export const TagsApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        tagsGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        tagsGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/tags`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2151,9 +2190,11 @@ export const TagsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async tagsGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseArrayStringAny>> {
+        async tagsGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseArrayStringAny>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.tagsGet(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['TagsApi.tagsGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
@@ -2191,9 +2232,10 @@ export class TagsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TagsApi
      */
-    public tagsGet(options?: AxiosRequestConfig) {
+    public tagsGet(options?: RawAxiosRequestConfig) {
         return TagsApiFp(this.configuration).tagsGet(options).then((request) => request(this.axios, this.basePath));
     }
 }
+
 
 
