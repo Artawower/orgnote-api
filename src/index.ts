@@ -10,7 +10,7 @@ import { Stream } from 'stream';
 // NOTE: patch cause of incorrect generated api (form-data and swaggo)
 export const initFilesApi = (axiosInstance: Axios) => {
   return {
-    uploadFiles: async (file: File) => {
+    uploadFile: async (file: File) => {
       const formData = new FormData();
       formData.append('files', file);
       const response = await axiosInstance.post('/files/upload', formData, {
