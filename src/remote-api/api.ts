@@ -1527,6 +1527,36 @@ export class FilesApi extends BaseAPI {
 export const NotesApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * Force delete all user notes. This operation is irreversible
+         * @summary Drop all user notes
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        allNotesDelete: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/all-notes`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Bulk update or insert notes
          * @summary Upsert notes
          * @param {Array<HandlersCreatingNote>} notes List of crated notes
@@ -1780,6 +1810,18 @@ export const NotesApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = NotesApiAxiosParamCreator(configuration)
     return {
         /**
+         * Force delete all user notes. This operation is irreversible
+         * @summary Drop all user notes
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async allNotesDelete(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.allNotesDelete(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NotesApi.allNotesDelete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
          * Bulk update or insert notes
          * @summary Upsert notes
          * @param {Array<HandlersCreatingNote>} notes List of crated notes
@@ -1874,6 +1916,15 @@ export const NotesApiFactory = function (configuration?: Configuration, basePath
     const localVarFp = NotesApiFp(configuration)
     return {
         /**
+         * Force delete all user notes. This operation is irreversible
+         * @summary Drop all user notes
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        allNotesDelete(options?: any): AxiosPromise<void> {
+            return localVarFp.allNotesDelete(options).then((request) => request(axios, basePath));
+        },
+        /**
          * Bulk update or insert notes
          * @summary Upsert notes
          * @param {Array<HandlersCreatingNote>} notes List of crated notes
@@ -1949,6 +2000,17 @@ export const NotesApiFactory = function (configuration?: Configuration, basePath
  * @extends {BaseAPI}
  */
 export class NotesApi extends BaseAPI {
+    /**
+     * Force delete all user notes. This operation is irreversible
+     * @summary Drop all user notes
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NotesApi
+     */
+    public allNotesDelete(options?: RawAxiosRequestConfig) {
+        return NotesApiFp(this.configuration).allNotesDelete(options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * Bulk update or insert notes
      * @summary Upsert notes
