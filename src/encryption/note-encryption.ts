@@ -88,13 +88,15 @@ export async function decryptNote<T extends AbstractEncryptedNote>(
   note: T,
   encryptionParams: OrgNoteEncryption
 ): Promise<T> {
+  const isContentEncrypted = isGpgEncrypted(note.content);
   if (
     note.meta.published ||
     !note.encryptionType ||
     !encryptionParams.type ||
-    encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.Disabled
+    encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.Disabled ||
+    !isContentEncrypted
   ) {
-    note.encrypted = isGpgEncrypted(note.content);
+    note.encrypted = isContentEncrypted;
     return note;
   }
   note.encrypted = true;
