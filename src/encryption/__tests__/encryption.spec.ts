@@ -6,6 +6,8 @@ import {
   NoKeysProvidedError,
   NoPasswordProvidedError,
   IncorrectOrMissingPrivateKeyPasswordError,
+  encrypt,
+  decrypt,
 } from '../encryption';
 import { test, expect } from 'vitest';
 
@@ -162,4 +164,44 @@ aGW80jwBXEQ7uTjT8akpOKiH7BIuhEUZIXh+vDveG0Uwf63s2dIklznAEo+E
   } catch (e) {
     expect(e).toBeInstanceOf(NoPasswordProvidedError);
   }
+});
+
+test('Should encrypt and decrypt text by provided configs via password', async () => {
+  const text = 'Hello world';
+  const password = '123';
+
+  const res = await encrypt(text, {
+    type: 'gpgPassword',
+    password,
+  });
+
+  expect(res.startsWith('-----BEGIN PGP MESSAGE-----')).toBeTruthy();
+
+  const decryptedMessage = await decrypt(res, {
+    type: 'gpgPassword',
+    password,
+  });
+
+  expect(decryptedMessage).toEqual(text);
+});
+
+test('Should encrypt and decrypt text by provided configs via keys', async () => {
+  const text = 'Hello world';
+  const res = await encrypt(text, {
+    type: 'gpgKeys',
+    publicKey: armoredPublicKey,
+    privateKey: armoredPrivateKey,
+    privateKeyPassphrase,
+  });
+
+  expect(res.startsWith('-----BEGIN PGP MESSAGE-----')).toBeTruthy();
+
+  const decryptedMessage = await decrypt(res, {
+    type: 'gpgKeys',
+    publicKey: armoredPublicKey,
+    privateKey: armoredPrivateKey,
+    privateKeyPassphrase,
+  });
+
+  expect(decryptedMessage).toEqual(text);
 });

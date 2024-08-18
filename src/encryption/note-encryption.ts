@@ -24,6 +24,7 @@ export interface AbstractEncryptedNote {
     published?: boolean;
   };
 }
+// TODO: master change signature for encrypt notes without content
 export async function encryptNote<T extends AbstractEncryptedNote>(
   note: T,
   encryptionParams: OrgNoteEncryption
