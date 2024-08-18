@@ -7,8 +7,8 @@ import {
   readMessage,
   readPrivateKey,
 } from 'openpgp';
-import { ModelsPublicNoteEncryptionTypeEnum } from 'src/remote-api';
-import { OrgNoteEncryption } from '..';
+import { ModelsPublicNoteEncryptionTypeEnum } from '../remote-api';
+import { OrgNoteEncryption } from '../models/encryption';
 
 export class IncorrectOrMissingPrivateKeyPasswordError extends Error {}
 export class ImpossibleToDecryptWithProvidedKeysError extends Error {}
