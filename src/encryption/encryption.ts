@@ -1,12 +1,14 @@
 import {
   createMessage,
-  decrypt,
+  decrypt as _decrypt,
   decryptKey,
-  encrypt,
+  encrypt as _encrypt,
   readKey,
   readMessage,
   readPrivateKey,
 } from 'openpgp';
+import { ModelsPublicNoteEncryptionTypeEnum } from 'src/remote-api';
+import { OrgNoteEncryption } from '..';
 
 export class IncorrectOrMissingPrivateKeyPasswordError extends Error {}
 export class ImpossibleToDecryptWithProvidedKeysError extends Error {}
@@ -41,6 +43,47 @@ export const encryptViaPassword = withCustomErrors(_encryptViaPassword);
 export const decryptViaPassword = withCustomErrors(_decryptViaPassword);
 export const decryptViaKeys = withCustomErrors(_decryptViaKeys);
 
+export const encrypt = async (
+  text: string,
+  encryptionParams: OrgNoteEncryption
+): Promise<string> => {
+  if (
+    !encryptionParams.type ||
+    encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.Disabled
+  ) {
+    return text;
+  }
+  return encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.GpgKeys
+    ? await encryptViaKeys(
+        text,
+        encryptionParams.publicKey,
+        encryptionParams.privateKey,
+        encryptionParams.privateKeyPassphrase
+      )
+    : await encryptViaPassword(text, encryptionParams.password);
+};
+
+export const decrypt = async (
+  text: string,
+  encryptionParams: OrgNoteEncryption
+): Promise<string> => {
+  if (
+    !encryptionParams.type ||
+    encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.Disabled
+  ) {
+    return text;
+  }
+  const decryptedNote =
+    encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.GpgKeys
+      ? await decryptViaKeys(
+          text,
+          encryptionParams.privateKey,
+          encryptionParams.privateKeyPassphrase
+        )
+      : await decryptViaPassword(text, encryptionParams.password);
+  return decryptedNote;
+};
+
 async function _encryptViaPassword(
   text: string,
   password: string
@@ -49,7 +92,7 @@ async function _encryptViaPassword(
     text,
   });
 
-  const encryptedMessage = await encrypt({
+  const encryptedMessage = await _encrypt({
     message,
     format: 'armored',
     passwords: [password],
@@ -81,7 +124,7 @@ async function _encryptViaKeys(
       })
     : encryptedPrivateKey;
 
-  const encryptedMessage = await encrypt({
+  const encryptedMessage = await _encrypt({
     message,
     format: 'armored',
     encryptionKeys: publicKey,
@@ -97,7 +140,7 @@ async function _decryptViaPassword(
 ): Promise<string> {
   const message = await readMessage({ armoredMessage: data });
 
-  const { data: decryptedText } = await decrypt({
+  const { data: decryptedText } = await _decrypt({
     message,
     passwords: password,
   });
@@ -123,7 +166,7 @@ async function _decryptViaKeys(
 
   const message = await readMessage({ armoredMessage: data });
 
-  const { data: decryptedText } = await decrypt({
+  const { data: decryptedText } = await _decrypt({
     message,
     decryptionKeys: privateKey,
   });

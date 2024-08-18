@@ -19,7 +19,7 @@ export interface NotePreview {
   encrypted?: boolean;
 }
 
-export interface Note extends ModelsPublicNote {
+export interface Note extends Omit<ModelsPublicNote, 'content'> {
   deleted?: Date;
   bookmarked?: boolean;
   encrypted?: boolean;
