@@ -1,47 +1,51 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`Should decrypt note content via password 1`] = `
-{
-  "content": "#+ID: qweqwe
+[
+  {
+    "encrypted": false,
+    "encryptionType": "gpgPassword",
+    "id": "id",
+    "meta": {
+      "headings": [
+        {
+          "level": 1,
+          "title": "Hello?",
+        },
+      ],
+      "id": "qweqwe",
+      "title": "Hello worlld",
+    },
+  },
+  "#+ID: qweqwe
 #+TITLE: Hello worlld
 
 * Hello?",
-  "encrypted": false,
-  "encryptionType": "gpgPassword",
-  "id": "id",
-  "meta": {
-    "headings": [
-      {
-        "level": 1,
-        "title": "Hello?",
-      },
-    ],
-    "id": "qweqwe",
-    "title": "Hello worlld",
-  },
-}
+]
 `;
 
 exports[`Should decrypt note via provided keys 1`] = `
-{
-  "content": "#+ID: qweqwe
+[
+  {
+    "encrypted": false,
+    "encryptionType": "gpgKeys",
+    "id": "id",
+    "meta": {
+      "headings": [
+        {
+          "level": 1,
+          "title": "Hello?",
+        },
+      ],
+      "id": "qweqwe",
+      "title": "Hello worlld",
+    },
+  },
+  "#+ID: qweqwe
 #+TITLE: Hello worlld
 
 * Hello?",
-  "encrypted": false,
-  "encryptionType": "gpgKeys",
-  "id": "id",
-  "meta": {
-    "headings": [
-      {
-        "level": 1,
-        "title": "Hello?",
-      },
-    ],
-    "id": "qweqwe",
-    "title": "Hello worlld",
-  },
-}
+]
 `;
 
 exports[`Should encrypt note content via password 1`] = `
@@ -95,25 +99,27 @@ exports[`Should encrypt note with empty encrypted property 1`] = `
 `;
 
 exports[`Should not decrypt note without provided encrypted type 1`] = `
-{
-  "author": {
-    "email": "test@mail.com",
-    "id": "1",
-    "name": "John Doe",
+[
+  {
+    "author": {
+      "email": "test@mail.com",
+      "id": "1",
+      "name": "John Doe",
+    },
+    "encrypted": false,
+    "id": "id",
+    "meta": {
+      "description": "Awesome description",
+      "images": [],
+      "published": false,
+      "title": "My note title",
+    },
   },
-  "content": "#+ID: qweqwe
+  "#+ID: qweqwe
 #+TITLE: Hello worlld
 
 * Hello?",
-  "encrypted": false,
-  "id": "id",
-  "meta": {
-    "description": "Awesome description",
-    "images": [],
-    "published": false,
-    "title": "My note title",
-  },
-}
+]
 `;
 
 exports[`Should not encrypt public note 1`] = `
@@ -123,10 +129,6 @@ exports[`Should not encrypt public note 1`] = `
     "id": "1",
     "name": "John Doe",
   },
-  "content": "#+ID: qweqwe
-#+TITLE: Hello worlld
-
-* Hello?",
   "encrypted": false,
   "encryptionType": "gpgPassword",
   "id": "id",
@@ -140,8 +142,19 @@ exports[`Should not encrypt public note 1`] = `
 `;
 
 exports[`Should set not encrypted status when params type does not provided 1`] = `
-{
-  "content": "-----BEGIN PGP MESSAGE-----
+[
+  {
+    "encrypted": true,
+    "encryptionType": "gpgKeys",
+    "id": "id",
+    "meta": {
+      "description": "Awesome description",
+      "images": [],
+      "published": false,
+      "title": "My note title for decryption via keys",
+    },
+  },
+  "-----BEGIN PGP MESSAGE-----
 
 wcFMA/vryg+TTn0rAQ//TBFRjKmjRQoLhSrgeH+NbsZXbxvo7Ey4k+BQ9XA5
 +CMpXH9uFUxsSaI5+McUSEt32VI17HRpXQDCL9nwaWqWOanMaRe0tXXhtox2
@@ -172,14 +185,5 @@ PX6alTbxGnoHgZ4bG4J1wfpTNPppP1gJeVg67VqOypzdZi+SjofMWnFgRFmD
 yEN8xpFUs7A9xryVZOosp9Sfe3IbBkO99sAQ7jV4EoMYk3/GKA==
 =LjkG
 -----END PGP MESSAGE-----",
-  "encrypted": true,
-  "encryptionType": "gpgKeys",
-  "id": "id",
-  "meta": {
-    "description": "Awesome description",
-    "images": [],
-    "published": false,
-    "title": "My note title for decryption via keys",
-  },
-}
+]
 `;
