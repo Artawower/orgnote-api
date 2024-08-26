@@ -103,7 +103,11 @@ export interface OrgNoteConfig {
     language: string;
   };
   synchronization: {
-    type: 'none' | 'api' | 'filesystem';
+    type: 'none' | 'api';
+  };
+  vault: {
+    /* File system available only for mobile devices */
+    type: 'inmemory' | 'filesystem';
     path?: string;
   };
   ui: {
