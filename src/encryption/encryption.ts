@@ -8,7 +8,12 @@ import {
   readPrivateKey,
 } from 'openpgp';
 import { ModelsPublicNoteEncryptionTypeEnum } from '../remote-api';
-import { OrgNoteEncryption } from '../models/encryption';
+import {
+  OrgNoteEncryption,
+  OrgNotePasswordEncryption,
+  WithDecryptionContent,
+} from '../models/encryption';
+import { OrgNoteGpgEncryption, WithEncryptionContent } from 'src/models';
 
 export class IncorrectOrMissingPrivateKeyPasswordError extends Error {}
 export class ImpossibleToDecryptWithProvidedKeysError extends Error {}
@@ -43,74 +48,84 @@ export const encryptViaPassword = withCustomErrors(_encryptViaPassword);
 export const decryptViaPassword = withCustomErrors(_decryptViaPassword);
 export const decryptViaKeys = withCustomErrors(_decryptViaKeys);
 
-export const encrypt = async (
-  text: string,
-  encryptionParams: OrgNoteEncryption
-): Promise<string> => {
+export const encrypt = async <
+  T extends WithEncryptionContent<OrgNoteEncryption>,
+>(
+  encryptionParams: T
+): Promise<T['format'] extends 'binary' ? Uint8Array : string> => {
   if (
     !encryptionParams.type ||
     encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.Disabled
   ) {
-    return text;
+    return encryptionParams.content as any;
   }
-  return encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.GpgKeys
-    ? await encryptViaKeys(
-        text,
-        encryptionParams.publicKey,
-        encryptionParams.privateKey,
-        encryptionParams.privateKeyPassphrase
-      )
-    : await encryptViaPassword(text, encryptionParams.password);
+
+  const res = (encryptionParams.type ===
+  ModelsPublicNoteEncryptionTypeEnum.GpgKeys
+    ? await encryptViaKeys(encryptionParams)
+    : await encryptViaPassword(encryptionParams)) as unknown as Promise<
+    T['format'] extends 'binary' ? Uint8Array : string
+  >;
+
+  return res;
 };
 
-export const decrypt = async (
-  text: string,
-  encryptionParams: OrgNoteEncryption
-): Promise<string> => {
+export const decrypt = async <
+  T extends WithDecryptionContent<OrgNoteEncryption>,
+>(
+  decryptionParams: T
+): Promise<T['format'] extends 'binary' ? Uint8Array : string> => {
   if (
-    !encryptionParams.type ||
-    encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.Disabled
+    !decryptionParams.type ||
+    decryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.Disabled
   ) {
-    return text;
+    return decryptionParams.content as any;
   }
-  const decryptedNote =
-    encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.GpgKeys
-      ? await decryptViaKeys(
-          text,
-          encryptionParams.privateKey,
-          encryptionParams.privateKeyPassphrase
-        )
-      : await decryptViaPassword(text, encryptionParams.password);
+  const decryptedNote = (decryptionParams.type ===
+  ModelsPublicNoteEncryptionTypeEnum.GpgKeys
+    ? await decryptViaKeys(decryptionParams)
+    : await decryptViaPassword(decryptionParams)) as unknown as Promise<
+    T['format'] extends 'binary' ? Uint8Array : string
+  >;
+
   return decryptedNote;
 };
 
-async function _encryptViaPassword(
-  text: string,
-  password: string
-): Promise<string> {
+async function _encryptViaPassword<
+  T extends WithEncryptionContent<OrgNotePasswordEncryption>,
+>({
+  content,
+  password,
+  format = 'binary',
+}: T): Promise<T['format'] extends 'binary' ? Uint8Array : string> {
   const message = await createMessage({
-    text,
+    text: content,
   });
 
   const encryptedMessage = await _encrypt({
     message,
-    format: 'armored',
+    format: format as any,
     passwords: [password],
   });
 
-  return encryptedMessage.toString();
+  return encryptedMessage as Promise<
+    T['format'] extends 'binary' ? Uint8Array : string
+  >;
 }
 
-async function _encryptViaKeys(
-  text: string,
-  armoredPublicKey: string,
-  armoredPrivateKey: string,
-  privateKeyPassphrase?: string
-): Promise<string> {
+export async function _encryptViaKeys<
+  T extends WithEncryptionContent<OrgNoteGpgEncryption>,
+>({
+  content,
+  publicKey: armoredPublicKey,
+  privateKey: armoredPrivateKey,
+  privateKeyPassphrase,
+  format = 'binary',
+}: T): Promise<T['format'] extends 'binary' ? Uint8Array : string> {
   const publicKey = await readKey({ armoredKey: armoredPublicKey });
 
   const message = await createMessage({
-    text,
+    text: content,
   });
 
   const encryptedPrivateKey = await readPrivateKey({
@@ -126,52 +141,73 @@ async function _encryptViaKeys(
 
   const encryptedMessage = await _encrypt({
     message,
-    format: 'armored',
+    format: format as any,
     encryptionKeys: publicKey,
     signingKeys: privateKey,
   });
 
-  return encryptedMessage.toString();
+  return encryptedMessage as Promise<
+    T['format'] extends 'binary' ? Uint8Array : string
+  >;
 }
 
-async function _decryptViaPassword(
-  data: string,
-  password: string
-): Promise<string> {
-  const message = await readMessage({ armoredMessage: data });
+async function _decryptViaPassword<
+  T extends Omit<WithDecryptionContent<OrgNotePasswordEncryption>, 'type'>,
+>({
+  content,
+  password,
+  format = 'utf8',
+}: T): Promise<T['format'] extends 'binary' ? Uint8Array : string> {
+  const isArmoredContent = typeof content === 'string';
+
+  const message = await (isArmoredContent
+    ? readMessage({ armoredMessage: content })
+    : readMessage({ binaryMessage: content }));
 
   const { data: decryptedText } = await _decrypt({
     message,
+    format,
     passwords: password,
   });
 
-  return decryptedText.toString();
+  return decryptedText as Promise<
+    T['format'] extends 'binary' ? Uint8Array : string
+  >;
 }
 
-async function _decryptViaKeys(
-  data: string,
-  armoredPrivateKey: string,
-  privateKeyPassword?: string
-): Promise<string> {
+async function _decryptViaKeys<
+  T extends Omit<WithDecryptionContent<OrgNoteGpgEncryption>, 'type'>,
+>({
+  privateKey: armoredPrivateKey,
+  privateKeyPassphrase,
+  content,
+  format = 'utf8',
+}: T): Promise<T['format'] extends 'binary' ? Uint8Array : string> {
   const encryptedPrivateKey = await readPrivateKey({
     armoredKey: armoredPrivateKey,
   });
 
-  const privateKey = privateKeyPassword
+  const privateKey = privateKeyPassphrase
     ? await decryptKey({
         privateKey: encryptedPrivateKey,
-        passphrase: privateKeyPassword,
+        passphrase: privateKeyPassphrase,
       })
     : encryptedPrivateKey;
 
-  const message = await readMessage({ armoredMessage: data });
+  const isString = typeof content === 'string';
+  const message = await (isString
+    ? readMessage({ armoredMessage: content })
+    : readMessage({ binaryMessage: content }));
 
   const { data: decryptedText } = await _decrypt({
     message,
+    format,
     decryptionKeys: privateKey,
   });
 
-  return decryptedText.toString();
+  return decryptedText as Promise<
+    T['format'] extends 'binary' ? Uint8Array : string
+  >;
 }
 
 function withCustomErrors<P extends unknown[], T>(
