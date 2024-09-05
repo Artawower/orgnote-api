@@ -1,8 +1,20 @@
 import type { ModelsPublicNoteEncryptionTypeEnum } from '../remote-api';
 
+export type EcnryptionFormat = 'binary' | 'armored';
+
+export interface BaseOrgNoteEncryption {
+  format?: 'binary' | 'armored';
+}
+
+export interface BaseOrgNoteDecryption {
+  format?: 'utf8' | 'binary';
+}
+
 export interface OrgNoteGpgEncryption {
   type: typeof ModelsPublicNoteEncryptionTypeEnum.GpgKeys;
+  /* Armored private key */
   privateKey: string;
+  /* Armored public key */
   publicKey: string;
   privateKeyPassphrase?: string;
 }
@@ -20,3 +32,19 @@ export type OrgNoteEncryption =
   | OrgNoteGpgEncryption
   | OrgNotePasswordEncryption
   | OrgNoteDisabledEncryption;
+
+export type EncryptionData = {
+  content: string;
+};
+
+export type WithEncryptionContent<
+  T extends OrgNoteEncryption = OrgNoteEncryption,
+> = T & EncryptionData & BaseOrgNoteEncryption;
+
+export type WithDecryptionContent<
+  T extends OrgNoteEncryption = OrgNoteEncryption,
+> = T & EncryptionData & BaseOrgNoteDecryption;
+
+export type WithNoteDecryptionContent<
+  T extends OrgNoteEncryption = OrgNoteEncryption,
+> = T & EncryptionData;

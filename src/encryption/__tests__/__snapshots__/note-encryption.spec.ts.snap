@@ -4,7 +4,6 @@ exports[`Should decrypt note content via password 1`] = `
 [
   {
     "encrypted": false,
-    "encryptionType": "gpgPassword",
     "id": "id",
     "meta": {
       "headings": [
@@ -28,7 +27,6 @@ exports[`Should decrypt note via provided keys 1`] = `
 [
   {
     "encrypted": false,
-    "encryptionType": "gpgKeys",
     "id": "id",
     "meta": {
       "headings": [
@@ -48,6 +46,22 @@ exports[`Should decrypt note via provided keys 1`] = `
 ]
 `;
 
+exports[`Should encrypt note and decrypt it into binary format 1`] = `
+{
+  "author": {
+    "email": "test@mail.com",
+    "id": "1",
+    "name": "John Doe",
+  },
+  "encrypted": true,
+  "id": "id",
+  "meta": {
+    "id": undefined,
+    "published": false,
+  },
+}
+`;
+
 exports[`Should encrypt note content via password 1`] = `
 {
   "author": {
@@ -56,7 +70,38 @@ exports[`Should encrypt note content via password 1`] = `
     "name": "John Doe",
   },
   "encrypted": true,
-  "encryptionType": "gpgPassword",
+  "id": "id",
+  "meta": {
+    "id": undefined,
+    "published": false,
+  },
+}
+`;
+
+exports[`Should encrypt note content via password to binary format 1`] = `
+{
+  "author": {
+    "email": "test@mail.com",
+    "id": "1",
+    "name": "John Doe",
+  },
+  "encrypted": true,
+  "id": "id",
+  "meta": {
+    "id": undefined,
+    "published": false,
+  },
+}
+`;
+
+exports[`Should encrypt note to binary format 1`] = `
+{
+  "author": {
+    "email": "test@mail.com",
+    "id": "1",
+    "name": "John Doe",
+  },
+  "encrypted": true,
   "id": "id",
   "meta": {
     "id": undefined,
@@ -73,7 +118,6 @@ exports[`Should encrypt note via keys 1`] = `
     "name": "John Doe",
   },
   "encrypted": true,
-  "encryptionType": "gpgKeys",
   "id": "id",
   "meta": {
     "id": undefined,
@@ -130,7 +174,6 @@ exports[`Should not encrypt public note 1`] = `
     "name": "John Doe",
   },
   "encrypted": false,
-  "encryptionType": "gpgPassword",
   "id": "id",
   "meta": {
     "description": "Awesome description",
@@ -145,7 +188,6 @@ exports[`Should set not encrypted status when params type does not provided 1`] 
 [
   {
     "encrypted": true,
-    "encryptionType": "gpgKeys",
     "id": "id",
     "meta": {
       "description": "Awesome description",
