@@ -17,7 +17,6 @@ test('Should encrypt note content via password', async () => {
 
   const note: Note = {
     id: 'id',
-    encryptionType: 'gpgPassword',
     meta: {
       title: 'My note title',
       images: [],
@@ -31,15 +30,50 @@ test('Should encrypt note content via password', async () => {
     },
   };
 
-  const [encryptedNote, encryptedNoteText] = await encryptNote(note, noteText, {
+  const [encryptedNote, encryptedNoteText] = await encryptNote(note, {
+    content: noteText,
     type: 'gpgPassword',
     password: '123',
+    format: 'armored',
   });
 
   expect(encryptedNoteText.startsWith('-----BEGIN PGP MESSAGE-----')).toBe(
     true
   );
   expect(encryptedNote).toMatchSnapshot();
+});
+
+test('Should encrypt note content via password to binary format', async () => {
+  const noteText = `#+ID: qweqwe
+
+#+TITLE: Hello worlld
+
+* Hello?`;
+
+  const note: Note = {
+    id: 'id',
+    meta: {
+      title: 'My note title',
+      images: [],
+      published: false,
+      description: 'Awesome description',
+    },
+    author: {
+      id: '1',
+      name: 'John Doe',
+      email: 'test@mail.com',
+    },
+  };
+
+  const [encryptedNote, encryptedNoteText] = await encryptNote(note, {
+    content: noteText,
+    type: 'gpgPassword',
+    password: '123',
+    format: 'binary',
+  });
+
+  expect(encryptedNote).toMatchSnapshot();
+  expect(encryptedNoteText).toBeInstanceOf(Uint8Array);
 });
 
 test('Should decrypt note content via password', async () => {
@@ -51,9 +85,9 @@ zt3v0mABvaBJA7corlU8su21TpPApOs/+DMWpVlbI3Zer7QfQK1fSBoSTbCR
 5Bjlwt4ZhxFsh+c=
 =csID
 -----END PGP MESSAGE-----`;
+
   const note: Note = {
     id: 'id',
-    encryptionType: 'gpgPassword',
     meta: {
       title: 'My note title',
       images: [],
@@ -62,7 +96,8 @@ zt3v0mABvaBJA7corlU8su21TpPApOs/+DMWpVlbI3Zer7QfQK1fSBoSTbCR
     },
   };
 
-  const decryptedNote = await decryptNote(note, noteText, {
+  const decryptedNote = await decryptNote(note, {
+    content: noteText,
     type: 'gpgPassword',
     password: '123',
   });
@@ -70,7 +105,7 @@ zt3v0mABvaBJA7corlU8su21TpPApOs/+DMWpVlbI3Zer7QfQK1fSBoSTbCR
   expect(decryptedNote).toMatchSnapshot();
 });
 
-test.skip('Should encrypt note via keys', async () => {
+test('Should encrypt note via keys', async () => {
   const noteText = `#+ID: qweqwe
 #+TITLE: Hello worlld
 
@@ -78,7 +113,6 @@ test.skip('Should encrypt note via keys', async () => {
 
   const note: Note = {
     id: 'id',
-    encryptionType: 'gpgKeys',
     meta: {
       title: 'My note title for encryption via keys',
       images: [],
@@ -92,11 +126,13 @@ test.skip('Should encrypt note via keys', async () => {
     },
   };
 
-  const [encryptedNote, encryptedNoteText] = await encryptNote(note, noteText, {
+  const [encryptedNote, encryptedNoteText] = await encryptNote(note, {
+    content: noteText,
     type: ModelsPublicNoteEncryptionTypeEnum.GpgKeys,
     publicKey: armoredPublicKey,
     privateKey: armoredPrivateKey,
     privateKeyPassphrase,
+    format: 'armored',
   });
 
   expect(encryptedNoteText.startsWith('-----BEGIN PGP MESSAGE-----')).toBe(
@@ -140,7 +176,6 @@ yEN8xpFUs7A9xryVZOosp9Sfe3IbBkO99sAQ7jV4EoMYk3/GKA==
 
   const note: Note = {
     id: 'id',
-    encryptionType: 'gpgKeys',
     meta: {
       title: 'My note title for decryption via keys',
       images: [],
@@ -149,7 +184,8 @@ yEN8xpFUs7A9xryVZOosp9Sfe3IbBkO99sAQ7jV4EoMYk3/GKA==
     },
   };
 
-  const decryptedNote = await decryptNote(note, encryptedNoteText, {
+  const decryptedNote = await decryptNote(note, {
+    content: encryptedNoteText,
     type: 'gpgKeys',
     publicKey: armoredPublicKey,
     privateKey: armoredPrivateKey,
@@ -167,7 +203,6 @@ test('Should not encrypt public note', async () => {
 
   const note: Note = {
     id: 'id',
-    encryptionType: 'gpgPassword',
     meta: {
       title: 'My note title',
       images: [],
@@ -181,9 +216,11 @@ test('Should not encrypt public note', async () => {
     },
   };
 
-  const [encryptedNote, encryptedNoteText] = await encryptNote(note, noteText, {
+  const [encryptedNote, encryptedNoteText] = await encryptNote(note, {
+    content: noteText,
     type: 'gpgPassword',
     password: '123',
+    format: 'armored',
   });
 
   expect(encryptedNoteText.startsWith('-----BEGIN PGP MESSAGE-----')).toBe(
@@ -213,9 +250,11 @@ test('Should encrypt note with empty encrypted property', async () => {
     },
   };
 
-  const [encryptedNote, encryptedNoteText] = await encryptNote(note, noteText, {
+  const [encryptedNote, encryptedNoteText] = await encryptNote(note, {
+    content: noteText,
     type: 'gpgPassword',
     password: '123',
+    format: 'armored',
   });
 
   expect(encryptedNoteText.startsWith('-----BEGIN PGP MESSAGE-----')).toBe(
@@ -246,9 +285,11 @@ test('Should not decrypt note without provided encrypted type', async () => {
     },
   };
 
-  const decryptedInfo = await decryptNote(note, noteText, {
+  const decryptedInfo = await decryptNote(note, {
+    content: noteText,
     type: 'gpgPassword',
     password: '123',
+    format: 'armored',
   });
 
   expect(decryptedInfo).toMatchSnapshot();
@@ -265,7 +306,6 @@ test('Should decrypt note and note meta', async () => {
   const note: Note = {
     id: 'id',
     meta: { ...meta },
-    encryptionType: 'gpgPassword',
   };
 
   const noteText = `#+TITLE: My note title
@@ -277,19 +317,17 @@ test('Should decrypt note and note meta', async () => {
 
 Hello world`;
 
-  const [encryptedNote, encryptedNoteText] = await encryptNote(note, noteText, {
+  const [encryptedNote, encryptedNoteText] = await encryptNote(note, {
+    content: noteText,
     type: 'gpgPassword',
     password: '123',
   });
 
-  const [decryptedNote, decryptedNoteText] = await decryptNote(
-    encryptedNote,
-    encryptedNoteText,
-    {
-      type: 'gpgPassword',
-      password: '123',
-    }
-  );
+  const [decryptedNote, decryptedNoteText] = await decryptNote(encryptedNote, {
+    content: encryptedNoteText,
+    type: 'gpgPassword',
+    password: '123',
+  });
 
   expect(decryptedNote.meta).toEqual(meta);
   expect(decryptedNoteText).toEqual(noteText);
@@ -298,7 +336,6 @@ Hello world`;
 test('Should set not encrypted status when params type does not provided', async () => {
   const note: Note = {
     id: 'id',
-    encryptionType: 'gpgKeys',
     meta: {
       title: 'My note title for decryption via keys',
       images: [],
@@ -339,9 +376,50 @@ yEN8xpFUs7A9xryVZOosp9Sfe3IbBkO99sAQ7jV4EoMYk3/GKA==
 =LjkG
 -----END PGP MESSAGE-----`;
 
-  const decryptedNote = await decryptNote(note, noteText, {
+  const decryptedNote = await decryptNote(note, {
+    content: noteText,
     type: 'disabled',
   });
 
   expect(decryptedNote).toMatchSnapshot();
+});
+
+test('Should encrypt note to binary format', async () => {
+  const noteText = `#+ID: qweqwe
+#+TITLE: Hello worlld
+
+* Hello?`;
+
+  const note: Note = {
+    id: 'id',
+    meta: {
+      title: 'My note title',
+      images: [],
+      published: false,
+      description: 'Awesome description',
+    },
+    author: {
+      id: '1',
+      name: 'John Doe',
+      email: 'test@mail.com',
+    },
+  };
+
+  const [encryptedNote, encryptedNoteText] = await encryptNote(note, {
+    content: noteText,
+    type: 'gpgPassword',
+    password: '123',
+    format: 'binary',
+  });
+
+  expect(encryptedNoteText).toBeInstanceOf(Uint8Array);
+  expect(encryptedNote).toMatchSnapshot();
+
+  const [_, decryptedNoteText] = await decryptNote(encryptedNote, {
+    content: encryptedNoteText,
+    type: 'gpgPassword',
+    password: '123',
+  });
+
+  expect(decryptedNoteText).toEqual(noteText);
 });

@@ -30,6 +30,7 @@ jobs:
     name: Build
     needs: [check_commit]
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
     steps:
       - name: checkout repository
         uses: actions/checkout@v2
