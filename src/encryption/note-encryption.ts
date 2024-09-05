@@ -1,16 +1,6 @@
-import {
-  ModelsPublicNote,
-  ModelsPublicNoteEncryptionTypeEnum,
-} from '../remote-api';
+import { ModelsPublicNoteEncryptionTypeEnum } from '../remote-api';
 
-import {
-  decrypt,
-  decryptViaKeys,
-  decryptViaPassword,
-  encrypt,
-  encryptViaKeys,
-  encryptViaPassword,
-} from './encryption';
+import { decrypt, encrypt } from './encryption';
 import {
   OrgNoteEncryption,
   WithDecryptionContent,

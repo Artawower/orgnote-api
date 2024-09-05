@@ -9,6 +9,8 @@ import {
   encrypt,
   decrypt,
   _encryptViaKeys,
+  armor,
+  unarmor,
 } from '../encryption';
 import { test, expect } from 'vitest';
 
@@ -305,4 +307,25 @@ test('Should encrypt to armored text and decrypt as binary format', async () => 
   });
 
   expect(decryptedMessage).toBeInstanceOf(Uint8Array);
+});
+
+test('Should armor and unarmor encrypted file', async () => {
+  const content: Uint8Array = new Uint8Array([
+    72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100,
+  ]);
+
+  const armored = armor(content);
+
+  expect(armored).toMatchInlineSnapshot(`
+    "-----BEGIN PGP MESSAGE-----
+
+    SGVsbG8gd29ybGQ=
+    =7asC
+    -----END PGP MESSAGE-----
+    "
+  `);
+
+  const { text, data } = await unarmor(armored);
+
+  expect(data).toEqual(content);
 });
