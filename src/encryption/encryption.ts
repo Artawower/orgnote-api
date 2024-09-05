@@ -6,6 +6,7 @@ import {
   readKey,
   readMessage,
   readPrivateKey,
+  Stream,
 } from 'openpgp';
 import { ModelsPublicNoteEncryptionTypeEnum } from '../remote-api';
 import {
@@ -14,6 +15,7 @@ import {
   WithDecryptionContent,
 } from '../models/encryption';
 import { OrgNoteGpgEncryption, WithEncryptionContent } from 'src/models';
+import { armor as _armor, unarmor as _unarmor, enums } from 'openpgp';
 
 export class IncorrectOrMissingPrivateKeyPasswordError extends Error {}
 export class ImpossibleToDecryptWithProvidedKeysError extends Error {}
@@ -248,4 +250,15 @@ function withCustomErrors<P extends unknown[], T>(
       throw e;
     }
   };
+}
+
+// TODO: feat/native-encryption-support add custom error handling
+export function armor(data: Uint8Array): string {
+  return _armor(enums.armor.message, data);
+}
+
+export async function unarmor(
+  data: string
+): Promise<{ text: string; data: Stream<Uint8Array>; type: enums.armor }> {
+  return await _unarmor(data);
 }
