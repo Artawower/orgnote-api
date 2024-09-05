@@ -8,6 +8,7 @@ import {
   IncorrectOrMissingPrivateKeyPasswordError,
   encrypt,
   decrypt,
+  _encryptViaKeys,
 } from '../encryption';
 import { test, expect } from 'vitest';
 
@@ -16,21 +17,35 @@ import {
   armoredPrivateKey,
   privateKeyPassphrase,
 } from './encryption-keys';
+// import { armor } from 'openpgp';
+
+test('Should encrypt text as armored message via keys', async () => {
+  const res = await encryptViaKeys({
+    content: 'Hello world',
+    publicKey: armoredPublicKey,
+    privateKey: armoredPrivateKey,
+    privateKeyPassphrase: privateKeyPassphrase,
+    format: 'armored',
+  });
+
+  expect(res.startsWith('-----BEGIN PGP MESSAGE-----')).toBeTruthy();
+});
 
 test('Should encrypt text via keys', async () => {
-  const res = await encryptViaKeys(
-    'Hello world',
-    armoredPublicKey,
-    armoredPrivateKey,
-    privateKeyPassphrase
-  );
+  const res = await encryptViaKeys({
+    content: 'Hello world',
+    publicKey: armoredPublicKey,
+    privateKey: armoredPrivateKey,
+    privateKeyPassphrase,
+    format: 'armored',
+  });
 
   expect(res.startsWith('-----BEGIN PGP MESSAGE-----')).toBeTruthy();
 });
 
 test('Should decrypt via provided keys', async () => {
-  const decryptedMessage = await decryptViaKeys(
-    `-----BEGIN PGP MESSAGE-----
+  const decryptedMessage = await decryptViaKeys({
+    content: `-----BEGIN PGP MESSAGE-----
 
 wcFMA/vryg+TTn0rARAAhXuEjOHa856iCNVmdeIGHF+IEoeEwTc5tIcr6Lri
 V6xs//3WnwVwUlyxYrum3yCpx8t5gyWTXFfTNH08VoVqPVP45fkk1H7jdC6Q
@@ -62,15 +77,19 @@ YQ==
 =f4F1
 -----END PGP MESSAGE-----
 `,
-    armoredPrivateKey,
-    privateKeyPassphrase
-  );
+    privateKey: armoredPrivateKey,
+    privateKeyPassphrase,
+  });
   expect(decryptedMessage).toEqual('Hello world');
 });
 
 test('Should encrypt via password', async () => {
   const password = 'test';
-  const res = await encryptViaPassword('Hello world', password);
+  const res = await encryptViaPassword({
+    content: 'Hello world',
+    password,
+    format: 'armored',
+  });
 
   expect(res.startsWith('-----BEGIN PGP MESSAGE-----')).toBeTruthy();
 });
@@ -86,7 +105,7 @@ aGW80jwBXEQ7uTjT8akpOKiH7BIuhEUZIXh+vDveG0Uwf63s2dIklznAEo+E
 -----END PGP MESSAGE-----
 `;
 
-  expect(await decryptViaPassword(encryptedMsg, password)).toEqual(
+  expect(await decryptViaPassword({ content: encryptedMsg, password })).toEqual(
     'Hello world'
   );
 });
@@ -125,14 +144,13 @@ YQ==
 -----END PGP MESSAGE-----`;
 
   try {
-    await decryptViaPassword(encryptedMsg, 'password');
+    await decryptViaPassword({ content: encryptedMsg, password: 'password' });
   } catch (e) {
     expect(e).toBeInstanceOf(NoKeysProvidedError);
   }
 });
 
 test('Should raise IncorrectOrMissingPrivateKeyPasswordError error when incorrect armored key provided', async () => {
-  const password = 'test';
   const encryptedMsg = `-----BEGIN PGP MESSAGE-----
 
 wy4ECQMI6KFWGqyVV+DgYl0qUEeTe1kAdjkoR4FxFJxx+6QiOP+sZ6h7bn//
@@ -143,7 +161,11 @@ aGW80jwBXEQ7uTjT8akpOKiH7BIuhEUZIXh+vDveG0Uwf63s2dIklznAEo+E
 `;
 
   try {
-    await decryptViaKeys(encryptedMsg, armoredPublicKey, privateKeyPassphrase);
+    await decryptViaKeys({
+      content: encryptedMsg,
+      publicKey: armoredPublicKey,
+      privateKey: privateKeyPassphrase,
+    });
   } catch (e) {
     expect(e).toBeInstanceOf(IncorrectOrMissingPrivateKeyPasswordError);
   }
@@ -160,7 +182,11 @@ aGW80jwBXEQ7uTjT8akpOKiH7BIuhEUZIXh+vDveG0Uwf63s2dIklznAEo+E
 `;
 
   try {
-    await decryptViaKeys(encryptedMsg, armoredPrivateKey, privateKeyPassphrase);
+    await decryptViaKeys({
+      content: encryptedMsg,
+      privateKey: armoredPrivateKey,
+      privateKeyPassphrase,
+    });
   } catch (e) {
     expect(e).toBeInstanceOf(NoPasswordProvidedError);
   }
@@ -170,14 +196,17 @@ test('Should encrypt and decrypt text by provided configs via password', async (
   const text = 'Hello world';
   const password = '123';
 
-  const res = await encrypt(text, {
+  const res = await encrypt({
+    content: text,
     type: 'gpgPassword',
     password,
+    format: 'armored',
   });
 
   expect(res.startsWith('-----BEGIN PGP MESSAGE-----')).toBeTruthy();
 
-  const decryptedMessage = await decrypt(res, {
+  const decryptedMessage = await decrypt({
+    content: res,
     type: 'gpgPassword',
     password,
   });
@@ -187,8 +216,10 @@ test('Should encrypt and decrypt text by provided configs via password', async (
 
 test('Should encrypt and decrypt text by provided configs via keys', async () => {
   const text = 'Hello world';
-  const res = await encrypt(text, {
+  const res = await encrypt({
+    content: text,
     type: 'gpgKeys',
+    format: 'armored',
     publicKey: armoredPublicKey,
     privateKey: armoredPrivateKey,
     privateKeyPassphrase,
@@ -196,12 +227,82 @@ test('Should encrypt and decrypt text by provided configs via keys', async () =>
 
   expect(res.startsWith('-----BEGIN PGP MESSAGE-----')).toBeTruthy();
 
-  const decryptedMessage = await decrypt(res, {
+  const decryptedMessage = await decrypt({
+    content: res,
     type: 'gpgKeys',
     publicKey: armoredPublicKey,
     privateKey: armoredPrivateKey,
     privateKeyPassphrase,
+    format: 'utf8',
   });
 
   expect(decryptedMessage).toEqual(text);
+});
+
+test('Should encrypt to binary and decrypt to format armored!', async () => {
+  const text = 'Hello world';
+
+  const res = await encrypt({
+    content: text,
+    type: 'gpgPassword',
+    password: '123',
+    format: 'binary',
+  });
+
+  expect(res).toBeInstanceOf(Uint8Array);
+
+  const decryptedMessage = await decrypt({
+    content: res,
+    type: 'gpgPassword',
+    format: 'utf8',
+    password: '123',
+  });
+
+  expect(decryptedMessage).toEqual(text);
+});
+
+test('Should encrypt to binary and decrypt to binary format', async () => {
+  const text = 'Hello world';
+
+  const res = await encrypt({
+    content: text,
+    type: 'gpgPassword',
+    password: '123',
+    format: 'binary',
+  });
+
+  expect(res).toBeInstanceOf(Uint8Array);
+
+  const decryptedMessage = await decrypt({
+    content: res,
+    type: 'gpgPassword',
+    format: 'binary',
+    password: '123',
+  });
+
+  expect(decryptedMessage.toString()).toMatchInlineSnapshot(
+    `"72,101,108,108,111,32,119,111,114,108,100"`
+  );
+});
+
+test('Should encrypt to armored text and decrypt as binary format', async () => {
+  const text = 'Hello world';
+
+  const res = await encrypt({
+    content: text,
+    type: 'gpgPassword',
+    password: '123',
+    format: 'armored',
+  });
+
+  expect(res).toBeTypeOf('string');
+
+  const decryptedMessage = await decrypt({
+    content: res,
+    type: 'gpgPassword',
+    format: 'binary',
+    password: '123',
+  });
+
+  expect(decryptedMessage).toBeInstanceOf(Uint8Array);
 });
