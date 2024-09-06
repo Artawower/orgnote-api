@@ -14,7 +14,7 @@ import {
   OrgNotePasswordEncryption,
   WithDecryptionContent,
 } from '../models/encryption';
-import { OrgNoteGpgEncryption, WithEncryptionContent } from 'src/models';
+import { OrgNoteGpgEncryption, WithEncryptionContent } from '../models';
 import { armor as _armor, unarmor as _unarmor, enums } from 'openpgp';
 
 export class IncorrectOrMissingPrivateKeyPasswordError extends Error {}
