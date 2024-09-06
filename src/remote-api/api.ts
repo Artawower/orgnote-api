@@ -56,6 +56,12 @@ export interface HandlersCreatingNote {
     'createdAt'?: string;
     /**
      * 
+     * @type {boolean}
+     * @memberof HandlersCreatingNote
+     */
+    'encrypted'?: boolean;
+    /**
+     * 
      * @type {string}
      * @memberof HandlersCreatingNote
      */
@@ -612,6 +618,12 @@ export interface ModelsPublicNote {
      * @memberof ModelsPublicNote
      */
     'createdAt'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ModelsPublicNote
+     */
+    'encrypted'?: boolean;
     /**
      * Encrypted note content
      * @type {string}
