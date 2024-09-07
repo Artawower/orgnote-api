@@ -329,3 +329,24 @@ test('Should armor and unarmor encrypted file', async () => {
 
   expect(data).toEqual(content);
 });
+
+test('Should decrypt value from provided real world data and passwords', async () => {
+  const text = `Hello world!`;
+  const password = 'qweqwebebe1';
+
+  const encryptedContent = await encrypt({
+    content: text,
+    type: 'gpgPassword',
+    password,
+  });
+
+  const armoredContent = armor(encryptedContent as unknown as Uint8Array);
+
+  const decryptedMessage = await decrypt({
+    content: armoredContent,
+    type: 'gpgPassword',
+    password,
+  });
+
+  expect(decryptedMessage).toEqual('Hello world!');
+});
