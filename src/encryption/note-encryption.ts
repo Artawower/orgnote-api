@@ -19,6 +19,7 @@ export interface AbstractEncryptedNote {
 }
 
 export type EncryptionResult<T> = Promise<[T, string]>;
+export type DecryptionResult<T> = Promise<[T, string | Uint8Array]>;
 
 // TODO: master change signature for encrypt notes without content
 export async function encryptNote<T extends AbstractEncryptedNote>(
@@ -46,7 +47,7 @@ export async function encryptNote<T extends AbstractEncryptedNote>(
 export async function decryptNote<T extends AbstractEncryptedNote>(
   note: T,
   encryptionParams: WithNoteDecryptionContent<OrgNoteEncryption>
-): EncryptionResult<T> {
+): DecryptionResult<T> {
   const isContentEncrypted = isGpgEncrypted(encryptionParams.content);
   if (
     note.meta.published ||

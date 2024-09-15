@@ -9,3 +9,5 @@ export * from './widget-type';
 export * from './editor';
 export * from './default-commands';
 export * from './encryption';
+export * from './file-system';
+export * from './sync';

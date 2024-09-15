@@ -19,8 +19,8 @@
       "src/*": ["src/*"],
       "remote-api/*": ["src/remote-api/*"]
     },
-    "types": ["node"]
+    "types": ["node", "vitest/importMeta"]
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "exclude": ["node_modules"]
 }

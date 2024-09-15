@@ -177,6 +177,7 @@ async function _decryptViaPassword<
   >;
 }
 
+// TODO: master OrgNoteGpgDecryption type
 async function _decryptViaKeys<
   T extends Omit<WithDecryptionContent<OrgNoteGpgEncryption>, 'type'>,
 >({

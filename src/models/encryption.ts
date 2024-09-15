@@ -15,7 +15,7 @@ export interface OrgNoteGpgEncryption {
   /* Armored private key */
   privateKey: string;
   /* Armored public key */
-  publicKey: string;
+  publicKey?: string;
   privateKeyPassphrase?: string;
 }
 
@@ -41,10 +41,14 @@ export type WithEncryptionContent<
   T extends OrgNoteEncryption = OrgNoteEncryption,
 > = T & EncryptionData & BaseOrgNoteEncryption;
 
+export type DecriptionData = {
+  content: string | Uint8Array;
+};
+
 export type WithDecryptionContent<
   T extends OrgNoteEncryption = OrgNoteEncryption,
-> = T & EncryptionData & BaseOrgNoteDecryption;
+> = T & DecriptionData & BaseOrgNoteDecryption;
 
 export type WithNoteDecryptionContent<
   T extends OrgNoteEncryption = OrgNoteEncryption,
-> = T & EncryptionData;
+> = T & DecriptionData;

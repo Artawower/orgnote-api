@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Should join file paths 1`] = `"dir1/subdir2/file"`;
+
+exports[`Should join file paths 2`] = `"dir2/file"`;
+
+exports[`Should join file paths 3`] = `"/dri3/subdir2/file"`;
+
+exports[`Should join file paths 4`] = `"file"`;
