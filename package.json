@@ -1,9 +1,9 @@
 {
   "name": "orgnote-api",
-  "version": "0.17.1",
+  "version": "0.17.2",
   "description": "Official API for creating extensions for OrgNote app",
   "type": "module",
-  "main": "./index.ts",
+  "main": "./dist/index.js",
   "scripts": {
     "test": "vitest",
     "build": "npm run clear && tsc --project tsconfig.json",
@@ -17,19 +17,11 @@
     "type": "git",
     "url": "git+https://github.com/artawower/orgnote-api.git"
   },
-  "files": [
-    "index.ts",
-    "api.ts",
-    "files-api.ts",
-    "remote-api/**",
-    "models/**",
-    "encryption/**",
-    "tools/**"
-  ],
+  "files": ["dist/**"],
   "exports": {
-    ".": "./index.ts",
-    "./remote-api": "./remote-api/index.ts",
-    "./encryption": "./encryption/index.ts"
+    ".": "./dist/index.js",
+    "./remote-api": "./dist/remote-api/index.js",
+    "./encryption": "./dist/encryption/index.js"
   },
   "keywords": ["orgnote", "org-mode", "org-roam", "api", "extensions"],
   "author": "darkawower <app.orgnote@gmail.com> (https://org-note.com)",
