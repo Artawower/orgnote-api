@@ -19,10 +19,11 @@ import {
   armoredPrivateKey,
   privateKeyPassphrase,
 } from './encryption-keys';
-// import { armor } from 'openpgp';
+import { ModelsPublicNoteEncryptionTypeEnum } from 'src/remote-api';
 
 test('Should encrypt text as armored message via keys', async () => {
   const res = await encryptViaKeys({
+    type: ModelsPublicNoteEncryptionTypeEnum.GpgKeys,
     content: 'Hello world',
     publicKey: armoredPublicKey,
     privateKey: armoredPrivateKey,
@@ -35,6 +36,7 @@ test('Should encrypt text as armored message via keys', async () => {
 
 test('Should encrypt text via keys', async () => {
   const res = await encryptViaKeys({
+    type: ModelsPublicNoteEncryptionTypeEnum.GpgKeys,
     content: 'Hello world',
     publicKey: armoredPublicKey,
     privateKey: armoredPrivateKey,
@@ -88,6 +90,7 @@ YQ==
 test('Should encrypt via password', async () => {
   const password = 'test';
   const res = await encryptViaPassword({
+    type: ModelsPublicNoteEncryptionTypeEnum.GpgPassword,
     content: 'Hello world',
     password,
     format: 'armored',
@@ -325,7 +328,7 @@ test('Should armor and unarmor encrypted file', async () => {
     "
   `);
 
-  const { text, data } = await unarmor(armored);
+  const { data } = await unarmor(armored);
 
   expect(data).toEqual(content);
 });

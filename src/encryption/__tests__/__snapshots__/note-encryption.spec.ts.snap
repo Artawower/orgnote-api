@@ -46,22 +46,6 @@ exports[`Should decrypt note via provided keys 1`] = `
 ]
 `;
 
-exports[`Should encrypt note and decrypt it into binary format 1`] = `
-{
-  "author": {
-    "email": "test@mail.com",
-    "id": "1",
-    "name": "John Doe",
-  },
-  "encrypted": true,
-  "id": "id",
-  "meta": {
-    "id": undefined,
-    "published": false,
-  },
-}
-`;
-
 exports[`Should encrypt note content via password 1`] = `
 {
   "author": {

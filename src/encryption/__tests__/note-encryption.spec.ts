@@ -289,7 +289,6 @@ test('Should not decrypt note without provided encrypted type', async () => {
     content: noteText,
     type: 'gpgPassword',
     password: '123',
-    format: 'armored',
   });
 
   expect(decryptedInfo).toMatchSnapshot();

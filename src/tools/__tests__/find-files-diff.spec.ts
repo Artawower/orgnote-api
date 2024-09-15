@@ -1,9 +1,10 @@
 import { afterEach, beforeEach, expect, test } from 'vitest';
 import { mkdirSync, rmdirSync, statSync, utimesSync, writeFileSync } from 'fs';
 import { join } from 'path';
-import { findNotesFilesDiff, StoredNoteInfo } from '../find-notes-files-diff';
+import { findFilesDiff } from '../find-notes-files-diff';
+import { StoredNoteInfo } from '../../models';
 
-const testFilesFolder = 'src/tools/__tests__/miscellaneous/';
+const testFilesFolder = 'src/tools/__tests__/miscellaneous2/';
 
 function initFiles(): void {
   mkdirSync(testFilesFolder);
@@ -73,7 +74,7 @@ test('Should find files diff', () => {
     },
   ];
 
-  const changedFiles = findNotesFilesDiff(
+  const changedFiles = findFilesDiff(
     [
       testFilesFolder + 'org-file.org',
       testFilesFolder + 'org-file2.org',
@@ -118,7 +119,7 @@ test('Should find files diff when folder was renamed', () => {
 
   rmdirSync(testFilesFolder + 'nested-folder', { recursive: true });
 
-  const changedFiles = findNotesFilesDiff(
+  const changedFiles = findFilesDiff(
     [],
     storedNoteInfos,
     (filePath: string) => new Date(statSync(filePath).mtime)
@@ -128,8 +129,8 @@ test('Should find files diff when folder was renamed', () => {
     {
       "created": [],
       "deleted": [
-        "src/tools/__tests__/miscellaneous/nested-folder/org-file.org",
-        "src/tools/__tests__/miscellaneous/nested-folder/org-file2.org",
+        "src/tools/__tests__/miscellaneous2/nested-folder/org-file.org",
+        "src/tools/__tests__/miscellaneous2/nested-folder/org-file2.org",
       ],
       "updated": [],
     }
@@ -146,7 +147,7 @@ test('Should find created note when nested folder created', () => {
 
   const storedNoteInfos: StoredNoteInfo[] = [];
 
-  const changedFiles = findNotesFilesDiff(
+  const changedFiles = findFilesDiff(
     [testFilesFolder + 'new-nested-folder/org-file.org'],
     storedNoteInfos,
     (filePath: string) => new Date(statSync(filePath).mtime)
@@ -162,7 +163,7 @@ test('Should find created note when nested folder created', () => {
 test('Should find nothing when no files provided', () => {
   const storedNoteInfos: StoredNoteInfo[] = [];
 
-  const changedFiles = findNotesFilesDiff(
+  const changedFiles = findFilesDiff(
     [],
     storedNoteInfos,
     (filePath: string) => new Date(statSync(filePath).mtime)
