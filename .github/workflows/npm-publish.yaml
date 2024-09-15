@@ -20,10 +20,8 @@ jobs:
         run: bun install --frozen-lockfile
       - name: build script
         run: bun run build
-      - name: run prepublish
-        run:  npm run prepublish
       - name: ls dist directory
         run: ls
-      - run: npm publish
+      - run: npm run pub
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
