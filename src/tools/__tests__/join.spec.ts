@@ -14,3 +14,9 @@ test('Should join file paths', () => {
     expect(result).toMatchSnapshot();
   });
 });
+
+test('Should not take slashes from the path array into account.', () => {
+  const path = ['/', 'this', '/', 'is-path', 'qwe'];
+  const result = join(...path);
+  expect(result).toBe('this/is-path/qwe');
+});

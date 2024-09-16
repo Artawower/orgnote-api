@@ -1,3 +1,7 @@
 export function join(...path: string[]): string {
-  return path.join('/').replace(/\/+/g, '/').replace(/\/+$/, '');
+  return path
+    .filter((p) => p !== '/')
+    .join('/')
+    .replace(/\/+/g, '/')
+    .replace(/\/+$/, '');
 }
