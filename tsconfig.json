@@ -19,7 +19,10 @@
       "src/*": ["src/*"],
       "remote-api/*": ["src/remote-api/*"]
     },
-    "types": ["node", "vitest/importMeta"]
+    "types": ["node", "vitest/importMeta"],
+    "plugins": [
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ]
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
