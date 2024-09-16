@@ -30,3 +30,9 @@ test('should handle array with multiple elements correctly', () => {
   const result = getStringPath(path);
   expect(result).toBe('this/is/a/test');
 });
+
+test('Should not take slashes from the path array into account.', () => {
+  const path = ['/', 'this', '/', 'is-path', 'qwe'];
+  const result = getStringPath(path);
+  expect(result).toBe('this/is-path/qwe');
+});

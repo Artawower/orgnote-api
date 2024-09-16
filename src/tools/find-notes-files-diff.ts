@@ -143,7 +143,8 @@ export async function readOrgFilesRecursively({
       continue;
     }
 
-    collectedPaths.push(getFullPath(f.name));
+    const fullFilePath = getFullPath(f.name);
+    collectedPaths.push(fullFilePath);
   }
 
   return collectedPaths;
