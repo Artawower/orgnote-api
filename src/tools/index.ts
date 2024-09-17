@@ -4,4 +4,5 @@ export * from './is-org-file';
 export * from './get-string-path';
 export * from './get-file-name';
 export * from './find-notes-files-diff';
-export * from './join';
+export * from './join-path';
+export * from './split-path';
