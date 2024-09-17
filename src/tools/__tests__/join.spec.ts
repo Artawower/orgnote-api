@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest';
-import { join } from '../join';
+import { join } from '../join-path';
 
 test('Should join file paths', () => {
   const samples = [

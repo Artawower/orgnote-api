@@ -9,7 +9,7 @@ import {
 } from 'src/models';
 import { getStringPath } from './get-string-path';
 import { isOrgFile } from './is-org-file';
-import { join } from './join';
+import { join } from './join-path';
 
 export async function findNoteFilesDiff({
   fileInfo,

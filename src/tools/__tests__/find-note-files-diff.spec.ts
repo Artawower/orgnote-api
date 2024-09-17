@@ -6,7 +6,7 @@ import { statSync } from 'fs';
 import { Stats } from 'fs';
 import { rmSync } from 'fs';
 import { getFileName } from '../get-file-name';
-import { join } from '../join';
+import { join } from '../join-path';
 
 const testFilesFolder = 'src/tools/__tests__/miscellaneous/';
 const nestedFolder = 'nested-folder/';
