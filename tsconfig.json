@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "module": "es2022",
+    "module": "esnext",
     "lib": ["es2022", "dom"],
-    "target": "es2022",
+    "target": "esnext",
     "outDir": "dist",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -21,7 +21,12 @@
     },
     "types": ["node", "vitest/importMeta"],
     "plugins": [
-      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+      { "transform": "typescript-transform-paths" },
+      { "transform": "typescript-transform-paths", "afterDeclarations": true },
+      {
+        "transform": "typescript-transformer-esm",
+        "after": true
+      }
     ]
   },
   "include": ["src/**/*"],
