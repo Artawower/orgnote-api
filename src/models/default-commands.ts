@@ -41,4 +41,7 @@ export enum DefaultCommands {
   // Native mobile specific
   SELECT_FILE_PATH = 'select file path',
   PICK_SYNC_DIR = 'pick sync dir',
+
+  // File sync
+  SYNC_FILES = 'sync files',
 }

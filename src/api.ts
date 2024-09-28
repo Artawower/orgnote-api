@@ -6,16 +6,22 @@ import {
   InlineEmbeddedWidget,
   MultilineEmbeddedWidget,
   OrgLineClass,
+  FileSystem,
   WidgetBuilder,
   CommandPreview,
   OrgNoteEncryption,
   Modal,
+  SyncStoreDefinition,
+  FilesStoreDefinition,
+  FileOpenerStoreDefinition,
+  FileManageStoreDefinition,
 } from './models';
 import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
 import type { Component } from 'vue';
 import { NodeType } from 'org-mode-ast';
 import { EditorExtension } from './models/editor';
+import { AuthStoreDefinition } from './models/auth-store';
 
 type WithNodeType<T> = { nodeType: NodeType } & T;
 
@@ -68,9 +74,14 @@ export interface OrgNoteApi {
       ) => WidgetBuilder;
     };
   };
-  // Available only on mobile apps
-  fileSystem: {
-    readPath: () => Promise<string>;
+  /* Native file system API without additional batteries */
+  core: {
+    useFileSystem: () => FileSystem;
+    useSyncStore: SyncStoreDefinition;
+    useFilesStore: FilesStoreDefinition;
+    useFileOpenerStore: FileOpenerStoreDefinition;
+    useFileManagerStore: FileManageStoreDefinition;
+    useAuthStore: AuthStoreDefinition;
   };
   commands: {
     add(...commands: Command[]): void;

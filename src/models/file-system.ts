@@ -10,10 +10,13 @@ export interface FileInfo {
 }
 
 export interface FileSystem {
-  readFile: <T extends 'utf8'>(
+  readFile: <
+    T extends 'utf8' | 'binary' = 'utf8',
+    R = T extends 'utf8' ? string : Uint8Array,
+  >(
     path: string,
     encoding?: T
-  ) => Promise<T extends 'utf8' ? string : Uint8Array>;
+  ) => Promise<R>;
   writeFile: (
     path: string,
     content: string | Uint8Array,
@@ -27,4 +30,9 @@ export interface FileSystem {
   mkdir: (path: string) => Promise<void>;
   isDirExist: (path: string) => Promise<boolean>;
   isFileExist: (path: string) => Promise<boolean>;
+  utimeSync: (
+    path: string,
+    atime?: string | number | Date,
+    mtime?: string | number | Date
+  ) => Promise<void>;
 }
