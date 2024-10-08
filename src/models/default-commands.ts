@@ -42,6 +42,8 @@ export enum DefaultCommands {
   SELECT_FILE_PATH = 'select file path',
   PICK_SYNC_DIR = 'pick sync dir',
 
-  // File sync
+  // File management
   SYNC_FILES = 'sync files',
+  ENCRYPT_NOTE = 'encrypt note',
+  DECRYPT_NOTE = 'decrypt note',
 }

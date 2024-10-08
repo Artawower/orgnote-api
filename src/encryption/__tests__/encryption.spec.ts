@@ -11,6 +11,7 @@ import {
   _encryptViaKeys,
   armor,
   unarmor,
+  ImpossibleToDecryptWithProvidedKeysError,
 } from '../encryption';
 import { test, expect } from 'vitest';
 
@@ -352,4 +353,60 @@ test('Should decrypt value from provided real world data and passwords', async (
   });
 
   expect(decryptedMessage).toEqual('Hello world!');
+});
+
+test.only('Should raise error when incorrect encryption key are provided', async () => {
+  const armoredContent = `-----BEGIN PGP MESSAGE-----
+
+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
+=vQdH
+-----END PGP MESSAGE-----
+`;
+
+  try {
+    const decryptedMessage = await decrypt({
+      content: armoredContent,
+      type: 'gpgPassword',
+      format: 'utf8',
+      password: 'qweqwebebe1',
+    });
+  } catch (e) {
+    expect(e).toBeInstanceOf(ImpossibleToDecryptWithProvidedKeysError);
+  }
 });
