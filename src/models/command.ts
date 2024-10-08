@@ -29,11 +29,10 @@ export interface CommandMeta<T = any> extends Partial<CommandPreview> {
   /* Where is this command available, default value is global */
   group?: CommandGroup;
   allowOnInput?: boolean;
-  ignorePrompt?: boolean;
   interactive?: boolean;
   /* When command is system command, it will not be shown for users */
   system?: boolean;
-  available?: () => boolean;
+  disabled?: () => boolean;
   context?: {
     [key: string]: T;
   };
