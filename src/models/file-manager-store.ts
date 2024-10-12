@@ -7,7 +7,7 @@ export interface FileManagerStore {
   renameFile: (fileNode: FileNode, newName: string) => Promise<void>;
   deleteFile: (fileNode: FileNode) => Promise<void>;
   updateFileManager: () => void;
-  createFolder: (name?: string) => Promise<void>;
+  createFolder: (filePath?: string[], name?: string) => Promise<void>;
   editedFileItem: Ref<FileNode>;
   stopEdit: () => void;
   expandedNodes: Ref<string[]>;

@@ -29,7 +29,7 @@ export interface CommandMeta<T = any> extends Partial<CommandPreview> {
   /* Where is this command available, default value is global */
   group?: CommandGroup;
   allowOnInput?: boolean;
-  interactive?: boolean;
+  interactive?: boolean; // TODO: add support for interactive commands
   /* When command is system command, it will not be shown for users */
   system?: boolean;
   disabled?: () => boolean;
