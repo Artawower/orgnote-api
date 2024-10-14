@@ -20,3 +20,9 @@ test('Should not take slashes from the path array into account.', () => {
   const result = join(...path);
   expect(result).toBe('this/is-path/qwe');
 });
+
+test('Should not join empty string with additional slash', () => {
+  const path = ['', 'file'];
+  const result = join(...path);
+  expect(result).toBe('file');
+});
