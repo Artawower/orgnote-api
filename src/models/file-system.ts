@@ -9,6 +9,18 @@ export interface FileInfo {
   uri?: string;
 }
 
+export class ErrorDirectoryNotFound extends Error {
+  constructor(path: string) {
+    super(`Directory not found: ${path}`);
+  }
+}
+
+export class ErrorFileNotFound extends Error {
+  constructor(path: string) {
+    super(`File not found: ${path}`);
+  }
+}
+
 export interface FileSystem {
   readFile: <
     T extends 'utf8' | 'binary' = 'utf8',
