@@ -47,4 +47,5 @@ export interface FileSystem {
     atime?: string | number | Date,
     mtime?: string | number | Date
   ) => Promise<void>;
+  init?: <T = any>(params?: T) => Promise<void>;
 }
