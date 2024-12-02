@@ -1,16 +1,16 @@
 
 # Table of Contents
 
-1.  [Introduction](#orged65399)
-2.  [Connected links](#orgc368352)
-3.  [Extension structure](#org1370386)
-    1.  [Folder structure](#org6a7f73b)
-    2.  [Extension entrypoint](#orge2d0f79)
-    3.  [Extension manifest](#org1e76d43)
-    4.  [Extension API](#orgbb09389)
-4.  [Publish to official repository](#orgdd94657)
-5.  [Extensions example](#orgf459c20)
-6.  [Contribute guide](#org383a272)
+1.  [Introduction](#org62da588)
+2.  [Connected links](#org54509d5)
+3.  [Extension structure](#org587544b)
+    1.  [Folder structure](#org483da30)
+    2.  [Extension entrypoint](#org2fbadcd)
+    3.  [Extension manifest](#orge2e2fac)
+    4.  [Extension API](#org01fbce3)
+4.  [Publish to official repository](#orgd9cb5ec)
+5.  [Extensions example](#org8bb01bd)
+6.  [Contribute guide](#org6a78576)
 
 <div align='center'>
 
@@ -34,14 +34,34 @@
 
 </span>
 
-<a href='https://wakatime.com/badge/github/Artawower/orgnote-api'><img src='https://wakatime.com/badge/github/Artawower/orgnote-api.svg' alt='wakatime'></a>
+<a href="https://wakatime.com/badge/github/Artawower/orgnote-api"><img src="https://wakatime.com/badge/github/Artawower/orgnote-api.svg" alt="wakatime"></a>
 
-<a href='https://github.com/artawower/orgnote-api/actions/workflows/melpazoid.yml/badge.svg'><img src='https://github.com/artawower/orgnote-api/actions/workflows/melpazoid.yml/badge.svg' alt='ci' /></a>
+</div>
+
+<div align='center'>
+
+<a href="https://twitter.com/org_note" target="_blank"><img src="https://img.shields.io/twitter/follow/org_note" alt="Twitter link" /></a>
+
+<a href="https://emacs.ch/@orgnote" target="_blank"><img alt="Mastodon Follow" src="https://img.shields.io/mastodon/follow/113090697216193319?domain=https%3A%2F%2Ffosstodon.org&style=social"></a>
+
+<a href="https://discord.com/invite/SFpUb2vSDm" target="_blank"><img src="https://img.shields.io/discord/1161751315324604417" alt="Discord"></a>
+
+<a href="https://www.youtube.com/@OrgNote" target="_blank"><img alt="YouTube Channel Views" src="https://img.shields.io/youtube/channel/views/UCN14DUE5umdrlEm7odW3gOw"></a>
+
+</div>
+
+<div align='center'>
+
+<a href="https://play.google.com/store/apps/details?id=org.note.app" target="_blank">
+
+<img src="./images/google-play.svg" width="140px" height="auto">
+
+</a>
 
 </div>
 
 
-<a id="orged65399"></a>
+<a id="org62da588"></a>
 
 # Introduction
 
@@ -52,7 +72,7 @@ This is API for [OrgNote](https://github.com/artawower/orgnote) extensions.
 You can find all available methods here. They are currently undocumented.
 
 
-<a id="orgc368352"></a>
+<a id="org54509d5"></a>
 
 # Connected links
 
@@ -65,19 +85,19 @@ You can find all available methods here. They are currently undocumented.
 -   [Typescript abstract syntax tree for org mode.](https://github.com/Artawower/org-mode-ast)
 
 
-<a id="org1370386"></a>
+<a id="org587544b"></a>
 
 # Extension structure
 
 
-<a id="org6a7f73b"></a>
+<a id="org483da30"></a>
 
 ## Folder structure
 
 **Compiled extension should be placed in the `index.js` file or `/dist/index.js` file in the public GIT repository**
 
 
-<a id="orge2d0f79"></a>
+<a id="org2fbadcd"></a>
 
 ## Extension entrypoint
 
@@ -93,7 +113,7 @@ Each extension should **export an object by default** with the following structu
 You can find available methods of `OrgNoteApi` [here](https://github.com/Artawower/orgnote-api/blob/master/src/api.ts#L24)
 
 
-<a id="org1e76d43"></a>
+<a id="orge2e2fac"></a>
 
 ## Extension manifest
 
@@ -123,12 +143,12 @@ Also, each extension should export manifest const:
     }
 
 
-<a id="orgbb09389"></a>
+<a id="org01fbce3"></a>
 
 ## Extension API
 
 
-<a id="orgdd94657"></a>
+<a id="orgd9cb5ec"></a>
 
 # Publish to official repository
 
@@ -136,7 +156,7 @@ OrgNote has an official [repository](https://github.com/Artawower/orgnote-extens
 with `ExtensionManifest`
 
 
-<a id="orgf459c20"></a>
+<a id="org8bb01bd"></a>
 
 # Extensions example
 
@@ -149,7 +169,7 @@ with `ExtensionManifest`
 -   [Colorful Headlines (typescript + API package)](https://github.com/Artawower/orgnote-colorful-headlines)
 
 
-<a id="org383a272"></a>
+<a id="org6a78576"></a>
 
 # Contribute guide
 
