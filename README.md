@@ -1,16 +1,16 @@
 
 # Table of Contents
 
-1.  [Introduction](#org62da588)
-2.  [Connected links](#org54509d5)
-3.  [Extension structure](#org587544b)
-    1.  [Folder structure](#org483da30)
-    2.  [Extension entrypoint](#org2fbadcd)
-    3.  [Extension manifest](#orge2e2fac)
-    4.  [Extension API](#org01fbce3)
-4.  [Publish to official repository](#orgd9cb5ec)
-5.  [Extensions example](#org8bb01bd)
-6.  [Contribute guide](#org6a78576)
+1.  [Introduction](#orgc594aa4)
+2.  [Connected links](#orgc85c296)
+3.  [Extension structure](#org995dbfb)
+    1.  [Folder structure](#orgbf00b5e)
+    2.  [Extension entrypoint](#org6167fba)
+    3.  [Extension manifest](#org76005de)
+    4.  [Extension API](#org222bab3)
+4.  [Publish to official repository](#org1e5d376)
+5.  [Extensions example](#org3022e0a)
+6.  [🍩 Contribute guide](#org576c632)
 
 <div align='center'>
 
@@ -61,7 +61,7 @@
 </div>
 
 
-<a id="org62da588"></a>
+<a id="orgc594aa4"></a>
 
 # Introduction
 
@@ -72,7 +72,7 @@ This is API for [OrgNote](https://github.com/artawower/orgnote) extensions.
 You can find all available methods here. They are currently undocumented.
 
 
-<a id="org54509d5"></a>
+<a id="orgc85c296"></a>
 
 # Connected links
 
@@ -85,19 +85,19 @@ You can find all available methods here. They are currently undocumented.
 -   [Typescript abstract syntax tree for org mode.](https://github.com/Artawower/org-mode-ast)
 
 
-<a id="org587544b"></a>
+<a id="org995dbfb"></a>
 
 # Extension structure
 
 
-<a id="org483da30"></a>
+<a id="orgbf00b5e"></a>
 
 ## Folder structure
 
 **Compiled extension should be placed in the `index.js` file or `/dist/index.js` file in the public GIT repository**
 
 
-<a id="org2fbadcd"></a>
+<a id="org6167fba"></a>
 
 ## Extension entrypoint
 
@@ -113,7 +113,7 @@ Each extension should **export an object by default** with the following structu
 You can find available methods of `OrgNoteApi` [here](https://github.com/Artawower/orgnote-api/blob/master/src/api.ts#L24)
 
 
-<a id="orge2e2fac"></a>
+<a id="org76005de"></a>
 
 ## Extension manifest
 
@@ -143,12 +143,12 @@ Also, each extension should export manifest const:
     }
 
 
-<a id="org01fbce3"></a>
+<a id="org222bab3"></a>
 
 ## Extension API
 
 
-<a id="orgd9cb5ec"></a>
+<a id="org1e5d376"></a>
 
 # Publish to official repository
 
@@ -156,7 +156,7 @@ OrgNote has an official [repository](https://github.com/Artawower/orgnote-extens
 with `ExtensionManifest`
 
 
-<a id="org8bb01bd"></a>
+<a id="org3022e0a"></a>
 
 # Extensions example
 
@@ -169,10 +169,10 @@ with `ExtensionManifest`
 -   [Colorful Headlines (typescript + API package)](https://github.com/Artawower/orgnote-colorful-headlines)
 
 
-<a id="org6a78576"></a>
+<a id="org576c632"></a>
 
-# Contribute guide
+# 🍩 Contribute guide
 
-Any contribution is very much appreciated! Please read the [style guide](./CONTRIBUTE.md) before contributing to avoid misunderstandings!
+Any contribution is very much appreciated! Please read the [style guide](https://github.com/Artawower/orgnote/wiki/Contribution-guide) before contributing to avoid misunderstandings!
 I would also appreciate it if you would consider becoming my [patron](https://www.patreon.com/artawower)
 
