@@ -103,6 +103,7 @@ with =ExtensionManifest=
 /UI/ 
 - [[https://github.com/Artawower/orgnote-colorful-headlines][Colorful Headlines (typescript + API package)]]
 
-* Contribute guide
-Any contribution is very much appreciated! Please read the [[./CONTRIBUTE.org][style guide]] before contributing to avoid misunderstandings!
+* 🍩 Contribute guide
+Any contribution is very much appreciated! Please read the [[https://github.com/Artawower/orgnote/wiki/Contribution-guide][style guide]] before contributing to avoid misunderstandings!
 I would also appreciate it if you would consider becoming my [[https://www.patreon.com/artawower][patron]]
+
