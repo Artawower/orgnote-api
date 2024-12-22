@@ -414,6 +414,7 @@ test('Should encrypt note to binary format', async () => {
   expect(encryptedNoteText).toBeInstanceOf(Uint8Array);
   expect(encryptedNote).toMatchSnapshot();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, decryptedNoteText] = await decryptNote(encryptedNote, {
     content: encryptedNoteText,
     type: 'gpgPassword',
