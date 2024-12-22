@@ -1,6 +1,6 @@
 import { VueComponent } from './vue-component';
 
-export interface ModalConfig<T = any> {
+export interface ModalConfig<T = unknown> {
   closable?: boolean;
   title?: string;
   modalProps?: T;

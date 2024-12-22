@@ -8,7 +8,6 @@ import {
   IncorrectOrMissingPrivateKeyPasswordError,
   encrypt,
   decrypt,
-  _encryptViaKeys,
   armor,
   unarmor,
   ImpossibleToDecryptWithProvidedKeysError,
@@ -400,7 +399,7 @@ KeknNUbrK5etSQFysC2pNdVkQ/HGG4uPnjR+6dppQ7kdJDjwRmw1WcYNlQ==
 `;
 
   try {
-    const decryptedMessage = await decrypt({
+    await decrypt({
       content: armoredContent,
       type: 'gpgPassword',
       format: 'utf8',

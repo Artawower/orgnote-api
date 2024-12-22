@@ -1,18 +1,15 @@
 import { DefaultCommands } from './default-commands';
-
-export const DEFAULT_KEYBINDING_GROUP = 'default';
+import { COMMAND_GROUPS } from '../constants/command-groups.contant';
 
 export type CommandGroup =
-  | 'settings'
-  | 'editor'
-  | 'global'
-  | 'note-detail'
-  | 'completion'
-  | string;
+  | (typeof COMMAND_GROUPS)[number]
+  | (string & Record<never, never>);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface CommandHandlerParams<T = any> {
   event?: KeyboardEvent;
   data?: T;
+  meta: CommandMeta<T>;
   [key: string]: unknown;
 }
 
@@ -23,6 +20,7 @@ export interface CommandPreview {
   icon?: string | (() => string);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface CommandMeta<T = any> extends Partial<CommandPreview> {
   // TODO: add support for multiple key sequences
   keySequence?: string | string[];
@@ -38,7 +36,8 @@ export interface CommandMeta<T = any> extends Partial<CommandPreview> {
   };
 }
 
-export interface Command<T = any> extends CommandMeta<T> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface Command<T = any, R = unknown> extends CommandMeta<T> {
   /* arguments depend on the current scope */
-  handler: (params?: CommandHandlerParams) => unknown | Promise<unknown>;
+  handler: (params?: CommandHandlerParams<T>) => R | Promise<R>;
 }
