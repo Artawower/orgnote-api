@@ -14,7 +14,9 @@ function initFiles(): void {
 function cleanFiles(): void {
   try {
     rmdirSync(testFilesFolder, { recursive: true });
-  } catch (e) {}
+  } catch {
+    return;
+  }
 }
 
 function createTestFile(

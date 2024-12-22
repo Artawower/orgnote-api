@@ -1,6 +1,6 @@
 {
   "name": "orgnote-api",
-  "version": "0.19.5",
+  "version": "0.19.6",
   "description": "Official API for creating extensions for OrgNote app",
   "type": "module",
   "main": "./index.js",
@@ -9,6 +9,7 @@
     "test": "vitest",
     "build": "npm run clear && tspc --project tsconfig.json",
     "clear": "rm -rf dist",
+    "lint": "eslint -c ./eslint.config.js \"./src*/**/*.{ts,js,cjs,mjs}\"",
     "codegen:api": "openapi-generator-cli generate",
     "codegen:css-doc": "node collect-css-variables.cjs --docs",
     "codegen:css-types": "node collect-css-variables.cjs --types",
@@ -29,17 +30,9 @@
     "./mappers": "./mappers/index.js",
     "./commands": "./commands/index.js"
   },
-  "files": [
-    "**"
-  ],
+  "files": ["**"],
   "types": "./index.d.ts",
-  "keywords": [
-    "orgnote",
-    "org-mode",
-    "org-roam",
-    "api",
-    "extensions"
-  ],
+  "keywords": ["orgnote", "org-mode", "org-roam", "api", "extensions"],
   "author": "darkawower <app.orgnote@gmail.com> (https://org-note.com)",
   "license": "GPL-3.0-or-later",
   "bugs": {
@@ -58,13 +51,17 @@
     "vue-router": "4.2.5"
   },
   "devDependencies": {
+    "@eslint/js": "9.17.0",
     "@openapitools/openapi-generator-cli": "2.13.4",
     "@types/node": "20.13.0",
+    "eslint": "9.17.0",
     "fix-esm-import-path": "1.10.0",
+    "globals": "15.14.0",
     "ts-patch": "3.2.1",
-    "typescript": "^5.3.3",
+    "typescript": "5.3.3",
+    "typescript-eslint": "8.18.1",
     "typescript-transform-paths": "3.5.1",
     "typescript-transformer-esm": "1.1.0",
-    "vitest": "^1.5.0"
+    "vitest": "1.5.0"
   }
 }
