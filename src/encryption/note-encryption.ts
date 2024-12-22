@@ -13,7 +13,7 @@ import { isGpgEncrypted } from '..';
 export interface AbstractEncryptedNote {
   encrypted?: boolean;
   meta: {
-    [key: string]: any;
+    [key: string]: unknown;
     published?: boolean;
   };
 }

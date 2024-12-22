@@ -59,6 +59,7 @@ export const encrypt = async <
     !encryptionParams.type ||
     encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.Disabled
   ) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return encryptionParams.content as any;
   }
 
@@ -81,6 +82,7 @@ export const decrypt = async <
     !decryptionParams.type ||
     decryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.Disabled
   ) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return decryptionParams.content as any;
   }
   const decryptedNote = (decryptionParams.type ===
@@ -106,6 +108,7 @@ async function _encryptViaPassword<
 
   const encryptedMessage = await _encrypt({
     message,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     format: format as any,
     passwords: [password],
   });
@@ -143,6 +146,7 @@ export async function _encryptViaKeys<
 
   const encryptedMessage = await _encrypt({
     message,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     format: format as any,
     encryptionKeys: publicKey,
     signingKeys: privateKey,

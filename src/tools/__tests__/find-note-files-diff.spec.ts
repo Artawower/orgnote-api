@@ -22,7 +22,9 @@ function initFiles(): void {
 function cleanFiles(): void {
   try {
     rmSync(testFilesFolder, { recursive: true });
-  } catch (e) {}
+  } catch {
+    return;
+  }
 }
 
 function createTestFile(
