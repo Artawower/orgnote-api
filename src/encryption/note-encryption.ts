@@ -13,7 +13,8 @@ import { isGpgEncrypted } from '..';
 export interface AbstractEncryptedNote {
   encrypted?: boolean;
   meta: {
-    [key: string]: unknown;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: any;
     published?: boolean;
   };
 }

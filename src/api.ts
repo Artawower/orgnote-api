@@ -86,6 +86,7 @@ export interface OrgNoteApi {
   commands: {
     add(...commands: Command[]): void;
     remove(...commands: Command[]): void;
+    // execute<T, R = void>(command: Command<T, R>): Promise<R>;
     get(name: string): Command;
     getAll(): Command[];
     addCommandToSidebar(...commands: CommandPreview[]): void;

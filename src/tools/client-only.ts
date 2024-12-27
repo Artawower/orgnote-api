@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-export const mockServer = <T extends (...params: any[]) => any>(
+export const clientOnly = <T extends (...params: any[]) => any>(
   fn?: T,
   defaultValue?: ReturnType<T>
 ) => {
