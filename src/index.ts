@@ -5,4 +5,5 @@ export * from './encryption';
 export * from './tools';
 export * from './files-api';
 export * from './mappers';
+export * from './constants';
 export { ast };

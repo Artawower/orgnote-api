@@ -23,6 +23,8 @@ export * from './files-store';
 export * from './file-opener-store';
 export * from './file-manager-store';
 export * from './auth-store';
+export * from './commands-store';
+export * from './commands-group-store';
 
 // Repositories
 export * from './repositories';
