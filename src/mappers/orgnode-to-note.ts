@@ -1,11 +1,16 @@
 import { OrgNode } from 'org-mode-ast';
-import { FileInfo, Note } from 'src/models';
+import { DiskFile, NoteInfo } from 'src/models';
 import { ModelsNoteMeta } from 'src/remote-api';
-import { splitPath } from 'src/tools';
+import { splitPath } from 'src/utils';
 
-export function orgnodeToNote(orgnode: OrgNode, fileInfo: FileInfo): Note {
+export function orgnodeToNoteInfo(
+  orgnode: OrgNode,
+  fileInfo: DiskFile,
+  isMy?: boolean
+): NoteInfo {
   return {
     id: orgnode.meta.id,
+    isMy,
     meta: orgnode.meta as unknown as ModelsNoteMeta,
     filePath: splitPath(fileInfo.path),
     touchedAt: fileInfo.atime && new Date(fileInfo.atime).toISOString(),

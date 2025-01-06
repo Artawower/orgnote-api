@@ -1,4 +1,4 @@
-export interface FileInfo {
+export interface DiskFile {
   name: string;
   path: string;
   type: 'directory' | 'file';
@@ -34,8 +34,8 @@ export interface FileSystem {
     content: string | Uint8Array,
     encoding?: BufferEncoding
   ) => Promise<void>;
-  readDir: (path: string) => Promise<FileInfo[]>;
-  fileInfo: (path: string) => Promise<FileInfo>;
+  readDir: (path: string) => Promise<DiskFile[]>;
+  fileInfo: (path: string) => Promise<DiskFile>;
   rename: (path: string, newPath: string) => Promise<void>;
   deleteFile: (path: string) => Promise<void>;
   rmdir: (path: string) => Promise<void>;

@@ -3,10 +3,9 @@ import { Command } from './command';
 import { Store } from './store';
 
 export interface CommandsStore {
-  register: (...newCommands: Command[]) => void;
-  unregister: (...commandsToUnregister: Command[]) => void;
-  getCommand: (name: string) => Command | undefined;
-  // TODO: use Ref type when it possible
+  add: (...newCommands: Command[]) => void;
+  remove: (...commandsToUnregister: Command[]) => void;
+  get: (name: string) => Command | undefined;
   commands: Ref<Command[]>;
 }
 

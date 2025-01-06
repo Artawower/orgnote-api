@@ -7,20 +7,19 @@ export interface NotesFilter {
   offset?: number;
 }
 
-export interface NotePreview {
+export interface NoteInfo {
   id: ModelsPublicNote['id'];
   meta: ModelsPublicNote['meta'];
   createdAt: ModelsPublicNote['createdAt'];
+  encryptionType?: ModelsPublicNote['encryptionType'];
   updatedAt: ModelsPublicNote['updatedAt'];
+  touchedAt: ModelsPublicNote['touchedAt'];
+  deletedAt?: string;
   filePath: ModelsPublicNote['filePath'];
-  isMy: ModelsPublicNote['isMy'];
+  isMy?: ModelsPublicNote['isMy'];
+  // TODO: feat/stable-beta think about removing this field
+  // maybe we need to do it in the blog style
   author?: ModelsPublicUser;
-  bookmarked?: boolean;
-  encrypted?: boolean;
-}
-
-export interface Note extends Omit<ModelsPublicNote, 'content'> {
-  deleted?: Date;
   bookmarked?: boolean;
   encrypted?: boolean;
 }

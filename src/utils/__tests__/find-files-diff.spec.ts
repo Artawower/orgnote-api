@@ -4,7 +4,7 @@ import { join } from 'path';
 import { findFilesDiff } from '../find-notes-files-diff';
 import { StoredNoteInfo } from '../../models';
 
-const testFilesFolder = 'src/tools/__tests__/miscellaneous2/';
+const testFilesFolder = 'src/utils/__tests__/miscellaneous2/';
 
 function initFiles(): void {
   mkdirSync(testFilesFolder);
@@ -131,8 +131,8 @@ test('Should find files diff when folder was renamed', () => {
     {
       "created": [],
       "deleted": [
-        "src/tools/__tests__/miscellaneous2/nested-folder/org-file.org",
-        "src/tools/__tests__/miscellaneous2/nested-folder/org-file2.org",
+        "src/utils/__tests__/miscellaneous2/nested-folder/org-file.org",
+        "src/utils/__tests__/miscellaneous2/nested-folder/org-file2.org",
       ],
       "updated": [],
     }

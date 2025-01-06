@@ -1,4 +1,4 @@
-export interface FileCache {
+export interface FileInfo {
   fileName: string;
   filePath: string;
   fileExtension: string;

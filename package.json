@@ -26,9 +26,10 @@
     ".": "./index.js",
     "./remote-api": "./remote-api/index.js",
     "./encryption": "./encryption/index.js",
-    "./tools": "./tools/index.js",
+    "./utils": "./utils/index.js",
     "./mappers": "./mappers/index.js",
-    "./commands": "./commands/index.js"
+    "./commands": "./commands/index.js",
+    "./constants": "./constants/index.js"
   },
   "files": ["**"],
   "types": "./index.d.ts",
@@ -43,10 +44,10 @@
     "@capacitor/filesystem": "6.0.0",
     "@codemirror/state": "6.4.1",
     "@codemirror/view": "6.26.3",
+    "@faker-js/faker": "9.3.0",
     "axios": "1.7.3",
     "openpgp": "5.11.1",
-    "org-mode-ast": "0.11.7",
-    "orgnote-api": "file:.yalc/orgnote-api",
+    "org-mode-ast": "0.11.8",
     "pinia": "2.3.0",
     "vue": "3.5.13",
     "vue-router": "4.2.5"
@@ -64,5 +65,8 @@
     "typescript-transform-paths": "3.5.1",
     "typescript-transformer-esm": "1.1.0",
     "vitest": "1.5.0"
+  },
+  "peerDependencies": {
+    "valibot": "1.0.0-beta.9"
   }
 }

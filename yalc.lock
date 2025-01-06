@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "org-mode-ast": {
+      "signature": "429474660e83631904119a54a3d79395",
+      "file": true,
+      "replaced": "0.11.7"
+    }
+  }
+}
