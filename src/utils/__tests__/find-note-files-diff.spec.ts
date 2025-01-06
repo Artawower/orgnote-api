@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync, utimesSync, readdirSync } from 'fs';
 import { afterEach, beforeEach, test, expect } from 'vitest';
-import { FileInfo, StoredNoteInfo } from '../../models';
+import { DiskFile, StoredNoteInfo } from '../../models';
 import { findNoteFilesDiff } from '../find-notes-files-diff';
 import { statSync } from 'fs';
 import { Stats } from 'fs';
@@ -8,7 +8,7 @@ import { rmSync } from 'fs';
 import { getFileName } from '../get-file-name';
 import { join } from '../join-path';
 
-const testFilesFolder = 'src/tools/__tests__/miscellaneous/';
+const testFilesFolder = 'src/utils/__tests__/miscellaneous/';
 const nestedFolder = 'nested-folder/';
 const fn = (fileName: string) => `${testFilesFolder}${fileName}`;
 const fns = (fileName: string) =>
@@ -41,7 +41,7 @@ function createTestFile(
 beforeEach(() => initFiles());
 afterEach(() => cleanFiles());
 
-const fileStatToFileInfo = (path: string, stat: Stats): FileInfo => ({
+const fileStatToFileInfo = (path: string, stat: Stats): DiskFile => ({
   path,
   name: getFileName(path),
   type: stat.isFile() ? 'file' : 'directory',
@@ -100,14 +100,14 @@ test('Should sync notes files', async () => {
     fileInfo: async (path: string) => {
       const stats = statSync(path);
 
-      const fileInfo: FileInfo = fileStatToFileInfo(path, stats);
+      const fileInfo: DiskFile = fileStatToFileInfo(path, stats);
 
       return Promise.resolve(fileInfo);
     },
     readDir: async (path: string) => {
       const dirents = readdirSync(path, { withFileTypes: true });
 
-      const fileInfos: FileInfo[] = dirents.map((dirent) => {
+      const fileInfos: DiskFile[] = dirents.map((dirent) => {
         const stats = statSync(join(path, dirent.name));
         const fileInfo = fileStatToFileInfo(join(path, dirent.name), stats);
         return fileInfo;
@@ -123,21 +123,21 @@ test('Should sync notes files', async () => {
     {
       "created": [
         {
-          "filePath": "src/tools/__tests__/miscellaneous/file-2.org",
+          "filePath": "src/utils/__tests__/miscellaneous/file-2.org",
         },
         {
-          "filePath": "src/tools/__tests__/miscellaneous/nested-folder/file-4.org",
+          "filePath": "src/utils/__tests__/miscellaneous/nested-folder/file-4.org",
         },
       ],
       "deleted": [
         {
-          "filePath": "src/tools/__tests__/miscellaneous/nested-folder/file-10.org",
+          "filePath": "src/utils/__tests__/miscellaneous/nested-folder/file-10.org",
           "id": "10",
         },
       ],
       "updated": [
         {
-          "filePath": "src/tools/__tests__/miscellaneous/file-9.org",
+          "filePath": "src/utils/__tests__/miscellaneous/file-9.org",
         },
       ],
     }
@@ -185,12 +185,12 @@ test('Should detect no changes when all files match stored info', async () => {
   const notesFilesDiff = await findNoteFilesDiff({
     fileInfo: async (path: string) => {
       const stats = statSync(path);
-      const fileInfo: FileInfo = fileStatToFileInfo(path, stats);
+      const fileInfo: DiskFile = fileStatToFileInfo(path, stats);
       return Promise.resolve(fileInfo);
     },
     readDir: async (path: string) => {
       const dirents = readdirSync(path, { withFileTypes: true });
-      const fileInfos: FileInfo[] = dirents.map((dirent) => {
+      const fileInfos: DiskFile[] = dirents.map((dirent) => {
         const stats = statSync(join(path, dirent.name));
         const fileInfo = fileStatToFileInfo(join(path, dirent.name), stats);
         return fileInfo;

@@ -11,11 +11,12 @@ export * from './default-commands';
 export * from './encryption';
 export * from './file-system';
 export * from './sync';
-export * from './file-cache';
+export * from './file-info';
 export * from './file-path';
 export * from './file-tree';
 export * from './user';
 export * from './oauth-provider';
+export * from './orgnote-config';
 
 // Stores
 export * from './sync-store';
@@ -25,6 +26,10 @@ export * from './file-manager-store';
 export * from './auth-store';
 export * from './commands-store';
 export * from './commands-group-store';
+export * from './extension-store';
+export * from './file-system-store';
+export * from './settings-store';
+export * from './encryption-store';
 
 // Repositories
 export * from './repositories';

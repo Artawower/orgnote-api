@@ -1,7 +1,7 @@
 import { ExtensionMeta, StoredExtension } from './extension';
-import { FileCache } from './file-cache';
+import { FileInfo } from './file-info';
 import { FilePathInfo } from './file-path';
-import { Note, NotePreview } from './note';
+import { NoteInfo } from './note';
 
 export interface ExtensionRepository {
   getMeta(): Promise<ExtensionMeta[]>;
@@ -16,42 +16,39 @@ export interface ExtensionRepository {
   delete(extensionName: string): Promise<void>;
 }
 
-export interface FileRepository {
-  upsert(file: FileCache): Promise<void>;
-  bulkUpsert(file: FileCache[]): Promise<void>;
-  update(filePath: string, file: Partial<FileCache>): Promise<void>;
+export interface FileInfoRepository {
+  upsert(file: FileInfo): Promise<void>;
+  bulkUpsert(file: FileInfo[]): Promise<void>;
+  update(filePath: string, file: Partial<FileInfo>): Promise<void>;
   delete(filePath: string): Promise<void>;
   markAsDelete(filePath: string, deletedAt?: Date): Promise<void>;
   clear(): Promise<void>;
-  // TODO: this method will be deleted.
-  getFirstUnuploaded(): Promise<FileCache>;
 
-  // TODO: add pagination support
-  search(text: string): Promise<FileCache[]>;
-  getByPath(path: string): Promise<FileCache>;
-  getAll(): Promise<FileCache[]>;
-  getFilesAfterUpdateTime(updatedTime?: Date): Promise<FileCache[]>;
+  search(text: string): Promise<FileInfo[]>;
+  getByPath(path: string): Promise<FileInfo>;
+  getAll(): Promise<FileInfo[]>;
+  getFilesAfterUpdateTime(updatedTime?: Date): Promise<FileInfo[]>;
   count(updatedTime?: Date): Promise<number>;
 }
 
-export interface NoteRepository {
-  getNotesAfterUpdateTime(updatedTime?: string): Promise<Note[]>;
-  getDeletedNotes(): Promise<Note[]>;
-  saveNotes(notes: Note[]): Promise<void>;
-  putNote(note: Note): Promise<void>;
-  getById(id: string): Promise<Note>;
-  getByPath(path: string[]): Promise<Note>;
-  getNotePreviews(options?: {
+export interface NoteInfoRepository {
+  getNotesAfterUpdateTime(updatedTime?: string): Promise<NoteInfo[]>;
+  getDeletedNotes(): Promise<NoteInfo[]>;
+  saveNotes(notes: NoteInfo[]): Promise<void>;
+  putNote(note: NoteInfo): Promise<void>;
+  getById(id: string): Promise<NoteInfo>;
+  getByPath(path: string[]): Promise<NoteInfo>;
+  getNotesInfo(options?: {
     limit?: number;
     offset?: number;
     searchText?: string;
     tags?: string[];
     bookmarked?: boolean;
-  }): Promise<NotePreview[]>;
+  }): Promise<NoteInfo[]>;
   deleteNotes(noteIds: string[]): Promise<void>;
   markAsDeleted(noteIds: string[]): Promise<void>;
   bulkPartialUpdate(
-    updates: { id: string; changes: Partial<Note> }[]
+    updates: { id: string; changes: Partial<NoteInfo> }[]
   ): Promise<void>;
   count(searchText?: string, tags?: string[]): Promise<number>;
   getFilePaths(): Promise<FilePathInfo[]>;
@@ -60,14 +57,14 @@ export interface NoteRepository {
   addBookmark(noteId: string): Promise<void>;
   deleteBookmark(noteId: string): Promise<void>;
   modify(
-    modifyCallback: (note: Note, ref: { value: Note }) => void
+    modifyCallback: (note: NoteInfo, ref: { value: NoteInfo }) => void
   ): Promise<void>;
-  getIds(filterCb?: (n: Note) => boolean): Promise<string[]>;
+  getIds(filterCb?: (n: NoteInfo) => boolean): Promise<string[]>;
   clear(): Promise<void>;
 }
 
 export interface Repositories {
-  notes: NoteRepository;
-  files: FileRepository;
+  fileMetaRepository: FileInfoRepository;
+  noteMetaRepository: NoteInfoRepository;
   extensions: ExtensionRepository;
 }

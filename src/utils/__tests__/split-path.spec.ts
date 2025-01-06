@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest';
-import { splitPath } from 'src/tools';
+import { splitPath } from 'src/utils';
 
 test('Should correctly split various paths with different formats', () => {
   const pathExpected = [

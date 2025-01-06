@@ -1,27 +1,48 @@
 import { OrgNoteApi } from '../api';
 
-export interface ExtensionManifest {
-  /* Should be unique in the extension repo */
-  name: string;
-  version: string;
-  category: 'theme' | 'extension' | 'language pack' | 'other';
-  /* OrgNote api semver, 0.13.4 for example */
-  apiVersion?: string;
-  author?: string;
-  description?: string;
-  keywords?: string[];
-  // Repository url
-  sourceType: 'git' | 'file' | 'builtin';
-  /* Default value is README.org */
-  readmeFilePath?: string;
-  /* WIP */
-  permissions?: Array<'files' | 'personal info' | '*' | 'third party'>;
-  reloadRequired?: boolean;
-  sourceUrl?: string;
-  sponsor?: string[];
-  development?: boolean;
-  icon?: string;
-}
+import {
+  object,
+  string,
+  union,
+  optional,
+  array,
+  boolean,
+  InferOutput,
+} from 'valibot';
+
+export const EXTENSION_MANIFEST_SCHEMA = object({
+  name: string(),
+  version: string(),
+  category: union([
+    string('theme'),
+    string('extension'),
+    string('language pack'),
+    string('other'),
+  ]),
+  apiVersion: optional(string()),
+  author: optional(string()),
+  description: optional(string()),
+  keywords: optional(array(string())),
+  sourceType: union([string('git'), string('file'), string('builtin')]),
+  readmeFilePath: optional(string()),
+  permissions: optional(
+    array(
+      union([
+        string('files'),
+        string('personal info'),
+        string('*'),
+        string('third party'),
+      ])
+    )
+  ),
+  reloadRequired: optional(boolean()),
+  sourceUrl: optional(string()),
+  sponsor: optional(array(string())),
+  development: optional(boolean()),
+  icon: optional(string()),
+});
+
+export type ExtensionManifest = InferOutput<typeof EXTENSION_MANIFEST_SCHEMA>;
 
 export interface Extension {
   [key: string]: unknown;

@@ -1,4 +1,5 @@
-import type { ModelsPublicNoteEncryptionTypeEnum } from '../remote-api';
+import { ModelsPublicNoteEncryptionTypeEnum } from '../remote-api';
+import { object, string, union, optional, literal, InferOutput } from 'valibot';
 
 export type EcnryptionFormat = 'binary' | 'armored';
 
@@ -10,28 +11,35 @@ export interface BaseOrgNoteDecryption {
   format?: 'utf8' | 'binary';
 }
 
-export interface OrgNoteGpgEncryption {
-  type: typeof ModelsPublicNoteEncryptionTypeEnum.GpgKeys;
-  /* Armored private key */
-  privateKey: string;
-  /* Armored public key */
-  publicKey?: string;
-  privateKeyPassphrase?: string;
-}
+const OrgNoteGpgEncryptionSchema = object({
+  type: literal(ModelsPublicNoteEncryptionTypeEnum.GpgKeys),
+  privateKey: string(),
+  publicKey: optional(string()),
+  privateKeyPassphrase: optional(string()),
+});
 
-export interface OrgNotePasswordEncryption {
-  type: typeof ModelsPublicNoteEncryptionTypeEnum.GpgPassword;
-  password: string;
-}
+const OrgNotePasswordEncryptionSchema = object({
+  type: literal(ModelsPublicNoteEncryptionTypeEnum.GpgPassword),
+  password: string(),
+});
 
-export interface OrgNoteDisabledEncryption {
-  type: typeof ModelsPublicNoteEncryptionTypeEnum.Disabled;
-}
+const OrgNoteDisabledEncryptionSchema = object({
+  type: literal(ModelsPublicNoteEncryptionTypeEnum.Disabled),
+});
 
-export type OrgNoteEncryption =
-  | OrgNoteGpgEncryption
-  | OrgNotePasswordEncryption
-  | OrgNoteDisabledEncryption;
+export const OrgNoteEncryptionSchema = union([
+  OrgNoteGpgEncryptionSchema,
+  OrgNotePasswordEncryptionSchema,
+  OrgNoteDisabledEncryptionSchema,
+]);
+
+export type OrgNoteGpgEncryption = InferOutput<
+  typeof OrgNoteGpgEncryptionSchema
+>;
+export type OrgNotePasswordEncryption = InferOutput<
+  typeof OrgNotePasswordEncryptionSchema
+>;
+export type OrgNoteEncryption = InferOutput<typeof OrgNoteEncryptionSchema>;
 
 export type EncryptionData = {
   content: string;
