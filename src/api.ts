@@ -28,6 +28,7 @@ import { NodeType } from 'org-mode-ast';
 import { ExtensionStoreDefinition } from './models/extension-store';
 import { FileSystemStoreDefinition } from './models/file-system-store';
 import { EncryptionStoreDefinition } from './models/encryption-store';
+import { PlatformSpecificFn } from './models/platform-specific';
 
 type WithNodeType<T> = { nodeType: NodeType } & T;
 
@@ -49,5 +50,12 @@ export interface OrgNoteApi {
     useExtenions: ExtensionStoreDefinition;
     useFileSystem: FileSystemStoreDefinition;
     useEncryption: EncryptionStoreDefinition;
+  };
+  utils: {
+    clientOnly: PlatformSpecificFn;
+    mobileOnly: PlatformSpecificFn;
+    androidOnly: PlatformSpecificFn;
+    desktopOnly: PlatformSpecificFn;
+    serverOnly: PlatformSpecificFn;
   };
 }
