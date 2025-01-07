@@ -6,4 +6,3 @@ export * from './find-notes-files-diff';
 export * from './join-path';
 export * from './split-path';
 export * from './get-parent-dir';
-export * from './client-only';

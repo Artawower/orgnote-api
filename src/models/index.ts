@@ -17,6 +17,7 @@ export * from './file-tree';
 export * from './user';
 export * from './oauth-provider';
 export * from './orgnote-config';
+export * from './platform-specific';
 
 // Stores
 export * from './sync-store';

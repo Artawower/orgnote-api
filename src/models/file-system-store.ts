@@ -30,7 +30,7 @@ export interface FileSystemStore {
   mkdir(path: string | string[]): Promise<void>;
   rmdir(path: string | string[]): Promise<void>;
   fileInfo(path: string | string[]): Promise<DiskFile>;
-  readDir(path?: string | string[]): Promise<DiskFile>;
+  readDir(path?: string | string[]): Promise<DiskFile[]>;
   dropFileSystem: () => Promise<void>;
 
   pickFileSystem(fsName: string): Promise<void>;
