@@ -113,21 +113,21 @@ function generateTypes(groups) {
           g.groupName.toLowerCase() === 'colors'
             ? themeVariables
             : cssVariables;
-        target.add(toCamelCase(name.slice(2)));
+        target.add(name.slice(2));
       });
     });
   });
 
   const themeVariableEnumBody = Array.from(themeVariables).reduce(
-    (acc, variable) => {
-      return `${acc}\n\t${variable} = '${variable}',`;
+    (acc, variable, i) => {
+      return `${acc}${i !== 0 ? '|' : ''} '${variable}' `;
     },
     ''
   );
 
   const cssVariableEnumBody = Array.from(cssVariables).reduce(
-    (acc, variable) => {
-      return `${acc}\n\t${variable} = '${variable}',`;
+    (acc, variable, i) => {
+      return `${acc}${i !== 0 ? '|' : ''} '${variable}' `;
     },
     ''
   );
@@ -138,8 +138,8 @@ function generateTypes(groups) {
 * Do not edit it manually.
 **/
 
-export enum ThemeVariable {${themeVariableEnumBody}\n}` +
-    `\n\nexport enum CSSVariable {${cssVariableEnumBody}\n}`
+export type ThemeVariable = ${themeVariableEnumBody};\n` +
+    `\n\nexport type CSSVariable = ${cssVariableEnumBody};\n`
   );
 }
 
@@ -160,6 +160,10 @@ const options = program.opts();
 const rootDir = '../orgnote-client/src';
 const scssFiles = findSCSSFiles(rootDir);
 const variableGroups = collectCSSVariables(scssFiles);
+console.log(
+  '✎: [line 163][collect-css-variables.cjs] variableGroups: ',
+  JSON.stringify(variableGroups, null, 2)
+);
 
 if (options.docs) {
   const orgDoc = createOrgModeDocument(variableGroups);
@@ -174,6 +178,6 @@ if (options.types) {
   fs.writeFile('./src/models/theme-variables.ts', types, 'utf8', (err) => {
     if (err) throw err;
     console.log('The Org mode document has been saved to VARIABLES.org.');
-  })
+  });
   console.log(types);
 }

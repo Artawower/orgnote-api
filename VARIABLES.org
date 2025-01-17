@@ -5,40 +5,8 @@
 #+TITLE: List of CSS Variables
 #+ID: css-variables
 
-* LoaderSpinner.vue
-** Common
-- =--bg=:  hsl(90, 90%, 20%);
-- =--fg=:  hsl(223, 10%, 10%);
-- =--dur=:  1s;
-* OrgTable.vue
-** TODO: master tmp hack. Space at the end is not value.
-- =--easy-table-header-background-color=:  var(--bg);
-- =--easy-table-header-font-color=:  var(--fg);
-- =--easy-table-body-row-background-color=:  var(--bg);
-- =--easy-table-body-row-font-color=:  var(--fg);
-- =--easy-table-body-row-hover-background-color=:  var(--bg-alt);
-- =--easy-table-footer-background-color=:  var(--bg-alt);
-- =--easy-table-footer-font-color=:  var(--fg);
-- =--easy-table-body-row-hover-font-color=:  var(--fg);
-- =--easy-table-row-border=:  1px solid var(--base7);
-- =--easy-table-border=:  1px solid var(--base7);
-- =--easy-table-message-font-color=:  var(--fg-alt);
-* buttons.scss
-** Flat button
-- =--btn-flat-size=:  34px;
-- =--btn-flat-border=:  1px solid var(--base5);
-- =--btn-flat-border-radius=:  6px;
-- =--btn-flat-box-shadow=:  none;
-** Button Colors
-- =--btn-main-color=:  var(--base0);
-** Social networking button
-- =--btn-social-size=:  24px;
-- =--btn-social-background=:  var(--base4);
-* checkbox.scss
-** Common
-- =--checkbox-color=:  var(--base3);
 * colors.scss
-** colors
+** Common
 - =--red=:  var(--default-red);
 - =--orange=:  var(--default-orange);
 - =--green=:  var(--default-green);
@@ -53,211 +21,133 @@
 - =--white=:  var(--default-white);
 - =--bg=:  var(--default-bg);
 - =--bg-alt=:  var(--default-bg-alt);
-- =--bg-alt2=:  var(--default-alt2);
+- =--bg-alt2=:  var(--default-bg-alt2);
+- =--bg-active=:  var(--default-bg-active);
 - =--fg=:  var(--default-fg);
 - =--fg-alt=:  var(--default-fg-alt);
-- =--base0=:  var(--default-base0);
-- =--base1=:  var(--default-base1);
-- =--base2=:  var(--default-base2);
-- =--base3=:  var(--default-base3);
-- =--base4=:  var(--default-base4);
-- =--base5=:  var(--default-base5);
-- =--base6=:  var(--default-base6);
-- =--base7=:  var(--default-base7);
-- =--base8=:  var(--default-base8);
-* editor.scss
-** Fonts
-- =--editor-font-family=:  var(--main-font-family);
-* flex.scss
-** Common
-- =--flex-gap-md=:  16px;
-- =--flex-gap-sm=:  8px;
-* org-nodes.scss
-** Common
-- =--inline-code-background=:  var(--base7);
-- =--inline-code-font-color=:  var(--fg);
+- =--accent=:  var(--violet);
 * scroll.scss
 ** Common
 - =--scroll-bar-width=:  4px;
 - =--scroll-bar-color=:  var(--base4);
 * typography.scss
-** Fonts
+** Common
 - =--font-size-sm=:  14px;
 - =--font-size-md=:  16px;
 - =--font-size-lg=:  22px;
-- =--headline-margin=:  18px 0;
-- =--paragraph-font-size=:  var(--font-size-md);
-- =--main-font-family=:  ui-sans-serif, -apple-system, BlinkMacSystemFont,
-- =--editor-font-family-main=:  'Menlo', charter, Georgia, Cambria, 'Roboto', Times,
+- =--main-font-family=:  ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica,
+- =--editor-font-family-main=:  'Menlo', charter, Georgia, Cambria, 'Roboto', Times, serif;
 - =--paragraph-font-family=:  var(--main-font-family);
-- =--headline-font-family=:  'Roboto', '-apple-system', 'Helvetica Neue', Helvetica,
+- =--headline-font-family=:  'Roboto', '-apple-system', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 - =--code-font-family=:  monospace, monospace;
-** Note description
 - =--description-font-family=:  var(--main-font-family);
 - =--description-font-size=:  16px;
-- =--description-font-style=:  italic;
-- =--description-font-color=:  var(--base-5);
+- =--description-font-style=:  unset;
+- =--description-font-color=:  var(--fg-alt);
 - =--description-padding=:  18px 0px;
-** Code
-- =--code-font-size=:  14px;
 * variables.scss
-** Main colors
-- =--headline-font-weight=:  500;
-- =--font-color-action=:  var(--blue);
-** Font size
-- =--font-sm=:  12px;
-- =--font-md=:  16px;
-- =--font-lg=:  20px;
-** Ul
-- =--ul-font-size=:  20px;
-- =--ul-line-height=:  32px;
-- =--ul-font-family=:  var(--main-font-family);
-** Bars
-- =--top-bar-height=:  0px;
-** Markup
-- =--content-max-width=:  768px;
-** Modeline config
-- =--modeline-height=:  48px;
-- =--modeline-padding=:  0 32px;
-- =--modeline-background=:  var(--base1);
-** Card
-- =--card-background-color=:  var(--bg);
-** Shadow
-- =--shadow-main=:  none;
-** Sidebar
-- =--sidebar-width=:  56px;
-- =--action-pane-opened-width=:  320px;
-** Mobile footer pane
-- =--footer-height=:  0px;
-** Public preview
-- =--public-preview-image-width=:  112px;
-- =--public-preview-image-height=:  112px;
-- =--public-preview-max-height=:  156px;
-** Completion item
-- =--completion-item-min-height=:  24px;
-- =--completion-item-padding=:  8px 4px;
-- =--completion-item-margin=:  0 16px;
-- =--completion-item-hover-background=:  var(--base7);
-- =--completion-item-hover-color=:  inherit;
-- =--completion-float-top=:  32px;
-- =--completion-border-radius=:  8px;
-- =--completion-width=:  80%;
-- =--completion-max-width=:  768px;
-- =--completion-border=:  none;
-- =--completion-box-shadow=:  none;
-- =--completion-input-height=:  56px;
-- =--completion-container-margin=:  0px;
-** Menu
-- =--menu-padding=:  8px;
-** File uploader
-- =--file-uploader-border-width=:  4px;
-- =--file-uploader-border-style=:  dashed;
-- =--file-uploader-border-color=:  var(--base-3);
-- =--file-uploader-bg=:  var(--bg-alt);
-- =--file-uploader-opacity=:  0.8;
-** Note preview link
-- =--note-preview-link-max-width=:  365px;
-- =--note-preview-link-height=:  200px;
-** Action btn
-- =--btn-action-shadow=:  0 1px 0 rgba(27, 31, 36, 0.04),
-- =--btn-action-border=:  1px solid;
-- =--btn-action-border-color=:  var(--base5);
-- =--btn-action-padding=:  6px;
-- =--btn-action-radius=:  6px;
-- =--btn-action-fire-color=:  var(--green);
-- =--btn-action-fire-border-color=:  var(--green);
-- =--btn-action-md=:  20px;
-- =--btn-action-sm=:  14px;
-- =--btn-action-lg=:  28px;
-- =--btn-action-color=:  var(--base5);
-- =--btn-action-bg=:  var(--bg);
-** Mini buffer
-- =--mini-buffer-background=:  var(--bg-alt);
-- =--mini-buffer-font-color=:  var(--fg);
-- =--mini-buffer-border-top=:  1px solid var(--base4);
-- =--mini-buffer-max-height=:  460px;
-** Tags
-- =--tag-hover-background=:  var(--base0);
-- =--tag-hover-color=:  var(--base1);
-** Toolbar
-- =--toolbar-border-top=:  0;
-- =--toolbar-hover-color=:  var(--base8);
-** HeaderBar
-- =--headerbar-height=:  30px;
-- =--headerbar-border-radius=:  8px;
-- =--headerbar-background-color=:  var(--bg);
-- =--headerbar-color=:  var(--fg-alt);
-- =--headerbar-border=:  none;
-** File manager item
-- =--file-item-bg-hover=:  var(--base8);
-- =--file-item-color-hover=:  var(--base6);
-- =--file-item-height=:  30px;
-** Icon button
-- =--icon-btn-color=:  var(--fg);
-- =--icon-btn-hover-color=:  var(--base8);
-** Modal
-- =--modal-max-height=:  94svh;
-- =--modal-max-width=:  1024px;
-- =--modal-padding=:  8px 0;
-** Box paddings/margins
+** Paddings
 - =--block-padding-sm=:  8px;
 - =--block-padding-md=:  16px;
 - =--block-padding-lg=:  32px;
-- =--block-margin-md=:  16px;
+- =--padding-sm=:  4px;
+- =--padding-md=:  8px;
+- =--padding-lg=:  16px;
+** Margins
 - =--block-margin-sm=:  8px;
-- =--block-border-radius-md=:  16px;
-- =--block-border-radius-sm=:  6px;
-- =--item-default-radius=:  8px;
-- =--search-icn-size=:  44px;
-- =--gap-md=:  16px;
-- =--gap-sm=:  8px;
+- =--block-margin-md=:  16px;
+- =--block-margin-lg=:  32px;
+** Font Sizes
+- =--font-size-xs=:  12px;
+- =--font-size-sm=:  14px;
+- =--font-size-md=:  16px;
+- =--font-size-lg=:  20px;
+- =--font-size-xl=:  24px;
+** Font Weights
+- =--font-weight-regular=:  400;
+- =--font-weight-bold=:  500;
+- =--font-weight-extra-bold=:  700;
+** Line Heights
+- =--line-height-sm=:  1.2;
+- =--line-height-md=:  1.5;
+- =--line-height-lg=:  1.8;
+** Colors
+- =--color-primary=:  #3490dc;
+- =--color-secondary=:  #ffed4a;
+- =--color-success=:  #38c172;
+- =--color-error=:  #e3342f;
+- =--color-background=:  #f8f9fa;
+- =--color-text=:  #343a40;
+- =--color-border=:  #ced4da;
+** Border Radius
+- =--border-radius-sm=:  4px;
+- =--border-radius-md=:  8px;
+- =--border-radius-lg=:  16px;
+** Default borders
+- =--border-default=:  1px solid var(--fg-alt);
+** Shadows
+- =--shadow-sm=:  0px 1px 2px rgba(0, 0, 0, 0.1);
+- =--shadow-md=:  0px 4px 6px rgba(0, 0, 0, 0.1);
+- =--shadow-lg=:  0px 10px 15px rgba(0, 0, 0, 0.1);
+** Spacing (Gaps)
 - =--gap-xs=:  4px;
-** Src block
-- =--src-block-header-padding-y=:  8px;
-- =--src-block-footer-padding-y=:  8px;
-- =--src-block-padding-x=:  16px;
-- =--src-block-padding-y=:  16px;
-- =--src-block-margin-y=:  16px;
-** Editor
-- =--page-padding=:  16px 56px;
-- =--editor-line-height=:  1.8;
-- =--editor-headline-line-height=:  1.2;
-- =--editor-default-line-height=:  28.8px;
-- =--editor-padding-bottom=:  48px;
-- =--editor-cursor-color=:  var(--fg);
-- =--editor-selection-bg-color=:  var(--base8);
-- =--editor-selection-color=:  var(--bg);
-- =--editor-gutter-color=:  var(--fg-alt);
-- =--editor-gutter-hover-color=:  var(--base8);
-- =--editor-fold-placeholder-color=:  var(--fg);
-- =--editor-active-line-bg-color=:  transparent;
-- =--editor-caret-color=:  var(--fg);
-** List
-- =--org-list-item-bullet-margin-left=:  20px;
-** Device specific feature
+- =--gap-sm=:  8px;
+- =--gap-md=:  16px;
+- =--gap-lg=:  24px;
+- =--gap-xl=:  32px;
+** Footer
+- =--footer-height=:  60px;
+- =--footer-border-top=:  var(--border-default);
+- =--footer-padding=:  0;
+- =--footer-background=:  var(--bg-alt);
+** Sidebar
+- =--sidebar-width=:  360px;
+- =--sidebar-mini-width=:  72px;
+- =--sidebar-background=:  var(--bg-alt);
+- =--sidebar-border-right=:  var(--border-default);
+- =--sidebar-padding=:  var(--block-padding-md);
+** Button
+- =--btn-action-padding=:  var(--padding-md);
+- =--btn-action-radius=:  var(--border-radius-md);
+- =--btn-action-color=:  var(--fg);
+- =--btn-action-bg=:  var(--bg);
+- =--btn-action-hover-bg=:  var(--fg-alt);
+- =--btn-action-hover-brightness=:  130%;
+- =--btn-action-sm-size=:  24px;
+- =--btn-action-md-size=:  32px;
+- =--btn-action-lg-size=:  48px;
+- =--btn-action-border=:  none;
+- =--btn-action-active-color=:  var(--accent);
+** Platform specific value
 - =--device-padding-bottom=:  0px;
-** Graph
-- =--graph-node-color=:  var(--fg-alt);
-- =--graph-edge-color=:  var(--fg-alt);
-- =--graph-active-color=:  var(--red);
-** Inputs
-- =--input-height=:  28px;
-- =--input-lg-height=:  48px;
-- =--completion-border=:  1px solid var(--fg-alt);
-- =--block-padding-md=:  8px;
-- =--footer-height=:  56px;
-- =--page-padding=:  14px;
-- =--gap-md=:  10px;
-- =--file-item-height=:  46px;
-- =--headerbar-height=:  42px;
-- =--completion-container-margin=:  0px;
-- =--completion-width=:  100%;
-- =--completion-border-radius=:  0px;
-- =--completion-border=:  none !important;
-** Border
-- =--border-main=:  1px solid var(--fg-alt);
+** Backdrop
+- =--backdrop-bg=:  rgba(0, 0, 0, 0.2);
+** Modal
+- =--modal-backdrop-bg=:  var(--backdrop-bg);
+- =--modal-border=:  var(--border-default);
+- =--modal-border-radius=:  var(--border-radius-md);
+- =--modal-padding=:  var(--block-padding-lg);
+- =--modal-max-width=:  1280px;
+- =--modal-max-height=:  860px;
+** Cards
+- =--card-padding=:  var(--block-padding-md);
+- =--card-border=:  var(--border-default);
+- =--card-border-radius=:  var(--border-radius-md);
+** Menu item
+- =--menu-item-padding=:  8px;
+- =--menu-item-height=:  50px;
+- =--menu-item-max-height=:  200px;
+- =--menu-item-hover-bg=:  var(--bg-active);
+** Icons
+- =--icon-rounded-border-radius=:  var(--border-radius-sm);
+** Device sizes
+- =--tablet=:  #{a.$tablet};
+- =--desktop=:  #{a.$desktop};
+** Toggle button
+- =--toggle-button-scale=:  0.45;
+- =--modal-max-width=:  unset;
+- =--modal-max-height=:  unset;
+- =--modal-padding=:  var(--block-padding-md);
+- =--modal-border=:  none;
+- =--modal-border-radius=:  0;
 - =--device-padding-bottom=:  24px;
-- =--top-bar-height=:  32px;
-* NoteEditorPage.vue
-** Common
-- =--page-padding=:  0px;

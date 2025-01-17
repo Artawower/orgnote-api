@@ -18,6 +18,11 @@ import {
   CommandsGroupStoreDefinition,
   FileInfoRepository,
   NoteInfoRepository,
+  ModalStoreDefinition,
+  SettingsStoreDefinition,
+  SettingsUiStoreDefinition,
+  MultipleUploadParams,
+  UploadParams,
 } from './models';
 // import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
@@ -29,6 +34,22 @@ import { ExtensionStoreDefinition } from './models/extension-store';
 import { FileSystemStoreDefinition } from './models/file-system-store';
 import { EncryptionStoreDefinition } from './models/encryption-store';
 import { PlatformSpecificFn } from './models/platform-specific';
+import { UseSplashScreen } from './models/splash-screen';
+import {
+  GetCssVar,
+  GetCssTheme,
+  GetNumericCssVar,
+  GetCssProperty,
+  GetCssNumericProperty,
+  ApplyCSSVariables,
+  ResetCSSVariables,
+} from './models/css-utils';
+import { UseBackgroundSettings } from './models/ui-store';
+import { SidebarStoreDefinition } from './models/sidebar-store';
+import type { QVueGlobals } from 'quasar';
+import { ToolbarStoreDefinition } from './models/toolbar-store';
+import type { App } from 'vue';
+import { UseConfirmationModal } from './models/confirmation-modal';
 
 type WithNodeType<T> = { nodeType: NodeType } & T;
 
@@ -50,12 +71,41 @@ export interface OrgNoteApi {
     useExtenions: ExtensionStoreDefinition;
     useFileSystem: FileSystemStoreDefinition;
     useEncryption: EncryptionStoreDefinition;
+    useSettings: SettingsStoreDefinition;
+    useQuasar: () => QVueGlobals;
+    app: App;
   };
   utils: {
+    // Platform specific
     clientOnly: PlatformSpecificFn;
     mobileOnly: PlatformSpecificFn;
     androidOnly: PlatformSpecificFn;
     desktopOnly: PlatformSpecificFn;
     serverOnly: PlatformSpecificFn;
+
+    // Styles
+    getCssVar: GetCssVar;
+    getCssTheme: GetCssTheme;
+    getNumericCssVar: GetNumericCssVar;
+    getCssProperty: GetCssProperty;
+    getCssNumericProperty: GetCssNumericProperty;
+    applyCSSVariables: ApplyCSSVariables<string>;
+    resetCSSVariables: ResetCSSVariables<string>;
+
+    // Clipboard
+    copyToClipboard: (text: string) => Promise<void>;
+
+    // Files
+    uploadFiles: (params: MultipleUploadParams) => Promise<FileList>;
+    uploadFile: (params?: UploadParams) => Promise<File>;
+  };
+  ui: {
+    useSplashScreen: UseSplashScreen;
+    useBackgroundSettings: UseBackgroundSettings;
+    useSidebar: SidebarStoreDefinition;
+    useToolbar: ToolbarStoreDefinition;
+    useModal: ModalStoreDefinition;
+    useSettingsUi: SettingsUiStoreDefinition;
+    useConfirmationModal: UseConfirmationModal;
   };
 }
