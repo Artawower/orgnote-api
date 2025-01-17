@@ -1,5 +1,14 @@
+import { metadata } from 'valibot';
 import { ModelsPublicNoteEncryptionTypeEnum } from '../remote-api';
-import { object, string, union, optional, literal, InferOutput } from 'valibot';
+import {
+  object,
+  string,
+  union,
+  optional,
+  literal,
+  InferOutput,
+  pipe,
+} from 'valibot';
 
 export type EcnryptionFormat = 'binary' | 'armored';
 
@@ -13,8 +22,11 @@ export interface BaseOrgNoteDecryption {
 
 const OrgNoteGpgEncryptionSchema = object({
   type: literal(ModelsPublicNoteEncryptionTypeEnum.GpgKeys),
-  privateKey: string(),
-  publicKey: optional(string()),
+  privateKey: pipe(string(), metadata({ textarea: true, upload: true })),
+  publicKey: pipe(
+    optional(string()),
+    metadata({ textarea: true, upload: true })
+  ),
   privateKeyPassphrase: optional(string()),
 });
 
@@ -27,11 +39,14 @@ const OrgNoteDisabledEncryptionSchema = object({
   type: literal(ModelsPublicNoteEncryptionTypeEnum.Disabled),
 });
 
-export const OrgNoteEncryptionSchema = union([
-  OrgNoteGpgEncryptionSchema,
-  OrgNotePasswordEncryptionSchema,
-  OrgNoteDisabledEncryptionSchema,
-]);
+export const OrgNoteEncryptionSchema = pipe(
+  union([
+    OrgNoteGpgEncryptionSchema,
+    OrgNotePasswordEncryptionSchema,
+    OrgNoteDisabledEncryptionSchema,
+  ]),
+  metadata({ conditionalKey: 'type' })
+);
 
 export type OrgNoteGpgEncryption = InferOutput<
   typeof OrgNoteGpgEncryptionSchema
