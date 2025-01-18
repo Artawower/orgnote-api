@@ -47,6 +47,13 @@ export const TXT_UPLOAD = 'upload';
 export const TXT_AVAILABLE_FOR_SUBSCRIPTION =
   'this functionality is only available to registered users with an active subscription.';
 export const TXT_CREATE_NEW_TOKEN = 'create new token';
+export const TXT_CONFIRM = 'confirm';
+export const TXT_CANCEL = 'cancel';
+export const TXT_CONFIRM_DELETE_ALL_DATA =
+  'are you sure you want to delete all data? this is an irreversible event';
+export const TXT_IRREVERSIBLE_EVENT = 'This is an irreversible event';
+export const TXT_CONFIRM_DELETE_NOTES =
+  'Are you sure you want to delete all notes? This is an irreversible event';
 
 export const I18N_KEYS = [
   TXT_LOADING_MESSAGE_1,
@@ -89,4 +96,9 @@ export const I18N_KEYS = [
   TXT_UPLOAD,
   TXT_AVAILABLE_FOR_SUBSCRIPTION,
   TXT_CREATE_NEW_TOKEN,
+  TXT_CONFIRM,
+  TXT_CANCEL,
+  TXT_CONFIRM_DELETE_ALL_DATA,
+  TXT_IRREVERSIBLE_EVENT,
+  TXT_CONFIRM_DELETE_NOTES,
 ] as const;
