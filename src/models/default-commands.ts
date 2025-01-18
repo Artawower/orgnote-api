@@ -41,6 +41,9 @@ export enum DefaultCommands {
   SOURCE_CODE = 'show source code',
   READ_WIKI = 'read wiki',
   SPONSOR = 'sponsor',
+  DELETE_ALL_DATA = 'delete all data',
+  DELETE_ALL_NOTES = 'delete all notes',
+  DELETE_ACCOUNT = 'delete account',
 
   // Routing
   OPEN_MY_NOTES = 'my notes',

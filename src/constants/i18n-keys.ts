@@ -54,6 +54,8 @@ export const TXT_CONFIRM_DELETE_ALL_DATA =
 export const TXT_IRREVERSIBLE_EVENT = 'This is an irreversible event';
 export const TXT_CONFIRM_DELETE_NOTES =
   'Are you sure you want to delete all notes? This is an irreversible event';
+export const TXT_CONFIRM_DELETE_ACCOUNT =
+  'Are you sure you want to delete your account? This is an irreversible event';
 
 export const I18N_KEYS = [
   TXT_LOADING_MESSAGE_1,
@@ -101,4 +103,5 @@ export const I18N_KEYS = [
   TXT_CONFIRM_DELETE_ALL_DATA,
   TXT_IRREVERSIBLE_EVENT,
   TXT_CONFIRM_DELETE_NOTES,
+  TXT_CONFIRM_DELETE_ACCOUNT,
 ] as const;
