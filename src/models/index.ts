@@ -44,6 +44,7 @@ export * from './sidebar-store';
 export * from './toolbar-store';
 export * from './modal-store';
 export * from './settings-ui-store';
+export * from './completion-store';
 
 // Repositories
 export * from './repositories';

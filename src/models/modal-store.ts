@@ -5,7 +5,7 @@ import { Modal, ModalConfig } from './modal';
 import { ComputedRef } from 'vue';
 
 export interface ModalStore {
-  open: (cmp: VueComponent, config?: ModalConfig) => void;
+  open: (cmp: VueComponent, config?: ModalConfig) => Promise<void>;
   title: Ref<string>;
   close: () => void;
   component: ComputedRef<VueComponent>;

@@ -1,12 +1,10 @@
 export interface CompletionCandidate<T = unknown> {
   icon?: string | (() => string);
-  group?: string;
+  group?: string | ((data: T) => string);
   title?: string | (() => string);
   description?: string | (() => string);
-  command: string;
   data: T;
-  /* Command handler could be used instead of command string */
-  commandHandler?: (data: T) => void;
+  commandHandler: (data: T) => void;
 }
 
 export interface CompletionSearchResult<T = unknown> {
@@ -20,7 +18,7 @@ export type CandidateGetterFn<T = unknown> = (
   offset?: number
 ) => CompletionSearchResult<T> | Promise<CompletionSearchResult<T>>;
 
-export interface CompletionConfigs<T = unknown> {
+export interface CompletionConfig<T = unknown> {
   searchAutocompletions?: string[];
   itemsGetter: CandidateGetterFn<T>;
   placeholder?: string;

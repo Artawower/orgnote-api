@@ -23,6 +23,7 @@ import {
   SettingsUiStoreDefinition,
   MultipleUploadParams,
   UploadParams,
+  CompletionStoreDefinition,
 } from './models';
 // import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
@@ -73,6 +74,7 @@ export interface OrgNoteApi {
     useEncryption: EncryptionStoreDefinition;
     useSettings: SettingsStoreDefinition;
     useQuasar: () => QVueGlobals;
+    useCompletion: CompletionStoreDefinition;
     app: App;
   };
   utils: {
