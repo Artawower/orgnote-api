@@ -1,5 +1,6 @@
 import { COMMAND_GROUPS } from 'src/constants';
 import { DefaultCommands } from './default-commands';
+import { OrgNoteApi } from 'src/api';
 
 export type CommandGroup =
   | (typeof COMMAND_GROUPS)[number]
@@ -40,7 +41,10 @@ export interface CommandMeta<T = any> extends Partial<CommandPreview> {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Command<T = any, R = unknown> extends CommandMeta<T> {
   /* arguments depend on the current scope */
-  handler: (params?: CommandHandlerParams<T>) => R | Promise<R>;
+  handler: (
+    api: OrgNoteApi,
+    params?: CommandHandlerParams<T>
+  ) => R | Promise<R>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

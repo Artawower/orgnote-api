@@ -61,4 +61,7 @@ export enum DefaultCommands {
   SYNC_FILES = 'sync files',
   ENCRYPT_NOTE = 'encrypt note',
   DECRYPT_NOTE = 'decrypt note',
+
+  // Pages
+  CLOSE_PAGE = 'close page',
 }

@@ -24,6 +24,7 @@ import {
   MultipleUploadParams,
   UploadParams,
   CompletionStoreDefinition,
+  PaneStoreDefinition,
 } from './models';
 // import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
@@ -75,6 +76,7 @@ export interface OrgNoteApi {
     useSettings: SettingsStoreDefinition;
     useQuasar: () => QVueGlobals;
     useCompletion: CompletionStoreDefinition;
+    usePane: PaneStoreDefinition;
     app: App;
   };
   utils: {

@@ -26,4 +26,6 @@ export enum RouteNames {
   Dashboard = 'Dashboard',
   ActivationPage = 'ActivationPage',
   LoggerPage = 'LoggerPage',
+  Panes = 'Panes',
+  InitialPage = 'InitialPage',
 }

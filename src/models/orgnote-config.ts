@@ -9,7 +9,6 @@ import {
   literal,
   InferOutput,
   pipe,
-  metadata,
 } from 'valibot';
 import { OrgNoteEncryptionSchema } from './encryption';
 
