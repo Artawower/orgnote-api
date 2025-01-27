@@ -23,6 +23,7 @@ export * from './i18n-keys';
 export * from './vue-component';
 export * from './file-upload';
 export * from './confirmation-modal';
+export * from './pane';
 
 // Composables
 export * from './splash-screen';
@@ -45,6 +46,7 @@ export * from './toolbar-store';
 export * from './modal-store';
 export * from './settings-ui-store';
 export * from './completion-store';
+export * from './pane-store';
 
 // Repositories
 export * from './repositories';

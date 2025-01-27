@@ -57,6 +57,13 @@ export const TXT_CONFIRM_DELETE_NOTES =
 export const TXT_CONFIRM_DELETE_ACCOUNT =
   'Are you sure you want to delete your account? This is an irreversible event';
 export const TXT_EXECUTE_COMMAND = 'execute command';
+export const TXT_ITEMS = 'items';
+export const TXT_NOT_FOUND = 'not found';
+export const TXT_VISIT_DEBUG_INFO = 'visit debug info on the github';
+export const TXT_ENCRYPT_ACTIVE_NOTE = 'encrypt active note';
+export const TXT_DECRYPT_ACTIVE_NOTE = 'decrypt active note';
+export const TXT_CHECK_GITHUB_SOURCE_CODE =
+  'check source code on the github page';
 
 export const I18N_KEYS = [
   TXT_LOADING_MESSAGE_1,
@@ -106,4 +113,10 @@ export const I18N_KEYS = [
   TXT_CONFIRM_DELETE_NOTES,
   TXT_CONFIRM_DELETE_ACCOUNT,
   TXT_EXECUTE_COMMAND,
+  TXT_ITEMS,
+  TXT_NOT_FOUND,
+  TXT_VISIT_DEBUG_INFO,
+  TXT_ENCRYPT_ACTIVE_NOTE,
+  TXT_DECRYPT_ACTIVE_NOTE,
+  TXT_CHECK_GITHUB_SOURCE_CODE,
 ] as const;

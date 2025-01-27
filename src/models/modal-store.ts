@@ -12,6 +12,7 @@ export interface ModalStore {
   config: ComputedRef<ModalConfig>;
   closeAll: () => void;
   modals: ShallowRef<Modal[]>;
+  updateConfig: (config: Partial<ModalConfig>) => void;
 }
 
 export type ModalStoreDefinition = Store<ModalStore>;

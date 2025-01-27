@@ -1,6 +1,6 @@
 export interface CompletionCandidate<T = unknown> {
   icon?: string | (() => string);
-  group?: string | ((data: T) => string);
+  group?: string | ((data?: T) => string);
   title?: string | (() => string);
   description?: string | (() => string);
   data: T;
@@ -21,8 +21,17 @@ export type CandidateGetterFn<T = unknown> = (
 export interface CompletionConfig<T = unknown> {
   searchAutocompletions?: string[];
   itemsGetter: CandidateGetterFn<T>;
+  type?: 'input' | 'choice';
   placeholder?: string;
   itemHeight?: string;
   searchText?: string;
   onClicked?: (candidate: CompletionCandidate<T>) => void;
+}
+
+export interface Completion<T = unknown> extends CompletionConfig<T> {
+  level?: number;
+  candidates?: CompletionCandidate<T>[];
+  selectedCandidateIndex?: number;
+  total?: number;
+  searchQuery: string;
 }

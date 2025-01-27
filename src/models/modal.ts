@@ -5,7 +5,8 @@ export interface ModalConfig<T = any> {
   closable?: boolean;
   title?: string;
   modalProps?: T;
-  position?: 'top' | 'center' | 'bottom' | 'fullscreen';
+  position?: 'top' | 'center' | 'bottom';
+  fullScreen?: boolean;
   noPadding?: boolean;
   mini?: boolean;
   headerTitleComponent?: VueComponent;
