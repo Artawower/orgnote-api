@@ -64,4 +64,5 @@ export enum DefaultCommands {
 
   // Pages
   CLOSE_PAGE = 'close page',
+  NEW_PAGE = 'new page',
 }

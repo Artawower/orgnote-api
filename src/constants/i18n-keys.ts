@@ -64,6 +64,7 @@ export const TXT_ENCRYPT_ACTIVE_NOTE = 'encrypt active note';
 export const TXT_DECRYPT_ACTIVE_NOTE = 'decrypt active note';
 export const TXT_CHECK_GITHUB_SOURCE_CODE =
   'check source code on the github page';
+export const TXT_ADD_NEW_PAGE = 'add new page';
 
 export const I18N_KEYS = [
   TXT_LOADING_MESSAGE_1,
@@ -119,4 +120,5 @@ export const I18N_KEYS = [
   TXT_ENCRYPT_ACTIVE_NOTE,
   TXT_DECRYPT_ACTIVE_NOTE,
   TXT_CHECK_GITHUB_SOURCE_CODE,
+  TXT_ADD_NEW_PAGE,
 ] as const;
