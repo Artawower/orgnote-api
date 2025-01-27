@@ -21,6 +21,20 @@ export class ErrorFileNotFound extends Error {
   }
 }
 
+export type FileSystemPlatform =
+  | 'android'
+  | 'ios'
+  | 'mobile'
+  | 'desktop'
+  | 'web'
+  | 'all';
+
+export interface FileSystemInfo {
+  name: string;
+  fs: FileSystem;
+  type?: FileSystemPlatform;
+}
+
 export interface FileSystem {
   readFile: <
     T extends 'utf8' | 'binary' = 'utf8',

@@ -47,6 +47,7 @@ export * from './modal-store';
 export * from './settings-ui-store';
 export * from './completion-store';
 export * from './pane-store';
+export * from './file-system-manager-store';
 
 // Repositories
 export * from './repositories';

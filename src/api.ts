@@ -52,6 +52,7 @@ import type { QVueGlobals } from 'quasar';
 import { ToolbarStoreDefinition } from './models/toolbar-store';
 import type { App } from 'vue';
 import { UseConfirmationModal } from './models/confirmation-modal';
+import { FileSystemManagerStoreDefinition } from './models/file-system-manager-store';
 
 type WithNodeType<T> = { nodeType: NodeType } & T;
 
@@ -77,6 +78,7 @@ export interface OrgNoteApi {
     useQuasar: () => QVueGlobals;
     useCompletion: CompletionStoreDefinition;
     usePane: PaneStoreDefinition;
+    useFileSystemManager: FileSystemManagerStoreDefinition;
     app: App;
   };
   utils: {
