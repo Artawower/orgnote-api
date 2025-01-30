@@ -16,6 +16,7 @@ export enum RouteNames {
   DeveloperSettings = 'DeveloperSettings',
   EncryptionSettings = 'EncryptionSettings',
   SubscriptionSettings = 'SubscriptionSettings',
+  StorageSettings = 'StorageSettings',
   ApiSettings = 'ApiSettings',
   SynchronisationSettings = 'SynchronisationSettings',
   Extensions = 'Extensions',
@@ -28,4 +29,5 @@ export enum RouteNames {
   LoggerPage = 'LoggerPage',
   Panes = 'Panes',
   InitialPage = 'InitialPage',
+  Onboarding = 'Onboarding',
 }

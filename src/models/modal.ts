@@ -5,6 +5,8 @@ export interface ModalConfig<T = any> {
   closable?: boolean;
   title?: string;
   modalProps?: T;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  modalEmits?: Record<string, (params: any) => any>;
   position?: 'top' | 'center' | 'bottom';
   fullScreen?: boolean;
   noPadding?: boolean;

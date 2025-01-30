@@ -6,4 +6,5 @@ export * from './utils';
 export * from './files-api';
 export * from './mappers';
 export * from './constants';
+export * from './utils/with-root';
 export { ast };

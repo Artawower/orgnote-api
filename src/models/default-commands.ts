@@ -44,6 +44,7 @@ export enum DefaultCommands {
   DELETE_ALL_DATA = 'delete all data',
   DELETE_ALL_NOTES = 'delete all notes',
   DELETE_ACCOUNT = 'delete account',
+  STORAGE_SETTINGS = 'storage settings',
 
   // Routing
   OPEN_MY_NOTES = 'my notes',
