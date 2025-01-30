@@ -1,3 +1,3 @@
-import { I18N_KEYS } from '../constants';
+import { I18N } from '../constants';
 
-export type I18NKeys = (typeof I18N_KEYS)[number];
+export type I18NKey = keyof typeof I18N;

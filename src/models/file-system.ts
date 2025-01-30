@@ -1,3 +1,5 @@
+import { OrgNoteApi } from 'src/api';
+
 export interface DiskFile {
   name: string;
   path: string;
@@ -31,8 +33,10 @@ export type FileSystemPlatform =
 
 export interface FileSystemInfo {
   name: string;
-  fs: FileSystem;
+  fs: (api?: OrgNoteApi) => FileSystem;
   type?: FileSystemPlatform;
+  description?: string;
+  initialVault?: string;
 }
 
 export interface FileSystem {

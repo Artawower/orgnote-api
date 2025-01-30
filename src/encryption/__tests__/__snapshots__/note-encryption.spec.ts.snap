@@ -23,6 +23,41 @@ exports[`Should decrypt note content via password 1`] = `
 ]
 `;
 
+exports[`Should decrypt note via keys 1`] = `
+[
+  {
+    "author": undefined,
+    "bookmarked": true,
+    "createdAt": "2024-09-09T12:03:22.491Z",
+    "deletedAt": undefined,
+    "encrypted": true,
+    "filePath": [
+      "/usr/include/down_until.dot",
+      "/opt/share/by_dreamily.mar",
+    ],
+    "id": "21d1d79e-ea3b-4e6e-8054-55a3927a3973",
+    "isMy": true,
+    "meta": {
+      "description": "Trucido cruentus uredo bonus. Reiciendis delicate victus maiores debilito coma dicta tener. Baiulus adflicto aegrus.",
+      "images": [
+        "https://loremflickr.com/3477/1813?lock=5153636234062158",
+        "https://loremflickr.com/598/1016?lock=1569698392056226",
+        "https://picsum.photos/seed/JWzxX/803/1693",
+      ],
+      "published": true,
+      "title": "Corpus allatus cresco torqueo aspicio callide.",
+    },
+    "touchedAt": "2025-01-28T20:07:06.363Z",
+    "updatedAt": "2025-01-29T09:42:58.577Z",
+  },
+  "-----BEGIN PGP MESSAGE-----
+  Nemo bonus eos supra comptus aer urbs vita sonitus comminor. Vilicus adeptio dicta averto bellum approbo civis qui. Armarium conculco tempus consequuntur carus.
+Sufficio sit vacuus tamen terminatio verecundia clamo laborum. Blandior nemo commodo vinitor callide asperiores curatio stultus defendo. Asperiores adficio quae commemoro tamen facilis bos adfectus vomica odio.
+Casus spectaculum tabernus vociferor copiose theca. Deludo nisi valeo vulnero claudeo. Spiritus demo beatae correptius voluptate comedo.
+  -----END PGP MESSAGE-----",
+]
+`;
+
 exports[`Should decrypt note via provided keys 1`] = `
 [
   {

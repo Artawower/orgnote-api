@@ -1,18 +1,13 @@
 import { OrgNoteEncryption } from './encryption';
 import { Store } from './store';
-import { DiskFile, FileSystem } from '../models/file-system';
+import { DiskFile } from '../models/file-system';
 import { Ref } from 'vue';
-import { OrgNoteApi } from 'src/api';
 
 export interface FileSystemStore {
-  readFile: (
+  readFile: <T extends 'utf8' | 'binary'>(
     path: string | string[],
-    encoding?: 'utf8' | 'binary'
-  ) => Promise<Uint8Array>;
-  readTextFile(
-    path: string | string[],
-    encryptionConfig?: OrgNoteEncryption
-  ): Promise<string>;
+    encoding?: T
+  ) => Promise<T extends 'utf8' ? string : Uint8Array>;
   writeFile(
     path: string | string[],
     content: string | Uint8Array,
@@ -32,18 +27,7 @@ export interface FileSystemStore {
   fileInfo(path: string | string[]): Promise<DiskFile>;
   readDir(path?: string | string[]): Promise<DiskFile[]>;
   dropFileSystem: () => Promise<void>;
-
-  pickFileSystem(fsName: string): Promise<void>;
-  registerFileSystem(
-    name: string,
-    fs: FileSystem | ((api: OrgNoteApi) => Promise<FileSystem>)
-  ): Promise<void>;
-  unregisterFileSystem(name: string): Promise<void>;
-  hasAccess: Ref<boolean>;
-  getPermissions: () => Promise<void>;
-
-  activeFileSystemName: Ref<string>;
-  fileSystems: Ref<{ [name: string]: FileSystem }>;
+  vault: Ref<string>;
 }
 
 export type FileSystemStoreDefinition = Store<FileSystemStore>;

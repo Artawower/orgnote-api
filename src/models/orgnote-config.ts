@@ -32,10 +32,6 @@ export const ORG_NOTE_CONFIG_SCHEMA = pipe(
     synchronization: object({
       type: union([literal('none'), literal('api')]),
     }),
-    vault: object({
-      type: union([literal('inmemory'), literal('filesystem')]),
-      path: optional(string()),
-    }),
     ui: object({
       showUserProfiles: boolean(),
       theme: union([literal('light'), literal('dark'), literal('auto')]),
