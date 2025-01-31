@@ -13,7 +13,6 @@ export * from './file-system';
 export * from './sync';
 export * from './file-info';
 export * from './file-path';
-export * from './file-tree';
 export * from './user';
 export * from './oauth-provider';
 export * from './orgnote-config';

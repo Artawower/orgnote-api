@@ -13,7 +13,6 @@ import {
   SyncStoreDefinition,
   FilesStoreDefinition,
   FileOpenerStoreDefinition,
-  FileManageStoreDefinition,
   CommandsStoreDefinition,
   CommandsGroupStoreDefinition,
   FileInfoRepository,
@@ -25,6 +24,7 @@ import {
   UploadParams,
   CompletionStoreDefinition,
   PaneStoreDefinition,
+  FileManagerStoreDefinition,
 } from './models';
 // import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
@@ -113,5 +113,6 @@ export interface OrgNoteApi {
     useModal: ModalStoreDefinition;
     useSettingsUi: SettingsUiStoreDefinition;
     useConfirmationModal: UseConfirmationModal;
+    useFileManager: FileManagerStoreDefinition;
   };
 }

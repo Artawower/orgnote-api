@@ -1,16 +1,13 @@
-import type { Ref } from 'vue';
 import { Store } from './store';
-import { FileNode } from './file-tree';
+import { Ref, ShallowRef } from 'vue';
+import { DiskFile } from './file-system';
 
 export interface FileManagerStore {
-  fileTree: Ref<FileNode[]>;
-  renameFile: (fileNode: FileNode, newName: string) => Promise<void>;
-  deleteFile: (fileNode: FileNode) => Promise<void>;
-  updateFileManager: () => void;
-  createFolder: (filePath?: string[], name?: string) => Promise<void>;
-  editedFileItem: Ref<FileNode>;
-  stopEdit: () => void;
-  expandedNodes: Ref<string[]>;
+  path: Ref<string>;
+  focusFile: ShallowRef<DiskFile>;
+  deleteFile: (path?: string) => Promise<void>;
+  createFolder: (path?: string) => Promise<void>;
+  createFile: (path?: string) => Promise<void>;
 }
 
-export type FileManageStoreDefinition = Store<FileManagerStore>;
+export type FileManagerStoreDefinition = Store<FileManagerStore>;
