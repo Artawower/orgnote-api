@@ -66,4 +66,11 @@ export enum DefaultCommands {
   // Pages
   CLOSE_PAGE = 'close page',
   NEW_PAGE = 'new page',
+
+  // File manager
+  MAXIMIZE_FILE_MANAGER = 'maximize file manager',
+  CREATE_FOLDER = 'create folder',
+  CREATE_FILE = 'create file',
+  RENAME_FILE = 'rename file',
+  DELETE_FILE = 'delete file',
 }
