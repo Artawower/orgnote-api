@@ -14,8 +14,9 @@ export interface ModalConfig<T = any> {
   headerTitleComponent?: VueComponent;
 }
 
-export interface Modal {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface Modal<TReturn = any> {
   config?: ModalConfig;
-  closed?: Promise<void>;
+  closed?: Promise<TReturn>;
   component: VueComponent;
 }

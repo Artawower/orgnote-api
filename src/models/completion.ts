@@ -21,17 +21,20 @@ export type CandidateGetterFn<T = unknown> = (
 export interface CompletionConfig<T = unknown> {
   searchAutocompletions?: string[];
   itemsGetter: CandidateGetterFn<T>;
-  type?: 'input' | 'choice';
+  type?: 'input' | 'choice' | 'input-choice';
   placeholder?: string;
   itemHeight?: string;
   searchText?: string;
   onClicked?: (candidate: CompletionCandidate<T>) => void;
 }
 
-export interface Completion<T = unknown> extends CompletionConfig<T> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface Completion<T = any, TResult = any>
+  extends CompletionConfig<T> {
   level?: number;
   candidates?: CompletionCandidate<T>[];
   selectedCandidateIndex?: number;
   total?: number;
   searchQuery: string;
+  result: Promise<TResult>;
 }

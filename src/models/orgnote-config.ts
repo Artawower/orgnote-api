@@ -46,6 +46,15 @@ export const ORG_NOTE_CONFIG_SCHEMA = pipe(
   })
 );
 
+/* Settings are stored in memory */
+export interface DefinedOrgNoteSettings {
+  vault?: string;
+}
+
+export type OrgNoteSettings = DefinedOrgNoteSettings & {
+  [key: string]: unknown;
+};
+
 export type OrgNoteConfig = InferOutput<typeof ORG_NOTE_CONFIG_SCHEMA> & {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;

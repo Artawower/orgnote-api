@@ -26,6 +26,7 @@ export * from './pane';
 
 // Composables
 export * from './splash-screen';
+export * from './screen-detection';
 
 // Stores
 export * from './sync-store';
@@ -47,6 +48,7 @@ export * from './settings-ui-store';
 export * from './completion-store';
 export * from './pane-store';
 export * from './file-system-manager-store';
+export * from './config-store';
 
 // Repositories
 export * from './repositories';

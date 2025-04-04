@@ -1,12 +1,10 @@
-import type { Ref, UnwrapNestedRefs } from 'vue';
-import { OrgNoteConfig } from './orgnote-config';
+import type { Ref } from 'vue';
+import { OrgNoteSettings } from './orgnote-config';
 import { Store } from './store';
 import { ModelsAPIToken } from 'src/remote-api';
 
 export interface SettingsStore {
-  config: UnwrapNestedRefs<OrgNoteConfig>;
-  configErrors: Ref<string[]>;
-  sync: () => Promise<void>;
+  settings: OrgNoteSettings;
   tokens: Ref<ModelsAPIToken[]>;
 }
 
