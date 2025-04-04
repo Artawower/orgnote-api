@@ -4,9 +4,11 @@ import { Store } from './store';
 
 export interface CompletionStore {
   restore: () => void;
-  close: () => void;
+  close: <TData = unknown>(data?: TData) => void;
   closeAll: () => void;
-  open: <T>(config: CompletionConfig<T>) => Promise<void>;
+  open: <TItem, TReturn = void>(
+    config: CompletionConfig<TItem>
+  ) => Promise<TReturn>;
   activeCompletion?: ComputedRef<Completion>;
   nextCandidate: () => void;
   previousCandidate: () => void;

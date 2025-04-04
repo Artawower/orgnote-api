@@ -25,6 +25,7 @@ import {
   CompletionStoreDefinition,
   PaneStoreDefinition,
   FileManagerStoreDefinition,
+  UseScreenDetection,
 } from './models';
 // import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
@@ -53,6 +54,7 @@ import { ToolbarStoreDefinition } from './models/toolbar-store';
 import type { App } from 'vue';
 import { UseConfirmationModal } from './models/confirmation-modal';
 import { FileSystemManagerStoreDefinition } from './models/file-system-manager-store';
+import { ConfigStoreDefinition } from './models/config-store';
 
 type WithNodeType<T> = { nodeType: NodeType } & T;
 
@@ -75,10 +77,12 @@ export interface OrgNoteApi {
     useFileSystem: FileSystemStoreDefinition;
     useEncryption: EncryptionStoreDefinition;
     useSettings: SettingsStoreDefinition;
+    useConfig: ConfigStoreDefinition;
     useQuasar: () => QVueGlobals;
     useCompletion: CompletionStoreDefinition;
     usePane: PaneStoreDefinition;
     useFileSystemManager: FileSystemManagerStoreDefinition;
+    useFileManager: FileManagerStoreDefinition;
     app: App;
   };
   utils: {
@@ -113,6 +117,6 @@ export interface OrgNoteApi {
     useModal: ModalStoreDefinition;
     useSettingsUi: SettingsUiStoreDefinition;
     useConfirmationModal: UseConfirmationModal;
-    useFileManager: FileManagerStoreDefinition;
+    useScreenDetection: UseScreenDetection;
   };
 }

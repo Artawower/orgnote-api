@@ -1,6 +1,6 @@
 {
   "name": "orgnote-api",
-  "version": "0.30.2",
+  "version": "0.30.5",
   "description": "Official API for creating extensions for OrgNote app",
   "type": "module",
   "main": "./index.js",
@@ -49,7 +49,7 @@
     "openpgp": "5.11.1",
     "org-mode-ast": "0.11.8",
     "pinia": "2.3.0",
-    "quasar": "2.17.6",
+    "quasar": "2.16.6",
     "vue": "3.5.13",
     "vue-router": "4.5.0"
   },

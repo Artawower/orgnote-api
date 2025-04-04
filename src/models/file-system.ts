@@ -39,6 +39,10 @@ export interface FileSystemInfo {
   initialVault?: string;
 }
 
+export interface InitFileSystemParams {
+  root?: string;
+}
+
 export interface FileSystem {
   readFile: <
     T extends 'utf8' | 'binary' = 'utf8',
@@ -65,5 +69,8 @@ export interface FileSystem {
     atime?: string | number | Date,
     mtime?: string | number | Date
   ) => Promise<void>;
-  init?: <T = unknown>(params?: T) => Promise<void>;
+  init?: (
+    params?: InitFileSystemParams
+  ) => Promise<InitFileSystemParams | void>;
+  pickFolder?: () => Promise<string>;
 }

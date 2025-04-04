@@ -66,6 +66,15 @@ export enum i18n {
   CHOOSE_FILE_SYSTEM = 'choose file system',
   CHOOSE_VAULT = 'choose vault',
   CREATE_DIRECTORY = 'create directory',
+  DELETE = 'delete',
+  RENAME = 'rename',
+  COPY = 'copy',
+  CREATE_FILE = 'create file',
+  FILE_NAME = 'file name',
+  DIR_NAME = 'directory name',
+  FINISH_SETUP = 'finish setup',
+  FOLDER_NAME = 'folder name',
+  ANDROID_SAF_FS_DESCRIPTION = 'SAF android file system',
 }
 
 export const I18N = {

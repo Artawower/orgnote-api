@@ -73,4 +73,6 @@ export enum DefaultCommands {
   CREATE_FILE = 'create file',
   RENAME_FILE = 'rename file',
   DELETE_FILE = 'delete file',
+  CONFIRM_FILE_DELETION = 'are you sure you want to delete file?',
+  NEW_FILE_PATH = 'new file path',
 }
