@@ -1,6 +1,6 @@
 {
   "name": "orgnote-api",
-  "version": "0.30.5",
+  "version": "0.30.7",
   "description": "Official API for creating extensions for OrgNote app",
   "type": "module",
   "main": "./index.js",
@@ -41,33 +41,33 @@
   },
   "homepage": "https://github.com/artawower/orgnote-api#readme",
   "dependencies": {
-    "@capacitor/filesystem": "6.0.0",
-    "@codemirror/state": "6.4.1",
-    "@codemirror/view": "6.26.3",
-    "@faker-js/faker": "9.3.0",
-    "axios": "1.7.3",
-    "openpgp": "5.11.1",
+    "@capacitor/filesystem": "7.0.1",
+    "@codemirror/state": "6.5.2",
+    "@codemirror/view": "6.36.5",
+    "@faker-js/faker": "9.7.0",
+    "axios": "1.8.4",
+    "openpgp": "6.1.0",
     "org-mode-ast": "0.11.8",
-    "pinia": "2.3.0",
-    "quasar": "2.16.6",
+    "pinia": "3.0.2",
+    "quasar": "2.18.1",
     "vue": "3.5.13",
     "vue-router": "4.5.0"
   },
   "devDependencies": {
-    "@eslint/js": "9.17.0",
-    "@openapitools/openapi-generator-cli": "2.13.4",
-    "@types/node": "20.13.0",
-    "eslint": "9.17.0",
-    "fix-esm-import-path": "1.10.0",
-    "globals": "15.14.0",
-    "ts-patch": "3.2.1",
-    "typescript": "5.3.3",
-    "typescript-eslint": "8.18.1",
-    "typescript-transform-paths": "3.5.1",
+    "@eslint/js": "9.25.1",
+    "@openapitools/openapi-generator-cli": "2.19.1",
+    "@types/node": "22.14.1",
+    "eslint": "9.25.1",
+    "fix-esm-import-path": "1.10.1",
+    "globals": "16.0.0",
+    "ts-patch": "3.3.0",
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.31.0",
+    "typescript-transform-paths": "3.5.5",
     "typescript-transformer-esm": "1.1.0",
-    "vitest": "1.5.0"
+    "vitest": "3.1.2"
   },
   "peerDependencies": {
-    "valibot": "1.0.0-beta.9"
+    "valibot": "1.0.0"
   }
 }

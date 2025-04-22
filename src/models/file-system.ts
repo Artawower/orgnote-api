@@ -39,7 +39,7 @@ export interface FileSystemInfo {
   initialVault?: string;
 }
 
-export interface InitFileSystemParams {
+export interface FileSystemParams {
   root?: string;
 }
 
@@ -69,8 +69,7 @@ export interface FileSystem {
     atime?: string | number | Date,
     mtime?: string | number | Date
   ) => Promise<void>;
-  init?: (
-    params?: InitFileSystemParams
-  ) => Promise<InitFileSystemParams | void>;
+  init?: (params?: FileSystemParams) => Promise<FileSystemParams | void>;
+  mount?: (params?: FileSystemParams) => Promise<boolean>;
   pickFolder?: () => Promise<string>;
 }
