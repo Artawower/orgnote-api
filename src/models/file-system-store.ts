@@ -1,6 +1,7 @@
 import { OrgNoteEncryption } from './encryption';
 import { Store } from './store';
 import { DiskFile } from '../models/file-system';
+import { Ref } from 'vue';
 
 export interface FileSystemStore {
   readFile: <T extends 'utf8' | 'binary'>(
@@ -26,6 +27,7 @@ export interface FileSystemStore {
   fileInfo(path: string | string[]): Promise<DiskFile>;
   readDir(path?: string | string[]): Promise<DiskFile[]>;
   dropFileSystem: () => Promise<void>;
+  prettyVault: Ref<string>;
 }
 
 export type FileSystemStoreDefinition = Store<FileSystemStore>;

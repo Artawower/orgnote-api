@@ -72,4 +72,6 @@ export interface FileSystem {
   init?: (params?: FileSystemParams) => Promise<FileSystemParams | void>;
   mount?: (params?: FileSystemParams) => Promise<boolean>;
   pickFolder?: () => Promise<string>;
+  /* Convert internal path to pretty visual path for display */
+  prettifyPath?: (path: string) => string;
 }
