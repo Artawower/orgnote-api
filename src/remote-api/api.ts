@@ -394,21 +394,21 @@ export interface HandlersSyncNotesResponse {
 /**
  * 
  * @export
- * @interface HandlersSystemMetadata
+ * @interface HandlersSystemInfo
  */
-export interface HandlersSystemMetadata {
+export interface HandlersSystemInfo {
     /**
      * 
-     * @type {ModelsSystemInfo}
-     * @memberof HandlersSystemMetadata
+     * @type {ModelsEnvironmentInfo}
+     * @memberof HandlersSystemInfo
      */
-    'systemInfo'?: ModelsSystemInfo;
+    'environment'?: ModelsEnvironmentInfo;
     /**
      * 
      * @type {ModelsOrgNoteClientUpdateInfo}
-     * @memberof HandlersSystemMetadata
+     * @memberof HandlersSystemInfo
      */
-    'updateInfo'?: ModelsOrgNoteClientUpdateInfo;
+    'update'?: ModelsOrgNoteClientUpdateInfo;
 }
 /**
  * 
@@ -450,6 +450,19 @@ export const ModelsCategory = {
 export type ModelsCategory = typeof ModelsCategory[keyof typeof ModelsCategory];
 
 
+/**
+ * 
+ * @export
+ * @interface ModelsEnvironmentInfo
+ */
+export interface ModelsEnvironmentInfo {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ModelsEnvironmentInfo
+     */
+    'selfHosted'?: boolean;
+}
 /**
  * 
  * @export
@@ -743,19 +756,6 @@ export interface ModelsPublicUser {
      * @memberof ModelsPublicUser
      */
     'profileUrl'?: string;
-}
-/**
- * 
- * @export
- * @interface ModelsSystemInfo
- */
-export interface ModelsSystemInfo {
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ModelsSystemInfo
-     */
-    'selfHosted'?: boolean;
 }
 /**
  * 
@@ -2240,7 +2240,7 @@ export const SystemInfoApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async systemInfoVersionGet(version: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersSystemMetadata>> {
+        async systemInfoVersionGet(version: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersSystemInfo>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.systemInfoVersionGet(version, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SystemInfoApi.systemInfoVersionGet']?.[localVarOperationServerIndex]?.url;
@@ -2273,7 +2273,7 @@ export const SystemInfoApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        systemInfoVersionGet(version: string, options?: any): AxiosPromise<HandlersSystemMetadata> {
+        systemInfoVersionGet(version: string, options?: any): AxiosPromise<HandlersSystemInfo> {
             return localVarFp.systemInfoVersionGet(version, options).then((request) => request(axios, basePath));
         },
     };
