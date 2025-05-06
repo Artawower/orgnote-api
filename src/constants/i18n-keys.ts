@@ -75,6 +75,8 @@ export enum i18n {
   FINISH_SETUP = 'finish setup',
   FOLDER_NAME = 'folder name',
   ANDROID_SAF_FS_DESCRIPTION = 'SAF android file system',
+  NO_FILE_READER_FOR = 'no file reader for',
+  CLOSE = 'close',
 }
 
 export const I18N = {

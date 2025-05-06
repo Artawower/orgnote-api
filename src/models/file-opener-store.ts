@@ -1,7 +1,11 @@
 import { Store } from './store';
 
-export interface FileOpenerStore {
-  openFile: (path: string[]) => Promise<void>;
+export interface FileReaderStore {
+  addReader: (
+    readerMatch: string,
+    reader: (path: string) => Promise<void>
+  ) => void;
+  openFile: (path: string) => Promise<void>;
 }
 
-export type FileOpenerStoreDefinition = Store<FileOpenerStore>;
+export type FileReaderStoreDefinition = Store<FileReaderStore>;
