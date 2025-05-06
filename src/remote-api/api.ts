@@ -728,6 +728,19 @@ export interface ModelsPublicUser {
 /**
  * 
  * @export
+ * @interface ModelsSystemInfo
+ */
+export interface ModelsSystemInfo {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ModelsSystemInfo
+     */
+    'selfHosted'?: boolean;
+}
+/**
+ * 
+ * @export
  * @interface ModelsUserPersonalInfo
  */
 export interface ModelsUserPersonalInfo {
@@ -2144,6 +2157,36 @@ export const SystemInfoApiAxiosParamCreator = function (configuration?: Configur
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Get system info
+         * @summary GetSystemInfo
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        systemInfoGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/system-info`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -2167,6 +2210,18 @@ export const SystemInfoApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['SystemInfoApi.systemInfoClientUpdateVersionGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * Get system info
+         * @summary GetSystemInfo
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async systemInfoGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ModelsSystemInfo>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.systemInfoGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SystemInfoApi.systemInfoGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -2186,6 +2241,15 @@ export const SystemInfoApiFactory = function (configuration?: Configuration, bas
          */
         systemInfoClientUpdateVersionGet(version: string, options?: any): AxiosPromise<ModelsOrgNoteClientUpdateInfo> {
             return localVarFp.systemInfoClientUpdateVersionGet(version, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get system info
+         * @summary GetSystemInfo
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        systemInfoGet(options?: any): AxiosPromise<ModelsSystemInfo> {
+            return localVarFp.systemInfoGet(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -2207,6 +2271,17 @@ export class SystemInfoApi extends BaseAPI {
      */
     public systemInfoClientUpdateVersionGet(version: string, options?: RawAxiosRequestConfig) {
         return SystemInfoApiFp(this.configuration).systemInfoClientUpdateVersionGet(version, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get system info
+     * @summary GetSystemInfo
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SystemInfoApi
+     */
+    public systemInfoGet(options?: RawAxiosRequestConfig) {
+        return SystemInfoApiFp(this.configuration).systemInfoGet(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
