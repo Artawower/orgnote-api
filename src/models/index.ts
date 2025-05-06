@@ -49,6 +49,12 @@ export * from './completion-store';
 export * from './pane-store';
 export * from './file-system-manager-store';
 export * from './config-store';
+export * from './notifications-store';
+export * from './notification-config';
+
+// UI
+export * from './style-variant';
+export * from './style-size';
 
 // Repositories
 export * from './repositories';

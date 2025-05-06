@@ -12,7 +12,7 @@ import {
   Modal,
   SyncStoreDefinition,
   FilesStoreDefinition,
-  FileOpenerStoreDefinition,
+  FileReaderStoreDefinition,
   CommandsStoreDefinition,
   CommandsGroupStoreDefinition,
   FileInfoRepository,
@@ -26,6 +26,7 @@ import {
   PaneStoreDefinition,
   FileManagerStoreDefinition,
   UseScreenDetection,
+  NotificationsStoreDefinition,
 } from './models';
 // import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
@@ -83,6 +84,8 @@ export interface OrgNoteApi {
     usePane: PaneStoreDefinition;
     useFileSystemManager: FileSystemManagerStoreDefinition;
     useFileManager: FileManagerStoreDefinition;
+    useFileReader: FileReaderStoreDefinition;
+    useNotifications: NotificationsStoreDefinition;
     app: App;
   };
   utils: {
