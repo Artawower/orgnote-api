@@ -38,6 +38,7 @@ export const ORG_NOTE_CONFIG_SCHEMA = pipe(
       darkThemeName: optional(union([string(), literal(null)])),
       lightThemeName: optional(union([string(), literal(null)])),
       enableAnimations: boolean(),
+      notificationTimeout: optional(number()),
     }),
     extensions: object({
       sources: array(string()),

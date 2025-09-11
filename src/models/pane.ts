@@ -1,15 +1,41 @@
+import { ShallowRef } from 'vue';
 import type { Router } from 'vue-router';
 
 export interface Pane {
   id: string;
-  activePageId: string;
-  pages: Record<string, Page>;
+  activeTabId: string;
+  tabs: ShallowRef<Record<string, Tab>>;
 }
 
-export interface Page {
+export interface Tab {
   title: string;
   id: string;
+  paneId: string;
   router: Router;
 }
+export type InitialPaneParams = Partial<Pick<Tab, 'title' | 'id' | 'paneId'>>;
 
-export type InitialPaneParams = Partial<Pick<Page, 'title' | 'id'>>;
+export interface TabSnapshot {
+  id: string;
+  title: string;
+  paneId: string;
+  routeLocation: {
+    path: string;
+    params: Record<string, string>;
+    query: Record<string, string>;
+    hash: string;
+    name?: string;
+  };
+}
+
+export interface PaneSnapshot {
+  id: string;
+  activeTabId: string;
+  tabs: TabSnapshot[];
+}
+
+export interface PanesSnapshot {
+  panes: PaneSnapshot[];
+  activePaneId: string;
+  timestamp: number;
+}

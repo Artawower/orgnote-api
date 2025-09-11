@@ -65,7 +65,7 @@ export enum DefaultCommands {
 
   // Pages
   CLOSE_PAGE = 'close page',
-  NEW_PAGE = 'new page',
+  NEW_TAB = 'new tab',
 
   // File manager
   MAXIMIZE_FILE_MANAGER = 'maximize file manager',
@@ -75,4 +75,7 @@ export enum DefaultCommands {
   DELETE_FILE = 'delete file',
   CONFIRM_FILE_DELETION = 'are you sure you want to delete file?',
   NEW_FILE_PATH = 'new file path',
+
+  // Notes commands
+  OPEN_NOTE = 'open note',
 }
