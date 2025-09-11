@@ -23,6 +23,7 @@ export * from './vue-component';
 export * from './file-upload';
 export * from './confirmation-modal';
 export * from './pane';
+export * from './buffer';
 
 // Composables
 export * from './splash-screen';
@@ -46,11 +47,12 @@ export * from './toolbar-store';
 export * from './modal-store';
 export * from './settings-ui-store';
 export * from './completion-store';
-export * from './pane-store';
+export * from './panes-store';
 export * from './file-system-manager-store';
 export * from './config-store';
 export * from './notifications-store';
 export * from './notification-config';
+export * from './buffer-store';
 
 // UI
 export * from './style-variant';

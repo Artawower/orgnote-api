@@ -55,7 +55,8 @@ export enum i18n {
   ENCRYPT_ACTIVE_NOTE = 'encrypt active note',
   DECRYPT_ACTIVE_NOTE = 'decrypt active note',
   CHECK_GITHUB_SOURCE_CODE = 'check source code on the github page',
-  ADD_NEW_PAGE = 'add new page',
+  ADD_NEW_TAB = 'add new tab',
+  NEW_TAB = 'new tab',
   SIMPLE_FS_DESCRIPTION = 'A simple file system based on IndexedDB. It does not provide real storage on the disk and stores all data in the browser.',
   STORAGE_SETTINGS = 'storage settings',
   STORAGE_CHANGE_WARNING = 'be careful',
@@ -77,6 +78,7 @@ export enum i18n {
   ANDROID_SAF_FS_DESCRIPTION = 'SAF android file system',
   NO_FILE_READER_FOR = 'no file reader for',
   CLOSE = 'close',
+  PICK_NOTE = 'pick note',
 }
 
 export const I18N = {

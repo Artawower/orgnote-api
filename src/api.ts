@@ -27,6 +27,7 @@ import {
   FileManagerStoreDefinition,
   UseScreenDetection,
   NotificationsStoreDefinition,
+  BufferStoreDefinition,
 } from './models';
 // import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
@@ -56,6 +57,7 @@ import type { App } from 'vue';
 import { UseConfirmationModal } from './models/confirmation-modal';
 import { FileSystemManagerStoreDefinition } from './models/file-system-manager-store';
 import { ConfigStoreDefinition } from './models/config-store';
+import { Router } from 'vue-router';
 
 type WithNodeType<T> = { nodeType: NodeType } & T;
 
@@ -74,7 +76,7 @@ export interface OrgNoteApi {
   core: {
     useCommands: CommandsStoreDefinition;
     useCommandsGroup: CommandsGroupStoreDefinition;
-    useExtenions: ExtensionStoreDefinition;
+    useExtensions: ExtensionStoreDefinition;
     useFileSystem: FileSystemStoreDefinition;
     useEncryption: EncryptionStoreDefinition;
     useSettings: SettingsStoreDefinition;
@@ -86,6 +88,7 @@ export interface OrgNoteApi {
     useFileManager: FileManagerStoreDefinition;
     useFileReader: FileReaderStoreDefinition;
     useNotifications: NotificationsStoreDefinition;
+    useBuffers: BufferStoreDefinition;
     app: App;
   };
   utils: {
@@ -121,5 +124,8 @@ export interface OrgNoteApi {
     useSettingsUi: SettingsUiStoreDefinition;
     useConfirmationModal: UseConfirmationModal;
     useScreenDetection: UseScreenDetection;
+  };
+  vue: {
+    router: Router;
   };
 }
