@@ -51,6 +51,7 @@ import {
 } from './models/css-utils';
 import { UseBackgroundSettings } from './models/ui-store';
 import { SidebarStoreDefinition } from './models/sidebar-store';
+import { Logger } from './models/logger';
 import type { QVueGlobals } from 'quasar';
 import { ToolbarStoreDefinition } from './models/toolbar-store';
 import type { App } from 'vue';
@@ -114,6 +115,9 @@ export interface OrgNoteApi {
     // Files
     uploadFiles: (params: MultipleUploadParams) => Promise<FileList>;
     uploadFile: (params?: UploadParams) => Promise<File>;
+
+    // Logger
+    logger: Logger;
   };
   ui: {
     useSplashScreen: UseSplashScreen;
