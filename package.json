@@ -46,7 +46,6 @@
     "@codemirror/view": "6.36.5",
     "@faker-js/faker": "9.7.0",
     "axios": "1.8.4",
-    "neverthrow": "8.2.0",
     "openpgp": "6.1.0",
     "org-mode-ast": "0.11.8",
     "pinia": "3.0.2",
