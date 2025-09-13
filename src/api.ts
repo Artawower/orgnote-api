@@ -28,6 +28,7 @@ import {
   UseScreenDetection,
   NotificationsStoreDefinition,
   BufferStoreDefinition,
+  Repositories,
 } from './models';
 // import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
@@ -70,10 +71,7 @@ export type WidgetMeta =
 export interface OrgNoteApi {
   [key: string]: unknown;
   /* Native file system API without additional batteries */
-  infrastructure: {
-    fileInfoRepository: FileInfoRepository;
-    noteInfoRepository: NoteInfoRepository;
-  };
+  infrastructure: Repositories;
   core: {
     useCommands: CommandsStoreDefinition;
     useCommandsGroup: CommandsGroupStoreDefinition;

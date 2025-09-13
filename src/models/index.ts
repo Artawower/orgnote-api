@@ -24,6 +24,8 @@ export * from './file-upload';
 export * from './confirmation-modal';
 export * from './pane';
 export * from './buffer';
+export * from './log';
+export * from './logger';
 
 // Composables
 export * from './splash-screen';
@@ -60,3 +62,4 @@ export * from './style-size';
 
 // Repositories
 export * from './repositories';
+export * from './log-repository';

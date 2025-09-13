@@ -1,6 +1,7 @@
 import { ExtensionMeta, StoredExtension } from './extension';
 import { FileInfo } from './file-info';
 import { FilePathInfo } from './file-path';
+import { LoggerRepository } from './log-repository';
 import { NoteInfo } from './note';
 
 export interface ExtensionRepository {
@@ -64,7 +65,8 @@ export interface NoteInfoRepository {
 }
 
 export interface Repositories {
-  fileMetaRepository: FileInfoRepository;
-  noteMetaRepository: NoteInfoRepository;
-  extensions: ExtensionRepository;
+  logRepository: LoggerRepository;
+  fileInfoRepository: FileInfoRepository;
+  noteInfoRepository: NoteInfoRepository;
+  // extensions: ExtensionRepository;
 }
