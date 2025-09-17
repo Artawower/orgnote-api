@@ -9,42 +9,47 @@ import {
   literal,
   InferOutput,
   pipe,
+  unknown,
+  objectWithRest,
 } from 'valibot';
 import { OrgNoteEncryptionSchema } from './encryption';
 
 export const ORG_NOTE_CONFIG_SCHEMA = pipe(
-  object({
-    editor: object({
-      showSpecialSymbols: boolean(),
-      showPropertyDrawer: boolean(),
-    }),
-    developer: object({
-      developerMode: boolean(),
-      maximumLogsCount: number(),
-    }),
-    completion: object({
-      showGroup: boolean(),
-      defaultCompletionLimit: number(),
-    }),
-    system: object({
-      language: string(),
-    }),
-    synchronization: object({
-      type: union([literal('none'), literal('api')]),
-    }),
-    ui: object({
-      showUserProfiles: boolean(),
-      theme: union([literal('light'), literal('dark'), literal('auto')]),
-      darkThemeName: optional(union([string(), literal(null)])),
-      lightThemeName: optional(union([string(), literal(null)])),
-      enableAnimations: boolean(),
-      notificationTimeout: optional(number()),
-    }),
-    extensions: object({
-      sources: array(string()),
-    }),
-    encryption: OrgNoteEncryptionSchema,
-  })
+  objectWithRest(
+    {
+      editor: object({
+        showSpecialSymbols: boolean(),
+        showPropertyDrawer: boolean(),
+      }),
+      developer: object({
+        developerMode: boolean(),
+        maximumLogsCount: number(),
+      }),
+      completion: object({
+        showGroup: boolean(),
+        defaultCompletionLimit: number(),
+      }),
+      system: object({
+        language: string(),
+      }),
+      synchronization: object({
+        type: union([literal('none'), literal('api')]),
+      }),
+      ui: object({
+        showUserProfiles: boolean(),
+        theme: union([literal('light'), literal('dark'), literal('auto')]),
+        darkThemeName: optional(union([string(), literal(null)])),
+        lightThemeName: optional(union([string(), literal(null)])),
+        enableAnimations: boolean(),
+        notificationTimeout: optional(number()),
+      }),
+      extensions: object({
+        sources: array(string()),
+      }),
+      encryption: OrgNoteEncryptionSchema,
+    },
+    unknown()
+  )
 );
 
 /* Settings are stored in memory */
