@@ -63,10 +63,6 @@ export enum DefaultCommands {
   ENCRYPT_NOTE = 'encrypt note',
   DECRYPT_NOTE = 'decrypt note',
 
-  // Pages
-  CLOSE_PAGE = 'close page',
-  NEW_TAB = 'new tab',
-
   // File manager
   MAXIMIZE_FILE_MANAGER = 'maximize file manager',
   CREATE_FOLDER = 'create folder',
@@ -78,4 +74,9 @@ export enum DefaultCommands {
 
   // Notes commands
   OPEN_NOTE = 'open note',
+
+  // Windows & buffers
+  TABS = 'show tabs',
+  CLOSE_TAB = 'close tab',
+  NEW_TAB = 'new tab',
 }
