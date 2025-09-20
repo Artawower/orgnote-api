@@ -10,6 +10,7 @@ export interface ModalConfig<T = any> {
   position?: 'top' | 'center' | 'bottom';
   fullScreen?: boolean;
   noPadding?: boolean;
+  wide?: boolean;
   mini?: boolean;
   headerTitleComponent?: VueComponent;
 }
