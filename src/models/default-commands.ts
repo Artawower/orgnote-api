@@ -77,6 +77,10 @@ export enum DefaultCommands {
 
   // Windows & buffers
   TABS = 'show tabs',
+  SHOW_TAB_SWITCHER = 'show tab switcher',
   CLOSE_TAB = 'close tab',
   NEW_TAB = 'new tab',
+
+  // Modal
+  CLOSE_MODAL = 'close modal',
 }
