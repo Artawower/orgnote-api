@@ -31,8 +31,9 @@ export interface CommandMeta<T = any> extends Partial<CommandPreview> {
   interactive?: boolean; // TODO: add support for interactive commands
   /* When command is system command, it will not be shown for users */
   system?: boolean;
-  disabled?: () => boolean;
-  isActive?: () => boolean;
+  hide?: (api: OrgNoteApi) => boolean;
+  disabled?: (api: OrgNoteApi) => boolean;
+  isActive?: (api: OrgNoteApi) => boolean;
   context?: {
     [key: string]: T;
   };
