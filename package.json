@@ -58,6 +58,7 @@
     "@openapitools/openapi-generator-cli": "2.19.1",
     "@types/node": "22.14.1",
     "eslint": "9.25.1",
+    "eslint-plugin-sonarjs": "3.0.5",
     "fix-esm-import-path": "1.10.1",
     "globals": "16.0.0",
     "ts-patch": "3.3.0",
