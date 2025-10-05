@@ -3,6 +3,8 @@ import { FileInfo } from './file-info';
 import { FilePathInfo } from './file-path';
 import { LoggerRepository } from './log-repository';
 import { NoteInfo } from './note';
+import { PaneSnapshotRepository } from './pane-snapshot-repository';
+import { Task } from './queue';
 
 export interface ExtensionRepository {
   getMeta(): Promise<ExtensionMeta[]>;
@@ -64,9 +66,18 @@ export interface NoteInfoRepository {
   clear(): Promise<void>;
 }
 
+export interface TaskQueueRepository {
+  getAll(): Promise<Task[]>;
+  update(task: Task): Promise<void>;
+  add(task: Task): Promise<void>;
+  delete(taskId: string): Promise<void>;
+  clear(): Promise<void>;
+}
+
 export interface Repositories {
   logRepository: LoggerRepository;
   fileInfoRepository: FileInfoRepository;
   noteInfoRepository: NoteInfoRepository;
+  paneSnapshotRepository: PaneSnapshotRepository;
   // extensions: ExtensionRepository;
 }

@@ -43,6 +43,8 @@ export const ORG_NOTE_CONFIG_SCHEMA = pipe(
         lightThemeName: optional(union([string(), literal(null)])),
         enableAnimations: boolean(),
         notificationTimeout: optional(number()),
+        persistantPanes: optional(boolean()),
+        persistantPanesSaveDelay: number(),
       }),
       extensions: object({
         sources: array(string()),

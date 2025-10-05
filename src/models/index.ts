@@ -63,3 +63,4 @@ export * from './style-size';
 // Repositories
 export * from './repositories';
 export * from './log-repository';
+export * from './pane-snapshot-repository';
