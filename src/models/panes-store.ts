@@ -24,6 +24,8 @@ export interface PaneStore {
   ) => Promise<void | NavigationFailure | undefined>;
   getPanesSnapshot: () => PanesSnapshot;
   restorePanesSnapshot: (snapshot: PanesSnapshot) => Promise<void>;
+  savePanes(): Promise<void>;
+  restorePanes(): Promise<void>;
 }
 
 export type PaneStoreDefinition = Store<PaneStore>;
