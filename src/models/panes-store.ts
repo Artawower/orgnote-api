@@ -3,8 +3,20 @@ import { Store } from './store';
 import { InitialPaneParams, Tab, Pane, PanesSnapshot } from './pane';
 import { ComputedRef } from 'vue';
 import type { NavigationFailure, RouteLocationRaw } from 'vue-router';
+import { DropDirection, LayoutNode } from './layout';
 
 export interface PaneStore {
+  layout: ShallowRef<LayoutNode>;
+  initLayout: () => void;
+  findPaneInLayout: (paneId: string, node?: LayoutNode) => LayoutNode | null;
+  splitPaneInLayout: (
+    paneId: string,
+    direction: DropDirection,
+    createInitialTab?: boolean
+  ) => Promise<string | null>;
+  removePaneFromLayout: (paneId: string) => void;
+  moveTab: (tabId: string, sourcePaneId: string, targetPaneId: string) => void;
+
   panes: Ref<Record<string, ShallowRef<Pane>>>;
   activePane: ComputedRef<Pane>;
   initNewPane: (params?: InitialPaneParams) => Promise<Pane>;

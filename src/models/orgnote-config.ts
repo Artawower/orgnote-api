@@ -45,6 +45,7 @@ export const ORG_NOTE_CONFIG_SCHEMA = pipe(
         notificationTimeout: optional(number()),
         persistantPanes: optional(boolean()),
         persistantPanesSaveDelay: number(),
+        dropZoneEdgeRatio: number(),
       }),
       extensions: object({
         sources: array(string()),
