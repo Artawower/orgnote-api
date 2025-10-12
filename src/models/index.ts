@@ -26,6 +26,7 @@ export * from './pane';
 export * from './buffer';
 export * from './log';
 export * from './logger';
+export * from './layout';
 
 // Composables
 export * from './splash-screen';
