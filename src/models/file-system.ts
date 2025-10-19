@@ -74,4 +74,5 @@ export interface FileSystem {
   pickFolder?: () => Promise<string>;
   /* Convert internal path to pretty visual path for display */
   prettifyPath?: (path: string) => string;
+  wipe?: () => Promise<void>;
 }
