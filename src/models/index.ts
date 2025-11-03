@@ -51,6 +51,7 @@ export * from './modal-store';
 export * from './settings-ui-store';
 export * from './completion-store';
 export * from './panes-store';
+export * from './layout-store';
 export * from './file-system-manager-store';
 export * from './config-store';
 export * from './notifications-store';
@@ -64,4 +65,4 @@ export * from './style-size';
 // Repositories
 export * from './repositories';
 export * from './log-repository';
-export * from './pane-snapshot-repository';
+export * from './layout-snapshot-repository';

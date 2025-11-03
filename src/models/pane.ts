@@ -1,5 +1,6 @@
 import { ShallowRef } from 'vue';
 import type { Router } from 'vue-router';
+import type { LayoutNode } from './layout';
 
 export interface Pane {
   id: string;
@@ -13,7 +14,8 @@ export interface Tab {
   paneId: string;
   router: Router;
 }
-export type InitialPaneParams = Partial<Pick<Tab, 'title' | 'id' | 'paneId'>>;
+
+export type InitialTabParams = Partial<Pick<Tab, 'title' | 'id' | 'paneId'>>;
 
 export interface TabSnapshot {
   id: string;
@@ -34,8 +36,9 @@ export interface PaneSnapshot {
   tabs: TabSnapshot[];
 }
 
-export interface PanesSnapshot {
+export interface LayoutSnapshot {
   panes: PaneSnapshot[];
   activePaneId: string;
   timestamp: number;
+  layout: LayoutNode;
 }

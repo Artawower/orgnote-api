@@ -1,43 +1,43 @@
-import { Ref, ShallowRef } from 'vue';
+import { Ref, ShallowRef, ComputedRef } from 'vue';
 import { Store } from './store';
-import { InitialPaneParams, Tab, Pane, PanesSnapshot } from './pane';
-import { ComputedRef } from 'vue';
-import type { NavigationFailure, RouteLocationRaw } from 'vue-router';
-import { DropDirection, LayoutNode } from './layout';
+import { InitialTabParams, Tab, Pane, PaneSnapshot } from './pane';
+import type { RouteLocationRaw } from 'vue-router';
 
 export interface PaneStore {
-  layout: ShallowRef<LayoutNode>;
-  initLayout: () => void;
-  findPaneInLayout: (paneId: string, node?: LayoutNode) => LayoutNode | null;
-  splitPaneInLayout: (
-    paneId: string,
-    direction: DropDirection,
-    createInitialTab?: boolean
-  ) => Promise<string | null>;
-  removePaneFromLayout: (paneId: string) => void;
-  moveTab: (tabId: string, sourcePaneId: string, targetPaneId: string) => void;
-
+  // TODO: feat/stable-beta make as reactive object
   panes: Ref<Record<string, ShallowRef<Pane>>>;
+  activePaneId: Ref<string | null>;
   activePane: ComputedRef<Pane>;
-  initNewPane: (params?: InitialPaneParams) => Promise<Pane>;
-  getPane: (id: string) => ShallowRef<Pane>;
-  activePaneId?: Ref<string>;
-  addTab: (params?: InitialPaneParams) => Promise<Tab>;
-  selectTab: (paneId: string, tabId: string) => void;
-  closeTab: (paneId: string, tabId: string) => void;
   activeTab: ComputedRef<Tab>;
-  navigate: (
-    params: RouteLocationRaw
-  ) => Promise<void | NavigationFailure | undefined>;
-  navigateTab: (
-    paneId: string,
+
+  createPane: (params?: Partial<Pane>) => Promise<Pane>;
+  getPane: (id: string) => ShallowRef<Pane>;
+  closePane: (paneId: string) => void;
+  setActivePane: (paneId: string) => void;
+
+  isDraggingTab: Ref<boolean>;
+  draggedTabData: Ref<{ tabId: string; paneId: string } | null>;
+  initNewTab: (params?: InitialTabParams) => Promise<Tab>;
+  addTab: (paneId: string, params?: InitialTabParams) => Promise<Tab | null>;
+  closeTab: (paneId: string, tabId: string) => Promise<boolean>;
+  selectTab: (paneId: string, tabId: string) => void;
+  moveTab: (
     tabId: string,
-    params: RouteLocationRaw
-  ) => Promise<void | NavigationFailure | undefined>;
-  getPanesSnapshot: () => PanesSnapshot;
-  restorePanesSnapshot: (snapshot: PanesSnapshot) => Promise<void>;
-  savePanes(): Promise<void>;
-  restorePanes(): Promise<void>;
+    fromPaneId: string,
+    toPaneId: string,
+    index?: number
+  ) => Promise<Tab | null>;
+  navigate: (
+    params: RouteLocationRaw,
+    paneId?: string,
+    tabId?: string
+  ) => Promise<void>;
+
+  startDraggingTab: (tabId: string, paneId: string) => void;
+  stopDraggingTab: () => void;
+
+  getPanesData: () => PaneSnapshot[];
+  restorePanesData: (panes: PaneSnapshot[]) => Promise<void>;
 }
 
 export type PaneStoreDefinition = Store<PaneStore>;

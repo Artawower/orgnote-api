@@ -24,6 +24,7 @@ import {
   UploadParams,
   CompletionStoreDefinition,
   PaneStoreDefinition,
+  LayoutStoreDefinition,
   FileManagerStoreDefinition,
   UseScreenDetection,
   NotificationsStoreDefinition,
@@ -83,6 +84,7 @@ export interface OrgNoteApi {
     useQuasar: () => QVueGlobals;
     useCompletion: CompletionStoreDefinition;
     usePane: PaneStoreDefinition;
+    useLayout: LayoutStoreDefinition;
     useFileSystemManager: FileSystemManagerStoreDefinition;
     useFileManager: FileManagerStoreDefinition;
     useFileReader: FileReaderStoreDefinition;
