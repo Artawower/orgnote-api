@@ -1,9 +1,9 @@
 import { ExtensionMeta, StoredExtension } from './extension';
 import { FileInfo } from './file-info';
 import { FilePathInfo } from './file-path';
+import { LayoutSnapshotRepository } from './layout-snapshot-repository';
 import { LoggerRepository } from './log-repository';
 import { NoteInfo } from './note';
-import { PaneSnapshotRepository } from './pane-snapshot-repository';
 import { Task } from './queue';
 
 export interface ExtensionRepository {
@@ -78,6 +78,6 @@ export interface Repositories {
   logRepository: LoggerRepository;
   fileInfoRepository: FileInfoRepository;
   noteInfoRepository: NoteInfoRepository;
-  paneSnapshotRepository: PaneSnapshotRepository;
+  layoutSnapshotRepository: LayoutSnapshotRepository;
   // extensions: ExtensionRepository;
 }
