@@ -4,7 +4,6 @@ import { FilePathInfo } from './file-path';
 import { LayoutSnapshotRepository } from './layout-snapshot-repository';
 import { LoggerRepository } from './log-repository';
 import { NoteInfo } from './note';
-import { Task } from './queue';
 
 export interface ExtensionRepository {
   getMeta(): Promise<ExtensionMeta[]>;
@@ -63,14 +62,6 @@ export interface NoteInfoRepository {
     modifyCallback: (note: NoteInfo, ref: { value: NoteInfo }) => void
   ): Promise<void>;
   getIds(filterCb?: (n: NoteInfo) => boolean): Promise<string[]>;
-  clear(): Promise<void>;
-}
-
-export interface TaskQueueRepository {
-  getAll(): Promise<Task[]>;
-  update(task: Task): Promise<void>;
-  add(task: Task): Promise<void>;
-  delete(taskId: string): Promise<void>;
   clear(): Promise<void>;
 }
 

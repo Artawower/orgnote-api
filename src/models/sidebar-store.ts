@@ -3,6 +3,7 @@ import { Store } from './store';
 import type { ShallowRef } from 'vue';
 import type { VueComponent } from './vue-component';
 import { CommandName } from './command';
+import { Nullable } from '../types/nullable';
 
 export type ComponentConfig<T extends VueComponent> = {
   componentProps?: ExtractPropTypes<T>;
@@ -10,7 +11,7 @@ export type ComponentConfig<T extends VueComponent> = {
 
 export interface SidebarStore {
   opened: Ref<boolean>;
-  component: ShallowRef<VueComponent | null>;
+  component: ShallowRef<Nullable<VueComponent>>;
   componentConfig: ShallowRef<ComponentConfig<VueComponent>>;
   close: () => void;
   open: () => void;
