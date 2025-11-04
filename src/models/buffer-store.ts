@@ -7,7 +7,6 @@ export interface BufferStore {
   buffers: Ref<Map<string, Buffer>>;
 
   allBuffers: ComputedRef<Buffer[]>;
-  recentBuffers: ComputedRef<Buffer[]>;
 
   getOrCreateBuffer: (path: string) => Promise<Buffer>;
   releaseBuffer: (path: string) => void;
