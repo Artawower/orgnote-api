@@ -2,6 +2,7 @@ import { ShallowRef } from 'vue';
 import { Store } from './store';
 import { LayoutNode, DropDirection as SplitDirection } from './layout';
 import { LayoutSnapshot } from './pane';
+import type { Nullable } from '../types/nullable';
 
 export interface LayoutStore {
   layout: ShallowRef<LayoutNode>;
@@ -12,7 +13,7 @@ export interface LayoutStore {
     paneId: string,
     direction: SplitDirection,
     createInitialTab?: boolean
-  ) => Promise<string | null>;
+  ) => Promise<Nullable<string>>;
 
   removePaneFromLayout: (paneId: string) => void;
 
