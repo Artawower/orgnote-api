@@ -1,4 +1,4 @@
-import { Store } from './store';
+import { StoreDefinition } from './store';
 
 export interface FilesStore {
   getBlobUrl: (filePath: string) => Promise<string>;
@@ -6,4 +6,4 @@ export interface FilesStore {
   saveFile: (file: File, path?: string) => Promise<string>;
 }
 
-export type FilesStoreDefinition = Store<FilesStore>;
+export type FilesStoreDefinition = StoreDefinition<FilesStore>;

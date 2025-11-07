@@ -1,23 +1,22 @@
-import { Nullable } from '../types/nullable';
 import { ThemeVariable } from './theme-variables';
 
-export type GetCssVar = (varName: string) => Nullable<string>;
+export type GetCssVar = (varName: string) => string | undefined;
 
 export type GetCssTheme = (variableNames: string[]) => {
   [key in ThemeVariable]?: string;
 };
 
-export type GetNumericCssVar = (varName: string) => Nullable<number>;
+export type GetNumericCssVar = (varName: string) => number | undefined;
 
 export type GetCssProperty = (
   element: Element,
   propertyName: string
-) => Nullable<string>;
+) => string | undefined;
 
 export type GetCssNumericProperty = (
   element: Element,
   propertyName: string
-) => Nullable<number>;
+) => number | undefined;
 
 export type ApplyCSSVariables<T extends string> = (variables: {
   [key in T]?: string | number;

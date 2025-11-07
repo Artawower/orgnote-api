@@ -57,7 +57,7 @@ export interface FileSystem {
     encoding?: BufferEncoding
   ) => Promise<void>;
   readDir: (path: string) => Promise<DiskFile[]>;
-  fileInfo: (path: string) => Promise<DiskFile>;
+  fileInfo: (path: string) => Promise<DiskFile | undefined>;
   rename: (path: string, newPath: string) => Promise<void>;
   deleteFile: (path: string) => Promise<void>;
   rmdir: (path: string) => Promise<void>;

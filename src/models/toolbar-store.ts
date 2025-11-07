@@ -1,5 +1,5 @@
 import type { Ref } from 'vue';
-import { Store } from './store';
+import { StoreDefinition } from './store';
 import { CommandName } from './command';
 
 export interface ToolbarStore {
@@ -8,4 +8,4 @@ export interface ToolbarStore {
   removeCommand: (command: CommandName) => void;
 }
 
-export type ToolbarStoreDefinition = Store<ToolbarStore>;
+export type ToolbarStoreDefinition = StoreDefinition<ToolbarStore>;

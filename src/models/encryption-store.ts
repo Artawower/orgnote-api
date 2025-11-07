@@ -4,7 +4,7 @@ import {
   BaseOrgNoteDecryption,
 } from './encryption';
 import { NoteInfo } from './note';
-import { Store } from './store';
+import { StoreDefinition } from './store';
 
 export interface EncryptionStore {
   encrypt: (
@@ -27,4 +27,4 @@ export interface EncryptionStore {
   ) => Promise<[NoteInfo, string | Uint8Array]>;
 }
 
-export type EncryptionStoreDefinition = Store<EncryptionStore>;
+export type EncryptionStoreDefinition = StoreDefinition<EncryptionStore>;

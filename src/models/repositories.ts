@@ -27,7 +27,7 @@ export interface FileInfoRepository {
   clear(): Promise<void>;
 
   search(text: string): Promise<FileInfo[]>;
-  getByPath(path: string): Promise<FileInfo>;
+  getByPath(path: string): Promise<FileInfo | undefined>;
   getAll(): Promise<FileInfo[]>;
   getFilesAfterUpdateTime(updatedTime?: Date): Promise<FileInfo[]>;
   count(updatedTime?: Date): Promise<number>;
@@ -38,8 +38,8 @@ export interface NoteInfoRepository {
   getDeletedNotes(): Promise<NoteInfo[]>;
   saveNotes(notes: NoteInfo[]): Promise<void>;
   putNote(note: NoteInfo): Promise<void>;
-  getById(id: string): Promise<NoteInfo>;
-  getByPath(path: string[]): Promise<NoteInfo>;
+  getById(id: string): Promise<NoteInfo | undefined>;
+  getByPath(path: string[]): Promise<NoteInfo | undefined>;
   getNotesInfo(options?: {
     limit?: number;
     offset?: number;

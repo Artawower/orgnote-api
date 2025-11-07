@@ -1,5 +1,5 @@
 import type { Ref } from 'vue';
-import { Store } from './store';
+import { StoreDefinition } from './store';
 import { PersonalInfo } from './user';
 import { OAuthProvider } from './oauth-provider';
 
@@ -21,4 +21,4 @@ export interface AuthStore {
   removeUserAccount: () => Promise<void>;
 }
 
-export type AuthStoreDefinition = Store<AuthStore>;
+export type AuthStoreDefinition = StoreDefinition<AuthStore>;

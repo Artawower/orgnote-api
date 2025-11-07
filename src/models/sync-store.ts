@@ -1,5 +1,5 @@
 import type { Ref } from 'vue';
-import { Store } from './store';
+import { StoreDefinition } from './store';
 
 export interface SyncStore {
   markToSync: () => Promise<void>;
@@ -9,4 +9,4 @@ export interface SyncStore {
   reset: () => void;
 }
 
-export type SyncStoreDefinition = Store<SyncStore>;
+export type SyncStoreDefinition = StoreDefinition<SyncStore>;

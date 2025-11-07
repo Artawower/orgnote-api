@@ -1,6 +1,6 @@
 import type { Ref } from 'vue';
 import { ExtensionMeta, StoredExtension } from './extension';
-import { Store } from './store';
+import { StoreDefinition } from './store';
 
 export interface ExtensionStore {
   ready: Ref<boolean>;
@@ -21,4 +21,4 @@ export interface ExtensionStore {
   deleteExtension: (ext: ExtensionMeta) => Promise<void>;
 }
 
-export type ExtensionStoreDefinition = Store<ExtensionStore>;
+export type ExtensionStoreDefinition = StoreDefinition<ExtensionStore>;

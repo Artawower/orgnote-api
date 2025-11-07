@@ -1,9 +1,8 @@
 import type { ExtractPropTypes, Ref } from 'vue';
-import { Store } from './store';
+import { StoreDefinition } from './store';
 import type { ShallowRef } from 'vue';
 import type { VueComponent } from './vue-component';
 import { CommandName } from './command';
-import { Nullable } from '../types/nullable';
 
 export type ComponentConfig<T extends VueComponent> = {
   componentProps?: ExtractPropTypes<T>;
@@ -11,8 +10,8 @@ export type ComponentConfig<T extends VueComponent> = {
 
 export interface SidebarStore {
   opened: Ref<boolean>;
-  component: ShallowRef<Nullable<VueComponent>>;
-  componentConfig: ShallowRef<ComponentConfig<VueComponent>>;
+  component: ShallowRef<VueComponent | undefined>;
+  componentConfig: ShallowRef<ComponentConfig<VueComponent> | undefined>;
   close: () => void;
   open: () => void;
   openComponent: <T extends VueComponent>(
@@ -26,4 +25,4 @@ export interface SidebarStore {
   removeCommand: (command: CommandName) => void;
 }
 
-export type SidebarStoreDefinition = Store<SidebarStore>;
+export type SidebarStoreDefinition = StoreDefinition<SidebarStore>;

@@ -1,14 +1,14 @@
 import { Ref } from 'vue';
 import { Command, CommandCallback } from './command';
-import { Store } from './store';
-import { Nullable } from '../types/nullable';
+import { StoreDefinition } from './store';
+
 
 export type CommandUnsubscribFn = () => void;
 
 export interface CommandsStore {
   add: (...newCommands: Command[]) => void;
   remove: (...commandsToUnregister: Command[]) => void;
-  get: (name: string) => Nullable<Command>;
+  get: (name: string) => Command | undefined;
   commands: Ref<Command[]>;
   execute: (name: string, data?: unknown) => Promise<void>;
   afterExecute: (
@@ -17,4 +17,4 @@ export interface CommandsStore {
   ) => CommandUnsubscribFn;
 }
 
-export type CommandsStoreDefinition = Store<CommandsStore>;
+export type CommandsStoreDefinition = StoreDefinition<CommandsStore>;

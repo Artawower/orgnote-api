@@ -1,5 +1,5 @@
 import { NotificationConfig } from './notification-config';
-import { Store } from './store';
+import { StoreDefinition } from './store';
 import { Ref } from 'vue';
 
 export interface NotificationsStore {
@@ -16,4 +16,4 @@ export interface NotificationsStore {
   >;
 }
 
-export type NotificationsStoreDefinition = Store<NotificationsStore>;
+export type NotificationsStoreDefinition = StoreDefinition<NotificationsStore>;
