@@ -114,7 +114,7 @@ export interface OrgNoteApi {
 
     // Files
     uploadFiles: (params: MultipleUploadParams) => Promise<FileList>;
-    uploadFile: (params?: UploadParams) => Promise<File>;
+    uploadFile: (params?: UploadParams) => Promise<File | undefined>;
 
     // Logger
     logger: Logger;

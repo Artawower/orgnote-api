@@ -1,4 +1,4 @@
-import { Store } from './store';
+import { StoreDefinition } from './store';
 
 export interface FileReaderStore {
   addReader: (
@@ -8,4 +8,4 @@ export interface FileReaderStore {
   openFile: (path: string) => Promise<void>;
 }
 
-export type FileReaderStoreDefinition = Store<FileReaderStore>;
+export type FileReaderStoreDefinition = StoreDefinition<FileReaderStore>;

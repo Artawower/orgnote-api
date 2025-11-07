@@ -1,6 +1,6 @@
 import { Ref } from 'vue';
 import { Command, CommandGroup } from './command';
-import { Store } from './store';
+import { StoreDefinition } from './store';
 
 export interface CommandsGroupStore {
   activateGroup: (group: CommandGroup) => void;
@@ -10,4 +10,4 @@ export interface CommandsGroupStore {
   currentGroups: Ref<CommandGroup[]>;
 }
 
-export type CommandsGroupStoreDefinition = Store<CommandsGroupStore>;
+export type CommandsGroupStoreDefinition = StoreDefinition<CommandsGroupStore>;

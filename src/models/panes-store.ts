@@ -1,24 +1,26 @@
 import { Ref, ShallowRef, ComputedRef } from 'vue';
-import { Store } from './store';
+import { StoreDefinition } from './store';
 import { InitialTabParams, Tab, Pane, PaneSnapshot } from './pane';
 import type { RouteLocationRaw } from 'vue-router';
-import type { Nullable } from '../types/nullable';
 
 export interface PaneStore {
   panes: Ref<Record<string, ShallowRef<Pane>>>;
-  activePaneId: Ref<Nullable<string>>;
-  activePane: ComputedRef<Pane>;
-  activeTab: ComputedRef<Tab>;
+  activePaneId: Ref<string | undefined>;
+  activePane: ComputedRef<Pane | undefined>;
+  activeTab: ComputedRef<Tab | undefined>;
 
   createPane: (params?: Partial<Pane>) => Promise<Pane>;
-  getPane: (id: string) => ShallowRef<Nullable<Pane>>;
+  getPane: (id: string) => ShallowRef<Pane | undefined>;
   closePane: (paneId: string) => void;
   setActivePane: (paneId: string) => void;
 
   isDraggingTab: Ref<boolean>;
-  draggedTabData: Ref<Nullable<{ tabId: string; paneId: string }>>;
+  draggedTabData: Ref<{ tabId: string; paneId: string } | undefined>;
   initNewTab: (params?: InitialTabParams) => Promise<Tab>;
-  addTab: (paneId: string, params?: InitialTabParams) => Promise<Nullable<Tab>>;
+  addTab: (
+    paneId: string,
+    params?: InitialTabParams
+  ) => Promise<Tab | undefined>;
   closeTab: (paneId: string, tabId: string) => Promise<boolean>;
   selectTab: (paneId: string, tabId: string) => void;
   moveTab: (
@@ -26,7 +28,7 @@ export interface PaneStore {
     fromPaneId: string,
     toPaneId: string,
     index?: number
-  ) => Promise<Nullable<Tab>>;
+  ) => Promise<Tab | undefined>;
   navigate: (
     params: RouteLocationRaw,
     paneId?: string,
@@ -40,4 +42,4 @@ export interface PaneStore {
   restorePanesData: (panes: PaneSnapshot[]) => Promise<void>;
 }
 
-export type PaneStoreDefinition = Store<PaneStore>;
+export type PaneStoreDefinition = StoreDefinition<PaneStore>;

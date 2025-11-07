@@ -1,6 +1,6 @@
 import type { Ref, UnwrapNestedRefs } from 'vue';
 import { OrgNoteConfig } from './orgnote-config';
-import { Store } from './store';
+import { StoreDefinition } from './store';
 
 export interface ConfigStore {
   config: UnwrapNestedRefs<OrgNoteConfig>;
@@ -8,4 +8,4 @@ export interface ConfigStore {
   sync: () => Promise<void>;
 }
 
-export type ConfigStoreDefinition = Store<ConfigStore>;
+export type ConfigStoreDefinition = StoreDefinition<ConfigStore>;
