@@ -57,6 +57,7 @@ export * from './config-store';
 export * from './notifications-store';
 export * from './notification-config';
 export * from './buffer-store';
+export * from './log-store';
 
 // UI
 export * from './style-variant';
