@@ -7,4 +7,7 @@ export interface LogRecord {
   message: string;
   bindings?: Record<string, unknown>;
   context?: Record<string, unknown>;
+  repeatCount?: number;
+  firstTs?: Date;
+  lastTs?: Date;
 }

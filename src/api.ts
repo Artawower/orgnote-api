@@ -30,6 +30,7 @@ import {
   NotificationsStoreDefinition,
   BufferStoreDefinition,
   Repositories,
+  LogStoreDefinition,
 } from './models';
 // import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
@@ -90,6 +91,7 @@ export interface OrgNoteApi {
     useFileReader: FileReaderStoreDefinition;
     useNotifications: NotificationsStoreDefinition;
     useBuffers: BufferStoreDefinition;
+    useLog: LogStoreDefinition;
     app: App;
   };
   utils: {

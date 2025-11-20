@@ -30,4 +30,5 @@ export enum RouteNames {
   Panes = 'Panes',
   InitialPage = 'InitialPage',
   Onboarding = 'Onboarding',
+  Error = 'Error',
 }
