@@ -31,6 +31,7 @@ export * from './layout';
 // Composables
 export * from './splash-screen';
 export * from './screen-detection';
+export * from './system-info';
 
 // Stores
 export * from './sync-store';
