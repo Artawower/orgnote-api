@@ -79,6 +79,17 @@ export enum i18n {
   NO_FILE_READER_FOR = 'no file reader for',
   CLOSE = 'close',
   PICK_NOTE = 'pick note',
+  CRITICAL_ERROR = 'critical error',
+  ERROR_DESCRIPTION = 'the application encountered an unexpected error and cannot continue normally',
+  RELOAD = 'reload',
+  COPY_LOG = 'copy log',
+  COPIED_TO_CLIPBOARD = 'copied to clipboard',
+  BACK_HOME = 'back to home',
+  ERROR_DETAILS = 'error details',
+  NO_ERRORS = 'no errors recorded',
+  BOOT_ERRORS = 'boot errors (fallback)',
+  APP_ERRORS = 'application errors',
+  NO_LOGS_MATCH_BY_FILTER = 'No logs match the selected filter',
 }
 
 export const I18N = {
