@@ -90,6 +90,7 @@ export enum i18n {
   BOOT_ERRORS = 'boot errors (fallback)',
   APP_ERRORS = 'application errors',
   NO_LOGS_MATCH_BY_FILTER = 'No logs match the selected filter',
+  CONFIRM_DELETE_FILE = 'Confirm delete file',
 }
 
 export const I18N = {
