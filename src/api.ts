@@ -32,6 +32,7 @@ import {
   Repositories,
   LogStoreDefinition,
   UseSystemInfo,
+  ContextMenuStoreDefinition,
 } from './models';
 // import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
@@ -132,6 +133,7 @@ export interface OrgNoteApi {
     useSettingsUi: SettingsUiStoreDefinition;
     useConfirmationModal: UseConfirmationModal;
     useScreenDetection: UseScreenDetection;
+    useContextMenu: ContextMenuStoreDefinition;
   };
   vue: {
     router: Router;

@@ -42,10 +42,7 @@ export interface CommandMeta<T = any> extends Partial<CommandPreview> {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Command<T = any, R = unknown> extends CommandMeta<T> {
   /* arguments depend on the current scope */
-  handler: (
-    api: OrgNoteApi,
-    params?: CommandHandlerParams<T>
-  ) => R | Promise<R>;
+  handler: (api: OrgNoteApi, params: CommandHandlerParams<T>) => R | Promise<R>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
