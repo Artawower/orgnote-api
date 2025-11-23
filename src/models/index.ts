@@ -27,7 +27,7 @@ export * from './buffer';
 export * from './log';
 export * from './logger';
 export * from './layout';
-export * from './context-menu';
+export * from './menu-action';
 
 // Composables
 export * from './splash-screen';
