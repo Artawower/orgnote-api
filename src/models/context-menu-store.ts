@@ -1,12 +1,12 @@
-import { ContextMenuAction, ContextMenuGroupParams } from './context-menu';
+import { MenuAction, MenuGroupParams } from './menu-action';
 import { StoreDefinition } from './store';
 
 export interface ContextMenuStore {
   registerGroup: (group: string) => void;
-  updateContextGroup: (group: string, params: ContextMenuGroupParams) => void;
-  addContextMenuAction: (group: string, action: ContextMenuAction) => void;
-  removeContextMenuAction: (group: string, action: ContextMenuAction) => void;
-  getContextMenuActions: (group: string) => ContextMenuAction[];
+  updateContextGroup: (group: string, params: MenuGroupParams) => void;
+  addContextMenuAction: (group: string, action: MenuAction) => void;
+  removeContextMenuAction: (group: string, action: MenuAction) => void;
+  getContextMenuActions: (group: string) => MenuAction[];
 }
 
 export type ContextMenuStoreDefinition = StoreDefinition<ContextMenuStore>;
