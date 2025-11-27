@@ -28,6 +28,7 @@ export * from './log';
 export * from './logger';
 export * from './layout';
 export * from './menu-action';
+export * from './queue-task';
 
 // Composables
 export * from './splash-screen';
@@ -61,6 +62,7 @@ export * from './notification-config';
 export * from './buffer-store';
 export * from './log-store';
 export * from './context-menu-store';
+export * from './queue-store';
 
 // UI
 export * from './style-variant';

@@ -33,6 +33,7 @@ import {
   LogStoreDefinition,
   UseSystemInfo,
   ContextMenuStoreDefinition,
+  QueueStoreDefinition,
 } from './models';
 // import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
@@ -95,6 +96,7 @@ export interface OrgNoteApi {
     useBuffers: BufferStoreDefinition;
     useSystemInfo: UseSystemInfo;
     useLog: LogStoreDefinition;
+    useQueue: QueueStoreDefinition;
     app: App;
   };
   utils: {

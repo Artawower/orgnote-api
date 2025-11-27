@@ -91,6 +91,8 @@ export enum i18n {
   APP_ERRORS = 'application errors',
   NO_LOGS_MATCH_BY_FILTER = 'No logs match the selected filter',
   CONFIRM_DELETE_FILE = 'Confirm delete file',
+  RETRIES = 'retries',
+  ERROR = 'error',
 }
 
 export const I18N = {
