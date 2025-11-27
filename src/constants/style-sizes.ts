@@ -1,1 +1,1 @@
-export const STYLE_SIZES = ['xs', 'sm', 'md', 'lg', 'auto'] as const;
+export const STYLE_SIZES = ['xs', 'sm', 'md', 'lg', 'xl', 'auto'] as const;
