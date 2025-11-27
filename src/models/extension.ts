@@ -13,6 +13,31 @@ import {
 export const EXTENSION_MANIFEST_SCHEMA = object({
   name: string(),
   version: string(),
+  platforms: optional(
+    array(
+      union([
+        string('mobile'),
+        string('desktop'),
+        string('capacitor'),
+        string('nativeMobile'),
+        string('electron'),
+        string('linux'),
+        string('mac'),
+        string('win'),
+        string('chrome'),
+        string('firefox'),
+        string('opera'),
+        string('safari'),
+        string('webkit'),
+        string('ios'),
+        string('ipad'),
+        string('iphone'),
+        string('ipod'),
+        string('winphone'),
+        string('blackberry'),
+      ])
+    )
+  ),
   category: union([
     string('theme'),
     string('extension'),
