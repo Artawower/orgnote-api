@@ -29,6 +29,8 @@ export * from './logger';
 export * from './layout';
 export * from './menu-action';
 export * from './queue-task';
+export * from './cron-task';
+export * from './platform';
 
 // Composables
 export * from './splash-screen';
