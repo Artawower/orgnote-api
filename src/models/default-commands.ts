@@ -83,4 +83,10 @@ export enum DefaultCommands {
 
   // Modal
   CLOSE_MODAL = 'close modal',
+
+  // Developer settings
+  OPEN_QUEUE_MANAGER = 'open queue manager',
+  RESTART_QUEUE = 'restart queue',
+  STOP_QUEUE = 'stop queue',
+  CLEAR_QUEUE = 'clear queue',
 }

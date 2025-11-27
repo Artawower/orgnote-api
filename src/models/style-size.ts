@@ -1,1 +1,3 @@
-export type StyleSize = 'xs' | 'sm' | 'md' | 'lg' | 'auto';
+import { STYLE_SIZES } from 'src/constants/style-sizes';
+
+export type StyleSize = (typeof STYLE_SIZES)[number];
