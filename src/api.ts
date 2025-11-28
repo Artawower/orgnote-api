@@ -65,6 +65,7 @@ import { UseConfirmationModal } from './models/confirmation-modal';
 import { FileSystemManagerStoreDefinition } from './models/file-system-manager-store';
 import { ConfigStoreDefinition } from './models/config-store';
 import { Router } from 'vue-router';
+import { CronStoreDefinition } from './models/cron-store';
 
 type WithNodeType<T> = { nodeType: NodeType } & T;
 
@@ -97,6 +98,7 @@ export interface OrgNoteApi {
     useSystemInfo: UseSystemInfo;
     useLog: LogStoreDefinition;
     useQueue: QueueStoreDefinition;
+    useCron: CronStoreDefinition;
     app: App;
   };
   utils: {

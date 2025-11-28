@@ -89,4 +89,6 @@ export enum DefaultCommands {
   RESTART_QUEUE = 'restart queue',
   STOP_QUEUE = 'stop queue',
   CLEAR_QUEUE = 'clear queue',
+  OPEN_CRON = 'open cron manager',
+  CLEAR_OLD_QUEUE_TASKS = 'clear old queue tasks',
 }
