@@ -65,6 +65,7 @@ export * from './buffer-store';
 export * from './log-store';
 export * from './context-menu-store';
 export * from './queue-store';
+export * from './cron-store';
 
 // UI
 export * from './style-variant';

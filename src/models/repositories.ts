@@ -69,8 +69,8 @@ export interface NoteInfoRepository {
 export interface QueueRepository {
   add(task: QueueTask): Promise<void>;
   get(id: string): Promise<QueueTask | undefined>;
-  getAll(queueId: string): Promise<QueueTask[]>;
-  delete(id: string): Promise<void>;
+  getAll(queueId?: string): Promise<QueueTask[]>;
+  delete(id: string, force?: boolean): Promise<void>;
   lock(id: string): Promise<void>;
   release(id: string): Promise<void>;
   takeFirstN(n: number, queueId: string): Promise<string>;
