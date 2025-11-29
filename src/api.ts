@@ -66,6 +66,7 @@ import { FileSystemManagerStoreDefinition } from './models/file-system-manager-s
 import { ConfigStoreDefinition } from './models/config-store';
 import { Router } from 'vue-router';
 import { CronStoreDefinition } from './models/cron-store';
+import { GitStoreDefinition } from './models/git-store';
 
 type WithNodeType<T> = { nodeType: NodeType } & T;
 
@@ -99,6 +100,7 @@ export interface OrgNoteApi {
     useLog: LogStoreDefinition;
     useQueue: QueueStoreDefinition;
     useCron: CronStoreDefinition;
+    useGit: GitStoreDefinition;
     app: App;
   };
   utils: {

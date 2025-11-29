@@ -25,6 +25,7 @@ export const ORG_NOTE_CONFIG_SCHEMA = pipe(
         developerMode: boolean(),
         maximumLogsCount: number(),
         storeQueueTasksMinutes: number(),
+        corsProxy: string(),
       }),
       completion: object({
         showGroup: boolean(),
