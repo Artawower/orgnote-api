@@ -31,6 +31,7 @@ export * from './menu-action';
 export * from './queue-task';
 export * from './cron-task';
 export * from './platform';
+export * from './git';
 
 // Composables
 export * from './splash-screen';
@@ -66,6 +67,7 @@ export * from './log-store';
 export * from './context-menu-store';
 export * from './queue-store';
 export * from './cron-store';
+export * from './git-store';
 
 // UI
 export * from './style-variant';
