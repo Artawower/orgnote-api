@@ -1,4 +1,4 @@
-import { ExtensionMeta, StoredExtension } from './extension';
+import { ExtensionSource } from './extension';
 import { FileInfo } from './file-info';
 import { FilePathInfo } from './file-path';
 import { LayoutSnapshotRepository } from './layout-snapshot-repository';
@@ -6,17 +6,15 @@ import { LoggerRepository } from './log-repository';
 import { NoteInfo } from './note';
 import { QueueTask } from './queue-task';
 
-export interface ExtensionRepository {
-  getMeta(): Promise<ExtensionMeta[]>;
-  getActiveExtensions(): Promise<StoredExtension[]>;
-  setActiveStatus(extensionName: string, active: boolean): Promise<void>;
-  activateExtension(extensionName: string): Promise<void>;
-  deactivateExtension(extensionName: string): Promise<void>;
-  upsertExtensions(extensions: StoredExtension[]): Promise<void>;
-  getExtension(extensionName: string): Promise<StoredExtension>;
-  getExtensionBySource(source: string): Promise<StoredExtension>;
-  deleteBySource(source: string): Promise<void>;
+export interface ExtensionSourceRepository {
+  get(extensionName: string): Promise<ExtensionSource | undefined>;
+  getBySource(source: string): Promise<ExtensionSource | undefined>;
+  getAll(): Promise<ExtensionSource[]>;
+  upsert(extension: ExtensionSource): Promise<void>;
+  upsertMany(extensions: ExtensionSource[]): Promise<void>;
   delete(extensionName: string): Promise<void>;
+  deleteBySource(source: string): Promise<void>;
+  clear(): Promise<void>;
 }
 
 export interface FileInfoRepository {
@@ -86,5 +84,5 @@ export interface Repositories {
   noteInfoRepository: NoteInfoRepository;
   layoutSnapshotRepository: LayoutSnapshotRepository;
   queueRepository: QueueRepository;
-  // extensions: ExtensionRepository;
+  extensionSourceRepository: ExtensionSourceRepository;
 }

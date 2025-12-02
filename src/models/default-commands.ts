@@ -91,4 +91,9 @@ export enum DefaultCommands {
   CLEAR_QUEUE = 'clear queue',
   OPEN_CRON = 'open cron manager',
   CLEAR_OLD_QUEUE_TASKS = 'clear old queue tasks',
+  COPY_COMMAND_URL = 'copy command url',
+
+  // Extensions
+  IMPORT_EXTENSION = 'import extension',
+  OPEN_EXTENSIONS_MANAGER = 'open extensions manager',
 }

@@ -1,5 +1,9 @@
 import type { Ref } from 'vue';
-import { ExtensionMeta, StoredExtension } from './extension';
+import {
+  ExtensionMeta,
+  ExtensionSource,
+  ExtensionSourceInfo,
+} from './extension';
 import { StoreDefinition } from './store';
 
 export interface ExtensionStore {
@@ -7,7 +11,6 @@ export interface ExtensionStore {
   extensions: Ref<ExtensionMeta[]>;
 
   sync: () => Promise<void>;
-  init: () => Promise<void>;
 
   enableExtension: (extensionName: string) => Promise<void>;
   disableExtension: (extensionName: string) => Promise<void>;
@@ -16,9 +19,14 @@ export interface ExtensionStore {
   disableSafeMode: () => Promise<void>;
 
   isExtensionExist: (extensionName: string) => boolean;
-  addExtension: (ext: StoredExtension) => void;
 
-  deleteExtension: (ext: ExtensionMeta) => Promise<void>;
+  installExtension: (source: ExtensionSourceInfo) => Promise<void>;
+
+  addExtension: (meta: ExtensionMeta, source: ExtensionSource) => Promise<void>;
+
+  importExtension: (file: File) => Promise<void>;
+
+  deleteExtension: (extensionName: string) => Promise<void>;
 }
 
 export type ExtensionStoreDefinition = StoreDefinition<ExtensionStore>;
