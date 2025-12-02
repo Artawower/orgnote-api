@@ -1,6 +1,7 @@
 import { DefaultCommands } from '../models';
 
 export enum i18n {
+  LOADING = 'loading',
   LOADING_MESSAGE_1 = 'loadingMessage1',
   LOADING_MESSAGE_2 = 'loadingMessage2',
   LOADING_MESSAGE_3 = 'loadingMessage3',
@@ -94,6 +95,33 @@ export enum i18n {
   RETRIES = 'retries',
   ERROR = 'error',
   DEFAULT_GIT_PROVIDER_DESCRIPTION = 'in-memory Git provider using es-git (default)',
+
+  // Extensions
+  INSTALLED = 'installed',
+  ALL_AVAILABLE = 'all available',
+  NO_EXTENSIONS_INSTALLED = 'no extensions installed',
+  NO_EXTENSIONS_AVAILABLE = 'no extensions available',
+  INSTALL_FROM_URL = 'install from URL',
+  ENTER_GIT_REPO_URL = 'enter git repository URL',
+  DELETE_EXTENSION = 'delete extension',
+  CONFIRM_DELETE_EXTENSION = 'are you sure you want to delete this extension?',
+  INSTALL_EXTENSION = 'install extension',
+  IMPORT_EXTENSION = 'import extension',
+  REFRESH = 'refresh',
+  EXTENSIONS = 'extensions',
+  DISABLE_EXTENSION = 'disable extension',
+  ENABLE_EXTENSION = 'enable extension',
+  ONLY_GIT_EXTENSIONS_SUPPORTED = 'only git extensions can be installed',
+  EXTENSION_INSTALLED = 'extension installed',
+  EXTENSION_INSTALLED_FROM_URL = 'extension installed from URL',
+  AUTHOR = 'author',
+  KEYWORDS = 'keywords',
+  REPOSITORY = 'repository',
+  PERMISSIONS = 'permissions',
+  DEVELOPMENT = 'development',
+  LOGS = 'logs',
+  SELECT_COMMAND_TO_COPY_URL = 'select command to copy URL',
+  SELECT_COMMAND = 'select command',
 }
 
 export const I18N = {

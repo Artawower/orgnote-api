@@ -68,6 +68,7 @@ export * from './context-menu-store';
 export * from './queue-store';
 export * from './cron-store';
 export * from './git-store';
+export * from './extension-registry-store';
 
 // UI
 export * from './style-variant';

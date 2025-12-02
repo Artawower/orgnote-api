@@ -67,6 +67,7 @@ import { ConfigStoreDefinition } from './models/config-store';
 import { Router } from 'vue-router';
 import { CronStoreDefinition } from './models/cron-store';
 import { GitStoreDefinition } from './models/git-store';
+import { ExtensionRegistryStoreDefinition } from './models/extension-registry-store';
 
 type WithNodeType<T> = { nodeType: NodeType } & T;
 
@@ -101,6 +102,7 @@ export interface OrgNoteApi {
     useQueue: QueueStoreDefinition;
     useCron: CronStoreDefinition;
     useGit: GitStoreDefinition;
+    useExtensionRegistry: ExtensionRegistryStoreDefinition;
     app: App;
   };
   utils: {
