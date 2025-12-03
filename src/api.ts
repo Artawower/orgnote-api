@@ -68,6 +68,7 @@ import { Router } from 'vue-router';
 import { CronStoreDefinition } from './models/cron-store';
 import { GitStoreDefinition } from './models/git-store';
 import { ExtensionRegistryStoreDefinition } from './models/extension-registry-store';
+import { parseToml, stringifyToml } from './utils';
 
 type WithNodeType<T> = { nodeType: NodeType } & T;
 
@@ -131,6 +132,10 @@ export interface OrgNoteApi {
 
     // Logger
     logger: Logger;
+
+    // Parsers
+    parseToml: typeof parseToml;
+    stringifyToml: typeof stringifyToml;
   };
   ui: {
     useSplashScreen: UseSplashScreen;

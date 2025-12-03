@@ -31,9 +31,17 @@
     "./commands": "./commands/index.js",
     "./constants": "./constants/index.js"
   },
-  "files": ["**"],
+  "files": [
+    "**"
+  ],
   "types": "./index.d.ts",
-  "keywords": ["orgnote", "org-mode", "org-roam", "api", "extensions"],
+  "keywords": [
+    "orgnote",
+    "org-mode",
+    "org-roam",
+    "api",
+    "extensions"
+  ],
   "author": "darkawower <app.orgnote@gmail.com> (https://org-note.com)",
   "license": "GPL-3.0-or-later",
   "bugs": {
@@ -50,6 +58,7 @@
     "org-mode-ast": "0.11.8",
     "pinia": "3.0.2",
     "quasar": "2.18.1",
+    "smol-toml": "1.5.2",
     "vue": "3.5.13",
     "vue-router": "4.5.0"
   },
