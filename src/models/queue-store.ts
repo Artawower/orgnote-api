@@ -38,6 +38,7 @@ export interface QueueStats {
 
 export interface QueueStore {
   queueIds: Ref<string[]>;
+
   register(queueId: string, options?: QueueCreationOptions): unknown;
   unregister(queueId?: string): void;
   getQueue(queueId?: string): unknown | undefined;
@@ -54,6 +55,10 @@ export interface QueueStore {
   resume(queueId?: string): void;
   getStats(queueId?: string): Promise<QueueStats>;
   clear(queueId?: string): Promise<void>;
+  executeBatchTasks<T = unknown[], R = unknown[]>(
+    options: QueueCreationOptions,
+    data: T[]
+  ): Promise<R>;
 }
 
 export type QueueStoreDefinition = StoreDefinition<QueueStore>;
