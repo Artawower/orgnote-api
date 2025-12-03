@@ -7,6 +7,8 @@ export interface Notification {
   read?: boolean;
   config: NotificationConfig;
   dismiss?: ReturnType<typeof Notify.create>;
+  icon?: string;
+  iconEnabled?: boolean;
 }
 
 export interface NotificationsStore {
