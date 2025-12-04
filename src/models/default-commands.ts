@@ -74,6 +74,7 @@ export enum DefaultCommands {
 
   // Notes commands
   OPEN_NOTE = 'open note',
+  OPEN_CODE_EDITOR = 'open code editor',
 
   // Windows & buffers
   TABS = 'show tabs',
