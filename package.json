@@ -49,18 +49,10 @@
   },
   "homepage": "https://github.com/artawower/orgnote-api#readme",
   "dependencies": {
-    "@capacitor/filesystem": "7.0.1",
-    "@codemirror/state": "6.5.2",
-    "@codemirror/view": "6.36.5",
-    "@faker-js/faker": "9.7.0",
     "axios": "1.8.4",
     "openpgp": "6.1.0",
     "org-mode-ast": "0.11.8",
-    "pinia": "3.0.2",
-    "quasar": "2.18.1",
-    "smol-toml": "1.5.2",
-    "vue": "3.5.13",
-    "vue-router": "4.5.0"
+    "smol-toml": "1.5.2"
   },
   "devDependencies": {
     "@eslint/js": "9.25.1",
@@ -78,6 +70,14 @@
     "vitest": "3.1.2"
   },
   "peerDependencies": {
-    "valibot": "1.0.0"
+    "@capacitor/filesystem": ">=6.0.0",
+    "@codemirror/state": ">=6.0.0",
+    "@codemirror/view": ">=6.0.0",
+    "@faker-js/faker": ">=9.0.0",
+    "pinia": ">=2.0.0",
+    "quasar": ">=2.0.0",
+    "valibot": ">=1.0.0",
+    "vue": ">=3.0.0",
+    "vue-router": ">=4.0.0"
   }
 }

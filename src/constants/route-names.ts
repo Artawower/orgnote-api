@@ -7,6 +7,7 @@ export enum RouteNames {
   NotFound = 'NotFound',
   UserGraph = 'UserGraph',
   EditNote = 'EditNote',
+  EditCode = 'EditCode',
   SettingsPage = 'SettingsPage',
   SystemSettings = 'SystemSettings',
   ExtensionsSettings = 'ExtensionsSettings',

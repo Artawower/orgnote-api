@@ -5,6 +5,9 @@ export interface FileReaderStore {
     readerMatch: string,
     reader: (path: string) => Promise<void>
   ) => void;
+  addReaders: (
+    readers: Record<string, (path: string) => Promise<void>>
+  ) => void;
   openFile: (path: string) => Promise<void>;
 }
 
