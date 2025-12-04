@@ -82,6 +82,12 @@ export enum DefaultCommands {
   CLOSE_TAB = 'close tab',
   NEW_TAB = 'new tab',
 
+  // Pane resize
+  RESIZE_PANE_LEFT = 'resize pane left',
+  RESIZE_PANE_RIGHT = 'resize pane right',
+  RESIZE_PANE_UP = 'resize pane up',
+  RESIZE_PANE_DOWN = 'resize pane down',
+
   // Modal
   CLOSE_MODAL = 'close modal',
 
