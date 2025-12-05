@@ -69,6 +69,7 @@ export * from './queue-store';
 export * from './cron-store';
 export * from './git-store';
 export * from './extension-registry-store';
+export * from './theme-store';
 
 // UI
 export * from './style-variant';

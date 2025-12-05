@@ -118,12 +118,9 @@ function generateTypes(groups) {
     });
   });
 
-  const themeVariableEnumBody = Array.from(themeVariables).reduce(
-    (acc, variable, i) => {
-      return `${acc}${i !== 0 ? '|' : ''} '${variable}' `;
-    },
-    ''
-  );
+  const themeVariablesArray = Array.from(themeVariables)
+    .map((v) => `'${v}'`)
+    .join(', ');
 
   const cssVariableEnumBody = Array.from(cssVariables).reduce(
     (acc, variable, i) => {
@@ -138,7 +135,9 @@ function generateTypes(groups) {
 * Do not edit it manually.
 **/
 
-export type ThemeVariable = ${themeVariableEnumBody};\n` +
+export const THEME_VARIABLES = [${themeVariablesArray}] as const;
+
+export type ThemeVariable = (typeof THEME_VARIABLES)[number];\n` +
     `\n\nexport type CSSVariable = ${cssVariableEnumBody};\n`
   );
 }
