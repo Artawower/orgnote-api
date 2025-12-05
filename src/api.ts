@@ -54,7 +54,10 @@ import {
   GetCssNumericProperty,
   ApplyCSSVariables,
   ResetCSSVariables,
+  ApplyScopedStyles,
+  RemoveScopedStyles,
 } from './models/css-utils';
+import { ThemeStoreDefinition } from './models/theme-store';
 import { UseBackgroundSettings } from './models/ui-store';
 import { SidebarStoreDefinition } from './models/sidebar-store';
 import { Logger } from './models/logger';
@@ -122,6 +125,8 @@ export interface OrgNoteApi {
     getCssNumericProperty: GetCssNumericProperty;
     applyCSSVariables: ApplyCSSVariables<string>;
     resetCSSVariables: ResetCSSVariables<string>;
+    applyScopedStyles: ApplyScopedStyles;
+    removeScopedStyles: RemoveScopedStyles;
 
     // Clipboard
     copyToClipboard: (text: string) => Promise<void>;
@@ -147,6 +152,7 @@ export interface OrgNoteApi {
     useConfirmationModal: UseConfirmationModal;
     useScreenDetection: UseScreenDetection;
     useContextMenu: ContextMenuStoreDefinition;
+    useTheme: ThemeStoreDefinition;
   };
   vue: {
     router: Router;

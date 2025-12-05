@@ -1,5 +1,9 @@
 import { ThemeVariable } from './theme-variables';
 
+export type ThemeColors = {
+  [key in ThemeVariable]?: string;
+};
+
 export type GetCssVar = (varName: string) => string | undefined;
 
 export type GetCssTheme = (variableNames: string[]) => {
@@ -25,3 +29,7 @@ export type ApplyCSSVariables<T extends string> = (variables: {
 export type ResetCSSVariables<T extends string> = (variables: {
   [key in T]?: string | number;
 }) => void;
+
+export type ApplyScopedStyles = (scopeName: string, styles: string) => void;
+
+export type RemoveScopedStyles = (scopeName: string) => void;
