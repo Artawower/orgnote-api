@@ -26,9 +26,7 @@ export type ApplyCSSVariables<T extends string> = (variables: {
   [key in T]?: string | number;
 }) => void;
 
-export type ResetCSSVariables<T extends string> = (variables: {
-  [key in T]?: string | number;
-}) => void;
+export type ResetCSSVariables<T extends string> = (variables: T[]) => void;
 
 export type ApplyScopedStyles = (scopeName: string, styles: string) => void;
 
