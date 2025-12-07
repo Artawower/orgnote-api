@@ -14,12 +14,14 @@ export interface DiskFile {
 export class ErrorDirectoryNotFound extends Error {
   constructor(path: string) {
     super(`Directory not found: ${path}`);
+    this.name = 'ErrorDirectoryNotFound';
   }
 }
 
 export class ErrorFileNotFound extends Error {
   constructor(path: string) {
     super(`File not found: ${path}`);
+    this.name = 'ErrorFileNotFound';
   }
 }
 

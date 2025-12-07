@@ -17,11 +17,40 @@ import {
 import { OrgNoteGpgEncryption, WithEncryptionContent } from '../models';
 import { armor as _armor, unarmor as _unarmor, enums } from 'openpgp';
 
-export class IncorrectOrMissingPrivateKeyPasswordError extends Error {}
-export class ImpossibleToDecryptWithProvidedKeysError extends Error {}
-export class IncorrectEncryptionPasswordError extends Error {}
-export class NoKeysProvidedError extends Error {}
-export class NoPasswordProvidedError extends Error {}
+export class IncorrectOrMissingPrivateKeyPasswordError extends Error {
+  constructor(message?: string) {
+    super(message);
+    this.name = 'IncorrectOrMissingPrivateKeyPasswordError';
+  }
+}
+
+export class ImpossibleToDecryptWithProvidedKeysError extends Error {
+  constructor(message?: string) {
+    super(message);
+    this.name = 'ImpossibleToDecryptWithProvidedKeysError';
+  }
+}
+
+export class IncorrectEncryptionPasswordError extends Error {
+  constructor(message?: string) {
+    super(message);
+    this.name = 'IncorrectEncryptionPasswordError';
+  }
+}
+
+export class NoKeysProvidedError extends Error {
+  constructor(message?: string) {
+    super(message);
+    this.name = 'NoKeysProvidedError';
+  }
+}
+
+export class NoPasswordProvidedError extends Error {
+  constructor(message?: string) {
+    super(message);
+    this.name = 'NoPasswordProvidedError';
+  }
+}
 
 const noPrivateKeyPassphraseProvidedErrorMsg =
   'Error: Signing key is not decrypted.';

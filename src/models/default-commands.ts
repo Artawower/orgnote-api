@@ -8,6 +8,7 @@ export enum DefaultCommands {
   REPORT_BUG = 'report bug',
   OPEN_DEBUG_INFO = 'open debug info',
   SHOW_LOGS = 'show logs',
+  CLEAR_LOGS = 'clear logs',
   TOGGLE_SIDEBAR = 'toggle sidebar',
   TOGGLE_FILE_MANAGER = 'toggle file manager',
   CREATE_NOTE = 'create note',
@@ -25,7 +26,7 @@ export enum DefaultCommands {
   // Settings
   SETTINGS = 'settings',
   RESET_THEME = 'reset theme',
-  TOGGLE_DARK_MODE = 'toggle dark mode',
+  SELECT_THEME_MODE = 'select theme mode',
   TOGGLE_DEBUG_MODE = 'toggle debug mode',
   SELECT_THEME = 'select theme',
   SYSTEM_SETTINGS = 'system settings',

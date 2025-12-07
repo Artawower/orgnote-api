@@ -109,6 +109,15 @@ export enum i18n {
   IMPORT_EXTENSION = 'import extension',
   REFRESH = 'refresh',
   EXTENSIONS = 'extensions',
+
+  // Theme modes
+  THEME_MODE_LIGHT = 'light',
+  THEME_MODE_DARK = 'dark',
+  THEME_MODE_AUTO = 'auto',
+  THEME_MODE_LIGHT_DESCRIPTION = 'always use light theme',
+  THEME_MODE_DARK_DESCRIPTION = 'always use dark theme',
+  THEME_MODE_AUTO_DESCRIPTION = 'follow system preference',
+  SELECT_THEME_MODE_PLACEHOLDER = 'select theme mode',
   DISABLE_EXTENSION = 'disable extension',
   ENABLE_EXTENSION = 'enable extension',
   ONLY_GIT_EXTENSIONS_SUPPORTED = 'only git extensions can be installed',
@@ -122,6 +131,7 @@ export enum i18n {
   LOGS = 'logs',
   SELECT_COMMAND_TO_COPY_URL = 'select command to copy URL',
   SELECT_COMMAND = 'select command',
+  CONFIRM_CLEAR_LOGS = 'confirm clear logs',
 }
 
 export const I18N = {
