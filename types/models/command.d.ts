@@ -1,3 +1,5 @@
+import { MaybeRefOrGetter } from 'vue';
+
 export declare const DEFAULT_KEYBINDING_GROUP = "default";
 export type CommandGroup = 'settings' | 'editor' | 'global' | 'note-detail' | 'completion' | string;
 export interface CommandHandlerParams {
@@ -7,10 +9,10 @@ export interface CommandHandlerParams {
 }
 export interface Command {
     keySequence?: string | string[];
-    description?: string;
+    description?: MaybeRefOrGetter<string | undefined>;
     command?: string;
-    title?: string | (() => string);
-    icon?: string | (() => string);
+    title?: MaybeRefOrGetter<string | undefined>;
+    icon?: MaybeRefOrGetter<string | undefined>;
     group?: CommandGroup;
     allowOnInput?: boolean;
     ignorePrompt?: boolean;

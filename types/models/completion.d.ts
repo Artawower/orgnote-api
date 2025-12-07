@@ -1,8 +1,10 @@
+import { MaybeRefOrGetter } from 'vue';
+
 export interface CompletionCandidate<T = unknown> {
-  icon?: string | (() => string);
-  group?: string;
-  title?: string | (() => string);
-  description?: string | (() => string);
+  icon?: MaybeRefOrGetter<string | undefined>;
+  group?: MaybeRefOrGetter<string | undefined>;
+  title?: MaybeRefOrGetter<string | undefined>;
+  description?: MaybeRefOrGetter<string | undefined>;
   command: string;
   data: T;
   commandHandler?: (data: T) => void;

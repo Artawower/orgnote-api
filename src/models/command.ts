@@ -1,3 +1,4 @@
+import { MaybeRefOrGetter } from 'vue';
 import { COMMAND_GROUPS } from 'src/constants';
 import { DefaultCommands } from './default-commands';
 import { OrgNoteApi } from 'src/api';
@@ -17,10 +18,10 @@ export interface CommandHandlerParams<T = any> {
 }
 
 export interface CommandPreview {
-  description?: string;
+  description?: MaybeRefOrGetter<string | undefined>;
   command?: CommandName;
-  title?: string | (() => string);
-  icon?: string | (() => string);
+  title?: MaybeRefOrGetter<string | undefined>;
+  icon?: MaybeRefOrGetter<string | undefined>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
