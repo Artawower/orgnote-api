@@ -34,6 +34,7 @@ import {
   UseSystemInfo,
   ContextMenuStoreDefinition,
   QueueStoreDefinition,
+  FileGuardStoreDefinition,
 } from './models';
 // import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
@@ -107,6 +108,7 @@ export interface OrgNoteApi {
     useCron: CronStoreDefinition;
     useGit: GitStoreDefinition;
     useExtensionRegistry: ExtensionRegistryStoreDefinition;
+    useFileGuard: FileGuardStoreDefinition;
     app: App;
   };
   utils: {
