@@ -132,6 +132,9 @@ export enum i18n {
   SELECT_COMMAND_TO_COPY_URL = 'select command to copy URL',
   SELECT_COMMAND = 'select command',
   CONFIRM_CLEAR_LOGS = 'confirm clear logs',
+
+  // Buffer
+  FILE_DELETED_EXTERNALLY = 'file was deleted externally',
 }
 
 export const I18N = {

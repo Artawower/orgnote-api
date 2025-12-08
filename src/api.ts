@@ -35,6 +35,7 @@ import {
   ContextMenuStoreDefinition,
   QueueStoreDefinition,
   FileGuardStoreDefinition,
+  FileWatcherStoreDefinition,
 } from './models';
 // import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
@@ -90,6 +91,7 @@ export interface OrgNoteApi {
     useCommandsGroup: CommandsGroupStoreDefinition;
     useExtensions: ExtensionStoreDefinition;
     useFileSystem: FileSystemStoreDefinition;
+    useFileWatcher: FileWatcherStoreDefinition;
     useEncryption: EncryptionStoreDefinition;
     useSettings: SettingsStoreDefinition;
     useConfig: ConfigStoreDefinition;

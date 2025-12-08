@@ -51,6 +51,7 @@ export * from './commands-store';
 export * from './commands-group-store';
 export * from './extension-store';
 export * from './file-system-store';
+export * from './file-watcher-store';
 export * from './settings-store';
 export * from './encryption-store';
 export * from './ui-store';
