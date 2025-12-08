@@ -1,5 +1,18 @@
 import { OrgNoteApi } from 'src/api';
 
+export type FileSystemChangeType = 'create' | 'modify' | 'delete' | 'rename';
+
+export interface FileSystemChange {
+  path: string;
+  type: FileSystemChangeType;
+  mtime?: number;
+  previousPath?: string;
+}
+
+export interface WatcherHandle {
+  stop: () => Promise<void> | void;
+}
+
 export interface DiskFile {
   name: string;
   path: string;
@@ -77,4 +90,8 @@ export interface FileSystem {
   /* Convert internal path to pretty visual path for display */
   prettifyPath?: (path: string) => string;
   wipe?: () => Promise<void>;
+  watch?: (
+    listener: (change: FileSystemChange) => void,
+    params?: FileSystemParams
+  ) => WatcherHandle | Promise<WatcherHandle>;
 }

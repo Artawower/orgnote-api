@@ -1,6 +1,6 @@
 import { OrgNoteEncryption } from './encryption';
 import { StoreDefinition } from './store';
-import { DiskFile } from '../models/file-system';
+import { DiskFile } from './file-system';
 import { Ref } from 'vue';
 
 export interface FileSystemStore {
