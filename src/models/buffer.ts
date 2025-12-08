@@ -1,12 +1,18 @@
+import type { ValidationState } from './file-guard';
+
 type BufferError = string;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface BufferMetadata<T = any> {
+export interface BufferMetadata<T = unknown> {
   [key: string]: T;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface Buffer<T = any> {
+export interface BufferGuard {
+  readonly: boolean;
+  reason?: string;
+  validation?: ValidationState;
+}
+
+export interface Buffer<T = unknown> {
   path: string;
   title: string;
 
@@ -21,4 +27,6 @@ export interface Buffer<T = any> {
   referenceCount: number;
 
   metadata: BufferMetadata<T>;
+
+  guard?: BufferGuard;
 }

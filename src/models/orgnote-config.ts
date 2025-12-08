@@ -20,6 +20,8 @@ export const ORG_NOTE_CONFIG_SCHEMA = pipe(
       editor: object({
         showSpecialSymbols: boolean(),
         showPropertyDrawer: boolean(),
+        saveDelayMs: optional(number()),
+        validationDelayMs: optional(number()),
       }),
       developer: object({
         developerMode: boolean(),

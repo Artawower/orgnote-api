@@ -4,3 +4,4 @@ export * from './route-names';
 export * from './style-sizes';
 export * from './git-errors';
 export * from './extension-errors';
+export * from './file-guard-errors';
