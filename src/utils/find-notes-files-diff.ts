@@ -54,14 +54,16 @@ export async function getOrgFilesFromLastSync(
     return filePaths;
   }
 
-  return Promise.all(
-    filePaths.filter(async (filePath) => {
+  const results = await Promise.all(
+    filePaths.map(async (filePath) => {
       const stats = await fileInfo(filePath);
-      return (
-        new Date(stats.mtime) > lastSync || new Date(stats.ctime) > lastSync
-      );
+      const isModified =
+        new Date(stats.mtime) > lastSync || new Date(stats.ctime) > lastSync;
+      return isModified ? filePath : null;
     })
   );
+
+  return results.filter((p): p is string => p !== null);
 }
 
 function findDeletedNotes(
@@ -100,7 +102,8 @@ async function findUpdatedCreatedNotes(
       continue;
     }
     const fileUpdatedTime = new Date((await fileInfo(f))?.mtime);
-    if (found.updatedAt < fileUpdatedTime) {
+    const storedUpdatedTime = new Date(found.updatedAt);
+    if (storedUpdatedTime < fileUpdatedTime) {
       updated.push({ filePath: f });
     }
   }

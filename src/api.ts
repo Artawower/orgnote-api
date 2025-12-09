@@ -36,6 +36,8 @@ import {
   QueueStoreDefinition,
   FileGuardStoreDefinition,
   FileWatcherStoreDefinition,
+  BuildOrgNoteUrl,
+  AuthStoreDefinition,
 } from './models';
 // import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
@@ -47,6 +49,7 @@ import { ExtensionStoreDefinition } from './models/extension-store';
 import { FileSystemStoreDefinition } from './models/file-system-store';
 import { EncryptionStoreDefinition } from './models/encryption-store';
 import { PlatformSpecificFn } from './models/platform-specific';
+import { PlatformDetection, PlatformMatch } from './models/platform-detection';
 import { UseSplashScreen } from './models/splash-screen';
 import {
   GetCssVar,
@@ -111,10 +114,13 @@ export interface OrgNoteApi {
     useGit: GitStoreDefinition;
     useExtensionRegistry: ExtensionRegistryStoreDefinition;
     useFileGuard: FileGuardStoreDefinition;
+    useAuth: AuthStoreDefinition;
     app: App;
   };
   utils: {
     // Platform specific
+    platform: PlatformDetection;
+    platformMatch: PlatformMatch;
     clientOnly: PlatformSpecificFn;
     mobileOnly: PlatformSpecificFn;
     androidOnly: PlatformSpecificFn;
@@ -145,6 +151,9 @@ export interface OrgNoteApi {
     // Parsers
     parseToml: typeof parseToml;
     stringifyToml: typeof stringifyToml;
+
+    // URL
+    buildOrgNoteUrl: BuildOrgNoteUrl;
   };
   ui: {
     useSplashScreen: UseSplashScreen;

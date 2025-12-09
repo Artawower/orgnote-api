@@ -31,6 +31,7 @@ export * from './menu-action';
 export * from './queue-task';
 export * from './cron-task';
 export * from './platform';
+export * from './platform-detection';
 export * from './git';
 export * from './file-guard';
 export * from './file-guard-store';
@@ -83,3 +84,6 @@ export * from './style-size';
 export * from './repositories';
 export * from './log-repository';
 export * from './layout-snapshot-repository';
+
+// URL
+export * from './orgnote-url';

@@ -39,6 +39,7 @@ export enum DefaultCommands {
   EXTENSIONS_SETTINGS = 'extensions',
   ENCRYPTION_SETTINGS = 'encryption settings',
   API_SETTINGS = 'api settings',
+  AUTHENTICATION_SETTINGS = 'authentication settings',
   SOURCE_CODE = 'show source code',
   READ_WIKI = 'read wiki',
   SPONSOR = 'sponsor',
@@ -104,4 +105,9 @@ export enum DefaultCommands {
   // Extensions
   IMPORT_EXTENSION = 'import extension',
   OPEN_EXTENSIONS_MANAGER = 'open extensions manager',
+
+  // Auth
+  LOGIN = 'login',
+  LOGOUT = 'logout',
+  REMOVE_ACCOUNT = 'remove account',
 }
