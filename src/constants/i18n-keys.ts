@@ -135,6 +135,23 @@ export enum i18n {
 
   // Buffer
   FILE_DELETED_EXTERNALLY = 'file was deleted externally',
+
+  // Auth
+  AUTHENTICATION_STATUS = 'authentication status',
+  COMING_SOON = 'coming soon',
+  AUTH_IDENTIFYING = 'identifying',
+  AUTH_RETURN_TO_MOBILE = 'return to mobile app',
+  AUTH_LOGIN_REQUIRED = 'login required',
+  AUTH_ACTIVATING = 'activating',
+  AUTH_ENTER_ACTIVATION_KEY = 'enter activation key',
+  AUTH_LOGOUT = 'logout',
+  AUTH_LOGOUT_DESCRIPTION = 'sign out from your account',
+  AUTH_LOGIN = 'login',
+  AUTH_LOGIN_DESCRIPTION = 'sign in to your account',
+  AUTH_INVALID_CALLBACK_PARAMS = 'invalid authentication callback parameters',
+  AUTH_REMOVE_ACCOUNT = 'remove account',
+  AUTH_REMOVE_ACCOUNT_DESCRIPTION = 'permanently delete your account',
+  AUTH_GROUP = 'auth',
 }
 
 export const I18N = {

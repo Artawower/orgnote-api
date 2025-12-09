@@ -5,7 +5,7 @@ import { OAuthProvider } from './oauth-provider';
 
 export interface AuthStore {
   token: Ref<string>;
-  user: Ref<PersonalInfo>;
+  user: Ref<PersonalInfo | null>;
   provider: Ref<OAuthProvider>;
   auth: (params: {
     provider: string;

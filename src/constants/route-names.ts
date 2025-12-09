@@ -19,6 +19,7 @@ export enum RouteNames {
   SubscriptionSettings = 'SubscriptionSettings',
   StorageSettings = 'StorageSettings',
   ApiSettings = 'ApiSettings',
+  AuthenticationSettings = 'AuthenticationSettings',
   SynchronisationSettings = 'SynchronisationSettings',
   Extensions = 'Extensions',
   Keybindings = 'Keybindings',
