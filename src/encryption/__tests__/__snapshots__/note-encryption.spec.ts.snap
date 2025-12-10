@@ -1,250 +1,62 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Should decrypt note content via password 1`] = `
-[
-  {
-    "encrypted": false,
-    "id": "id",
-    "meta": {
-      "headings": [
-        {
-          "level": 1,
-          "title": "Hello?",
-        },
-      ],
-      "id": "qweqwe",
-      "title": "Hello worlld",
-    },
-  },
-  "#+ID: qweqwe
-#+TITLE: Hello worlld
-
-* Hello?",
-]
-`;
-
 exports[`Should decrypt note via keys 1`] = `
 [
   {
-    "author": undefined,
+    "author": {
+      "email": "Jonathan.Huels4@yahoo.com",
+      "id": "d5a25759-921e-44d6-b2e9-1408b8a112b5",
+      "name": "Josefina Pfeffer",
+    },
     "bookmarked": true,
-    "createdAt": "2024-09-09T12:03:22.491Z",
-    "deletedAt": undefined,
+    "createdAt": "2025-03-17T22:41:46.056Z",
+    "deletedAt": "2025-12-10T03:44:16.266Z",
     "encrypted": true,
     "filePath": [
-      "/usr/include/down_until.dot",
-      "/opt/share/by_dreamily.mar",
+      "/mnt/than.csv",
+      "/private/because_bah.distz",
     ],
-    "id": "21d1d79e-ea3b-4e6e-8054-55a3927a3973",
-    "isMy": true,
+    "id": "272b5977-fe2b-4c10-9af1-8c3be4aa9d94",
+    "isMy": false,
     "meta": {
-      "description": "Trucido cruentus uredo bonus. Reiciendis delicate victus maiores debilito coma dicta tener. Baiulus adflicto aegrus.",
+      "description": "Conventus verecundia suspendo dens doloremque antea antiquus dignissimos aestivus. Defluo dolore aiunt. Villa atavus cohaero attonbitus truculenter alii capto.",
       "images": [
-        "https://loremflickr.com/3477/1813?lock=5153636234062158",
-        "https://loremflickr.com/598/1016?lock=1569698392056226",
-        "https://picsum.photos/seed/JWzxX/803/1693",
+        "https://picsum.photos/seed/CwBzY/2790/160",
+        "https://loremflickr.com/3967/3323?lock=8679741767072978",
+        "https://loremflickr.com/2739/3346?lock=5475229747955920",
       ],
       "published": true,
-      "title": "Corpus allatus cresco torqueo aspicio callide.",
+      "title": "Balbus tenetur debitis agnosco cras cupressus architecto comburo.",
     },
-    "touchedAt": "2025-01-28T20:07:06.363Z",
-    "updatedAt": "2025-01-29T09:42:58.577Z",
+    "touchedAt": "2025-12-09T20:33:45.677Z",
+    "updatedAt": "2025-12-09T23:12:19.133Z",
   },
   "-----BEGIN PGP MESSAGE-----
-  Nemo bonus eos supra comptus aer urbs vita sonitus comminor. Vilicus adeptio dicta averto bellum approbo civis qui. Armarium conculco tempus consequuntur carus.
-Sufficio sit vacuus tamen terminatio verecundia clamo laborum. Blandior nemo commodo vinitor callide asperiores curatio stultus defendo. Asperiores adficio quae commemoro tamen facilis bos adfectus vomica odio.
-Casus spectaculum tabernus vociferor copiose theca. Deludo nisi valeo vulnero claudeo. Spiritus demo beatae correptius voluptate comedo.
+  Antea sint velociter apparatus vigor est subseco. Consectetur charisma deduco necessitatibus. Torqueo thema ademptio.
+Dens catena delectatio. Viridis patrocinor doloribus tamdiu ascisco cohaero animadverto stabilis. Eum ipsam reprehenderit demoror tenus stabilis consequatur assentator odit.
+Bonus veritatis ullam cura antiquus. Quidem provident deludo eaque virgo terminatio varietas vorax turba. Solitudo appello defetiscor balbus crebro architecto.
   -----END PGP MESSAGE-----",
 ]
 `;
 
-exports[`Should decrypt note via provided keys 1`] = `
-[
-  {
-    "encrypted": false,
-    "id": "id",
-    "meta": {
-      "headings": [
-        {
-          "level": 1,
-          "title": "Hello?",
-        },
-      ],
-      "id": "qweqwe",
-      "title": "Hello worlld",
-    },
-  },
-  "#+ID: qweqwe
-#+TITLE: Hello worlld
-
-* Hello?",
-]
-`;
-
-exports[`Should encrypt note content via password 1`] = `
-{
-  "author": {
-    "email": "test@mail.com",
-    "id": "1",
-    "name": "John Doe",
-  },
-  "encrypted": true,
-  "id": "id",
-  "meta": {
-    "id": undefined,
-    "published": false,
-  },
-}
-`;
-
-exports[`Should encrypt note content via password to binary format 1`] = `
-{
-  "author": {
-    "email": "test@mail.com",
-    "id": "1",
-    "name": "John Doe",
-  },
-  "encrypted": true,
-  "id": "id",
-  "meta": {
-    "id": undefined,
-    "published": false,
-  },
-}
-`;
-
-exports[`Should encrypt note to binary format 1`] = `
-{
-  "author": {
-    "email": "test@mail.com",
-    "id": "1",
-    "name": "John Doe",
-  },
-  "encrypted": true,
-  "id": "id",
-  "meta": {
-    "id": undefined,
-    "published": false,
-  },
-}
-`;
-
 exports[`Should encrypt note via keys 1`] = `
 {
-  "author": {
-    "email": "test@mail.com",
-    "id": "1",
-    "name": "John Doe",
-  },
+  "author": undefined,
+  "bookmarked": false,
+  "createdAt": "2025-03-23T15:35:07.133Z",
+  "deletedAt": undefined,
   "encrypted": true,
-  "id": "id",
+  "filePath": [
+    "/sbin/tentacle_who_accompanist.tar",
+    "/opt/bin/that.bz",
+  ],
+  "id": "0d725d36-0dbe-406c-a747-723063f1d28f",
+  "isMy": false,
   "meta": {
     "id": undefined,
     "published": false,
   },
+  "touchedAt": "2025-12-09T17:31:36.182Z",
+  "updatedAt": "2025-12-09T19:40:00.936Z",
 }
-`;
-
-exports[`Should encrypt note with empty encrypted property 1`] = `
-{
-  "author": {
-    "email": "test@mail.com",
-    "id": "1",
-    "name": "John Doe",
-  },
-  "encrypted": true,
-  "id": "id",
-  "meta": {
-    "id": undefined,
-    "published": false,
-  },
-}
-`;
-
-exports[`Should not decrypt note without provided encrypted type 1`] = `
-[
-  {
-    "author": {
-      "email": "test@mail.com",
-      "id": "1",
-      "name": "John Doe",
-    },
-    "encrypted": false,
-    "id": "id",
-    "meta": {
-      "description": "Awesome description",
-      "images": [],
-      "published": false,
-      "title": "My note title",
-    },
-  },
-  "#+ID: qweqwe
-#+TITLE: Hello worlld
-
-* Hello?",
-]
-`;
-
-exports[`Should not encrypt public note 1`] = `
-{
-  "author": {
-    "email": "test@mail.com",
-    "id": "1",
-    "name": "John Doe",
-  },
-  "encrypted": false,
-  "id": "id",
-  "meta": {
-    "description": "Awesome description",
-    "images": [],
-    "published": true,
-    "title": "My note title",
-  },
-}
-`;
-
-exports[`Should set not encrypted status when params type does not provided 1`] = `
-[
-  {
-    "encrypted": true,
-    "id": "id",
-    "meta": {
-      "description": "Awesome description",
-      "images": [],
-      "published": false,
-      "title": "My note title for decryption via keys",
-    },
-  },
-  "-----BEGIN PGP MESSAGE-----
-
-wcFMA/vryg+TTn0rAQ//TBFRjKmjRQoLhSrgeH+NbsZXbxvo7Ey4k+BQ9XA5
-+CMpXH9uFUxsSaI5+McUSEt32VI17HRpXQDCL9nwaWqWOanMaRe0tXXhtox2
-gfe2f/6zsge9ux+mXF2BG4z+V5T8XIOrfzxosVprdJHZHM3x7cW5USQ0t2i2
-FiOUWxSZO1899J3yICpMvhDXvTLVZuKpSNQho5PyXSeZa83eN+uYkhgt9lsk
-0KW88Nr435S6n6mVw/zpitXIgEKpkqh46mhG+1W3aC0lYx6j9lHm3bjtdb4r
-2mtZbWKwfdBggEy8qEeiUeslvKd6uWtEccomzFgJkaqWVGknLmrBdHfztRIV
-fbZhxHz+J3GFOIgXf/5+fv+zg0nTazgz1mDUfnTHw3+qcAyEJ0ADdyg9EZc+
-bKbK0GwzMDPQeM+cCRDWUTiIa1ruyEETiwMdhWUDztF8XxY2o8jXPerZ0NhG
-R8l+SvAdYQQXPfxEh9lA3thkyz/Vp72pW46lUeJHGSq/fS6KIdLHLP9Z2e1J
-aCFpNMgyAN+BaXwnbLZfz6k5hV8awbRScSWQLEg69D9b287SFDPOYW7OZikn
-CKXL7xyQ5LrWJZN9Z/UPGjy+PdEw1SBhyluW6DQ+Sz1j4K8USTLqY89EInDl
-G7AxHGujR9UkUGyUvvc71XW7jEOogiDgn1ZMoj9Y58LSweUB8vfkY3VF84Fy
-zGVvLFWnFbtnWuoQC4OOXv1F6ETdmEsSMEMWKzRLDGPyqNX7FhG3cejlEuiK
-EsT5oQhz00RECmnR8mJkGmJhzWmmeoQvaucFqhTOZjvYl9ivuEMBZ2jtkdHn
-R6UNcNZRpCbfnl7YoikqbGBgqDFYydFGHXKHDpYhcQYWJsMDUayzUiPtzmaE
-tgfTgNNqgPxkLnWA99KYNU8DH+FwgaYBuw9dwdqwcjxSbZjHhCFGUfsqM+ik
-O9gcoAwVO1usODlESU7OWuSF2tIv5DBG5rhlSyxBp4d4aWmaumTswAdojy2O
-sM70ETbg0mC8niW9lNsgJp55oFmlksvzjUIit5rBEr55rtPcJSgakPpR2yvd
-Q4XjybUmV0IdONMhk/OlqaBPtnA0RG+qTcm7oP1qH/m5zRA0ZplVQ5ylkQwr
-LwGq5JQpJkgxxgLIrUbbtzYBShXSr5c1XXR0LIRiNgtb6s1s4mt+fbyExdJF
-+ceuu+/xYrW/YTuEJpHxLiZ+aNPW5g5Y7Hbqu3hp3UL/kD44cc8JjZh18spX
-p/ncojDhF2r2vhR+CndYcMkpGMV+t1pGKC8wlcFc7lb9GJASnqMGvhQmvIaG
-gO/x7UjuTZSBW+kITHHZJDqYryKUv1j0CkHxIn9tWsYOpa1giOFtXX5v0AAM
-AJR/s/beLlqwCsUdYnw1TkP/0u0ZK3RPio1nJ7S6ckPfsM7DqCWD8ILD8Cdr
-cuzQrWaE30t5PXx53xBPO+6t5wKfDL35WHWG1Irmvz9UuT7tDS3IzwtF4ijF
-PX6alTbxGnoHgZ4bG4J1wfpTNPppP1gJeVg67VqOypzdZi+SjofMWnFgRFmD
-yEN8xpFUs7A9xryVZOosp9Sfe3IbBkO99sAQ7jV4EoMYk3/GKA==
-=LjkG
------END PGP MESSAGE-----",
-]
 `;

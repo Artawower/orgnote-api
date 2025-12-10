@@ -5,7 +5,7 @@ import {
   armoredPrivateKey,
   privateKeyPassphrase,
 } from './encryption-keys';
-import { ModelsPublicNoteEncryptionTypeEnum } from '../../remote-api';
+import { EncryptionType } from '../../models/encryption';
 import { NoteInfo } from 'src/models';
 import { faker } from '@faker-js/faker';
 
@@ -46,7 +46,7 @@ test('Should encrypt note via keys', async () => {
 
   const [encryptedNote, encryptedNoteText] = await encryptNote(note, {
     content: noteText,
-    type: ModelsPublicNoteEncryptionTypeEnum.GpgKeys,
+    type: EncryptionType.GpgKeys,
     publicKey: armoredPublicKey, // Используем armoredPublicKey
     privateKey: armoredPrivateKey, // Используем armoredPrivateKey
     privateKeyPassphrase, // Используем privateKeyPassphrase
@@ -68,7 +68,7 @@ test('Should decrypt note via keys', async () => {
 
   const decryptedNote = await decryptNote(note, {
     content: encryptedNoteText,
-    type: ModelsPublicNoteEncryptionTypeEnum.GpgKeys,
+    type: EncryptionType.GpgKeys,
     publicKey: armoredPublicKey, // Используем armoredPublicKey
     privateKey: armoredPrivateKey, // Используем armoredPrivateKey
     privateKeyPassphrase, // Используем privateKeyPassphrase

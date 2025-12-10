@@ -1,6 +1,5 @@
-import { ModelsPublicNoteEncryptionTypeEnum } from '../remote-api';
-
 import { decrypt, encrypt } from './encryption';
+import { EncryptionType } from '../models/encryption';
 import {
   OrgNoteEncryption,
   WithDecryptionContent,
@@ -12,7 +11,7 @@ import { isGpgEncrypted } from '..';
 
 export interface AbstractEncryptedNote {
   encrypted?: boolean;
-  meta: {
+  meta?: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;
     published?: boolean;
@@ -30,13 +29,13 @@ export async function encryptNote<T extends AbstractEncryptedNote>(
   note.encrypted = false;
   if (
     !encryptionParams.type ||
-    encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.Disabled ||
-    note.meta.published
+    encryptionParams.type === EncryptionType.Disabled ||
+    note.meta?.published
   ) {
     return [note, encryptionParams.content];
   }
 
-  note.meta = { id: note.meta.id, published: note.meta.published };
+  note.meta = { id: note.meta?.id, published: note.meta?.published };
 
   const encryptedContent = await encrypt(encryptionParams);
 
@@ -51,9 +50,9 @@ export async function decryptNote<T extends AbstractEncryptedNote>(
 ): DecryptionResult<T> {
   const isContentEncrypted = isGpgEncrypted(encryptionParams.content);
   if (
-    note.meta.published ||
+    note.meta?.published ||
     !encryptionParams.type ||
-    encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.Disabled ||
+    encryptionParams.type === EncryptionType.Disabled ||
     !isContentEncrypted
   ) {
     note.encrypted = isContentEncrypted;

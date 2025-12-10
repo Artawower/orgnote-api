@@ -1,4 +1,3 @@
-import { HandlersCreatingNote } from 'src/remote-api';
 import { FileSystem } from './file-system';
 
 export interface Changes {
@@ -16,12 +15,6 @@ export interface NoteChanges {
   deleted: NoteChange[];
   created: NoteChange[];
   updated: NoteChange[];
-}
-
-export interface FullContextNoteChanges
-  extends Omit<NoteChanges, 'created' | 'updated'> {
-  created: HandlersCreatingNote[];
-  updated: HandlersCreatingNote[];
 }
 
 export interface StoredNoteInfo {

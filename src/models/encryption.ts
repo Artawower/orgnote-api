@@ -1,5 +1,4 @@
 import { boolean, metadata } from 'valibot';
-import { ModelsPublicNoteEncryptionTypeEnum } from '../remote-api';
 import {
   object,
   string,
@@ -10,6 +9,15 @@ import {
   intersect,
   pipe,
 } from 'valibot';
+
+export const EncryptionType = {
+  GpgKeys: 'gpgKeys',
+  GpgPassword: 'gpgPassword',
+  Disabled: 'disabled',
+} as const;
+
+export type EncryptionType = (typeof EncryptionType)[keyof typeof EncryptionType];
+
 export type EcnryptionFormat = 'binary' | 'armored';
 
 export interface BaseOrgNoteEncryption {
@@ -21,7 +29,7 @@ export interface BaseOrgNoteDecryption {
 }
 
 const OrgNoteGpgEncryptionSchema = object({
-  type: literal(ModelsPublicNoteEncryptionTypeEnum.GpgKeys),
+  type: literal(EncryptionType.GpgKeys),
   privateKey: pipe(string(), metadata({ textarea: true, upload: true })),
   publicKey: pipe(
     optional(string()),
@@ -31,12 +39,12 @@ const OrgNoteGpgEncryptionSchema = object({
 });
 
 const OrgNotePasswordEncryptionSchema = object({
-  type: literal(ModelsPublicNoteEncryptionTypeEnum.GpgPassword),
+  type: literal(EncryptionType.GpgPassword),
   password: string(),
 });
 
 const OrgNoteDisabledEncryptionSchema = object({
-  type: literal(ModelsPublicNoteEncryptionTypeEnum.Disabled),
+  type: literal(EncryptionType.Disabled),
 });
 
 export const OrgNoteEncryptionSchema = intersect([
