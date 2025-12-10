@@ -10,8 +10,8 @@
     "build": "npm run clear && tspc --project tsconfig.json",
     "clear": "rm -rf dist",
     "lint": "eslint -c ./eslint.config.js \"./src*/**/*.{ts,js,cjs,mjs}\"",
-    "codegen:api": "openapi-generator-cli generate",
-    "codegen:api:local": "OPENAPI_GENERATOR_CLI_CONFIG=openapitools.local.json openapi-generator-cli generate",
+    "codegen:api": "openapi-generator-cli generate --generator-key api",
+    "codegen:api:local": "openapi-generator-cli generate --generator-key api-local",
     "codegen:css-doc": "node collect-css-variables.cjs --docs",
     "codegen:css-types": "node collect-css-variables.cjs --types",
     "fix-esm-imports": "fix-esm-import-path ./dist",
@@ -32,17 +32,9 @@
     "./commands": "./commands/index.js",
     "./constants": "./constants/index.js"
   },
-  "files": [
-    "**"
-  ],
+  "files": ["**"],
   "types": "./index.d.ts",
-  "keywords": [
-    "orgnote",
-    "org-mode",
-    "org-roam",
-    "api",
-    "extensions"
-  ],
+  "keywords": ["orgnote", "org-mode", "org-roam", "api", "extensions"],
   "author": "darkawower <app.orgnote@gmail.com> (https://org-note.com)",
   "license": "GPL-3.0-or-later",
   "bugs": {
