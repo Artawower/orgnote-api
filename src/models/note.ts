@@ -1,4 +1,4 @@
-import type { ModelsPublicNote, ModelsPublicUser } from '../remote-api';
+import type { EncryptionType } from './encryption';
 
 export interface NotesFilter {
   searchText?: string;
@@ -7,19 +7,38 @@ export interface NotesFilter {
   offset?: number;
 }
 
+export interface NoteMeta {
+  id?: string;
+  title?: string;
+  description?: string;
+  fileTags?: string[];
+  previewImg?: string;
+  published?: boolean;
+  startup?: string;
+  images?: string[];
+  connectedNotes?: Record<string, string>;
+}
+
+export interface PublicUser {
+  id?: string;
+  name?: string;
+  nickName?: string;
+  avatarUrl?: string;
+  email?: string;
+  profileUrl?: string;
+}
+
 export interface NoteInfo {
-  id: ModelsPublicNote['id'];
-  meta: ModelsPublicNote['meta'];
-  createdAt: ModelsPublicNote['createdAt'];
-  encryptionType?: ModelsPublicNote['encryptionType'];
-  updatedAt: ModelsPublicNote['updatedAt'];
-  touchedAt: ModelsPublicNote['touchedAt'];
+  id?: string;
+  meta?: NoteMeta;
+  createdAt?: string;
+  encryptionType?: EncryptionType;
+  updatedAt?: string;
+  touchedAt?: string;
   deletedAt?: string;
-  filePath: ModelsPublicNote['filePath'];
-  isMy?: ModelsPublicNote['isMy'];
-  // TODO: feat/stable-beta think about removing this field
-  // maybe we need to do it in the blog style
-  author?: ModelsPublicUser;
+  filePath?: string[];
+  isMy?: boolean;
+  author?: PublicUser;
   bookmarked?: boolean;
   encrypted?: boolean;
 }

@@ -8,8 +8,8 @@ import {
   readPrivateKey,
   Stream,
 } from 'openpgp';
-import { ModelsPublicNoteEncryptionTypeEnum } from '../remote-api';
 import {
+  EncryptionType,
   OrgNoteEncryption,
   OrgNotePasswordEncryption,
   WithDecryptionContent,
@@ -86,14 +86,14 @@ export const encrypt = async <
 ): Promise<T['format'] extends 'binary' ? Uint8Array : string> => {
   if (
     !encryptionParams.type ||
-    encryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.Disabled
+    encryptionParams.type === EncryptionType.Disabled
   ) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return encryptionParams.content as any;
   }
 
   const res = (encryptionParams.type ===
-  ModelsPublicNoteEncryptionTypeEnum.GpgKeys
+  EncryptionType.GpgKeys
     ? await encryptViaKeys(encryptionParams)
     : await encryptViaPassword(encryptionParams)) as unknown as Promise<
     T['format'] extends 'binary' ? Uint8Array : string
@@ -109,13 +109,13 @@ export const decrypt = async <
 ): Promise<T['format'] extends 'binary' ? Uint8Array : string> => {
   if (
     !decryptionParams.type ||
-    decryptionParams.type === ModelsPublicNoteEncryptionTypeEnum.Disabled
+    decryptionParams.type === EncryptionType.Disabled
   ) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return decryptionParams.content as any;
   }
   const decryptedNote = (decryptionParams.type ===
-  ModelsPublicNoteEncryptionTypeEnum.GpgKeys
+  EncryptionType.GpgKeys
     ? await decryptViaKeys(decryptionParams)
     : await decryptViaPassword(decryptionParams)) as unknown as Promise<
     T['format'] extends 'binary' ? Uint8Array : string
