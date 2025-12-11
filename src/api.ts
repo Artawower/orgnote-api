@@ -115,6 +115,7 @@ export interface OrgNoteApi {
     useExtensionRegistry: ExtensionRegistryStoreDefinition;
     useFileGuard: FileGuardStoreDefinition;
     useAuth: AuthStoreDefinition;
+    useSync: SyncStoreDefinition;
     app: App;
   };
   utils: {
