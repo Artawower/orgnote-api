@@ -1,16 +1,10 @@
-import type { ModelsFileChange } from '../remote-api';
-import type { SyncApi } from './types';
-import type { RemoteFile } from './types';
+import type { FileChange, SyncChangesResponse } from '../remote-api';
+import type { SyncApi, RemoteFile } from './types';
 
-export interface FetchResult {
-  files: RemoteFile[];
-  serverTime: string;
-}
+type ServerFields = Pick<SyncChangesResponse, 'serverTime' | 'cursor'>;
 
-interface PageResult {
+export interface FetchResult extends ServerFields {
   files: RemoteFile[];
-  serverTime: string;
-  nextCursor?: string;
 }
 
 const DEFAULT_LIMIT = 100;
@@ -29,34 +23,39 @@ const fetchAllPages = async (
   const page = await fetchPage(api, since, cursor);
   const files = [...accumulated, ...page.files];
 
-  if (!page.nextCursor) {
+  if (!page.cursor) {
     return { files, serverTime: page.serverTime };
   }
 
-  return fetchAllPages(api, since, page.nextCursor, files);
+  return fetchAllPages(api, since, page.cursor, files);
+};
+
+const toTimestamp = (isoString?: string): number | undefined => {
+  if (!isoString) return undefined;
+  return new Date(isoString).getTime();
 };
 
 const fetchPage = async (
   api: SyncApi,
   since?: string,
   cursor?: string
-): Promise<PageResult> => {
-  const response = await api.syncChangesGet(since, DEFAULT_LIMIT, cursor);
+): Promise<FetchResult> => {
+  const sinceMs = toTimestamp(since);
+  const response = await api.syncChangesGet(sinceMs, DEFAULT_LIMIT, cursor);
   const data = response.data.data;
 
   return {
     files: mapChangesToFiles(data.changes),
     serverTime: data.serverTime,
-    nextCursor: data.hasMore ? data.cursor : undefined,
+    cursor: data.hasMore ? data.cursor : undefined,
   };
 };
 
-const mapChangesToFiles = (changes: ModelsFileChange[]): RemoteFile[] =>
+const mapChangesToFiles = (changes: FileChange[]): RemoteFile[] =>
   changes.map(toRemoteFile);
 
-const toRemoteFile = (change: ModelsFileChange): RemoteFile => ({
-  id: change.id,
-  path: change.filePath,
+const toRemoteFile = (change: FileChange): RemoteFile => ({
+  path: change.path,
   version: change.version,
   deleted: change.deleted,
   updatedAt: change.updatedAt,

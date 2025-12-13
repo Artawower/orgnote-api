@@ -24,6 +24,110 @@ import type { RequestArgs } from './base';
 import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerMap } from './base';
 
 /**
+ * File change information for synchronization
+ * @export
+ * @interface FileChange
+ */
+export interface FileChange {
+    /**
+     * 
+     * @type {string}
+     * @memberof FileChange
+     */
+    'contentHash'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof FileChange
+     */
+    'deleted': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof FileChange
+     */
+    'deletedAt'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FileChange
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FileChange
+     */
+    'path': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof FileChange
+     */
+    'size'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof FileChange
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof FileChange
+     */
+    'version': number;
+}
+/**
+ * Response after successful file upload
+ * @export
+ * @interface FileUploadResponse
+ */
+export interface FileUploadResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof FileUploadResponse
+     */
+    'contentHash': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FileUploadResponse
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof FileUploadResponse
+     */
+    'path': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof FileUploadResponse
+     */
+    'size': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof FileUploadResponse
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof FileUploadResponse
+     */
+    'uploaded': boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof FileUploadResponse
+     */
+    'version': number;
+}
+/**
  * 
  * @export
  * @interface HandlersHttpErrorAny
@@ -58,6 +162,25 @@ export interface HandlersHttpResponseArrayModelsAPITokenAny {
      * 
      * @type {object}
      * @memberof HandlersHttpResponseArrayModelsAPITokenAny
+     */
+    'meta'?: object;
+}
+/**
+ * 
+ * @export
+ * @interface HandlersHttpResponseFileUploadResponseAny
+ */
+export interface HandlersHttpResponseFileUploadResponseAny {
+    /**
+     * 
+     * @type {FileUploadResponse}
+     * @memberof HandlersHttpResponseFileUploadResponseAny
+     */
+    'data'?: FileUploadResponse;
+    /**
+     * 
+     * @type {object}
+     * @memberof HandlersHttpResponseFileUploadResponseAny
      */
     'meta'?: object;
 }
@@ -121,44 +244,6 @@ export interface HandlersHttpResponseModelsFileMetadataAny {
 /**
  * 
  * @export
- * @interface HandlersHttpResponseModelsFileUploadResponseAny
- */
-export interface HandlersHttpResponseModelsFileUploadResponseAny {
-    /**
-     * 
-     * @type {ModelsFileUploadResponse}
-     * @memberof HandlersHttpResponseModelsFileUploadResponseAny
-     */
-    'data'?: ModelsFileUploadResponse;
-    /**
-     * 
-     * @type {object}
-     * @memberof HandlersHttpResponseModelsFileUploadResponseAny
-     */
-    'meta'?: object;
-}
-/**
- * 
- * @export
- * @interface HandlersHttpResponseModelsSyncChangesResponseAny
- */
-export interface HandlersHttpResponseModelsSyncChangesResponseAny {
-    /**
-     * 
-     * @type {ModelsSyncChangesResponse}
-     * @memberof HandlersHttpResponseModelsSyncChangesResponseAny
-     */
-    'data'?: ModelsSyncChangesResponse;
-    /**
-     * 
-     * @type {object}
-     * @memberof HandlersHttpResponseModelsSyncChangesResponseAny
-     */
-    'meta'?: object;
-}
-/**
- * 
- * @export
  * @interface HandlersHttpResponseModelsUserPersonalInfoAny
  */
 export interface HandlersHttpResponseModelsUserPersonalInfoAny {
@@ -172,6 +257,25 @@ export interface HandlersHttpResponseModelsUserPersonalInfoAny {
      * 
      * @type {object}
      * @memberof HandlersHttpResponseModelsUserPersonalInfoAny
+     */
+    'meta'?: object;
+}
+/**
+ * 
+ * @export
+ * @interface HandlersHttpResponseSyncChangesResponseAny
+ */
+export interface HandlersHttpResponseSyncChangesResponseAny {
+    /**
+     * 
+     * @type {SyncChangesResponse}
+     * @memberof HandlersHttpResponseSyncChangesResponseAny
+     */
+    'data'?: SyncChangesResponse;
+    /**
+     * 
+     * @type {object}
+     * @memberof HandlersHttpResponseSyncChangesResponseAny
      */
     'meta'?: object;
 }
@@ -267,61 +371,6 @@ export interface ModelsEnvironmentInfo {
 /**
  * 
  * @export
- * @interface ModelsFileChange
- */
-export interface ModelsFileChange {
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFileChange
-     */
-    'contentHash'?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ModelsFileChange
-     */
-    'deleted'?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFileChange
-     */
-    'deletedAt'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFileChange
-     */
-    'filePath'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ModelsFileChange
-     */
-    'fileSize'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFileChange
-     */
-    'id'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFileChange
-     */
-    'updatedAt'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ModelsFileChange
-     */
-    'version'?: number;
-}
-/**
- * 
- * @export
  * @interface ModelsFileMetadata
  */
 export interface ModelsFileMetadata {
@@ -348,19 +397,19 @@ export interface ModelsFileMetadata {
      * @type {string}
      * @memberof ModelsFileMetadata
      */
-    'filePath'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ModelsFileMetadata
-     */
-    'fileSize'?: number;
+    'id'?: string;
     /**
      * 
      * @type {string}
      * @memberof ModelsFileMetadata
      */
-    'id'?: string;
+    'path'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ModelsFileMetadata
+     */
+    'size'?: number;
     /**
      * 
      * @type {string}
@@ -377,55 +426,6 @@ export interface ModelsFileMetadata {
      * 
      * @type {number}
      * @memberof ModelsFileMetadata
-     */
-    'version'?: number;
-}
-/**
- * 
- * @export
- * @interface ModelsFileUploadResponse
- */
-export interface ModelsFileUploadResponse {
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFileUploadResponse
-     */
-    'contentHash'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFileUploadResponse
-     */
-    'filePath'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof ModelsFileUploadResponse
-     */
-    'fileSize'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFileUploadResponse
-     */
-    'id'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsFileUploadResponse
-     */
-    'updatedAt'?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ModelsFileUploadResponse
-     */
-    'uploaded'?: boolean;
-    /**
-     * 
-     * @type {number}
-     * @memberof ModelsFileUploadResponse
      */
     'version'?: number;
 }
@@ -453,37 +453,6 @@ export interface ModelsOrgNoteClientUpdateInfo {
      * @memberof ModelsOrgNoteClientUpdateInfo
      */
     'version'?: string;
-}
-/**
- * 
- * @export
- * @interface ModelsSyncChangesResponse
- */
-export interface ModelsSyncChangesResponse {
-    /**
-     * 
-     * @type {Array<ModelsFileChange>}
-     * @memberof ModelsSyncChangesResponse
-     */
-    'changes'?: Array<ModelsFileChange>;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsSyncChangesResponse
-     */
-    'cursor'?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof ModelsSyncChangesResponse
-     */
-    'hasMore'?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof ModelsSyncChangesResponse
-     */
-    'serverTime'?: string;
 }
 /**
  * 
@@ -551,6 +520,62 @@ export interface ModelsUserPersonalInfo {
      * @memberof ModelsUserPersonalInfo
      */
     'usedSpace'?: number;
+}
+/**
+ * Response containing file changes since last sync
+ * @export
+ * @interface SyncChangesResponse
+ */
+export interface SyncChangesResponse {
+    /**
+     * 
+     * @type {Array<FileChange>}
+     * @memberof SyncChangesResponse
+     */
+    'changes': Array<FileChange>;
+    /**
+     * 
+     * @type {string}
+     * @memberof SyncChangesResponse
+     */
+    'cursor'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SyncChangesResponse
+     */
+    'hasMore': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof SyncChangesResponse
+     */
+    'serverTime': string;
+}
+/**
+ * Response when optimistic locking fails due to version mismatch
+ * @export
+ * @interface VersionConflictResponse
+ */
+export interface VersionConflictResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof VersionConflictResponse
+     */
+    'error': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VersionConflictResponse
+     */
+    'path': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof VersionConflictResponse
+     */
+    'serverVersion': number;
 }
 
 /**
@@ -1197,13 +1222,13 @@ export const SyncApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * Returns file changes since the specified timestamp
          * @summary Get file changes
-         * @param {string} [since] ISO8601 timestamp for incremental sync
+         * @param {number} [since] Unix timestamp in milliseconds for incremental sync
          * @param {number} [limit] Maximum number of changes to return (default: 100, max: 500)
          * @param {string} [cursor] Pagination cursor
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        syncChangesGet: async (since?: string, limit?: number, cursor?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        syncChangesGet: async (since?: number, limit?: number, cursor?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/sync/changes`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1242,16 +1267,15 @@ export const SyncApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * Soft delete a file (creates tombstone for sync)
          * @summary Delete a file
-         * @param {string} id File ID
+         * @param {string} path File path
          * @param {number} [version] Expected version for optimistic locking
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        syncFilesIdDelete: async (id: string, version?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('syncFilesIdDelete', 'id', id)
-            const localVarPath = `/sync/files/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+        syncFilesDelete: async (path: string, version?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'path' is not null or undefined
+            assertParamExists('syncFilesDelete', 'path', path)
+            const localVarPath = `/sync/files`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1262,6 +1286,10 @@ export const SyncApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (path !== undefined) {
+                localVarQueryParameter['path'] = path;
+            }
 
             if (version !== undefined) {
                 localVarQueryParameter['version'] = version;
@@ -1279,17 +1307,16 @@ export const SyncApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Download file content by file ID
+         * Download file content by path
          * @summary Download a file
-         * @param {string} id File ID
+         * @param {string} path File path
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        syncFilesIdGet: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('syncFilesIdGet', 'id', id)
-            const localVarPath = `/sync/files/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+        syncFilesGet: async (path: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'path' is not null or undefined
+            assertParamExists('syncFilesGet', 'path', path)
+            const localVarPath = `/sync/files`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1300,6 +1327,10 @@ export const SyncApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (path !== undefined) {
+                localVarQueryParameter['path'] = path;
+            }
 
 
     
@@ -1318,10 +1349,11 @@ export const SyncApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {string} filePath Relative file path
          * @param {File} file File content
          * @param {string} [xContentHash] SHA-256 hash for verification
+         * @param {number} [expectedVersion] Expected version for optimistic locking
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        syncFilesPut: async (filePath: string, file: File, xContentHash?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        syncFilesPut: async (filePath: string, file: File, xContentHash?: string, expectedVersion?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'filePath' is not null or undefined
             assertParamExists('syncFilesPut', 'filePath', filePath)
             // verify required parameter 'file' is not null or undefined
@@ -1352,6 +1384,10 @@ export const SyncApiAxiosParamCreator = function (configuration?: Configuration)
                 localVarFormParams.append('file', file as any);
             }
     
+            if (expectedVersion !== undefined) { 
+                localVarFormParams.append('expectedVersion', expectedVersion as any);
+            }
+    
     
             localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
     
@@ -1378,13 +1414,13 @@ export const SyncApiFp = function(configuration?: Configuration) {
         /**
          * Returns file changes since the specified timestamp
          * @summary Get file changes
-         * @param {string} [since] ISO8601 timestamp for incremental sync
+         * @param {number} [since] Unix timestamp in milliseconds for incremental sync
          * @param {number} [limit] Maximum number of changes to return (default: 100, max: 500)
          * @param {string} [cursor] Pagination cursor
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async syncChangesGet(since?: string, limit?: number, cursor?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseModelsSyncChangesResponseAny>> {
+        async syncChangesGet(since?: number, limit?: number, cursor?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseSyncChangesResponseAny>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.syncChangesGet(since, limit, cursor, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SyncApi.syncChangesGet']?.[localVarOperationServerIndex]?.url;
@@ -1393,28 +1429,28 @@ export const SyncApiFp = function(configuration?: Configuration) {
         /**
          * Soft delete a file (creates tombstone for sync)
          * @summary Delete a file
-         * @param {string} id File ID
+         * @param {string} path File path
          * @param {number} [version] Expected version for optimistic locking
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async syncFilesIdDelete(id: string, version?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseModelsFileMetadataAny>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.syncFilesIdDelete(id, version, options);
+        async syncFilesDelete(path: string, version?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseModelsFileMetadataAny>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.syncFilesDelete(path, version, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['SyncApi.syncFilesIdDelete']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['SyncApi.syncFilesDelete']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * Download file content by file ID
+         * Download file content by path
          * @summary Download a file
-         * @param {string} id File ID
+         * @param {string} path File path
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async syncFilesIdGet(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.syncFilesIdGet(id, options);
+        async syncFilesGet(path: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.syncFilesGet(path, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['SyncApi.syncFilesIdGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['SyncApi.syncFilesGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -1423,11 +1459,12 @@ export const SyncApiFp = function(configuration?: Configuration) {
          * @param {string} filePath Relative file path
          * @param {File} file File content
          * @param {string} [xContentHash] SHA-256 hash for verification
+         * @param {number} [expectedVersion] Expected version for optimistic locking
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async syncFilesPut(filePath: string, file: File, xContentHash?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseModelsFileUploadResponseAny>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.syncFilesPut(filePath, file, xContentHash, options);
+        async syncFilesPut(filePath: string, file: File, xContentHash?: string, expectedVersion?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<HandlersHttpResponseFileUploadResponseAny>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.syncFilesPut(filePath, file, xContentHash, expectedVersion, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SyncApi.syncFilesPut']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -1445,35 +1482,35 @@ export const SyncApiFactory = function (configuration?: Configuration, basePath?
         /**
          * Returns file changes since the specified timestamp
          * @summary Get file changes
-         * @param {string} [since] ISO8601 timestamp for incremental sync
+         * @param {number} [since] Unix timestamp in milliseconds for incremental sync
          * @param {number} [limit] Maximum number of changes to return (default: 100, max: 500)
          * @param {string} [cursor] Pagination cursor
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        syncChangesGet(since?: string, limit?: number, cursor?: string, options?: any): AxiosPromise<HandlersHttpResponseModelsSyncChangesResponseAny> {
+        syncChangesGet(since?: number, limit?: number, cursor?: string, options?: any): AxiosPromise<HandlersHttpResponseSyncChangesResponseAny> {
             return localVarFp.syncChangesGet(since, limit, cursor, options).then((request) => request(axios, basePath));
         },
         /**
          * Soft delete a file (creates tombstone for sync)
          * @summary Delete a file
-         * @param {string} id File ID
+         * @param {string} path File path
          * @param {number} [version] Expected version for optimistic locking
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        syncFilesIdDelete(id: string, version?: number, options?: any): AxiosPromise<HandlersHttpResponseModelsFileMetadataAny> {
-            return localVarFp.syncFilesIdDelete(id, version, options).then((request) => request(axios, basePath));
+        syncFilesDelete(path: string, version?: number, options?: any): AxiosPromise<HandlersHttpResponseModelsFileMetadataAny> {
+            return localVarFp.syncFilesDelete(path, version, options).then((request) => request(axios, basePath));
         },
         /**
-         * Download file content by file ID
+         * Download file content by path
          * @summary Download a file
-         * @param {string} id File ID
+         * @param {string} path File path
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        syncFilesIdGet(id: string, options?: any): AxiosPromise<File> {
-            return localVarFp.syncFilesIdGet(id, options).then((request) => request(axios, basePath));
+        syncFilesGet(path: string, options?: any): AxiosPromise<File> {
+            return localVarFp.syncFilesGet(path, options).then((request) => request(axios, basePath));
         },
         /**
          * Upload a file to sync storage with content-addressable deduplication
@@ -1481,11 +1518,12 @@ export const SyncApiFactory = function (configuration?: Configuration, basePath?
          * @param {string} filePath Relative file path
          * @param {File} file File content
          * @param {string} [xContentHash] SHA-256 hash for verification
+         * @param {number} [expectedVersion] Expected version for optimistic locking
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        syncFilesPut(filePath: string, file: File, xContentHash?: string, options?: any): AxiosPromise<HandlersHttpResponseModelsFileUploadResponseAny> {
-            return localVarFp.syncFilesPut(filePath, file, xContentHash, options).then((request) => request(axios, basePath));
+        syncFilesPut(filePath: string, file: File, xContentHash?: string, expectedVersion?: number, options?: any): AxiosPromise<HandlersHttpResponseFileUploadResponseAny> {
+            return localVarFp.syncFilesPut(filePath, file, xContentHash, expectedVersion, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1500,40 +1538,40 @@ export class SyncApi extends BaseAPI {
     /**
      * Returns file changes since the specified timestamp
      * @summary Get file changes
-     * @param {string} [since] ISO8601 timestamp for incremental sync
+     * @param {number} [since] Unix timestamp in milliseconds for incremental sync
      * @param {number} [limit] Maximum number of changes to return (default: 100, max: 500)
      * @param {string} [cursor] Pagination cursor
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SyncApi
      */
-    public syncChangesGet(since?: string, limit?: number, cursor?: string, options?: RawAxiosRequestConfig) {
+    public syncChangesGet(since?: number, limit?: number, cursor?: string, options?: RawAxiosRequestConfig) {
         return SyncApiFp(this.configuration).syncChangesGet(since, limit, cursor, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Soft delete a file (creates tombstone for sync)
      * @summary Delete a file
-     * @param {string} id File ID
+     * @param {string} path File path
      * @param {number} [version] Expected version for optimistic locking
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SyncApi
      */
-    public syncFilesIdDelete(id: string, version?: number, options?: RawAxiosRequestConfig) {
-        return SyncApiFp(this.configuration).syncFilesIdDelete(id, version, options).then((request) => request(this.axios, this.basePath));
+    public syncFilesDelete(path: string, version?: number, options?: RawAxiosRequestConfig) {
+        return SyncApiFp(this.configuration).syncFilesDelete(path, version, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Download file content by file ID
+     * Download file content by path
      * @summary Download a file
-     * @param {string} id File ID
+     * @param {string} path File path
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SyncApi
      */
-    public syncFilesIdGet(id: string, options?: RawAxiosRequestConfig) {
-        return SyncApiFp(this.configuration).syncFilesIdGet(id, options).then((request) => request(this.axios, this.basePath));
+    public syncFilesGet(path: string, options?: RawAxiosRequestConfig) {
+        return SyncApiFp(this.configuration).syncFilesGet(path, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1542,12 +1580,13 @@ export class SyncApi extends BaseAPI {
      * @param {string} filePath Relative file path
      * @param {File} file File content
      * @param {string} [xContentHash] SHA-256 hash for verification
+     * @param {number} [expectedVersion] Expected version for optimistic locking
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SyncApi
      */
-    public syncFilesPut(filePath: string, file: File, xContentHash?: string, options?: RawAxiosRequestConfig) {
-        return SyncApiFp(this.configuration).syncFilesPut(filePath, file, xContentHash, options).then((request) => request(this.axios, this.basePath));
+    public syncFilesPut(filePath: string, file: File, xContentHash?: string, expectedVersion?: number, options?: RawAxiosRequestConfig) {
+        return SyncApiFp(this.configuration).syncFilesPut(filePath, file, xContentHash, expectedVersion, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

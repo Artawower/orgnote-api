@@ -1,11 +1,10 @@
-import type { LocalFile, RemoteFile, SyncPlan, SyncStateData, Conflict, SyncedFile } from './types';
+import type { LocalFile, RemoteFile, SyncPlan, SyncStateData, SyncedFile } from './types';
 
 type FileAction =
   | { type: 'upload'; file: LocalFile }
   | { type: 'download'; file: RemoteFile }
   | { type: 'deleteLocal'; path: string }
   | { type: 'deleteRemote'; path: string }
-  | { type: 'conflict'; conflict: Conflict }
   | { type: 'none' };
 
 interface FileIndex {
@@ -62,7 +61,7 @@ const isNewRemote = (remote: RemoteFile, index: FileIndex): boolean =>
 const buildPlanFromActions = (actions: FileAction[], serverTime: string): SyncPlan =>
   actions.reduce<SyncPlan>(
     (plan, action) => applyAction(plan, action),
-    { toUpload: [], toDownload: [], toDeleteLocal: [], toDeleteRemote: [], conflicts: [], serverTime }
+    { toUpload: [], toDownload: [], toDeleteLocal: [], toDeleteRemote: [], serverTime }
   );
 
 type ActionHandler<T extends FileAction = FileAction> = (plan: SyncPlan, action: T) => SyncPlan;
@@ -72,7 +71,6 @@ const actionHandlers: { [K in FileAction['type']]: ActionHandler<Extract<FileAct
   download: (plan, action) => ({ ...plan, toDownload: [...plan.toDownload, action.file] }),
   deleteLocal: (plan, action) => ({ ...plan, toDeleteLocal: [...plan.toDeleteLocal, action.path] }),
   deleteRemote: (plan, action) => ({ ...plan, toDeleteRemote: [...plan.toDeleteRemote, action.path] }),
-  conflict: (plan, action) => ({ ...plan, conflicts: [...plan.conflicts, action.conflict] }),
   none: (plan) => plan,
 };
 
@@ -91,12 +89,15 @@ const resolveLocalFile = (
   }
 
   if (remote.deleted) {
-    return localChanged ? resolveByLatest(local, remote) : deleteLocal(local.path);
+    return localChanged ? upload(local) : deleteLocal(local.path);
   }
 
   const remoteChanged = isRemoteChanged(remote, stored);
 
-  if (localChanged && remoteChanged) return resolveByLatest(local, remote);
+  if (localChanged && remoteChanged) {
+    return upload(local);
+  }
+
   if (localChanged) return upload(local);
   if (remoteChanged) return download(remote);
 
@@ -119,7 +120,7 @@ const resolveNewRemote = (remote: RemoteFile): FileAction =>
   remote.deleted ? none() : download(remote);
 
 const isLocalChanged = (local: LocalFile, stored?: SyncedFile): boolean =>
-  !stored || local.mtime !== stored.mtime;
+  !stored || local.mtime !== stored.mtime || stored.status === 'error';
 
 const isRemoteChanged = (remote: RemoteFile, stored?: SyncedFile): boolean =>
   !stored || remote.version > (stored.version ?? 0);
@@ -129,11 +130,3 @@ const download = (file: RemoteFile): FileAction => ({ type: 'download', file });
 const deleteLocal = (path: string): FileAction => ({ type: 'deleteLocal', path });
 const deleteRemote = (path: string): FileAction => ({ type: 'deleteRemote', path });
 const none = (): FileAction => ({ type: 'none' });
-
-const resolveByLatest = (local: LocalFile, remote: RemoteFile): FileAction => {
-  const localTime = local.mtime;
-  const remoteTime = new Date(remote.updatedAt).getTime();
-
-  if (localTime >= remoteTime) return upload(local);
-  return remote.deleted ? deleteLocal(local.path) : download(remote);
-};

@@ -1,25 +1,31 @@
 export { createSyncPlan } from './create-sync-plan';
-export { applyPlan } from './apply';
-export { createMemorySyncState } from './memory-state';
 export { createPlan } from './plan';
+export { createMemorySyncState } from './memory-state';
 export { scanLocalFiles, findDeletedLocally } from './scan';
 export { fetchRemoteChanges } from './fetch';
-export { defaultSyncMethod, DEFAULT_SYNC_METHOD_ID } from './default-method';
+export { recoverState } from './recovery';
+
+export {
+  processUpload,
+  processDownload,
+  processDeleteLocal,
+  processDeleteRemote,
+  handleConflict,
+  generateConflictPath,
+  hasConflict,
+} from './operations';
 
 export type {
   SyncState,
   SyncStateData,
   SyncedFile,
-  FileStatus,
+  SyncStatus,
   LocalFile,
   RemoteFile,
-  UploadedFile,
-  DownloadedFile,
-  Conflict,
-  SyncError,
+  UploadResult,
   SyncPlan,
-  ApplyPlanResult,
+  SyncTask,
   SyncExecutor,
-  SyncMethod,
+  SyncContext,
   CreateSyncPlanParams,
 } from './types';
