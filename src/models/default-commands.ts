@@ -62,6 +62,7 @@ export enum DefaultCommands {
 
   // File management
   SYNC_FILES = 'sync files',
+  RELOAD_FILES = 'reload files',
   ENCRYPT_NOTE = 'encrypt note',
   DECRYPT_NOTE = 'decrypt note',
 

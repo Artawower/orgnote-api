@@ -1,17 +1,17 @@
 import type { FileSystem } from '../models/file-system';
-import type { SyncApiFactory } from '../remote-api';
+import type { FileChange, SyncApiFactory } from '../remote-api';
 
 export type SyncApi = ReturnType<typeof SyncApiFactory>;
 
-export type FileStatus = 'synced' | 'dirty' | 'uploading' | 'downloading' | 'error' | 'conflict';
+export type SyncStatus = 'synced' | 'dirty' | 'uploading' | 'downloading' | 'error';
 
 export interface SyncedFile {
   mtime: number;
   size: number;
-  id?: string;
   version?: number;
-  status: FileStatus;
-  error?: string;
+  status: SyncStatus;
+  conflictPath?: string;
+  errorMessage?: string;
 }
 
 export interface SyncStateData {
@@ -24,6 +24,7 @@ export interface SyncState {
   getFile(path: string): Promise<SyncedFile | null>;
   setFile(path: string, file: SyncedFile): Promise<void>;
   removeFile(path: string): Promise<void>;
+  setLastSyncTime(time: string): Promise<void>;
   clear(): Promise<void>;
 }
 
@@ -33,37 +34,17 @@ export interface LocalFile {
   size: number;
 }
 
-export interface RemoteFile {
-  id: string;
-  path: string;
-  version: number;
-  deleted: boolean;
-  updatedAt: string;
-}
+export type RemoteFile = Pick<FileChange, 'path' | 'version' | 'deleted' | 'updatedAt'>;
 
-export interface UploadedFile extends LocalFile {
-  id: string;
-  version: number;
-}
+export type UploadResult =
+  | { status: 'ok'; version: number }
+  | { status: 'conflict'; serverVersion: number };
 
-export interface DownloadedFile {
-  path: string;
-  mtime: number;
-  size: number;
-  id: string;
-  version: number;
-}
-
-export interface Conflict {
-  path: string;
-  local: LocalFile;
-  remote: RemoteFile;
-}
-
-export interface SyncError {
-  path: string;
-  operation: 'upload' | 'download' | 'deleteLocal' | 'deleteRemote';
-  message: string;
+export interface SyncExecutor {
+  upload: (file: LocalFile, expectedVersion?: number) => Promise<UploadResult>;
+  download: (file: RemoteFile) => Promise<void>;
+  deleteLocal: (path: string) => Promise<void>;
+  deleteRemote: (path: string, expectedVersion: number) => Promise<void>;
 }
 
 export interface SyncPlan {
@@ -71,24 +52,13 @@ export interface SyncPlan {
   toDownload: RemoteFile[];
   toDeleteLocal: string[];
   toDeleteRemote: string[];
-  conflicts: Conflict[];
   serverTime: string;
 }
 
-export interface ApplyPlanResult {
-  uploaded: UploadedFile[];
-  downloaded: DownloadedFile[];
-  deletedLocal: string[];
-  deletedRemote: string[];
-  conflicts: Conflict[];
-  errors: SyncError[];
-}
-
-export interface SyncExecutor {
-  upload: (file: LocalFile) => Promise<UploadedFile>;
-  download: (file: RemoteFile) => Promise<DownloadedFile>;
-  deleteLocal: (path: string) => Promise<void>;
-  deleteRemote: (path: string) => Promise<void>;
+export interface SyncTask {
+  path: string;
+  operation: 'upload' | 'download' | 'deleteLocal' | 'deleteRemote';
+  file?: LocalFile | RemoteFile;
 }
 
 export interface CreateSyncPlanParams {
@@ -99,9 +69,9 @@ export interface CreateSyncPlanParams {
   ignorePatterns?: string[];
 }
 
-export interface SyncMethod {
-  id: string;
-  name: string;
-  createPlan: (params: CreateSyncPlanParams) => Promise<SyncPlan>;
-  applyPlan: (plan: SyncPlan, executor: SyncExecutor) => Promise<ApplyPlanResult>;
+export interface SyncContext {
+  executor: SyncExecutor;
+  state: SyncState;
+  fs: FileSystem;
+  deviceName?: string;
 }
