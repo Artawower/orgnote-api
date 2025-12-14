@@ -4,6 +4,7 @@ export { createMemorySyncState } from './memory-state';
 export { scanLocalFiles, findDeletedLocally } from './scan';
 export { fetchRemoteChanges } from './fetch';
 export { recoverState } from './recovery';
+export { getOldestSyncedAt } from './utils/oldest-synced-at';
 
 export {
   processUpload,
@@ -14,6 +15,8 @@ export {
   generateConflictPath,
   hasConflict,
 } from './operations';
+
+export { SyncOperationType } from './types';
 
 export type {
   SyncState,

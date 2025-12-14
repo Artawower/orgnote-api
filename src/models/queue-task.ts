@@ -5,12 +5,12 @@ export type QueueStatus =
   | 'processing'
   | 'canceled';
 
-export interface QueueTask {
+export interface QueueTask<T = unknown> {
   id: string;
-  task: unknown;
+  payload: T;
   queueId: string;
-  priority: number;
   added: number;
+  priority?: number;
   started?: number;
   retries?: number;
   failed?: number;

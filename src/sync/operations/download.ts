@@ -17,7 +17,10 @@ export const processDownload = async (file: RemoteFile, ctx: SyncContext): Promi
     const fileInfo = await ctx.fs.fileInfo(file.path);
     const downloadedMeta = { mtime: fileInfo?.mtime ?? 0, size: fileInfo?.size ?? 0 };
 
-    await ctx.state.setFile(file.path, createSyncedFile(downloadedMeta, { version: file.version, status: 'synced' }));
+    await ctx.state.setFile(
+      file.path,
+      createSyncedFile(downloadedMeta, { version: file.version, status: 'synced', syncedAt: ctx.serverTime })
+    );
   } catch (error) {
     await ctx.state.setFile(
       file.path,

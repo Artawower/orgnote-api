@@ -5,18 +5,25 @@ export type SyncApi = ReturnType<typeof SyncApiFactory>;
 
 export type SyncStatus = 'synced' | 'dirty' | 'uploading' | 'downloading' | 'error';
 
+export enum SyncOperationType {
+  Upload = 'upload',
+  Download = 'download',
+  DeleteLocal = 'deleteLocal',
+  DeleteRemote = 'deleteRemote',
+}
+
 export interface SyncedFile {
   mtime: number;
   size: number;
   version?: number;
   status: SyncStatus;
+  syncedAt?: string;
   conflictPath?: string;
   errorMessage?: string;
 }
 
 export interface SyncStateData {
   files: Record<string, SyncedFile>;
-  lastSyncTime?: string;
 }
 
 export interface SyncState {
@@ -24,7 +31,6 @@ export interface SyncState {
   getFile(path: string): Promise<SyncedFile | null>;
   setFile(path: string, file: SyncedFile): Promise<void>;
   removeFile(path: string): Promise<void>;
-  setLastSyncTime(time: string): Promise<void>;
   clear(): Promise<void>;
 }
 
@@ -57,7 +63,7 @@ export interface SyncPlan {
 
 export interface SyncTask {
   path: string;
-  operation: 'upload' | 'download' | 'deleteLocal' | 'deleteRemote';
+  operation: SyncOperationType;
   file?: LocalFile | RemoteFile;
 }
 
@@ -73,5 +79,6 @@ export interface SyncContext {
   executor: SyncExecutor;
   state: SyncState;
   fs: FileSystem;
+  serverTime: string;
   deviceName?: string;
 }

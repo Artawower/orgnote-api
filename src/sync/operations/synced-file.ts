@@ -8,6 +8,7 @@ interface FileMeta {
 export interface SyncedFileOptions {
   version?: number;
   status: SyncStatus;
+  syncedAt?: string;
   errorMessage?: string;
   conflictPath?: string;
 }

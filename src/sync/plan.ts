@@ -1,10 +1,11 @@
 import type { LocalFile, RemoteFile, SyncPlan, SyncStateData, SyncedFile } from './types';
+import { SyncOperationType } from './types';
 
 type FileAction =
-  | { type: 'upload'; file: LocalFile }
-  | { type: 'download'; file: RemoteFile }
-  | { type: 'deleteLocal'; path: string }
-  | { type: 'deleteRemote'; path: string }
+  | { type: SyncOperationType.Upload; file: LocalFile }
+  | { type: SyncOperationType.Download; file: RemoteFile }
+  | { type: SyncOperationType.DeleteLocal; path: string }
+  | { type: SyncOperationType.DeleteRemote; path: string }
   | { type: 'none' };
 
 interface FileIndex {
@@ -67,10 +68,10 @@ const buildPlanFromActions = (actions: FileAction[], serverTime: string): SyncPl
 type ActionHandler<T extends FileAction = FileAction> = (plan: SyncPlan, action: T) => SyncPlan;
 
 const actionHandlers: { [K in FileAction['type']]: ActionHandler<Extract<FileAction, { type: K }>> } = {
-  upload: (plan, action) => ({ ...plan, toUpload: [...plan.toUpload, action.file] }),
-  download: (plan, action) => ({ ...plan, toDownload: [...plan.toDownload, action.file] }),
-  deleteLocal: (plan, action) => ({ ...plan, toDeleteLocal: [...plan.toDeleteLocal, action.path] }),
-  deleteRemote: (plan, action) => ({ ...plan, toDeleteRemote: [...plan.toDeleteRemote, action.path] }),
+  [SyncOperationType.Upload]: (plan, action) => ({ ...plan, toUpload: [...plan.toUpload, action.file] }),
+  [SyncOperationType.Download]: (plan, action) => ({ ...plan, toDownload: [...plan.toDownload, action.file] }),
+  [SyncOperationType.DeleteLocal]: (plan, action) => ({ ...plan, toDeleteLocal: [...plan.toDeleteLocal, action.path] }),
+  [SyncOperationType.DeleteRemote]: (plan, action) => ({ ...plan, toDeleteRemote: [...plan.toDeleteRemote, action.path] }),
   none: (plan) => plan,
 };
 
@@ -125,8 +126,8 @@ const isLocalChanged = (local: LocalFile, stored?: SyncedFile): boolean =>
 const isRemoteChanged = (remote: RemoteFile, stored?: SyncedFile): boolean =>
   !stored || remote.version > (stored.version ?? 0);
 
-const upload = (file: LocalFile): FileAction => ({ type: 'upload', file });
-const download = (file: RemoteFile): FileAction => ({ type: 'download', file });
-const deleteLocal = (path: string): FileAction => ({ type: 'deleteLocal', path });
-const deleteRemote = (path: string): FileAction => ({ type: 'deleteRemote', path });
+const upload = (file: LocalFile): FileAction => ({ type: SyncOperationType.Upload, file });
+const download = (file: RemoteFile): FileAction => ({ type: SyncOperationType.Download, file });
+const deleteLocal = (path: string): FileAction => ({ type: SyncOperationType.DeleteLocal, path });
+const deleteRemote = (path: string): FileAction => ({ type: SyncOperationType.DeleteRemote, path });
 const none = (): FileAction => ({ type: 'none' });
