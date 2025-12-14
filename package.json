@@ -30,7 +30,8 @@
     "./utils": "./utils/index.js",
     "./mappers": "./mappers/index.js",
     "./commands": "./commands/index.js",
-    "./constants": "./constants/index.js"
+    "./constants": "./constants/index.js",
+    "./sync": "./sync/index.js"
   },
   "files": ["**"],
   "types": "./index.d.ts",

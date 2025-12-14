@@ -30,7 +30,7 @@ export interface PublicUser {
 
 export interface NoteInfo {
   id?: string;
-  meta?: NoteMeta;
+  meta: NoteMeta;
   createdAt?: string;
   encryptionType?: EncryptionType;
   updatedAt?: string;

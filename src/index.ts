@@ -7,4 +7,5 @@ export * from './files-api';
 export * from './mappers';
 export * from './constants';
 export * from './utils/with-root';
+export * from './sync';
 export { ast };

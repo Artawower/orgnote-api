@@ -7,3 +7,4 @@ export * from './join-path';
 export * from './split-path';
 export * from './get-parent-dir';
 export * from './toml';
+export * from './to-absolute-path';
