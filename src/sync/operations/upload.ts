@@ -12,7 +12,11 @@ const executeUpload = async (
   if (result.status === 'ok') {
     await ctx.state.setFile(
       file.path,
-      createSyncedFile(file, { version: result.version, status: 'synced' })
+      createSyncedFile(file, {
+        version: result.version,
+        status: 'synced',
+        syncedAt: ctx.serverTime,
+      })
     );
     return;
   }
