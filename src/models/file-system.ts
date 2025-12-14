@@ -94,4 +94,5 @@ export interface FileSystem {
     listener: (change: FileSystemChange) => void,
     params?: FileSystemParams
   ) => WatcherHandle | Promise<WatcherHandle>;
+  copyFile?: (src: string, dest: string) => Promise<void>;
 }

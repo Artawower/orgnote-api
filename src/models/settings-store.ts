@@ -6,6 +6,9 @@ import { ModelsAPIToken } from 'src/remote-api';
 export interface SettingsStore {
   settings: OrgNoteSettings;
   tokens: Ref<ModelsAPIToken[]>;
+  loadApiTokens: () => Promise<void>;
+  createApiToken: () => Promise<void>;
+  removeApiToken: (token: ModelsAPIToken) => Promise<void>;
 }
 
 export type SettingsStoreDefinition = StoreDefinition<SettingsStore>;
