@@ -7,7 +7,8 @@ export interface StoredLayoutSnapshot {
 }
 
 export interface LayoutSnapshotRepository {
-  save(snapshot: LayoutSnapshot): Promise<void>;
+  save(snapshot: LayoutSnapshot, id?: string): Promise<void>;
+  get(id: string): Promise<StoredLayoutSnapshot | undefined>;
   getLatest(): Promise<StoredLayoutSnapshot | undefined>;
   list(limit?: number): Promise<StoredLayoutSnapshot[]>;
   delete(id: string): Promise<void>;
