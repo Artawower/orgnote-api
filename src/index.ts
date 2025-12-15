@@ -9,3 +9,4 @@ export * from './constants';
 export * from './utils/with-root';
 export * from './sync';
 export { ast };
+export * from './websocket/client';
