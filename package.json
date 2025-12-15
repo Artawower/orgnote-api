@@ -33,9 +33,17 @@
     "./constants": "./constants/index.js",
     "./sync": "./sync/index.js"
   },
-  "files": ["**"],
+  "files": [
+    "**"
+  ],
   "types": "./index.d.ts",
-  "keywords": ["orgnote", "org-mode", "org-roam", "api", "extensions"],
+  "keywords": [
+    "orgnote",
+    "org-mode",
+    "org-roam",
+    "api",
+    "extensions"
+  ],
   "author": "darkawower <app.orgnote@gmail.com> (https://org-note.com)",
   "license": "GPL-3.0-or-later",
   "bugs": {
@@ -44,6 +52,7 @@
   "homepage": "https://github.com/artawower/orgnote-api#readme",
   "dependencies": {
     "axios": "1.8.4",
+    "neverthrow": "^8.2.0",
     "openpgp": "6.1.0",
     "org-mode-ast": "0.11.8",
     "partysocket": "1.1.6",
