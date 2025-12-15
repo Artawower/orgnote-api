@@ -1,0 +1,38 @@
+:PROPERTIES:
+:ID: orgnote-cli-agent
+:END:
+
+#+TITLE: OrgNote AI Agent Guidelines
+#+DESCRIPTION: Project-specific guidelines for OrgNote development extending base_agents.org
+#+FILETAGS: :ai:prompts:agents:orgnote:
+#+STARTUP: content
+#+OPTIONS: toc:nil
+#+OPTIONS: tags:nil
+
+
+
+* Project Overview
+*OrgNote* is a comprehensive note-taking ecosystem based on the Zettelkasten approach, providing full compatibility with Emacs Org mode and Org-roam. The project consists of multiple interconnected repositories working together to deliver a seamless note-taking experience across web, mobile, desktop, and command-line interfaces.
+
+* Tech Stack
+** Development Tools
+- Vitest - Testing framework
+- ESLint - Code linting with TypeScript support
+- TypeScript Compiler - With custom transformers for path resolution and ESM
+- OpenAPI Generator - API code generation
+- Bun - Package manager (1.1.22)
+
+** Key Dependencies
+- org-mode-ast (0.11.8) - Org-mode abstract syntax tree parser
+- openpgp (6.1.0) - OpenPGP encryption implementation
+- axios (1.8.4) - HTTP client for API requests
+- @capacitor/filesystem (7.0.1) - Cross-platform file system access
+- @codemirror/state & @codemirror/view - Code editor components
+
+** Build & Deployment
+- ES Modules - Native ESM output with import path fixing
+- TypeScript transformers - Path resolution and ESM compatibility
+- bun/yalc publishing - Multi-target publishing support
+
+#+INCLUDE: "/Users/darkawower/Yandex.Disk.localized/Dropbox/org-roam/programming/ai/base_agents.org"
+
