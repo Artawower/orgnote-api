@@ -19,10 +19,10 @@
 
 ## Key Dependencies
 
--   org-mode-ast (0.11.8) - Org-mode abstract syntax tree parser
--   openpgp (6.1.0) - OpenPGP encryption implementation
--   axios (1.8.4) - HTTP client for API requests
--   @capacitor/filesystem (7.0.1) - Cross-platform file system access
+-   org-mode-ast - Org-mode abstract syntax tree parser
+-   openpgp - OpenPGP encryption implementation
+-   axios - HTTP client for API requests
+-   @capacitor/filesystem - Cross-platform file system access
 -   @codemirror/state & @codemirror/view - Code editor components
 
 
