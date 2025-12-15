@@ -39,6 +39,7 @@ import {
   BuildOrgNoteUrl,
   AuthStoreDefinition,
 } from './models';
+import { WebSocketClient } from './websocket/client';
 // import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
 // import type { Component } from 'vue';
@@ -85,10 +86,12 @@ export type WidgetMeta =
   | ({ type: WidgetType.Multiline } & WithNodeType<MultilineEmbeddedWidget>)
   | ({ type: WidgetType.LineClass } & WithNodeType<OrgLineClass>);
 
+export type Infrastructure = Repositories & { websocket: WebSocketClient };
+
 export interface OrgNoteApi {
   [key: string]: unknown;
   /* Native file system API without additional batteries */
-  infrastructure: Repositories;
+  infrastructure: Infrastructure;
   core: {
     useCommands: CommandsStoreDefinition;
     useCommandsGroup: CommandsGroupStoreDefinition;

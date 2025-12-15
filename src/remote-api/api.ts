@@ -1214,6 +1214,115 @@ export class AuthApi extends BaseAPI {
 
 
 /**
+ * EventsApi - axios parameter creator
+ * @export
+ */
+export const EventsApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Generic WebSocket endpoint for real-time user events (sync, notifications, etc). Requires `Upgrade: websocket` header.
+         * @summary WebSocket Events Channel
+         * @param {string} [token] Auth token (alternative to Authorization header)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        wsV1EventsGet: async (token?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/ws/v1/events`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (token !== undefined) {
+                localVarQueryParameter['token'] = token;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * EventsApi - functional programming interface
+ * @export
+ */
+export const EventsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = EventsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Generic WebSocket endpoint for real-time user events (sync, notifications, etc). Requires `Upgrade: websocket` header.
+         * @summary WebSocket Events Channel
+         * @param {string} [token] Auth token (alternative to Authorization header)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async wsV1EventsGet(token?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.wsV1EventsGet(token, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['EventsApi.wsV1EventsGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * EventsApi - factory interface
+ * @export
+ */
+export const EventsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = EventsApiFp(configuration)
+    return {
+        /**
+         * Generic WebSocket endpoint for real-time user events (sync, notifications, etc). Requires `Upgrade: websocket` header.
+         * @summary WebSocket Events Channel
+         * @param {string} [token] Auth token (alternative to Authorization header)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        wsV1EventsGet(token?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.wsV1EventsGet(token, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * EventsApi - object-oriented interface
+ * @export
+ * @class EventsApi
+ * @extends {BaseAPI}
+ */
+export class EventsApi extends BaseAPI {
+    /**
+     * Generic WebSocket endpoint for real-time user events (sync, notifications, etc). Requires `Upgrade: websocket` header.
+     * @summary WebSocket Events Channel
+     * @param {string} [token] Auth token (alternative to Authorization header)
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EventsApi
+     */
+    public wsV1EventsGet(token?: string, options?: RawAxiosRequestConfig) {
+        return EventsApiFp(this.configuration).wsV1EventsGet(token, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * SyncApi - axios parameter creator
  * @export
  */
