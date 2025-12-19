@@ -1,7 +1,6 @@
 import type { FileSystem, DiskFile } from '../models/file-system';
 import type { LocalFile, SyncStateData } from './types';
 import { toAbsolutePath } from '../utils/to-absolute-path';
-import { join } from '../utils/join-path';
 
 const DEFAULT_IGNORE = [
   '.git',

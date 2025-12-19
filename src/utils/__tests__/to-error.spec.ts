@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { to } from '../to-error';
-import { ok, err } from 'neverthrow';
+import { ok } from 'neverthrow';
 
 describe('to-error utility', () => {
   describe('synchronous functions', () => {
@@ -28,11 +28,12 @@ describe('to-error utility', () => {
       const fn = (): number => {
         throw new Error('boom');
       };
-      const mapper = (e: unknown) => new Error(`Custom: ${e instanceof Error ? e.message : e}`);
+      const mapper = (e: unknown) =>
+        new Error(`Custom: ${e instanceof Error ? e.message : e}`);
       const wrapped = to(fn, mapper);
-      
+
       const result = wrapped();
-      
+
       expect(result.isErr()).toBe(true);
       if (result.isErr()) {
         expect(result.error.message).toBe('Custom: boom');
@@ -44,9 +45,9 @@ describe('to-error utility', () => {
         throw new Error('original error');
       };
       const wrapped = to(fn, 'Context message');
-      
+
       const result = wrapped();
-      
+
       expect(result.isErr()).toBe(true);
       if (result.isErr()) {
         expect(result.error.message).toBe('Context message');
@@ -83,9 +84,9 @@ describe('to-error utility', () => {
       };
       const mapper = () => new Error('mapped async error');
       const wrapped = to(fn, mapper);
-      
+
       const result = await wrapped();
-      
+
       expect(result.isErr()).toBe(true);
       if (result.isErr()) {
         expect(result.error.message).toBe('mapped async error');
@@ -108,20 +109,20 @@ describe('to-error utility', () => {
       expect(result).toEqual(ok('Hello World'));
     });
   });
-  
+
   describe('context binding', () => {
     it('should preserve this context', () => {
       class Calculator {
         constructor(private multiplier: number) {}
-        
+
         multiply(value: number) {
           return value * this.multiplier;
         }
       }
-      
+
       const calc = new Calculator(2);
       const wrapped = to(calc.multiply.bind(calc));
-      
+
       expect(wrapped(3)).toEqual(ok(6));
     });
   });

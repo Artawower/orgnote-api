@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest';
+import { beforeEach, expect, test } from 'vitest';
 import { decryptNote, encryptNote } from '../note-encryption';
 import {
   armoredPublicKey,
@@ -9,7 +9,11 @@ import { EncryptionType } from '../../models/encryption';
 import { NoteInfo } from 'src/models';
 import { faker } from '@faker-js/faker';
 
-// Helper function to generate a NoteInfo object
+beforeEach(() => {
+  faker.seed(1);
+  faker.setDefaultRefDate(new Date('2024-01-01T00:00:00.000Z'));
+});
+
 function generateNoteInfo(overrides: Partial<NoteInfo> = {}): NoteInfo {
   return {
     id: faker.string.uuid(),
@@ -41,15 +45,16 @@ function generateNoteInfo(overrides: Partial<NoteInfo> = {}): NoteInfo {
 }
 
 test('Should encrypt note via keys', async () => {
-  const noteText = faker.lorem.paragraphs();
+  const noteText = '#+title: Test note\n\nBody text';
   const note = generateNoteInfo();
+  note.meta.published = false;
 
   const [encryptedNote, encryptedNoteText] = await encryptNote(note, {
     content: noteText,
     type: EncryptionType.GpgKeys,
-    publicKey: armoredPublicKey, // Используем armoredPublicKey
-    privateKey: armoredPrivateKey, // Используем armoredPrivateKey
-    privateKeyPassphrase, // Используем privateKeyPassphrase
+    publicKey: armoredPublicKey,
+    privateKey: armoredPrivateKey,
+    privateKeyPassphrase,
     format: 'armored',
   });
 
@@ -60,18 +65,25 @@ test('Should encrypt note via keys', async () => {
 });
 
 test('Should decrypt note via keys', async () => {
-  const encryptedNoteText = `-----BEGIN PGP MESSAGE-----
-  ${faker.lorem.paragraphs()}
-  -----END PGP MESSAGE-----`;
-
+  const noteText = '#+title: Test note\n\nBody text';
   const note = generateNoteInfo();
+  note.meta.published = false;
+
+  const [, encryptedNoteText] = await encryptNote(note, {
+    content: noteText,
+    type: EncryptionType.GpgKeys,
+    publicKey: armoredPublicKey,
+    privateKey: armoredPrivateKey,
+    privateKeyPassphrase,
+    format: 'armored',
+  });
 
   const decryptedNote = await decryptNote(note, {
     content: encryptedNoteText,
     type: EncryptionType.GpgKeys,
-    publicKey: armoredPublicKey, // Используем armoredPublicKey
-    privateKey: armoredPrivateKey, // Используем armoredPrivateKey
-    privateKeyPassphrase, // Используем privateKeyPassphrase
+    publicKey: armoredPublicKey,
+    privateKey: armoredPrivateKey,
+    privateKeyPassphrase,
   });
 
   expect(decryptedNote).toMatchSnapshot();
