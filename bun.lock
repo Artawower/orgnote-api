@@ -5,18 +5,12 @@
     "": {
       "name": "orgnote-api",
       "dependencies": {
-        "@capacitor/filesystem": "7.0.1",
-        "@codemirror/state": "6.5.2",
-        "@codemirror/view": "6.36.5",
-        "@faker-js/faker": "9.7.0",
         "axios": "1.8.4",
-        "openpgp": "6.1.0",
+        "neverthrow": "^8.2.0",
+        "openpgp": "6.3.0",
         "org-mode-ast": "0.11.8",
-        "pinia": "3.0.2",
-        "quasar": "2.18.1",
+        "partysocket": "1.1.6",
         "smol-toml": "1.5.2",
-        "vue": "3.5.13",
-        "vue-router": "4.5.0",
       },
       "devDependencies": {
         "@eslint/js": "9.25.1",
@@ -34,7 +28,15 @@
         "vitest": "3.1.2",
       },
       "peerDependencies": {
-        "valibot": "1.0.0",
+        "@capacitor/filesystem": ">=6.0.0",
+        "@codemirror/state": ">=6.0.0",
+        "@codemirror/view": ">=6.0.0",
+        "@faker-js/faker": ">=9.0.0",
+        "pinia": ">=2.0.0",
+        "quasar": ">=2.0.0",
+        "valibot": ">=1.0.0",
+        "vue": ">=3.0.0",
+        "vue-router": ">=4.0.0",
       },
     },
   },
@@ -112,6 +114,8 @@
     "@openapitools/openapi-generator-cli": ["@openapitools/openapi-generator-cli@2.19.1", "", { "dependencies": { "@nestjs/axios": "4.0.0", "@nestjs/common": "11.0.20", "@nestjs/core": "11.0.20", "@nuxtjs/opencollective": "0.3.2", "axios": "1.8.4", "chalk": "4.1.2", "commander": "8.3.0", "compare-versions": "4.1.4", "concurrently": "6.5.1", "console.table": "0.10.0", "fs-extra": "11.3.0", "glob": "9.3.5", "inquirer": "8.2.6", "lodash": "4.17.21", "proxy-agent": "6.5.0", "reflect-metadata": "0.2.2", "rxjs": "7.8.2", "tslib": "2.8.1" }, "bin": { "openapi-generator-cli": "main.js" } }, "sha512-APP3EPI/m7bg220qS+7UAFiyLJFbNCjlsEEjrP2sLmW4Za44U8e3Lb2zDy3sbvJvIUnpYWe+hu9RbrxrPP9djQ=="],
 
     "@rollup/rollup-darwin-arm64": ["@rollup/rollup-darwin-arm64@4.14.2", "", { "os": "darwin", "cpu": "arm64" }, ""],
+
+    "@rollup/rollup-linux-x64-gnu": ["@rollup/rollup-linux-x64-gnu@4.53.5", "", { "os": "linux", "cpu": "x64" }, "sha512-Pg6E+oP7GvZ4XwgRJBuSXZjcqpIW3yCBhK4BcsANvb47qMvAbCjR6E+1a/U2WXz1JJxp9/4Dno3/iSJLcm5auw=="],
 
     "@tokenizer/inflate": ["@tokenizer/inflate@0.2.7", "", { "dependencies": { "debug": "^4.4.0", "fflate": "^0.8.2", "token-types": "^6.0.0" } }, "sha512-MADQgmZT1eKjp06jpI2yozxaU9uVs4GzzgSL+uEq7bVcJ9V1ZXQkeGNql1fsSI0gMy1vhvNTNbUqrx+pZfJVmg=="],
 
@@ -323,6 +327,8 @@
 
     "esutils": ["esutils@2.0.3", "", {}, ""],
 
+    "event-target-polyfill": ["event-target-polyfill@0.0.4", "", {}, "sha512-Gs6RLjzlLRdT8X9ZipJdIZI/Y6/HhRLyq9RdDlCsnpxr/+Nn6bU2EFGuC94GjxqhM+Nmij2Vcq98yoHrU8uNFQ=="],
+
     "expect-type": ["expect-type@1.2.1", "", {}, "sha512-/kP8CAwxzLVEeFrMm4kMmy4CCDlpipyA7MYLVrdJIkV0fYF0UaigQHRsxHiuY/GEea+bh4KSv3TIlgr+2UL6bw=="],
 
     "external-editor": ["external-editor@3.1.0", "", { "dependencies": { "chardet": "^0.7.0", "iconv-lite": "^0.4.24", "tmp": "^0.0.33" } }, ""],
@@ -501,11 +507,13 @@
 
     "netmask": ["netmask@2.0.2", "", {}, "sha512-dBpDMdxv9Irdq66304OLfEmQ9tbNRFnFTuZiLo+bD+r332bBmMJ8GBLXklIXXgxd3+v9+KUnZaUR5PJMa75Gsg=="],
 
+    "neverthrow": ["neverthrow@8.2.0", "", { "optionalDependencies": { "@rollup/rollup-linux-x64-gnu": "^4.24.0" } }, "sha512-kOCT/1MCPAxY5iUV3wytNFUMUolzuwd/VF/1KCx7kf6CutrOsTie+84zTGTpgQycjvfLdBBdvBvFLqFD2c0wkQ=="],
+
     "node-fetch": ["node-fetch@2.7.0", "", { "dependencies": { "whatwg-url": "^5.0.0" }, "peerDependencies": { "encoding": "^0.1.0" }, "optionalPeers": ["encoding"] }, ""],
 
     "onetime": ["onetime@5.1.2", "", { "dependencies": { "mimic-fn": "^2.1.0" } }, ""],
 
-    "openpgp": ["openpgp@6.1.0", "", {}, "sha512-fRTeitP+hoGJD3kbdUlAI++wE6MvfvXw1rBqHwmBMxIpLjowatJ2zb5ThkORpIkSz5F12wO+xCYRSTbT7M4qKA=="],
+    "openpgp": ["openpgp@6.3.0", "", {}, "sha512-pLzCU8IgyKXPSO11eeharQkQ4GzOKNWhXq79pQarIRZEMt1/ssyr+MIuWBv1mNoenJLg04gvPx+fi4gcKZ4bag=="],
 
     "optionator": ["optionator@0.9.4", "", { "dependencies": { "deep-is": "^0.1.3", "fast-levenshtein": "^2.0.6", "levn": "^0.4.1", "prelude-ls": "^1.2.1", "type-check": "^0.4.0", "word-wrap": "^1.2.5" } }, ""],
 
@@ -524,6 +532,8 @@
     "pac-resolver": ["pac-resolver@7.0.1", "", { "dependencies": { "degenerator": "^5.0.0", "netmask": "^2.0.2" } }, "sha512-5NPgf87AT2STgwa2ntRMr45jTKrYBGkVU36yT0ig/n/GMAa3oPqhZfIQ2kMEimReg0+t9kZViDVZ83qfVUlckg=="],
 
     "parent-module": ["parent-module@1.0.1", "", { "dependencies": { "callsites": "^3.0.0" } }, ""],
+
+    "partysocket": ["partysocket@1.1.6", "", { "dependencies": { "event-target-polyfill": "^0.0.4" } }, "sha512-LkEk8N9hMDDsDT0iDK0zuwUDFVrVMUXFXCeN3850Ng8wtjPqPBeJlwdeY6ROlJSEh3tPoTTasXoSBYH76y118w=="],
 
     "path-exists": ["path-exists@4.0.0", "", {}, ""],
 
