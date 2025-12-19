@@ -15,6 +15,7 @@ export * from './file-info';
 export * from './file-path';
 export * from './user';
 export * from './oauth-provider';
+export * from './auth-state';
 export * from './orgnote-config';
 export * from './platform-specific';
 export * from './css-utils';

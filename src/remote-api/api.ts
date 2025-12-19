@@ -1226,8 +1226,8 @@ export const EventsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        wsV1EventsGet: async (token?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/ws/v1/events`;
+        wsEventsGet: async (token?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/ws/events`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1271,10 +1271,10 @@ export const EventsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async wsV1EventsGet(token?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.wsV1EventsGet(token, options);
+        async wsEventsGet(token?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.wsEventsGet(token, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['EventsApi.wsV1EventsGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['EventsApi.wsEventsGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -1294,8 +1294,8 @@ export const EventsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        wsV1EventsGet(token?: string, options?: any): AxiosPromise<void> {
-            return localVarFp.wsV1EventsGet(token, options).then((request) => request(axios, basePath));
+        wsEventsGet(token?: string, options?: any): AxiosPromise<void> {
+            return localVarFp.wsEventsGet(token, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1315,8 +1315,8 @@ export class EventsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof EventsApi
      */
-    public wsV1EventsGet(token?: string, options?: RawAxiosRequestConfig) {
-        return EventsApiFp(this.configuration).wsV1EventsGet(token, options).then((request) => request(this.axios, this.basePath));
+    public wsEventsGet(token?: string, options?: RawAxiosRequestConfig) {
+        return EventsApiFp(this.configuration).wsEventsGet(token, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
