@@ -1,5 +1,4 @@
 import type { Ref } from 'vue';
-import type { ThemeColors } from './css-utils';
 import type { StoreDefinition } from './store';
 
 export type ThemeMode = 'light' | 'dark' | 'auto';
@@ -16,8 +15,6 @@ export interface ThemeStore {
   toggleDynamicMode: () => Promise<void>;
   setTheme: (themeName: string | null) => Promise<void>;
   resetTheme: () => Promise<void>;
-
-
 }
 
 export type ThemeStoreDefinition = StoreDefinition<ThemeStore>;
