@@ -4,59 +4,54 @@ exports[`Should decrypt note via keys 1`] = `
 [
   {
     "author": {
-      "email": "Jonathan.Huels4@yahoo.com",
-      "id": "d5a25759-921e-44d6-b2e9-1408b8a112b5",
-      "name": "Josefina Pfeffer",
+      "email": "Adolph_Wisoky20@yahoo.com",
+      "id": "eb1cceb1-0003-4d88-8d14-9f80c3c6db82",
+      "name": "Angie Fahey",
     },
-    "bookmarked": true,
-    "createdAt": "2025-03-17T22:41:46.056Z",
-    "deletedAt": "2025-12-10T03:44:16.266Z",
-    "encrypted": true,
+    "bookmarked": false,
+    "createdAt": "2023-09-22T23:44:31.740Z",
+    "deletedAt": undefined,
+    "encrypted": false,
     "filePath": [
-      "/mnt/than.csv",
-      "/private/because_bah.distz",
+      "/Network/ick.boz",
+      "/selinux/linseed_duh.avi",
     ],
-    "id": "272b5977-fe2b-4c10-9af1-8c3be4aa9d94",
-    "isMy": false,
+    "id": "6b042125-686a-43e0-8a68-23cf5bee102e",
+    "isMy": true,
     "meta": {
-      "description": "Conventus verecundia suspendo dens doloremque antea antiquus dignissimos aestivus. Defluo dolore aiunt. Villa atavus cohaero attonbitus truculenter alii capto.",
-      "images": [
-        "https://picsum.photos/seed/CwBzY/2790/160",
-        "https://loremflickr.com/3967/3323?lock=8679741767072978",
-        "https://loremflickr.com/2739/3346?lock=5475229747955920",
-      ],
-      "published": true,
-      "title": "Balbus tenetur debitis agnosco cras cupressus architecto comburo.",
+      "title": "Test note",
     },
-    "touchedAt": "2025-12-09T20:33:45.677Z",
-    "updatedAt": "2025-12-09T23:12:19.133Z",
+    "touchedAt": "2023-12-31T14:58:04.655Z",
+    "updatedAt": "2023-12-31T21:11:56.763Z",
   },
-  "-----BEGIN PGP MESSAGE-----
-  Antea sint velociter apparatus vigor est subseco. Consectetur charisma deduco necessitatibus. Torqueo thema ademptio.
-Dens catena delectatio. Viridis patrocinor doloribus tamdiu ascisco cohaero animadverto stabilis. Eum ipsam reprehenderit demoror tenus stabilis consequatur assentator odit.
-Bonus veritatis ullam cura antiquus. Quidem provident deludo eaque virgo terminatio varietas vorax turba. Solitudo appello defetiscor balbus crebro architecto.
-  -----END PGP MESSAGE-----",
+  "#+title: Test note
+
+Body text",
 ]
 `;
 
 exports[`Should encrypt note via keys 1`] = `
 {
-  "author": undefined,
+  "author": {
+    "email": "Adolph_Wisoky20@yahoo.com",
+    "id": "eb1cceb1-0003-4d88-8d14-9f80c3c6db82",
+    "name": "Angie Fahey",
+  },
   "bookmarked": false,
-  "createdAt": "2025-03-23T15:35:07.133Z",
+  "createdAt": "2023-09-22T23:44:31.740Z",
   "deletedAt": undefined,
   "encrypted": true,
   "filePath": [
-    "/sbin/tentacle_who_accompanist.tar",
-    "/opt/bin/that.bz",
+    "/Network/ick.boz",
+    "/selinux/linseed_duh.avi",
   ],
-  "id": "0d725d36-0dbe-406c-a747-723063f1d28f",
-  "isMy": false,
+  "id": "6b042125-686a-43e0-8a68-23cf5bee102e",
+  "isMy": true,
   "meta": {
     "id": undefined,
     "published": false,
   },
-  "touchedAt": "2025-12-09T17:31:36.182Z",
-  "updatedAt": "2025-12-09T19:40:00.936Z",
+  "touchedAt": "2023-12-31T14:58:04.655Z",
+  "updatedAt": "2023-12-31T21:11:56.763Z",
 }
 `;
