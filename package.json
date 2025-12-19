@@ -1,6 +1,6 @@
 {
   "name": "orgnote-api",
-  "version": "0.40.1",
+  "version": "0.40.4",
   "description": "Official API for creating extensions for OrgNote app",
   "type": "module",
   "main": "./index.js",
@@ -16,7 +16,7 @@
     "codegen:css-types": "node collect-css-variables.cjs --types",
     "fix-esm-imports": "fix-esm-import-path ./dist",
     "prepub": "bun run build && bun run fix-esm-imports && cp -rf package.json package-lock.json README.md dist/",
-    "pub": "bun run prepub && cd dist && bun publish",
+    "pub": "bun run prepub && cd dist && npm publish",
     "pub:yalc": "bun run prepub && cd dist && yalc publish --push"
   },
   "repository": {
