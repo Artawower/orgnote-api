@@ -1,14 +1,14 @@
 import { parse, stringify } from 'smol-toml';
-import { BaseSchema, safeParse, InferOutput } from 'valibot';
+import { BaseIssue, BaseSchema, safeParse, InferOutput } from 'valibot';
 
 export function parseToml<
   T = unknown,
-  S extends BaseSchema<unknown, unknown, any> | undefined = undefined,
+  S extends BaseSchema<unknown, unknown, BaseIssue<unknown>> | undefined = undefined,
 >(
   content: string,
   schema?: S
-): S extends BaseSchema<unknown, unknown, any> ? InferOutput<S> : T {
-  type Result = S extends BaseSchema<unknown, unknown, any> ? InferOutput<S> : T;
+): S extends BaseSchema<unknown, unknown, BaseIssue<unknown>> ? InferOutput<S> : T {
+  type Result = S extends BaseSchema<unknown, unknown, BaseIssue<unknown>> ? InferOutput<S> : T;
 
   try {
     const res = parse(content);
