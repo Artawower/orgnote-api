@@ -1,22 +1,11 @@
 import {
-  Command,
-  CSSVariable,
-  ThemeVariable,
   InlineEmbeddedWidget,
   MultilineEmbeddedWidget,
   OrgLineClass,
-  FileSystem,
-  WidgetBuilder,
-  CommandPreview,
-  OrgNoteEncryption,
-  Modal,
   SyncStoreDefinition,
-  FilesStoreDefinition,
   FileReaderStoreDefinition,
   CommandsStoreDefinition,
   CommandsGroupStoreDefinition,
-  FileInfoRepository,
-  NoteInfoRepository,
   ModalStoreDefinition,
   SettingsStoreDefinition,
   SettingsUiStoreDefinition,
@@ -40,12 +29,8 @@ import {
   AuthStoreDefinition,
 } from './models';
 import { WebSocketClient } from './websocket/client';
-// import type { NavigationFailure } from 'vue-router';
 import { WidgetType } from './models/widget-type';
-// import type { Component } from 'vue';
 import { NodeType } from 'org-mode-ast';
-// import { EditorExtension } from './models/editor';
-// import { AuthStoreDefinition } from './models/auth-store';
 import { ExtensionStoreDefinition } from './models/extension-store';
 import { FileSystemStoreDefinition } from './models/file-system-store';
 import { EncryptionStoreDefinition } from './models/encryption-store';
