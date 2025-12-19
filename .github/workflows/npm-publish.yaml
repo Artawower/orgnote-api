@@ -5,6 +5,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: npm-publish
     permissions:
       contents: read
       id-token: write
@@ -17,7 +18,23 @@ jobs:
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: 1.1.22
+      - name: debug oidc context
+        run: |
+          echo "workflow=$GITHUB_WORKFLOW"
+          echo "ref=$GITHUB_REF"
+          echo "ref_name=$GITHUB_REF_NAME"
+          echo "repository=$GITHUB_REPOSITORY"
+          echo "actor=$GITHUB_ACTOR"
+      - name: show npm version
+        run: npm --version
+      - name: update npm
+        run: npm install -g npm@latest
+      - name: show npm version after update
+        run: npm --version
       - name: install dependencies
         run: bun install --frozen-lockfile
+      - name: build package
+        run: bun run prepub
       - name: publish package
-        run: bun run prepub && cd dist && npm publish --provenance --access public
+        working-directory: ./dist
+        run: npm publish --provenance --access public
