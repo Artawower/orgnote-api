@@ -1,6 +1,6 @@
 import { ModelsUserPersonalInfo } from 'src/remote-api';
 import { PublicUser } from './note';
 
-export interface User extends PublicUser {}
+export type User = PublicUser;
 
-export interface PersonalInfo extends ModelsUserPersonalInfo {}
+export type PersonalInfo = ModelsUserPersonalInfo;

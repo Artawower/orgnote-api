@@ -152,7 +152,6 @@ export enum i18n {
   AUTH_LOGIN = 'login',
   AUTH_LOGIN_DESCRIPTION = 'sign in to your account',
   AUTH_INVALID_CALLBACK_PARAMS = 'invalid authentication callback parameters',
-  AUTH_REMOVE_ACCOUNT = 'remove account',
   AUTH_REMOVE_ACCOUNT_DESCRIPTION = 'permanently delete your account',
   AUTH_GROUP = 'auth',
 }
