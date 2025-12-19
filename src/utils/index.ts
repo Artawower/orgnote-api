@@ -9,4 +9,5 @@ export * from './get-parent-dir';
 export * from './toml';
 export * from './to-absolute-path';
 export * from './to-error';
+export * from './auth-state';
 export * from './nullable-guards';
