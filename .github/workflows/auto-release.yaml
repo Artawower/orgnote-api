@@ -6,54 +6,57 @@ jobs:
   check_commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: webiny/action-conventional-commits@v1.3.0
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Optional, for private repositories.
-          allowed-commit-types: 'feat,fix,chore,refactor' # Optional, set if you want a subset of commit types to be allowed.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          allowed-commit-types: 'feat,fix,chore,refactor'
+
   vitest:
     name: Test
     runs-on: ubuntu-latest
     steps:
       - name: checkout repository
-        uses: actions/checkout@v2
-      - uses: oven-sh/setup-bun@v1
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          bun-version: 1.1.22
+          node-version: '22'
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.1.45
       - name: install dependencies
-        run: bun install --frozen-lockfile
+        run: bun install
       - name: test
         run: bun run test
 
   lint:
     name: Run linters
     runs-on: ubuntu-latest
-
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
-      - uses: oven-sh/setup-bun@v1
+        uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.1.22
+          bun-version: 1.1.45
       - name: Install Node.js dependencies
-        run: bun install --frozen-lockfile
+        run: bun install
       - name: Run linters
         run: bun run lint
 
   build:
     name: Build
-    needs: [check_commit, lint]
+    needs: [check_commit, lint, vitest]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev'
     steps:
       - name: checkout repository
-        uses: actions/checkout@v2
-      - uses: oven-sh/setup-bun@v1
+        uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.1.22
+          bun-version: 1.1.45
       - name: install dependencies
-        run: bun install --frozen-lockfile
+        run: bun install
       - name: build
         run: bun run build
 
@@ -63,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Check package version change
