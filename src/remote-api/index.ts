@@ -1,5 +1,4 @@
 /* tslint:disable */
-/* eslint-disable */
 /**
  * Org Note API
  * List of methods for work with Org Note.
@@ -12,7 +11,5 @@
  * Do not edit the class manually.
  */
 
-
-export * from "./api";
-export * from "./configuration";
-
+export * from './api';
+export * from './configuration';
