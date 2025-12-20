@@ -5,10 +5,10 @@ import {
   armoredPrivateKey,
   privateKeyPassphrase,
 } from './encryption-keys';
-import { EncryptionType } from '../../models/encryption';
-import { NoteInfo } from 'src/models';
+import { ModelsPublicNoteEncryptionTypeEnum } from '../../remote-api';
+import { Note } from '../../models';
 
-const testNote: NoteInfo = {
+const testNote: Note = {
   id: 'test-note-id',
   meta: {
     title: 'Test note',
@@ -28,7 +28,7 @@ test('Should encrypt note via keys', async () => {
 
   const [encryptedNote, encryptedNoteText] = await encryptNote(testNote, {
     content: noteText,
-    type: EncryptionType.GpgKeys,
+    type: ModelsPublicNoteEncryptionTypeEnum.GpgKeys,
     publicKey: armoredPublicKey,
     privateKey: armoredPrivateKey,
     privateKeyPassphrase,
@@ -40,7 +40,7 @@ test('Should encrypt note via keys', async () => {
   );
   expect(encryptedNote.encrypted).toBe(true);
   expect(encryptedNote.id).toBe(testNote.id);
-  expect(encryptedNote.meta.id).toBeUndefined();
+  expect((encryptedNote.meta as Record<string, unknown>).id).toBeUndefined();
 });
 
 test('Should decrypt note via keys', async () => {
@@ -48,7 +48,7 @@ test('Should decrypt note via keys', async () => {
 
   const [, encryptedNoteText] = await encryptNote(testNote, {
     content: noteText,
-    type: EncryptionType.GpgKeys,
+    type: ModelsPublicNoteEncryptionTypeEnum.GpgKeys,
     publicKey: armoredPublicKey,
     privateKey: armoredPrivateKey,
     privateKeyPassphrase,
@@ -59,7 +59,7 @@ test('Should decrypt note via keys', async () => {
     { ...testNote, encrypted: true },
     {
       content: encryptedNoteText,
-      type: EncryptionType.GpgKeys,
+      type: ModelsPublicNoteEncryptionTypeEnum.GpgKeys,
       publicKey: armoredPublicKey,
       privateKey: armoredPrivateKey,
       privateKeyPassphrase,
