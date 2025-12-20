@@ -2,12 +2,15 @@ import { MaybeRefOrGetter } from 'vue';
 import { COMMAND_GROUPS } from 'src/constants';
 import { DefaultCommands } from './default-commands';
 import { OrgNoteApi } from 'src/api';
+import { VueComponent } from './vue-component';
 
 export type CommandGroup =
   | (typeof COMMAND_GROUPS)[number]
   | (string & Record<never, never>);
 
 export type CommandName = DefaultCommands | (string & {});
+
+export type CommandIcon = string | VueComponent;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface CommandHandlerParams<T = any> {
@@ -21,7 +24,7 @@ export interface CommandPreview {
   description?: MaybeRefOrGetter<string | undefined>;
   command?: CommandName;
   title?: MaybeRefOrGetter<string | undefined>;
-  icon?: MaybeRefOrGetter<string | undefined>;
+  icon?: MaybeRefOrGetter<CommandIcon | undefined>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
