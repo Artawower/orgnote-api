@@ -1,7 +1,8 @@
 import { MaybeRefOrGetter } from 'vue';
+import type { CommandIcon } from './command';
 
 export interface CompletionCandidate<T = unknown> {
-  icon?: MaybeRefOrGetter<string | undefined>;
+  icon?: MaybeRefOrGetter<CommandIcon | undefined>;
   group?: MaybeRefOrGetter<string | undefined>;
   title?: MaybeRefOrGetter<string | undefined>;
   description?: MaybeRefOrGetter<string | undefined>;
