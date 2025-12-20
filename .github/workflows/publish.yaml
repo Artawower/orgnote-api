@@ -1,0 +1,59 @@
+name: Publish to NPM
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [master, dev]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success'
+    environment: npm-publish
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Check if release was created
+        id: check_release
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          RELEASE=$(gh release view "v$VERSION" --json tagName 2>/dev/null || echo "")
+          if [ -n "$RELEASE" ]; then
+            echo "should_publish=true" >> "$GITHUB_OUTPUT"
+            echo "Release v$VERSION exists, will publish"
+          else
+            echo "should_publish=false" >> "$GITHUB_OUTPUT"
+            echo "No release for v$VERSION, skipping publish"
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - uses: actions/setup-node@v4
+        if: steps.check_release.outputs.should_publish == 'true'
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+
+      - uses: oven-sh/setup-bun@v2
+        if: steps.check_release.outputs.should_publish == 'true'
+        with:
+          bun-version: 1.1.45
+
+      - name: Install dependencies
+        if: steps.check_release.outputs.should_publish == 'true'
+        run: bun install
+
+      - name: Build package
+        if: steps.check_release.outputs.should_publish == 'true'
+        run: bun run prepub
+
+      - name: Publish to NPM
+        if: steps.check_release.outputs.should_publish == 'true'
+        working-directory: ./dist
+        run: npm publish --provenance --access public
