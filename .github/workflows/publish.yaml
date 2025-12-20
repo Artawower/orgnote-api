@@ -23,13 +23,13 @@ jobs:
         id: check_release
         run: |
           VERSION=$(node -p "require('./package.json').version")
-          RELEASE=$(gh release view "v$VERSION" --json tagName 2>/dev/null || echo "")
+          RELEASE=$(gh release view "$VERSION" --json tagName 2>/dev/null || echo "")
           if [ -n "$RELEASE" ]; then
             echo "should_publish=true" >> "$GITHUB_OUTPUT"
-            echo "Release v$VERSION exists, will publish"
+            echo "Release $VERSION exists, will publish"
           else
             echo "should_publish=false" >> "$GITHUB_OUTPUT"
-            echo "No release for v$VERSION, skipping publish"
+            echo "No release for $VERSION, skipping publish"
           fi
         env:
           GH_TOKEN: ${{ github.token }}
