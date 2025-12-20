@@ -1,72 +1,61 @@
-name: Auto release
+name: CI/CD
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [master, dev]
+  pull_request:
+    branches: [master, dev]
 
 jobs:
   check_commit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: webiny/action-conventional-commits@v1.3.0
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           allowed-commit-types: 'feat,fix,chore,refactor'
 
-  vitest:
+  test:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repository
-        uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
+      - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.1.45
-      - name: install dependencies
+      - name: Install dependencies
         run: bun install
-      - name: test
+      - name: Run tests
         run: bun run test
-
-  lint:
-    name: Run linters
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.1.45
-      - name: Install Node.js dependencies
-        run: bun install
-      - name: Run linters
+      - name: Run linter
         run: bun run lint
 
   build:
     name: Build
-    needs: [check_commit, lint, vitest]
+    needs: [check_commit, test]
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev'
     steps:
-      - name: checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.1.45
-      - name: install dependencies
+      - name: Install dependencies
         run: bun install
-      - name: build
+      - name: Build
         run: bun run build
 
   release:
-    name: Create release
+    name: Release & Publish
     needs: [build]
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    environment: npm-publish
+    permissions:
+      contents: write
+      id-token: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Check package version change
@@ -83,17 +72,35 @@ jobs:
             PREV_VERSION=""
           fi
           CURRENT_VERSION=$(node -p "require('./package.json').version")
+          echo "Previous: $PREV_VERSION, Current: $CURRENT_VERSION"
           if [ "$CURRENT_VERSION" != "$PREV_VERSION" ]; then
             echo "changed=true" >> "$GITHUB_OUTPUT"
           else
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
-      - name: Release
+      - name: Create GitHub Release
         if: steps.version_change.outputs.changed == 'true'
         uses: justincy/github-action-npm-release@2.0.2
-        id: release
         with:
           token: ${{ secrets.GH_TOKEN }}
-      - name: Print release output
-        if: ${{ steps.release.outputs.released == 'true' }}
-        run: echo Release ID ${{ steps.release.outputs.release_id }}
+      - uses: actions/setup-node@v4
+        if: steps.version_change.outputs.changed == 'true'
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+      - uses: oven-sh/setup-bun@v2
+        if: steps.version_change.outputs.changed == 'true'
+        with:
+          bun-version: 1.1.45
+      - name: Install dependencies
+        if: steps.version_change.outputs.changed == 'true'
+        run: bun install
+      - name: Build package
+        if: steps.version_change.outputs.changed == 'true'
+        run: bun run prepub
+      - name: Publish to NPM
+        if: steps.version_change.outputs.changed == 'true'
+        working-directory: ./dist
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
