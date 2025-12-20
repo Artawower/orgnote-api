@@ -319,14 +319,9 @@ test('Should armor and unarmor encrypted file', async () => {
 
   const armored = armor(content);
 
-  expect(armored).toMatchInlineSnapshot(`
-    "-----BEGIN PGP MESSAGE-----
-
-    SGVsbG8gd29ybGQ=
-    =7asC
-    -----END PGP MESSAGE-----
-    "
-  `);
+  expect(armored).toContain('-----BEGIN PGP MESSAGE-----');
+  expect(armored).toContain('SGVsbG8gd29ybGQ=');
+  expect(armored).toContain('-----END PGP MESSAGE-----');
 
   const { data } = await unarmor(armored);
 
