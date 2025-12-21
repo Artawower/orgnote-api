@@ -6,7 +6,7 @@
 export enum DefaultCommands {
   // Global commands
   REPORT_BUG = 'report bug',
-  OPEN_DEBUG_INFO = 'open debug info',
+  OPEN_SYSTEM_INFO = 'open system info',
   SHOW_LOGS = 'show logs',
   CLEAR_LOGS = 'clear logs',
   TOGGLE_SIDEBAR = 'toggle sidebar',
