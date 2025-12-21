@@ -38,13 +38,28 @@ jobs:
         if: steps.check_release.outputs.should_publish == 'true'
         with:
           node-version: '22'
-          registry-url: 'https://registry.npmjs.org'
 
       - uses: oven-sh/setup-bun@v2
         if: steps.check_release.outputs.should_publish == 'true'
         with:
           bun-version: 1.1.45
 
+      - name: Update npm
+        if: steps.check_release.outputs.should_publish == 'true'
+        run: npm install -g npm@latest
+
+      - name: Verify trusted publishing auth
+        if: steps.check_release.outputs.should_publish == 'true'
+        run: |
+          if [ -n "${NODE_AUTH_TOKEN:-}" ] || [ -n "${NPM_TOKEN:-}" ]; then
+            echo "Unexpected npm token present; remove NODE_AUTH_TOKEN/NPM_TOKEN."
+            exit 1
+          fi
+          TOKEN_VALUE="$(npm config get _authToken 2>/dev/null || true)"
+          if [ -n "$TOKEN_VALUE" ] && [ "$TOKEN_VALUE" != "undefined" ] && [ "$TOKEN_VALUE" != "null" ]; then
+            echo "Unexpected npmrc auth token present; remove _authToken."
+            exit 1
+          fi
       - name: Install dependencies
         if: steps.check_release.outputs.should_publish == 'true'
         run: bun install
@@ -56,4 +71,7 @@ jobs:
       - name: Publish to NPM
         if: steps.check_release.outputs.should_publish == 'true'
         working-directory: ./dist
-        run: npm publish --provenance --access public
+        env:
+          NPM_CONFIG_USERCONFIG: /dev/null
+          NPM_CONFIG_GLOBALCONFIG: /dev/null
+        run: env -u NODE_AUTH_TOKEN -u NPM_TOKEN npm publish --provenance --access public --registry https://registry.npmjs.org
