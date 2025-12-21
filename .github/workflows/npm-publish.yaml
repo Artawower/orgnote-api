@@ -44,7 +44,6 @@ jobs:
         if: steps.check_release.outputs.should_publish == 'true'
         with:
           node-version: '22'
-          registry-url: 'https://registry.npmjs.org'
 
       - uses: oven-sh/setup-bun@v2
         if: steps.check_release.outputs.should_publish == 'true'
@@ -55,35 +54,17 @@ jobs:
         if: steps.check_release.outputs.should_publish == 'true'
         run: npm install -g npm@latest
 
-      - name: Clear npm auth
+      - name: Verify trusted publishing auth
         if: steps.check_release.outputs.should_publish == 'true'
         run: |
-          echo "NODE_AUTH_TOKEN=" >> "$GITHUB_ENV"
-          echo "NPM_TOKEN=" >> "$GITHUB_ENV"
-          USER_NPMRC="$(npm config get userconfig)"
-          rm -f "$HOME/.npmrc" .npmrc "$USER_NPMRC"
-          npm config delete always-auth || true
-          npm config delete _authToken || true
-          npm config delete //registry.npmjs.org/:_authToken || true
-
-      - name: Check npm auth state
-        if: steps.check_release.outputs.should_publish == 'true'
-        run: |
-          if [ -n "${NODE_AUTH_TOKEN:-}" ]; then
-            echo "NODE_AUTH_TOKEN=present"
-          else
-            echo "NODE_AUTH_TOKEN=empty"
-          fi
-          if [ -n "${NPM_TOKEN:-}" ]; then
-            echo "NPM_TOKEN=present"
-          else
-            echo "NPM_TOKEN=empty"
+          if [ -n "${NODE_AUTH_TOKEN:-}" ] || [ -n "${NPM_TOKEN:-}" ]; then
+            echo "Unexpected npm token present; remove NODE_AUTH_TOKEN/NPM_TOKEN."
+            exit 1
           fi
           TOKEN_VALUE="$(npm config get _authToken 2>/dev/null || true)"
           if [ -n "$TOKEN_VALUE" ] && [ "$TOKEN_VALUE" != "undefined" ] && [ "$TOKEN_VALUE" != "null" ]; then
-            echo "npmrc_auth_token=present"
-          else
-            echo "npmrc_auth_token=empty"
+            echo "Unexpected npmrc auth token present; remove _authToken."
+            exit 1
           fi
 
       - name: Install dependencies
@@ -97,4 +78,10 @@ jobs:
       - name: Publish to NPM
         if: steps.check_release.outputs.should_publish == 'true'
         working-directory: ./dist
-        run: npm publish --provenance --access public
+        env:
+          NPM_CONFIG_USERCONFIG: ${{ runner.temp }}/npmrc
+          NPM_CONFIG_GLOBALCONFIG: ${{ runner.temp }}/npmrc-global
+        run: |
+          : > "$NPM_CONFIG_USERCONFIG"
+          : > "$NPM_CONFIG_GLOBALCONFIG"
+          env -u NODE_AUTH_TOKEN -u NPM_TOKEN npm publish --provenance --access public --registry https://registry.npmjs.org
