@@ -139,6 +139,10 @@ export enum i18n {
   // Buffer
   FILE_DELETED_EXTERNALLY = 'file was deleted externally',
 
+  // Subscription limits
+  USED_SPACE = 'used space',
+  STORAGE = 'storage',
+
   // Auth
   AUTHENTICATION_STATUS = 'authentication status',
   COMING_SOON = 'coming soon',
