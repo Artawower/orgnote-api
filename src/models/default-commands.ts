@@ -44,6 +44,8 @@ export enum DefaultCommands {
   READ_WIKI = 'read wiki',
   SPONSOR = 'sponsor',
   DELETE_ALL_DATA = 'delete all data',
+  RESET_SYSTEM = 'Reset system',
+  RESET_SYSTEM_WARNING = 'A local reset will result in complete local data deletion. Be careful: if there is no backup, it’s impossible to restore the data.',
   DELETE_ALL_NOTES = 'delete all notes',
   DELETE_ACCOUNT = 'delete account',
   STORAGE_SETTINGS = 'storage settings',

@@ -49,6 +49,8 @@ export enum i18n {
   CONFIRM = 'confirm',
   CANCEL = 'cancel',
   CONFIRM_DELETE_ALL_DATA = 'are you sure you want to delete all data? this is an irreversible event',
+  RESET_SYSTEM = 'Reset system',
+  RESET_SYSTEM_DESCRIPTION = 'Delete all local data, including notes, files, account information, settings, etc.',
   IRREVERSIBLE_EVENT = 'This is an irreversible event',
   CONFIRM_DELETE_NOTES = 'Are you sure you want to delete all notes? This is an irreversible event',
   CONFIRM_DELETE_ACCOUNT = 'Are you sure you want to delete your account? This is an irreversible event',
