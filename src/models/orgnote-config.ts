@@ -51,6 +51,13 @@ export const ORG_NOTE_CONFIG_SCHEMA = pipe(
         persistantPanesSaveDelay: number(),
         dropZoneEdgeRatio: number(),
       }),
+      fileReaders: optional(
+        object({
+          preferredReaders: optional(
+            objectWithRest({}, string())
+          ),
+        })
+      ),
       extensions: object({
         sources: array(string()),
       }),
