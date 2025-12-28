@@ -32,6 +32,8 @@ import { WebSocketClient } from './websocket/client';
 import { WidgetType } from './models/widget-type';
 import { NodeType } from 'org-mode-ast';
 import { ExtensionStoreDefinition } from './models/extension-store';
+import { EditorStoreDefinition } from './models/editor-store';
+import { BabelStoreDefinition } from './models/babel-store';
 import { FileSystemStoreDefinition } from './models/file-system-store';
 import { EncryptionStoreDefinition } from './models/encryption-store';
 import { PlatformSpecificFn } from './models/platform-specific';
@@ -104,6 +106,8 @@ export interface OrgNoteApi {
     useFileGuard: FileGuardStoreDefinition;
     useAuth: AuthStoreDefinition;
     useSync: SyncStoreDefinition;
+    useEditor: EditorStoreDefinition;
+    useBabel: BabelStoreDefinition;
     app: App;
   };
   utils: {

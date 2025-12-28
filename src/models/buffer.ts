@@ -16,7 +16,11 @@ export interface Buffer<T = unknown> {
   path: string;
   title: string;
 
-  content: string;
+  rawContent: Uint8Array;
+
+  readonly text: string;
+  readonly base64: string;
+  setText: (value: string) => void;
 
   isSaving: boolean;
   isLoading: boolean;

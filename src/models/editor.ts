@@ -16,12 +16,12 @@ interface DynamicComponent {
 }
 
 export interface EditorExtensionParams {
-  orgNodeGetter: () => OrgNode;
+  orgNodeGetter: () => OrgNode | null;
   readonly: boolean;
   showSpecialSymbols?: boolean;
   dynamicComponent: DynamicComponent;
   foldWidget?: InlineEmbeddedWidget;
-  editorViewGetter: () => EditorView;
+  editorViewGetter: () => EditorView | undefined;
 }
 
 export type EditorExtension = (params: EditorExtensionParams) => Extension;

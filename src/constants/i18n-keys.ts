@@ -143,6 +143,10 @@ export enum i18n {
   // Buffer
   FILE_DELETED_EXTERNALLY = 'file was deleted externally',
 
+  // Images
+  IMAGE_LOAD_FAILED = 'failed to load image',
+  IMAGE_NOT_FOUND = 'image not found',
+
   // Subscription limits
   USED_SPACE = 'used space',
   STORAGE = 'storage',
