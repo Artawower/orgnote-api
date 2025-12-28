@@ -1,6 +1,6 @@
 {
   "name": "orgnote-api",
-  "version": "0.40.24",
+  "version": "0.40.25",
   "description": "Official API for creating extensions for OrgNote app",
   "type": "module",
   "main": "./index.js",
@@ -67,8 +67,8 @@
   },
   "peerDependencies": {
     "@capacitor/filesystem": ">=6.0.0",
-    "@codemirror/state": ">=6.0.0",
-    "@codemirror/view": ">=6.0.0",
+    "@codemirror/state": "6.5.3",
+    "@codemirror/view": "6.39.5",
     "@faker-js/faker": ">=9.0.0",
     "pinia": ">=2.0.0",
     "quasar": ">=2.0.0",

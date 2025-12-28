@@ -11,3 +11,4 @@ export * from './to-absolute-path';
 export * from './to-error';
 export * from './auth-state';
 export * from './nullable-guards';
+export * from './binary';

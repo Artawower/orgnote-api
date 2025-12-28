@@ -66,6 +66,8 @@ export * from './panes-store';
 export * from './layout-store';
 export * from './file-system-manager-store';
 export * from './config-store';
+export * from './editor-store';
+export * from './babel-store';
 export * from './notifications-store';
 export * from './notification-config';
 export * from './buffer-store';

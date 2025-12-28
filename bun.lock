@@ -29,8 +29,8 @@
       },
       "peerDependencies": {
         "@capacitor/filesystem": ">=6.0.0",
-        "@codemirror/state": ">=6.0.0",
-        "@codemirror/view": ">=6.0.0",
+        "@codemirror/state": "6.5.3",
+        "@codemirror/view": "6.39.5",
         "@faker-js/faker": ">=9.0.0",
         "pinia": ">=2.0.0",
         "quasar": ">=2.0.0",

@@ -60,7 +60,11 @@ const LOCAL_SOURCE_SCHEMA = object({
   type: literal('local'),
 });
 
-const SOURCE_SCHEMA = union([GIT_SOURCE_SCHEMA, LOCAL_SOURCE_SCHEMA]);
+const BUILTIN_SOURCE_SCHEMA = object({
+  type: literal('builtin'),
+});
+
+const SOURCE_SCHEMA = union([GIT_SOURCE_SCHEMA, LOCAL_SOURCE_SCHEMA, BUILTIN_SOURCE_SCHEMA]);
 
 const COMMAND_SCHEMA = object({
   id: string(),
@@ -126,6 +130,7 @@ export type ExtensionCategory = InferOutput<typeof CATEGORY_SCHEMA>;
 export type ExtensionSourceInfo = InferOutput<typeof SOURCE_SCHEMA>;
 export type GitSource = InferOutput<typeof GIT_SOURCE_SCHEMA>;
 export type LocalSource = InferOutput<typeof LOCAL_SOURCE_SCHEMA>;
+export type BuiltinSource = InferOutput<typeof BUILTIN_SOURCE_SCHEMA>;
 export type ExtensionCommand = InferOutput<typeof COMMAND_SCHEMA>;
 export type ExtensionKeybinding = InferOutput<typeof KEYBINDING_SCHEMA>;
 export type ExtensionPlatform = InferOutput<typeof PLATFORM_SCHEMA>;
