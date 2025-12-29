@@ -1,5 +1,4 @@
 import type { ComputedRef, ShallowRef } from 'vue';
-import type { NodeType } from 'org-mode-ast';
 import type {
   InlineEmbeddedWidgets,
   MultilineEmbeddedWidgets,
