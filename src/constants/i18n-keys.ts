@@ -166,6 +166,9 @@ export enum i18n {
   AUTH_INVALID_CALLBACK_PARAMS = 'invalid authentication callback parameters',
   AUTH_REMOVE_ACCOUNT_DESCRIPTION = 'permanently delete your account',
   AUTH_GROUP = 'auth',
+
+  // Tabs
+  TABS_COUNT = 'tabsCount',
 }
 
 export const I18N = {
