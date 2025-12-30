@@ -1,6 +1,6 @@
 import { ShallowRef } from 'vue';
 import { StoreDefinition } from './store';
-import { LayoutNode, DropDirection as SplitDirection } from './layout';
+import { LayoutNode, DropDirection as SplitDirection, PanePosition } from './layout';
 import { LayoutSnapshot } from './pane';
 
 export interface LayoutStore {
@@ -23,6 +23,8 @@ export interface LayoutStore {
   restoreLayout: () => Promise<void>;
   getLayoutSnapshot: () => LayoutSnapshot | undefined;
   restoreLayoutSnapshot: (snapshot: LayoutSnapshot) => Promise<void>;
+
+  getPanePosition: (paneId: string) => PanePosition | undefined;
 }
 
 export type LayoutStoreDefinition = StoreDefinition<LayoutStore>;

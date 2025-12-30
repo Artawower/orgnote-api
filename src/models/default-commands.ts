@@ -14,6 +14,12 @@ export enum DefaultCommands {
   CREATE_NOTE = 'create note',
   PROJECT_INFO = 'project info',
 
+  // Right panel
+  TOGGLE_RIGHT_PANEL = 'toggle right panel',
+  OPEN_BACKLINKS = 'open backlinks',
+  OPEN_OUTLINE = 'open outline',
+  OPEN_LOCAL_GRAPH = 'open local graph',
+
   // Completion commands
   SEARCH = 'search',
   TOGGLE_COMMANDS = 'toggle commands',
