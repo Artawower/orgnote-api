@@ -7,6 +7,7 @@ import type {
 import type { EditorExtension } from './editor';
 import type { WidgetMeta } from '../api';
 import type { StoreDefinition } from './store';
+import type { ActiveEditorContext } from './active-editor-context';
 
 export interface EditorStore {
   inlineWidgets: ComputedRef<InlineEmbeddedWidgets>;
@@ -14,10 +15,16 @@ export interface EditorStore {
   lineClasses: ComputedRef<OrgLineClasses>;
   extensions: ShallowRef<EditorExtension[]>;
 
+  activeContext: ShallowRef<ActiveEditorContext | null>;
+
   addWidgets: (...widgets: WidgetMeta[]) => void;
   removeWidget: (widgetId: string) => void;
   addExtensions: (...extensions: EditorExtension[]) => void;
   removeExtensions: (...extensions: EditorExtension[]) => void;
+
+  setActiveContext: (ctx: ActiveEditorContext) => void;
+  updateActiveContext: (ctx: Partial<ActiveEditorContext>) => void;
+  clearActiveContext: () => void;
 }
 
 export type EditorStoreDefinition = StoreDefinition<EditorStore>;

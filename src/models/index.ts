@@ -7,6 +7,7 @@ export * from './widget';
 export * from './modal';
 export * from './widget-type';
 export * from './editor';
+export * from './active-editor-context';
 export * from './default-commands';
 export * from './encryption';
 export * from './file-system';
