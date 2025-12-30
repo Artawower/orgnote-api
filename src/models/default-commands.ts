@@ -19,6 +19,7 @@ export enum DefaultCommands {
   OPEN_BACKLINKS = 'open backlinks',
   OPEN_OUTLINE = 'open outline',
   OPEN_LOCAL_GRAPH = 'open local graph',
+  TOGGLE_AST_DEBUGGER = 'toggle ast debugger',
 
   // Completion commands
   SEARCH = 'search',
