@@ -53,6 +53,7 @@ import {
 import { ThemeStoreDefinition } from './models/theme-store';
 import { UseBackgroundSettings } from './models/ui-store';
 import { SidebarStoreDefinition } from './models/sidebar-store';
+import { RightPanelStoreDefinition } from './models/right-panel-store';
 import { Logger } from './models/logger';
 import type { QVueGlobals } from 'quasar';
 import { ToolbarStoreDefinition } from './models/toolbar-store';
@@ -152,6 +153,7 @@ export interface OrgNoteApi {
     useSplashScreen: UseSplashScreen;
     useBackgroundSettings: UseBackgroundSettings;
     useSidebar: SidebarStoreDefinition;
+    useRightPanel: RightPanelStoreDefinition;
     useToolbar: ToolbarStoreDefinition;
     useModal: ModalStoreDefinition;
     useSettingsUi: SettingsUiStoreDefinition;
