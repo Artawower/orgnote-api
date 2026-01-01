@@ -1,5 +1,4 @@
 import { ExtensionSource } from './extension';
-import { FileInfo } from './file-info';
 import { FilePathInfo } from './file-path';
 import { LayoutSnapshotRepository } from './layout-snapshot-repository';
 import { LoggerRepository } from './log-repository';
@@ -15,21 +14,6 @@ export interface ExtensionSourceRepository {
   delete(extensionName: string): Promise<void>;
   deleteBySource(source: string): Promise<void>;
   clear(): Promise<void>;
-}
-
-export interface FileInfoRepository {
-  upsert(file: FileInfo): Promise<void>;
-  bulkUpsert(file: FileInfo[]): Promise<void>;
-  update(filePath: string, file: Partial<FileInfo>): Promise<void>;
-  delete(filePath: string): Promise<void>;
-  markAsDelete(filePath: string, deletedAt?: Date): Promise<void>;
-  clear(): Promise<void>;
-
-  search(text: string): Promise<FileInfo[]>;
-  getByPath(path: string): Promise<FileInfo | undefined>;
-  getAll(): Promise<FileInfo[]>;
-  getFilesAfterUpdateTime(updatedTime?: Date): Promise<FileInfo[]>;
-  count(updatedTime?: Date): Promise<number>;
 }
 
 export interface NoteInfoRepository {
@@ -80,7 +64,6 @@ export interface QueueRepository {
 
 export interface Repositories {
   logRepository: LoggerRepository;
-  fileInfoRepository: FileInfoRepository;
   noteInfoRepository: NoteInfoRepository;
   layoutSnapshotRepository: LayoutSnapshotRepository;
   queueRepository: QueueRepository;
