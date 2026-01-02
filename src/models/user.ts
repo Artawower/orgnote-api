@@ -1,5 +1,13 @@
 import { ModelsUserPersonalInfo } from 'src/remote-api';
-import { PublicUser } from './note';
+
+export interface PublicUser {
+  id?: string;
+  name?: string;
+  nickName?: string;
+  avatarUrl?: string;
+  email?: string;
+  profileUrl?: string;
+}
 
 export type User = PublicUser;
 

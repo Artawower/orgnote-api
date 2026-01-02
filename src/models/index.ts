@@ -1,4 +1,4 @@
-export * from './note';
+export * from './file-meta';
 export * from './command';
 export * from './completion';
 export * from './extension';
@@ -81,6 +81,8 @@ export * from './cron-store';
 export * from './git-store';
 export * from './extension-registry-store';
 export * from './theme-store';
+export * from './file-search-store';
+export * from './file-meta-store';
 
 // UI
 export * from './style-variant';

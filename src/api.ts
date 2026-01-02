@@ -27,6 +27,8 @@ import {
   FileWatcherStoreDefinition,
   BuildOrgNoteUrl,
   AuthStoreDefinition,
+  FileSearchStoreDefinition,
+  FileMetaStoreDefinition,
 } from './models';
 import { WebSocketClient } from './websocket/client';
 import { WidgetType } from './models/widget-type';
@@ -109,6 +111,8 @@ export interface OrgNoteApi {
     useSync: SyncStoreDefinition;
     useEditor: EditorStoreDefinition;
     useBabel: BabelStoreDefinition;
+    useFileSearch: FileSearchStoreDefinition;
+    useFileMeta: FileMetaStoreDefinition;
     app: App;
   };
   utils: {
