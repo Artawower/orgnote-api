@@ -1,26 +1,22 @@
 import { expect, test } from 'vitest';
-import { decryptNote, encryptNote } from '../note-encryption';
+import { decryptNote, encryptNote, AbstractEncryptedNote } from '../note-encryption';
 import {
   armoredPublicKey,
   armoredPrivateKey,
   privateKeyPassphrase,
 } from './encryption-keys';
 import { EncryptionType } from '../../models/encryption';
-import { NoteInfo } from 'src/models';
 
-const testNote: NoteInfo = {
+interface TestNote extends AbstractEncryptedNote {
+  id: string;
+}
+
+const testNote: TestNote = {
   id: 'test-note-id',
   meta: {
     title: 'Test note',
     published: false,
   },
-  createdAt: '2024-01-01T00:00:00.000Z',
-  updatedAt: '2024-01-01T00:00:00.000Z',
-  touchedAt: '2024-01-01T00:00:00.000Z',
-  filePath: ['/test/note.org'],
-  isMy: true,
-  bookmarked: false,
-  encrypted: false,
 };
 
 test('Should encrypt note via keys', async () => {
@@ -38,9 +34,7 @@ test('Should encrypt note via keys', async () => {
   expect(encryptedNoteText.startsWith('-----BEGIN PGP MESSAGE-----')).toBe(
     true
   );
-  expect(encryptedNote.encrypted).toBe(true);
   expect(encryptedNote.id).toBe(testNote.id);
-  expect(encryptedNote.meta.id).toBeUndefined();
 });
 
 test('Should decrypt note via keys', async () => {
@@ -56,7 +50,7 @@ test('Should decrypt note via keys', async () => {
   });
 
   const [decryptedNote, decryptedText] = await decryptNote(
-    { ...testNote, encrypted: true },
+    testNote,
     {
       content: encryptedNoteText,
       type: EncryptionType.GpgKeys,
@@ -66,8 +60,7 @@ test('Should decrypt note via keys', async () => {
     }
   );
 
-  expect(decryptedNote.encrypted).toBe(false);
   expect(decryptedNote.id).toBe(testNote.id);
-  expect(decryptedNote.meta.title).toBe('Test note');
+  expect(decryptedNote.meta?.title).toBe('Test note');
   expect(decryptedText).toBe(noteText);
 });

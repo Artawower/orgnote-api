@@ -3,7 +3,6 @@ import {
   OrgNoteEncryption,
   BaseOrgNoteDecryption,
 } from './encryption';
-import { NoteInfo } from './note';
 import { StoreDefinition } from './store';
 
 export interface EncryptionStore {
@@ -17,14 +16,6 @@ export interface EncryptionStore {
     format?: BaseOrgNoteDecryption['format'],
     encryptionConfig?: OrgNoteEncryption
   ) => Promise<string>;
-  encryptNote: (
-    noteInfo: NoteInfo,
-    noteText: string
-  ) => Promise<[NoteInfo, string]>;
-  decryptNote: (
-    noteInfo: NoteInfo,
-    noteText: string
-  ) => Promise<[NoteInfo, string | Uint8Array]>;
 }
 
 export type EncryptionStoreDefinition = StoreDefinition<EncryptionStore>;

@@ -1,8 +1,7 @@
 import { ExtensionSource } from './extension';
-import { FilePathInfo } from './file-path';
+import { FileMeta } from './file-meta';
 import { LayoutSnapshotRepository } from './layout-snapshot-repository';
 import { LoggerRepository } from './log-repository';
-import { NoteInfo } from './note';
 import { QueueTask } from './queue-task';
 
 export interface ExtensionSourceRepository {
@@ -16,35 +15,20 @@ export interface ExtensionSourceRepository {
   clear(): Promise<void>;
 }
 
-export interface NoteInfoRepository {
-  getNotesAfterUpdateTime(updatedTime?: string): Promise<NoteInfo[]>;
-  getDeletedNotes(): Promise<NoteInfo[]>;
-  saveNotes(notes: NoteInfo[]): Promise<void>;
-  putNote(note: NoteInfo): Promise<void>;
-  getById(id: string): Promise<NoteInfo | undefined>;
-  getByPath(path: string[]): Promise<NoteInfo | undefined>;
-  getNotesInfo(options?: {
+export interface FileRepository {
+  getById(id: string): Promise<FileMeta | undefined>;
+  getByIds(ids: string[]): Promise<FileMeta[]>;
+  getByPath(filePath: string[]): Promise<FileMeta | undefined>;
+  getAll(options?: {
     limit?: number;
     offset?: number;
-    searchText?: string;
     tags?: string[];
-    bookmarked?: boolean;
-  }): Promise<NoteInfo[]>;
-  deleteNotes(noteIds: string[]): Promise<void>;
-  markAsDeleted(noteIds: string[]): Promise<void>;
-  bulkPartialUpdate(
-    updates: { id: string; changes: Partial<NoteInfo> }[]
-  ): Promise<void>;
-  count(searchText?: string, tags?: string[]): Promise<number>;
-  getFilePaths(): Promise<FilePathInfo[]>;
-  touchNote(noteId: string): Promise<void>;
-  getTagsStatistic(): Promise<{ tag: string; count: number }[]>;
-  addBookmark(noteId: string): Promise<void>;
-  deleteBookmark(noteId: string): Promise<void>;
-  modify(
-    modifyCallback: (note: NoteInfo, ref: { value: NoteInfo }) => void
-  ): Promise<void>;
-  getIds(filterCb?: (n: NoteInfo) => boolean): Promise<string[]>;
+  }): Promise<FileMeta[]>;
+  save(meta: FileMeta): Promise<void>;
+  saveBulk(metas: FileMeta[]): Promise<void>;
+  delete(id: string): Promise<void>;
+  count(tags?: string[]): Promise<number>;
+  getTagsStats(): Promise<{ tag: string; count: number }[]>;
   clear(): Promise<void>;
 }
 
@@ -62,10 +46,18 @@ export interface QueueRepository {
   setStatus: (id: string, status: string) => Promise<void>;
 }
 
+export interface KeyValueRepository {
+  get(key: string): Promise<string | undefined>;
+  set(key: string, value: string): Promise<void>;
+  delete(key: string): Promise<void>;
+  clear(): Promise<void>;
+}
+
 export interface Repositories {
   logRepository: LoggerRepository;
-  noteInfoRepository: NoteInfoRepository;
   layoutSnapshotRepository: LayoutSnapshotRepository;
   queueRepository: QueueRepository;
   extensionSourceRepository: ExtensionSourceRepository;
+  keyValueRepository: KeyValueRepository;
+  fileRepository: FileRepository;
 }

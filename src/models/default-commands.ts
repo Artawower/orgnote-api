@@ -118,4 +118,7 @@ export enum DefaultCommands {
   LOGIN = 'login',
   LOGOUT = 'logout',
   REMOVE_ACCOUNT = 'remove account',
+
+  // Search
+  INIT_SEARCH_INDEX = 'init search index',
 }
