@@ -173,6 +173,10 @@ export enum i18n {
   // TOC
   TOC_NO_ACTIVE_DOCUMENT = 'no active document',
   TOC_NO_HEADLINES_FOUND = 'no headlines found',
+
+  // Editor
+  PICK_NOTE_TO_LINK = 'pick note to link',
+  UNTITLED = 'untitled',
 }
 
 export const I18N = {
