@@ -121,4 +121,29 @@ export enum DefaultCommands {
 
   // Search
   INIT_SEARCH_INDEX = 'init search index',
+
+  // Editor commands
+  EDITOR_UNDO = 'undo',
+  EDITOR_REDO = 'redo',
+  EDITOR_INSERT_HEADLINE = 'insert headline',
+  EDITOR_INSERT_CODE_BLOCK = 'insert code block',
+  EDITOR_INSERT_QUOTE = 'insert quote',
+  EDITOR_INSERT_LATEX = 'insert latex block',
+  EDITOR_INSERT_LINK = 'insert link',
+  EDITOR_INSERT_INTERNAL_LINK = 'insert internal link',
+  EDITOR_INSERT_IMAGE = 'insert image',
+  EDITOR_INSERT_BOLD = 'insert bold',
+  EDITOR_INSERT_ITALIC = 'insert italic',
+  EDITOR_INSERT_STRIKETHROUGH = 'insert strikethrough',
+  EDITOR_INSERT_INLINE_CODE = 'insert inline code',
+  EDITOR_INSERT_BULLET_LIST = 'insert bullet list',
+  EDITOR_INSERT_NUMERIC_LIST = 'insert numeric list',
+  EDITOR_INSERT_CHECK_LIST = 'insert check list',
+  EDITOR_INSERT_HORIZONTAL_RULE = 'insert horizontal rule',
+  EDITOR_INSERT_HTML_BLOCK = 'insert html block',
+  EDITOR_INSERT_CHECKBOX = 'insert checkbox',
+  EDITOR_INSERT_TABLE = 'insert table',
+  EDITOR_INSERT_TAG = 'insert tag',
+  EDITOR_INSERT_DATETIME = 'insert datetime',
+  EDITOR_HIDE_KEYBOARD = 'hide keyboard',
 }
