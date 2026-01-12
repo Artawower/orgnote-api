@@ -61,7 +61,7 @@ export * from './ui-store';
 export * from './sidebar-store';
 export * from './panel';
 export * from './right-panel-store';
-export * from './toolbar-store';
+export * from './pinned-commands-store';
 export * from './modal-store';
 export * from './settings-ui-store';
 export * from './completion-store';

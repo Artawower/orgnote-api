@@ -58,7 +58,7 @@ import { SidebarStoreDefinition } from './models/sidebar-store';
 import { RightPanelStoreDefinition } from './models/right-panel-store';
 import { Logger } from './models/logger';
 import type { QVueGlobals } from 'quasar';
-import { ToolbarStoreDefinition } from './models/toolbar-store';
+import { PinnedCommandsStoreDefinition } from './models/pinned-commands-store';
 import type { App } from 'vue';
 import { UseConfirmationModal } from './models/confirmation-modal';
 import { FileSystemManagerStoreDefinition } from './models/file-system-manager-store';
@@ -158,7 +158,7 @@ export interface OrgNoteApi {
     useBackgroundSettings: UseBackgroundSettings;
     useSidebar: SidebarStoreDefinition;
     useRightPanel: RightPanelStoreDefinition;
-    useToolbar: ToolbarStoreDefinition;
+    usePinnedCommands: PinnedCommandsStoreDefinition;
     useModal: ModalStoreDefinition;
     useSettingsUi: SettingsUiStoreDefinition;
     useConfirmationModal: UseConfirmationModal;
