@@ -22,6 +22,9 @@ export interface EditorStore {
   addExtensions: (...extensions: EditorExtension[]) => void;
   removeExtensions: (...extensions: EditorExtension[]) => void;
 
+  selection: ComputedRef<string>;
+  hasSelection: ComputedRef<boolean>;
+
   setActiveContext: (ctx: ActiveEditorContext) => void;
   updateActiveContext: (ctx: Partial<ActiveEditorContext>) => void;
   clearActiveContext: () => void;
