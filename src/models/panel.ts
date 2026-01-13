@@ -2,7 +2,7 @@ import type { Ref, ShallowRef } from 'vue';
 import type { VueComponent } from './vue-component';
 import type { ComponentConfig } from './sidebar-store';
 
-export interface Panel {
+export interface Sidebar {
   opened: Ref<boolean>;
   component: ShallowRef<VueComponent | undefined>;
   componentConfig: ShallowRef<ComponentConfig<VueComponent> | undefined>;
