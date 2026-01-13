@@ -16,6 +16,7 @@ import {
   LayoutStoreDefinition,
   FileManagerStoreDefinition,
   UseScreenDetection,
+  UseKeyboardState,
   NotificationsStoreDefinition,
   BufferStoreDefinition,
   Repositories,
@@ -163,6 +164,7 @@ export interface OrgNoteApi {
     useSettingsUi: SettingsUiStoreDefinition;
     useConfirmationModal: UseConfirmationModal;
     useScreenDetection: UseScreenDetection;
+    useKeyboardState: UseKeyboardState;
     useContextMenu: ContextMenuStoreDefinition;
     useTheme: ThemeStoreDefinition;
   };

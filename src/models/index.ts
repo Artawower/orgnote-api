@@ -43,6 +43,7 @@ export * from './file-guard-store';
 export * from './splash-screen';
 export * from './screen-detection';
 export * from './system-info';
+export * from './keyboard-state';
 
 // Stores
 export * from './sync-store';
