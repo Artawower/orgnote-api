@@ -25,7 +25,7 @@ export interface EditorStore {
   selection: ComputedRef<string>;
   hasSelection: ComputedRef<boolean>;
 
-  setActiveContext: (ctx: ActiveEditorContext) => void;
+  setActiveContext: (ctx: Partial<ActiveEditorContext>) => void;
   updateActiveContext: (ctx: Partial<ActiveEditorContext>) => void;
   clearActiveContext: () => void;
 }

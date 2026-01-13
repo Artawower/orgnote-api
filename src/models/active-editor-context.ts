@@ -7,4 +7,5 @@ export interface ActiveEditorContext {
   selection: string;
   editorViewGetter: () => EditorView | undefined;
   filePath?: string;
+  focused: boolean;
 }
