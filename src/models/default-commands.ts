@@ -10,12 +10,16 @@ export enum DefaultCommands {
   SHOW_LOGS = 'show logs',
   CLEAR_LOGS = 'clear logs',
   TOGGLE_SIDEBAR = 'toggle sidebar',
+  CLOSE_SIDEBAR = 'close sidebar',
+  OPEN_SIDEBAR = 'open sidebar',
   TOGGLE_FILE_MANAGER = 'toggle file manager',
   CREATE_NOTE = 'create note',
   PROJECT_INFO = 'project info',
 
   // Right panel
-  TOGGLE_RIGHT_PANEL = 'toggle right panel',
+  TOGGLE_RIGHT_SIDEBAR = 'toggle right sidebar',
+  OPEN_RIGHT_SIDEBAR = 'open right sidebar',
+  CLOSE_RIGHT_SIDEBAR = 'close right sidebar',
   OPEN_BACKLINKS = 'open backlinks',
   OPEN_OUTLINE = 'open outline',
   OPEN_LOCAL_GRAPH = 'open local graph',

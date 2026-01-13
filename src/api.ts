@@ -56,7 +56,7 @@ import {
 import { ThemeStoreDefinition } from './models/theme-store';
 import { UseBackgroundSettings } from './models/ui-store';
 import { SidebarStoreDefinition } from './models/sidebar-store';
-import { RightPanelStoreDefinition } from './models/right-panel-store';
+import { RightSidebarStoreDefinition } from './models/right-sidebar-store';
 import { Logger } from './models/logger';
 import type { QVueGlobals } from 'quasar';
 import { PinnedCommandsStoreDefinition } from './models/pinned-commands-store';
@@ -158,7 +158,7 @@ export interface OrgNoteApi {
     useSplashScreen: UseSplashScreen;
     useBackgroundSettings: UseBackgroundSettings;
     useSidebar: SidebarStoreDefinition;
-    useRightPanel: RightPanelStoreDefinition;
+    useRightSidebar: RightSidebarStoreDefinition;
     usePinnedCommands: PinnedCommandsStoreDefinition;
     useModal: ModalStoreDefinition;
     useSettingsUi: SettingsUiStoreDefinition;

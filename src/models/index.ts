@@ -38,7 +38,6 @@ export * from './git';
 export * from './file-guard';
 export * from './file-guard-store';
 
-
 // Composables
 export * from './splash-screen';
 export * from './screen-detection';
@@ -61,7 +60,7 @@ export * from './encryption-store';
 export * from './ui-store';
 export * from './sidebar-store';
 export * from './panel';
-export * from './right-panel-store';
+export * from './right-sidebar-store';
 export * from './pinned-commands-store';
 export * from './modal-store';
 export * from './settings-ui-store';
