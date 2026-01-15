@@ -139,6 +139,7 @@ export enum i18n {
   SELECT_COMMAND = 'select command',
   CONFIRM_CLEAR_LOGS = 'confirm clear logs',
   SYSTEM_INFO = 'system info',
+  FONTS = 'fonts',
 
   // Buffer
   FILE_DELETED_EXTERNALLY = 'file was deleted externally',
