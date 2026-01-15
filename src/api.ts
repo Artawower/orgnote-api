@@ -30,6 +30,7 @@ import {
   AuthStoreDefinition,
   FileSearchStoreDefinition,
   FileMetaStoreDefinition,
+  FontStoreDefinition,
 } from './models';
 import { WebSocketClient } from './websocket/client';
 import { WidgetType } from './models/widget-type';
@@ -155,6 +156,7 @@ export interface OrgNoteApi {
     buildOrgNoteUrl: BuildOrgNoteUrl;
   };
   ui: {
+    useFonts: FontStoreDefinition;
     useSplashScreen: UseSplashScreen;
     useBackgroundSettings: UseBackgroundSettings;
     useSidebar: SidebarStoreDefinition;
