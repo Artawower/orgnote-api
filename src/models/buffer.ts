@@ -1,4 +1,5 @@
 import type { ValidationState } from './file-guard';
+import type { BufferScheme } from './buffer-uri';
 
 type BufferError = string;
 
@@ -13,6 +14,8 @@ export interface BufferGuard {
 }
 
 export interface Buffer<T = unknown> {
+  uri: string;
+  scheme: BufferScheme;
   path: string;
   title: string;
 

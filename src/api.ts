@@ -19,6 +19,7 @@ import {
   UseKeyboardState,
   NotificationsStoreDefinition,
   BufferStoreDefinition,
+  BufferProviderStoreDefinition,
   Repositories,
   LogStoreDefinition,
   UseSystemInfo,
@@ -102,6 +103,7 @@ export interface OrgNoteApi {
     useFileReader: FileReaderStoreDefinition;
     useNotifications: NotificationsStoreDefinition;
     useBuffers: BufferStoreDefinition;
+    useBufferProviders: BufferProviderStoreDefinition;
     useSystemInfo: UseSystemInfo;
     useLog: LogStoreDefinition;
     useQueue: QueueStoreDefinition;

@@ -143,6 +143,7 @@ export enum i18n {
 
   // Buffer
   FILE_DELETED_EXTERNALLY = 'file was deleted externally',
+  BUFFER_READONLY = 'buffer is read-only',
 
   // Images
   IMAGE_LOAD_FAILED = 'failed to load image',
