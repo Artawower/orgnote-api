@@ -1,16 +1,16 @@
 import type { ComputedRef, Ref } from 'vue';
-import { StoreDefinition } from './store';
-import { Buffer } from './buffer';
+import type { StoreDefinition } from './store';
+import type { Buffer } from './buffer';
 
 export interface BufferStore {
   buffers: Ref<Map<string, Buffer>>;
 
   allBuffers: ComputedRef<Buffer[]>;
 
-  getOrCreateBuffer: (path: string) => Promise<Buffer>;
-  releaseBuffer: (path: string) => void;
-  closeBuffer: (path: string, force?: boolean) => Promise<boolean>;
-  getBufferByPath: (path: string) => Buffer | undefined;
+  getOrCreateBuffer: (uri: string) => Promise<Buffer>;
+  releaseBuffer: (uri: string) => void;
+  closeBuffer: (uri: string, force?: boolean) => Promise<boolean>;
+  getBufferByUri: (uri: string) => Buffer | undefined;
   saveAllBuffers: () => Promise<void>;
   cleanup: () => void;
 }
