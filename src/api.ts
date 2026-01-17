@@ -3,7 +3,7 @@ import {
   MultilineEmbeddedWidget,
   OrgLineClass,
   SyncStoreDefinition,
-  FileReaderStoreDefinition,
+  BufferViewerStoreDefinition,
   CommandsStoreDefinition,
   CommandsGroupStoreDefinition,
   ModalStoreDefinition,
@@ -100,7 +100,7 @@ export interface OrgNoteApi {
     useLayout: LayoutStoreDefinition;
     useFileSystemManager: FileSystemManagerStoreDefinition;
     useFileManager: FileManagerStoreDefinition;
-    useFileReader: FileReaderStoreDefinition;
+    useBufferViewer: BufferViewerStoreDefinition;
     useNotifications: NotificationsStoreDefinition;
     useBuffers: BufferStoreDefinition;
     useBufferProviders: BufferProviderStoreDefinition;

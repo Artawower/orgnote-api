@@ -9,6 +9,7 @@ export enum RouteNames {
   EditNote = 'EditNote',
   EditCode = 'EditCode',
   File = 'File',
+  Remote = 'Remote',
   SettingsPage = 'SettingsPage',
   SystemSettings = 'SystemSettings',
   ExtensionsSettings = 'ExtensionsSettings',
