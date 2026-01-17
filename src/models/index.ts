@@ -50,7 +50,7 @@ export * from './keyboard-state';
 // Stores
 export * from './sync-store';
 export * from './files-store';
-export * from './file-opener-store';
+export * from './buffer-viewer-store';
 export * from './file-manager-store';
 export * from './auth-store';
 export * from './commands-store';
