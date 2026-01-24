@@ -179,6 +179,7 @@ export enum i18n {
   // Editor
   PICK_NOTE_TO_LINK = 'pick note to link',
   UNTITLED = 'untitled',
+  NO_SELECTED_NOTE = 'no selected note',
 }
 
 export const I18N = {
