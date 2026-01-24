@@ -32,6 +32,7 @@ import {
   FileSearchStoreDefinition,
   FileMetaStoreDefinition,
   FontStoreDefinition,
+  EmbeddedBufferStoreDefinition,
 } from './models';
 import { WebSocketClient } from './websocket/client';
 import { WidgetType } from './models/widget-type';
@@ -117,6 +118,7 @@ export interface OrgNoteApi {
     useBabel: BabelStoreDefinition;
     useFileSearch: FileSearchStoreDefinition;
     useFileMeta: FileMetaStoreDefinition;
+    useEmbeddedBuffer: EmbeddedBufferStoreDefinition;
     app: App;
   };
   utils: {

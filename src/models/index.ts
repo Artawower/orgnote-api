@@ -87,6 +87,7 @@ export * from './theme-store';
 export * from './font-store';
 export * from './file-search-store';
 export * from './file-meta-store';
+export * from './embedded-buffer-store';
 
 // UI
 export * from './style-variant';
