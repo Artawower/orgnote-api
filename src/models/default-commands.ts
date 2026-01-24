@@ -152,5 +152,6 @@ export enum DefaultCommands {
   EDITOR_HIDE_KEYBOARD = 'hide keyboard',
 
   // External commands
-  PREVIEW_NOTE = 'preview note'
+  PREVIEW_NOTE = 'preview note',
+  SHARE_NOTE_ONETIME = 'share current note one time',
 }
