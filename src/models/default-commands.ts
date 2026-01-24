@@ -150,4 +150,7 @@ export enum DefaultCommands {
   EDITOR_INSERT_TAG = 'insert tag',
   EDITOR_INSERT_DATETIME = 'insert datetime',
   EDITOR_HIDE_KEYBOARD = 'hide keyboard',
+
+  // External commands
+  PREVIEW_NOTE = 'preview note'
 }

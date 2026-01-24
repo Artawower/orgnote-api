@@ -10,6 +10,7 @@ export enum RouteNames {
   EditCode = 'EditCode',
   File = 'File',
   Remote = 'Remote',
+  Embedded = 'Embedded',
   SettingsPage = 'SettingsPage',
   SystemSettings = 'SystemSettings',
   ExtensionsSettings = 'ExtensionsSettings',
