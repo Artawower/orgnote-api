@@ -1,8 +1,8 @@
+import { QueueTask } from './queue-task';
 import { ExtensionSource } from './extension';
 import { FileMeta } from './file-meta';
 import { LayoutSnapshotRepository } from './layout-snapshot-repository';
 import { LoggerRepository } from './log-repository';
-import { QueueTask } from './queue-task';
 
 export interface ExtensionSourceRepository {
   get(extensionName: string): Promise<ExtensionSource | undefined>;
@@ -37,13 +37,13 @@ export interface QueueRepository {
   get(id: string): Promise<QueueTask | undefined>;
   getAll(queueId?: string): Promise<QueueTask[]>;
   delete(id: string, force?: boolean): Promise<void>;
+  update(id: string, updates: Partial<QueueTask>): Promise<void>;
   lock(id: string): Promise<void>;
   release(id: string): Promise<void>;
   takeFirstN(n: number, queueId: string): Promise<string>;
   getLock(lockId: string): Promise<{ [id: string]: QueueTask } | undefined>;
   getRunningTasks(queueId: string): Promise<{ [id: string]: QueueTask }>;
   clear(queueId: string): Promise<void>;
-  setStatus: (id: string, status: string) => Promise<void>;
 }
 
 export interface KeyValueRepository {

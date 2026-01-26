@@ -5,6 +5,8 @@ export type QueueStatus =
   | 'processing'
   | 'canceled';
 
+export type DeduplicationStrategy = 'skip' | 'replace' | 'moveToEnd';
+
 export interface QueueTask<T = unknown> {
   id: string;
   payload: T;

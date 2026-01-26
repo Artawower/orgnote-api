@@ -1,4 +1,5 @@
 export * from './file-meta';
+export * from './file-index';
 export * from './command';
 export * from './completion';
 export * from './extension';
