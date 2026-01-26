@@ -1,5 +1,5 @@
 import { Ref } from 'vue';
-import { QueueTask } from './queue-task';
+import { QueueTask, DeduplicationStrategy } from './queue-task';
 import { StoreDefinition } from './store';
 
 export type ProcessCallback = (err?: unknown, result?: unknown) => void;
@@ -21,14 +21,17 @@ export interface QueueCreationOptions {
   autoResume?: boolean;
   failTaskOnProcessException?: boolean;
   process?: ProcessFn;
+  deduplicationStrategy?: DeduplicationStrategy;
 }
 
 export interface QueueTaskOptions {
+  id?: string;
   priority?: number;
   delay?: number;
   timeout?: number;
   [key: string]: unknown;
 }
+
 export interface QueueStats {
   total: number;
   average: number;
@@ -44,12 +47,12 @@ export interface QueueStore {
   getQueue(queueId?: string): unknown | undefined;
   destroy(queueId?: string): void;
   add(
+    queueId: string,
     payload: unknown,
     options?: QueueTaskOptions,
-    queueId?: string
   ): Promise<string>;
   getAll(queueId?: string): Promise<QueueTask[]>;
-  get(taskId: string, queueId?: string): Promise<QueueTask | undefined>;
+  get(queueId: string, taskId: string): Promise<QueueTask | undefined>;
   remove(taskId: string, queueId?: string): Promise<void>;
   pause(queueId?: string): void;
   resume(queueId?: string): void;
