@@ -100,6 +100,7 @@ export enum i18n {
   CONFIRM_DELETE_FILE = 'Confirm delete file',
   RETRIES = 'retries',
   ERROR = 'error',
+  TASK_DETAILS = 'task details',
   DEFAULT_GIT_PROVIDER_DESCRIPTION = 'in-memory Git provider using es-git (default)',
 
   // Extensions
