@@ -12,7 +12,8 @@ export interface Notification {
 }
 
 export interface NotificationsStore {
-  notify: (config: NotificationConfig) => void;
+  notify: (config: NotificationConfig) => string;
+  update: (notificationId: string, updates: Partial<NotificationConfig>) => void;
   clear: () => void;
   hideAll: () => void;
   delete: (notificationId: string) => void;
