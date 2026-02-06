@@ -22,6 +22,7 @@ export type CandidateGetterFn<T = unknown> = (
 ) => CompletionSearchResult<T> | Promise<CompletionSearchResult<T>>;
 
 export interface CompletionConfig<T = unknown> {
+  name?: string;
   searchAutocompletions?: string[];
   itemsGetter: CandidateGetterFn<T>;
   type?: 'input' | 'choice' | 'input-choice';
@@ -40,4 +41,21 @@ export interface Completion<T = any, TResult = any>
   total?: number;
   searchQuery: string;
   result: Promise<TResult>;
+}
+
+export interface CompletionInterceptorContext {
+  completionName: string;
+  searchQuery: string;
+}
+
+export type CompletionInterceptorTarget = string | string[] | '*';
+
+export interface CompletionInterceptor<T = unknown> {
+  name: string;
+  target: CompletionInterceptorTarget;
+  priority?: number;
+  handler: (
+    candidates: CompletionCandidate<T>[],
+    context: CompletionInterceptorContext,
+  ) => CompletionCandidate<T>[] | Promise<CompletionCandidate<T>[]>;
 }

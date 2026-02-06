@@ -1,5 +1,9 @@
 import { ComputedRef } from 'vue';
-import { Completion, CompletionConfig } from './completion';
+import {
+  Completion,
+  CompletionConfig,
+  CompletionInterceptor,
+} from './completion';
 import { StoreDefinition } from './store';
 
 export interface CompletionStore {
@@ -7,12 +11,15 @@ export interface CompletionStore {
   close: <TData = unknown>(data?: TData) => void;
   closeAll: () => void;
   open: <TItem, TReturn = void>(
-    config: CompletionConfig<TItem>
+    config: CompletionConfig<TItem>,
   ) => Promise<TReturn>;
   activeCompletion: ComputedRef<Completion | undefined>;
   nextCandidate: () => void;
   previousCandidate: () => void;
   search: (limit?: number, offset?: number) => void;
+  registerInterceptor: <T = unknown>(
+    interceptor: CompletionInterceptor<T>,
+  ) => () => void;
 }
 
 export type CompletionStoreDefinition = StoreDefinition<CompletionStore>;
