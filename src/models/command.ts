@@ -3,6 +3,7 @@ import { COMMAND_GROUPS } from 'src/constants';
 import { DefaultCommands } from './default-commands';
 import { OrgNoteApi } from 'src/api';
 import { VueComponent } from './vue-component';
+import type { ExecuteCommandOptions } from './commands-store';
 
 export type CommandGroup =
   | (typeof COMMAND_GROUPS)[number]
@@ -52,4 +53,4 @@ export interface Command<T = any, R = unknown> extends CommandMeta<T> {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type CommandCallback = <T = any>(meta: Command, data: T) => void;
+export type CommandCallback = <T = any>(meta: Command, data: T, options?: ExecuteCommandOptions) => void;
