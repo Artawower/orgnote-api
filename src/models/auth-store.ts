@@ -17,7 +17,7 @@ export interface AuthStore {
   logout: () => Promise<void>;
   verifyUser: () => Promise<void>;
   authUser: (u: PersonalInfo, token: string) => Promise<void>;
-  subscribe: (token: string, email?: string) => Promise<void>;
+  subscribe: (token: string, email?: string) => Promise<boolean>;
   removeUserAccount: () => Promise<void>;
 }
 
