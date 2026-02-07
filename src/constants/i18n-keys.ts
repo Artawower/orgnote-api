@@ -162,6 +162,7 @@ export enum i18n {
   AUTH_LOGIN_REQUIRED = 'login required',
   AUTH_ACTIVATING = 'activating',
   AUTH_ENTER_ACTIVATION_KEY = 'enter activation key',
+  ACTIVATION_FAILED = 'activation failed, please check your key and try again',
   AUTH_LOGOUT = 'logout',
   AUTH_LOGOUT_DESCRIPTION = 'sign out from your account',
   AUTH_LOGIN = 'login',
