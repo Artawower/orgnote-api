@@ -86,6 +86,8 @@ export enum DefaultCommands {
   DELETE_FILE = 'delete file',
   CONFIRM_FILE_DELETION = 'are you sure you want to delete file?',
   NEW_FILE_PATH = 'new file path',
+  SHOW_MOBILE_FILE_SEARCH = 'show mobile file search',
+  HIDE_MOBILE_FILE_SEARCH = 'hide mobile file search',
 
   // Notes commands
   OPEN_NOTE = 'open note',
