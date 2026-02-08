@@ -13,6 +13,7 @@ import {
   objectWithRest,
 } from 'valibot';
 import { OrgNoteEncryptionSchema } from './encryption';
+import { LOG_LEVEL_SCHEMA } from './log';
 
 export const ORG_NOTE_CONFIG_SCHEMA = pipe(
   objectWithRest(
@@ -47,6 +48,7 @@ export const ORG_NOTE_CONFIG_SCHEMA = pipe(
         lightThemeName: optional(union([string(), literal(null)])),
         enableAnimations: boolean(),
         notificationTimeout: optional(number()),
+        minNotificationLevel: optional(LOG_LEVEL_SCHEMA),
         persistantPanes: optional(boolean()),
         persistantPanesSaveDelay: number(),
         dropZoneEdgeRatio: number(),

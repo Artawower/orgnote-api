@@ -1,4 +1,14 @@
-export type LogLevel = 'error' | 'warn' | 'info' | 'debug' | 'trace';
+import { union, literal, type InferOutput } from 'valibot';
+
+export const LOG_LEVEL_SCHEMA = union([
+  literal('error'),
+  literal('warn'),
+  literal('info'),
+  literal('debug'),
+  literal('trace'),
+]);
+
+export type LogLevel = InferOutput<typeof LOG_LEVEL_SCHEMA>;
 
 export interface LogRecord {
   id?: number;
