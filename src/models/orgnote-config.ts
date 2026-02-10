@@ -23,6 +23,7 @@ export const ORG_NOTE_CONFIG_SCHEMA = pipe(
         showPropertyDrawer: boolean(),
         saveDelayMs: optional(number()),
         validationDelayMs: optional(number()),
+        autoCreateMissingNotes: optional(boolean()),
       }),
       developer: object({
         developerMode: boolean(),
