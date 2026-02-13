@@ -3,6 +3,7 @@ import {
   decrypt as _decrypt,
   decryptKey,
   encrypt as _encrypt,
+  generateKey,
   readKey,
   readMessage,
   readPrivateKey,
@@ -19,65 +20,83 @@ import { armor as _armor, unarmor as _unarmor, enums } from 'openpgp';
 
 export class IncorrectOrMissingPrivateKeyPasswordError extends Error {
   constructor(message?: string) {
-    super(message);
+    super(message ?? 'Private key passphrase is missing or incorrect. Please check your encryption settings.');
     this.name = 'IncorrectOrMissingPrivateKeyPasswordError';
   }
 }
 
 export class ImpossibleToDecryptWithProvidedKeysError extends Error {
   constructor(message?: string) {
-    super(message);
+    super(message ?? 'Decryption failed. The provided keys cannot decrypt this file.');
     this.name = 'ImpossibleToDecryptWithProvidedKeysError';
   }
 }
 
 export class IncorrectEncryptionPasswordError extends Error {
   constructor(message?: string) {
-    super(message);
+    super(message ?? 'Incorrect encryption password.');
     this.name = 'IncorrectEncryptionPasswordError';
   }
 }
 
 export class NoKeysProvidedError extends Error {
   constructor(message?: string) {
-    super(message);
+    super(message ?? 'No encryption keys provided. Please configure keys in Settings → Encryption.');
     this.name = 'NoKeysProvidedError';
   }
 }
 
 export class NoPasswordProvidedError extends Error {
   constructor(message?: string) {
-    super(message);
+    super(message ?? 'No encryption password provided. Please configure password in Settings → Encryption.');
     this.name = 'NoPasswordProvidedError';
   }
 }
 
-const noPrivateKeyPassphraseProvidedErrorMsg =
-  'Error: Signing key is not decrypted.';
-const incorrectPrivateKeyPassphraseErrorMsg =
-  'Error decrypting private key: Incorrect key passphrase';
-const decryptionKeyIsNotDecryptedErrorMsg =
-  'Error decrypting message: Decryption key is not decrypted.';
-const corruptedPrivateKeyErrorMsg = 'Misformed armored text';
+const PRIVATE_KEY_NOT_DECRYPTED_PATTERNS = [
+  'Signing key is not decrypted',
+  'Incorrect key passphrase',
+  'Misformed armored text',
+  'Decryption key is not decrypted',
+  'Armored text not of type private key',
+];
 
-const decriptionFailedErrorMsg =
-  'Error decrypting message: Session key decryption failed.';
-const incorrectEncryptionPasswordErrorMsg =
-  'Error decrypting message: Modification detected.';
-
-const noSymmetricallyEncryptedSessionKeyErrorMsg =
-  'Error decrypting message: No symmetrically encrypted session key packet found.';
-
-const armoredTextNotTypePrivateKeyErrorMsg =
-  'Armored text not of type private key';
-
-const notPrivateKeyErrprMsg =
-  'Error decrypting message: No public key encrypted session key packet found.';
+const DECRYPTION_FAILED_PATTERN = 'Session key decryption failed';
+const INCORRECT_PASSWORD_PATTERN = 'Modification detected';
+const NO_SYMMETRIC_KEY_PATTERN = 'No symmetrically encrypted session key packet found';
+const NO_PUBLIC_KEY_PATTERN = 'No public key encrypted session key packet found';
 
 export const encryptViaKeys = withCustomErrors(_encryptViaKeys);
 export const encryptViaPassword = withCustomErrors(_encryptViaPassword);
 export const decryptViaPassword = withCustomErrors(_decryptViaPassword);
 export const decryptViaKeys = withCustomErrors(_decryptViaKeys);
+
+export interface GenerateGpgKeysParams {
+  username: string;
+  email: string;
+  passphrase?: string;
+}
+
+export interface GeneratedGpgKeys {
+  privateKey: string;
+  publicKey: string;
+}
+
+export const generateGpgKeys = async (
+  params: GenerateGpgKeysParams
+): Promise<GeneratedGpgKeys> => {
+  const { privateKey, publicKey } = await generateKey({
+    type: 'curve25519',
+    userIDs: [{ name: params.username, email: params.email }],
+    passphrase: params.passphrase,
+    format: 'armored',
+  });
+
+  return {
+    privateKey,
+    publicKey,
+  };
+};
 
 export const encrypt = async <
   T extends WithEncryptionContent<OrgNoteEncryption>,
@@ -246,6 +265,9 @@ async function _decryptViaKeys<
   >;
 }
 
+const messageContains = (message: string, pattern: string): boolean =>
+  message.includes(pattern);
+
 function withCustomErrors<P extends unknown[], T>(
   fn: (...args: P) => Promise<T | never>
 ) {
@@ -256,28 +278,21 @@ function withCustomErrors<P extends unknown[], T>(
       if (!(e instanceof Error)) {
         throw e;
       }
-      if (
-        [
-          noPrivateKeyPassphraseProvidedErrorMsg,
-          incorrectPrivateKeyPassphraseErrorMsg,
-          corruptedPrivateKeyErrorMsg,
-          decryptionKeyIsNotDecryptedErrorMsg,
-          armoredTextNotTypePrivateKeyErrorMsg,
-        ].includes(e.message)
-      ) {
-        throw new IncorrectOrMissingPrivateKeyPasswordError(e.message);
+      const msg = e.message;
+
+      if (PRIVATE_KEY_NOT_DECRYPTED_PATTERNS.some((p) => messageContains(msg, p))) {
+        throw new IncorrectOrMissingPrivateKeyPasswordError();
       }
-      if (e.message === decriptionFailedErrorMsg) {
-        throw new ImpossibleToDecryptWithProvidedKeysError(e.message);
+      if (messageContains(msg, DECRYPTION_FAILED_PATTERN)) {
+        throw new ImpossibleToDecryptWithProvidedKeysError();
       }
-      if (e.message === incorrectEncryptionPasswordErrorMsg) {
+      if (messageContains(msg, INCORRECT_PASSWORD_PATTERN)) {
         throw new IncorrectEncryptionPasswordError();
       }
-      if (e.message === noSymmetricallyEncryptedSessionKeyErrorMsg) {
+      if (messageContains(msg, NO_SYMMETRIC_KEY_PATTERN)) {
         throw new NoKeysProvidedError();
       }
-
-      if (e.message === notPrivateKeyErrprMsg) {
+      if (messageContains(msg, NO_PUBLIC_KEY_PATTERN)) {
         throw new NoPasswordProvidedError();
       }
 

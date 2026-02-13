@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { isGpgEncrypted } from '../is-gpg-encrypted';
+import { isArmoredPgp, isGpgEncrypted } from '../is-gpg-encrypted';
 
 test('Should return true if the content is gpg encrypted', () => {
   const content = `-----BEGIN PGP MESSAGE-----
@@ -41,4 +41,37 @@ test('Should return false if the content is not gpg encrypted', () => {
   const content = `Hello World!`;
 
   expect(isGpgEncrypted(content)).toBe(false);
+});
+
+test('isArmoredPgp should return true for armored PGP string', () => {
+  const armored = `-----BEGIN PGP MESSAGE-----\n\nbase64data\n-----END PGP MESSAGE-----`;
+  expect(isArmoredPgp(armored)).toBe(true);
+});
+
+test('isArmoredPgp should return true for armored PGP public key', () => {
+  const armored = `-----BEGIN PGP PUBLIC KEY BLOCK-----\n\nkeydata\n-----END PGP PUBLIC KEY BLOCK-----`;
+  expect(isArmoredPgp(armored)).toBe(true);
+});
+
+test('isArmoredPgp should return false for plain text string', () => {
+  expect(isArmoredPgp('Hello World!')).toBe(false);
+});
+
+test('isArmoredPgp should return false for empty string', () => {
+  expect(isArmoredPgp('')).toBe(false);
+});
+
+test('isArmoredPgp should return true for Uint8Array with armored PGP header', () => {
+  const armored = '-----BEGIN PGP MESSAGE-----\n\ndata';
+  const bytes = new TextEncoder().encode(armored);
+  expect(isArmoredPgp(bytes)).toBe(true);
+});
+
+test('isArmoredPgp should return false for Uint8Array with binary content', () => {
+  const bytes = new Uint8Array([0x99, 0x01, 0x0d, 0x04, 0x5e]);
+  expect(isArmoredPgp(bytes)).toBe(false);
+});
+
+test('isArmoredPgp should return false for empty Uint8Array', () => {
+  expect(isArmoredPgp(new Uint8Array(0))).toBe(false);
 });

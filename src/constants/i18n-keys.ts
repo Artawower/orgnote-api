@@ -38,7 +38,7 @@ export enum i18n {
   GPG_PRIVATE_KEY = 'GPG private key',
   ENCRYPT_EXISTING_NOTES = 'encrypt existing notes',
   ENCRYPTION_KEYS_GEN_WARNING = 'be careful, the old encryption keys will be lost. Third-party clients will need to update encryption keys.',
-  ENCRYPT_AND_SYNC = 'encrypt and sync existing notes',
+  ENCRYPTED_NOTES_KEY_CHANGE_WARNING = 'you have encrypted notes. Changing encryption keys will make them unreadable unless you re-encrypt them manually. Continue?',
   SYNC_FILES = 'sync files',
   SYNC_FILES_DESCRIPTION = 'synchronize all local files with the remote server',
   GENERATE_GPG_KEYS = 'generate new GPG keys',
@@ -183,6 +183,10 @@ export enum i18n {
   PICK_NOTE_TO_LINK = 'pick note to link',
   UNTITLED = 'untitled',
   NO_SELECTED_NOTE = 'no selected note',
+
+  // GPG
+  GPG_EMAIL_REQUIRED = 'gpg email required',
+  GPG_EMAIL_INVALID = 'gpg email invalid',
 }
 
 export const I18N = {

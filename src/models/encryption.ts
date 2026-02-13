@@ -9,6 +9,7 @@ import {
   intersect,
   pipe,
 } from 'valibot';
+import { DefaultCommands } from './default-commands.js';
 
 export const EncryptionType = {
   GpgKeys: 'gpgKeys',
@@ -16,7 +17,8 @@ export const EncryptionType = {
   Disabled: 'disabled',
 } as const;
 
-export type EncryptionType = (typeof EncryptionType)[keyof typeof EncryptionType];
+export type EncryptionType =
+  (typeof EncryptionType)[keyof typeof EncryptionType];
 
 export type EcnryptionFormat = 'binary' | 'armored';
 
@@ -30,17 +32,28 @@ export interface BaseOrgNoteDecryption {
 
 const OrgNoteGpgEncryptionSchema = object({
   type: literal(EncryptionType.GpgKeys),
-  privateKey: pipe(string(), metadata({ textarea: true, upload: true })),
+  privateKey: pipe(
+    string(),
+    metadata({
+      textarea: true,
+      upload: true,
+      command: DefaultCommands.UPLOAD_PRIVATE_KEY,
+    })
+  ),
   publicKey: pipe(
     optional(string()),
-    metadata({ textarea: true, upload: true })
+    metadata({
+      textarea: true,
+      upload: true,
+      command: DefaultCommands.UPLOAD_PUBLIC_KEY,
+    })
   ),
-  privateKeyPassphrase: optional(string()),
+  privateKeyPassphrase: pipe(optional(string()), metadata({ password: true })),
 });
 
 const OrgNotePasswordEncryptionSchema = object({
   type: literal(EncryptionType.GpgPassword),
-  password: string(),
+  password: pipe(string(), metadata({ password: true })),
 });
 
 const OrgNoteDisabledEncryptionSchema = object({
