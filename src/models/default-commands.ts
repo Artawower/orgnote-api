@@ -78,6 +78,11 @@ export enum DefaultCommands {
   ENCRYPT_NOTE = 'encrypt note',
   DECRYPT_NOTE = 'decrypt note',
 
+  // Encryption key management
+  UPLOAD_PRIVATE_KEY = 'upload private key',
+  UPLOAD_PUBLIC_KEY = 'upload public key',
+  GENERATE_GPG_KEYS = 'generate gpg keys',
+
   // File manager
   MAXIMIZE_FILE_MANAGER = 'maximize file manager',
   CREATE_FOLDER = 'create folder',
