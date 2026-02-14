@@ -89,6 +89,7 @@ export * from './font-store';
 export * from './file-search-store';
 export * from './file-meta-store';
 export * from './embedded-buffer-store';
+export * from './file-content';
 
 // UI
 export * from './style-variant';
