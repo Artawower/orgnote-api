@@ -77,6 +77,7 @@ export enum i18n {
   DELETE = 'delete',
   RENAME = 'rename',
   COPY = 'copy',
+  MOVE = 'move',
   CREATE_FILE = 'create file',
   FILE_NAME = 'file name',
   DIR_NAME = 'directory name',

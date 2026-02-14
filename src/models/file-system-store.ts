@@ -26,6 +26,7 @@ export interface FileSystemStore {
   rmdir(path: string | string[]): Promise<void>;
   fileInfo(path: string | string[]): Promise<DiskFile | undefined>;
   readDir(path?: string | string[]): Promise<DiskFile[]>;
+  copyFile(src: string | string[], dest: string | string[]): Promise<void>;
   dropFileSystem: () => Promise<void>;
   prettyVault: Ref<string>;
 }
