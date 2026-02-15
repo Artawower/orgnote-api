@@ -17,7 +17,10 @@
     "fix-esm-imports": "fix-esm-import-path ./dist",
     "prepub": "bun run build && bun run fix-esm-imports && cp -rf package.json package-lock.json README.md dist/",
     "pub": "bun run prepub && cd dist && npm publish",
-    "pub:yalc": "bun run prepub && cd dist && yalc publish --push"
+    "pub:yalc": "bun run prepub && cd dist && yalc publish --push",
+    "docs:dev": "cd docs && bun run dev",
+    "docs:build": "cd docs && bun run build",
+    "docs:preview": "cd docs && bun run preview"
   },
   "repository": {
     "type": "git",
