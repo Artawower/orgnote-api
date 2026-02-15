@@ -1,12 +1,13 @@
 {
   "name": "orgnote-api",
-  "version": "0.41.16",
+  "version": "0.41.17",
   "description": "Official API for creating extensions for OrgNote app",
   "type": "module",
   "main": "./index.js",
   "packageManager": "bun@1.1.22",
   "scripts": {
     "test": "vitest",
+    "test:ci": "vitest run",
     "build": "npm run clear && tspc --project tsconfig.json",
     "clear": "rm -rf dist",
     "lint": "eslint -c ./eslint.config.js \"./src*/**/*.{ts,js,cjs,mjs}\"",
@@ -56,6 +57,7 @@
   "devDependencies": {
     "@eslint/js": "9.25.1",
     "@openapitools/openapi-generator-cli": "2.19.1",
+    "@rollup/rollup-linux-arm64-gnu": "4.14.2",
     "@types/node": "22.14.1",
     "eslint": "9.25.1",
     "eslint-plugin-sonarjs": "3.0.5",

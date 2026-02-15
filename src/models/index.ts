@@ -53,6 +53,8 @@ export * from './sync-store';
 export * from './files-store';
 export * from './buffer-viewer-store';
 export * from './file-manager-store';
+export * from './sort-direction';
+export * from './file-sort';
 export * from './auth-store';
 export * from './commands-store';
 export * from './commands-group-store';

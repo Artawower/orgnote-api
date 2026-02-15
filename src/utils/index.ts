@@ -12,3 +12,4 @@ export * from './to-error';
 export * from './auth-state';
 export * from './nullable-guards';
 export * from './binary';
+export * from './sort-files';

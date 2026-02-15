@@ -7,3 +7,4 @@ export * from './git-errors';
 export * from './extension-errors';
 export * from './file-guard-errors';
 export * from './oauth-providers';
+export * from './file-sort-defaults';

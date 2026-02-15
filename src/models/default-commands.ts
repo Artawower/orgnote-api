@@ -96,6 +96,7 @@ export enum DefaultCommands {
   DESELECT_ALL_FILES = 'deselect all files',
   EXECUTE_PENDING_FILE_OPERATION = 'paste files here',
   CANCEL_PENDING_FILE_OPERATION = 'cancel file operation',
+  SORT_FILES = 'sort files',
   CONFIRM_FILE_DELETION = 'are you sure you want to delete file?',
   NEW_FILE_PATH = 'new file path',
   SHOW_MOBILE_FILE_SEARCH = 'show mobile file search',
