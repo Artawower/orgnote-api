@@ -35,6 +35,7 @@ export const ORG_NOTE_CONFIG_SCHEMA = pipe(
         showGroup: boolean(),
         defaultCompletionLimit: number(),
         fuseThreshold: optional(number()),
+        showDetails: optional(boolean()),
       }),
       system: object({
         language: string(),

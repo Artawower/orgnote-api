@@ -181,6 +181,9 @@ export enum i18n {
   // Tabs
   TABS_COUNT = 'tabsCount',
 
+  TODAY = 'today',
+  YESTERDAY = 'yesterday',
+
   // TOC
   TOC_NO_ACTIVE_DOCUMENT = 'no active document',
   TOC_NO_HEADLINES_FOUND = 'no headlines found',

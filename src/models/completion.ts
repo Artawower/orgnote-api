@@ -1,5 +1,6 @@
 import { MaybeRefOrGetter } from 'vue';
 import type { CommandIcon } from './command';
+import type { VueComponent } from './vue-component';
 
 export interface CompletionCandidate<T = unknown> {
   icon?: MaybeRefOrGetter<CommandIcon | undefined>;
@@ -21,13 +22,28 @@ export type CandidateGetterFn<T = unknown> = (
   offset?: number
 ) => CompletionSearchResult<T> | Promise<CompletionSearchResult<T>>;
 
+export interface CompletionItemRendererProps<T = unknown> {
+  candidate: CompletionCandidate<T>;
+  index: number;
+  selected: boolean;
+  searchQuery: string;
+  onSelect: () => void;
+}
+
+export type CompletionItemRenderer<T = unknown> = VueComponent & {
+  new (): {
+    $props: CompletionItemRendererProps<T>;
+  };
+};
+
 export interface CompletionConfig<T = unknown> {
   name?: string;
   searchAutocompletions?: string[];
   itemsGetter: CandidateGetterFn<T>;
   type?: 'input' | 'choice' | 'input-choice';
   placeholder?: string;
-  itemHeight?: string;
+  itemHeight?: number;
+  itemRenderer?: CompletionItemRenderer<T>;
   searchText?: string;
   onClicked?: (candidate: CompletionCandidate<T>) => void;
 }
