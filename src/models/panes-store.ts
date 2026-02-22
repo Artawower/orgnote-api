@@ -1,13 +1,15 @@
 import { Ref, ShallowRef, ComputedRef } from 'vue';
 import { StoreDefinition } from './store';
 import { InitialTabParams, Tab, Pane, PaneSnapshot } from './pane';
-import type { RouteLocationRaw } from 'vue-router';
+import type { RouteLocationRaw, RouteLocationNormalizedLoaded } from 'vue-router';
 
 export interface PaneStore {
   panes: Ref<Record<string, ShallowRef<Pane>>>;
   activePaneId: Ref<string | undefined>;
   activePane: ComputedRef<Pane | undefined>;
   activeTab: ComputedRef<Tab | undefined>;
+  activeRoute: ComputedRef<RouteLocationNormalizedLoaded | undefined>;
+  activeBufferUri: ComputedRef<string | undefined>;
 
   createPane: (params?: Partial<Pane>) => Promise<Pane>;
   getPane: (id: string) => ShallowRef<Pane | undefined>;
