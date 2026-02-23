@@ -19,6 +19,7 @@ export * from './user';
 export * from './oauth-provider';
 export * from './auth-state';
 export * from './orgnote-config';
+export * from './sync-profile-config';
 export * from './platform-specific';
 export * from './css-utils';
 export * from './i18n-keys';
