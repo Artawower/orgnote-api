@@ -10,6 +10,7 @@ import {
 
 export const SyncProfileSchema = object({
   name: string(),
+  clientAddress: optional(string(), ''),
   remoteAddress: string(),
   token: optional(string(), ''),
   rootFolder: optional(string(), ''),

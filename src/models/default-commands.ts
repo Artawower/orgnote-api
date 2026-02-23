@@ -74,6 +74,8 @@ export enum DefaultCommands {
 
   // File management
   SYNC_FILES = 'sync files',
+  EXPORT_LOCAL_SYNC_CONFIG = 'export local sync config',
+  DOWNLOAD_LOCAL_SYNC_CONFIG = 'download local sync config',
   RELOAD_FILES = 'reload files',
   ENCRYPT_NOTE = 'encrypt note',
   DECRYPT_NOTE = 'decrypt note',

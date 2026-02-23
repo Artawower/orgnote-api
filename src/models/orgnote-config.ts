@@ -40,6 +40,10 @@ export const ORG_NOTE_CONFIG_SCHEMA = pipe(
       system: object({
         language: string(),
       }),
+      network: object({
+        apiUrl: optional(string()),
+        wsUrl: optional(string()),
+      }),
       synchronization: object({
         type: union([literal('none'), literal('api')]),
       }),
