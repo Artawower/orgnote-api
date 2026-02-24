@@ -14,7 +14,11 @@ export class WebSocketClient {
   private token: string | null = null;
   public socketId: string | null = null;
 
-    constructor(
+  public get isConnected(): boolean {
+    return this.socket?.readyState === 1;
+  }
+
+  constructor(
     private readonly url: string,
     private readonly logger: Logger,
     private readonly webSocketImpl?: unknown

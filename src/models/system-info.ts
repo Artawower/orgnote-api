@@ -20,6 +20,12 @@ export interface EncryptionInfo {
   passphraseProvided?: boolean;
 }
 
+export interface WebSocketInfo {
+  url: string;
+  isConnected: boolean;
+  socketId: string | null;
+}
+
 export interface EnvironmentInfo {
   apiUrl: string;
   authUrl: string;
@@ -41,6 +47,7 @@ export interface SystemInfo {
   language: string;
   screen: ScreenInfo;
   encryption: EncryptionInfo;
+  websocket: WebSocketInfo;
   environment: EnvironmentInfo;
   platform: PlatformInfo;
   device?: DeviceInfo;
