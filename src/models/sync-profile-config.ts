@@ -12,6 +12,7 @@ export const SyncProfileSchema = object({
   name: string(),
   clientAddress: optional(string(), ''),
   remoteAddress: string(),
+  wsAddress: optional(string(), ''),
   token: optional(string(), ''),
   rootFolder: optional(string(), ''),
   logPath: optional(string(), '/tmp/log/orgnote'),
