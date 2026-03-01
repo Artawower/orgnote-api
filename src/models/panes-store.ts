@@ -10,6 +10,7 @@ export interface PaneStore {
   activeTab: ComputedRef<Tab | undefined>;
   activeRoute: ComputedRef<RouteLocationNormalizedLoaded | undefined>;
   activeBufferUri: ComputedRef<string | undefined>;
+  activeTabTitle: ComputedRef<string>;
 
   createPane: (params?: Partial<Pane>) => Promise<Pane>;
   getPane: (id: string) => ShallowRef<Pane | undefined>;
