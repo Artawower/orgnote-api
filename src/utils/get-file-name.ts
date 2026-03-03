@@ -7,5 +7,10 @@ export const getFileNameWithoutExtension = (path: string): string => {
 };
 
 export const getFileExtension = (path: string): string => {
-  return getFileName(path).split('.').pop();
+  const fileName = getFileName(path);
+  const parts = fileName.split('.');
+
+  if (parts.length < 2) return '';
+
+  return parts[parts.length - 1] ?? '';
 };

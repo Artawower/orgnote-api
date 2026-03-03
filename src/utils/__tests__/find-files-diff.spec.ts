@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, expect, test } from 'vitest';
-import { mkdirSync, rmdirSync, statSync, utimesSync, writeFileSync } from 'fs';
+import { mkdirSync, rmSync, statSync, utimesSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import { findFilesDiff } from '../find-notes-files-diff';
 import { StoredNoteInfo } from '../../models';
@@ -7,16 +7,13 @@ import { StoredNoteInfo } from '../../models';
 const testFilesFolder = 'src/utils/__tests__/miscellaneous2/';
 
 function initFiles(): void {
-  mkdirSync(testFilesFolder);
-  mkdirSync(testFilesFolder + '/nested-folder');
+  cleanFiles();
+  mkdirSync(testFilesFolder, { recursive: true });
+  mkdirSync(testFilesFolder + '/nested-folder', { recursive: true });
 }
 
 function cleanFiles(): void {
-  try {
-    rmdirSync(testFilesFolder, { recursive: true });
-  } catch {
-    return;
-  }
+  rmSync(testFilesFolder, { recursive: true, force: true });
 }
 
 function createTestFile(
@@ -119,7 +116,7 @@ test('Should find files diff when folder was renamed', () => {
     },
   ];
 
-  rmdirSync(testFilesFolder + 'nested-folder', { recursive: true });
+  rmSync(testFilesFolder + 'nested-folder', { recursive: true, force: true });
 
   const changedFiles = findFilesDiff(
     [],
@@ -140,7 +137,7 @@ test('Should find files diff when folder was renamed', () => {
 });
 
 test('Should find created note when nested folder created', () => {
-  mkdirSync(testFilesFolder + 'new-nested-folder');
+  mkdirSync(testFilesFolder + 'new-nested-folder', { recursive: true });
   createTestFile(
     `new nested file!`,
     'new-nested-folder/org-file.org',
