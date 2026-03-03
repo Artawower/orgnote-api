@@ -22,6 +22,26 @@ export type CandidateGetterFn<T = unknown> = (
   offset?: number
 ) => CompletionSearchResult<T> | Promise<CompletionSearchResult<T>>;
 
+interface BaseCompletionConfig<T = unknown> {
+  name?: string;
+  searchAutocompletions?: string[];
+  placeholder?: string;
+  itemHeight?: number;
+  itemRenderer?: CompletionItemRenderer<T>;
+  searchText?: string;
+  onClicked?: (candidate: CompletionCandidate<T>) => void;
+}
+
+interface InputCompletionConfig<T = unknown> extends BaseCompletionConfig<T> {
+  type: 'input';
+  itemsGetter?: CandidateGetterFn<T>;
+}
+
+interface SearchCompletionConfig<T = unknown> extends BaseCompletionConfig<T> {
+  type?: 'choice' | 'input-choice';
+  itemsGetter: CandidateGetterFn<T>;
+}
+
 export interface CompletionItemRendererProps<T = unknown> {
   candidate: CompletionCandidate<T>;
   index: number;
@@ -36,28 +56,19 @@ export type CompletionItemRenderer<T = unknown> = VueComponent & {
   };
 };
 
-export interface CompletionConfig<T = unknown> {
-  name?: string;
-  searchAutocompletions?: string[];
-  itemsGetter: CandidateGetterFn<T>;
-  type?: 'input' | 'choice' | 'input-choice';
-  placeholder?: string;
-  itemHeight?: number;
-  itemRenderer?: CompletionItemRenderer<T>;
-  searchText?: string;
-  onClicked?: (candidate: CompletionCandidate<T>) => void;
-}
+export type CompletionConfig<T = unknown> =
+  | InputCompletionConfig<T>
+  | SearchCompletionConfig<T>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface Completion<T = any, TResult = any>
-  extends CompletionConfig<T> {
+export type Completion<T = any, TResult = any> = CompletionConfig<T> & {
   level?: number;
   candidates?: CompletionCandidate<T>[];
   selectedCandidateIndex?: number;
   total?: number;
   searchQuery: string;
   result: Promise<TResult>;
-}
+};
 
 export interface CompletionInterceptorContext {
   completionName: string;

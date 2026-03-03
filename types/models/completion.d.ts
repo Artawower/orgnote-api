@@ -20,7 +20,7 @@ export type CandidateGetterFn<T = unknown> = (
 ) => CompletionSearchResult<T> | Promise<CompletionSearchResult<T>>;
 export interface CompletionConfigs<T = unknown> {
   searchAutocompletions?: string[];
-  itemsGetter: CandidateGetterFn<T>;
+  itemsGetter?: CandidateGetterFn<T>;
   placeholder?: string;
   itemHeight?: string;
   searchText?: string;
