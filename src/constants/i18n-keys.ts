@@ -197,6 +197,13 @@ export enum i18n {
   PICK_NOTE_TO_LINK = 'pick note to link',
   UNTITLED = 'untitled',
   NO_SELECTED_NOTE = 'no selected note',
+  NOTE_INFO_TAGS = 'note info tags',
+  NOTE_INFO_LINKS = 'note info links',
+  NOTE_INFO_BACKLINKS = 'note info backlinks',
+  NOTE_INFO_CREATED = 'note info created',
+  NOTE_INFO_UPDATED = 'note info updated',
+  NOTE_INFO_LAST_OPENED = 'note info last opened',
+  NOTE_INFO_LAST_SYNC = 'note info last sync',
 
   // GPG
   GPG_EMAIL_REQUIRED = 'gpg email required',
