@@ -107,6 +107,7 @@ export enum DefaultCommands {
   // Notes commands
   OPEN_NOTE = 'open note',
   SHOW_FILE_INFO = 'show file info',
+  OPEN_FILE_ACTIONS = 'open file actions',
 
   // Windows & buffers
   TABS = 'show tabs',
