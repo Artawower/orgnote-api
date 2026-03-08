@@ -208,6 +208,9 @@ export enum i18n {
   // GPG
   GPG_EMAIL_REQUIRED = 'gpg email required',
   GPG_EMAIL_INVALID = 'gpg email invalid',
+
+  CLEAR_ALL_NOTIFICATIONS = 'clear all notifications',
+  NO_NOTIFICATIONS = 'no notifications',
 }
 
 export const I18N = {
