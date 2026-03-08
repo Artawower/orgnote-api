@@ -4,7 +4,9 @@ import { StoreDefinition } from './store';
 import { Ref } from 'vue';
 
 export interface Notification {
-  read?: boolean;
+  readAt?: string;
+  createdAt: string;
+  count?: number;
   config: NotificationConfig;
   dismiss?: ReturnType<typeof Notify.create>;
   icon?: string;
@@ -17,7 +19,7 @@ export interface NotificationsStore {
   clear: () => void;
   hideAll: () => void;
   delete: (notificationId: string) => void;
-  markAsRead: (notificationId: string) => void;
+  markAsRead: (notificationId: string, readAt?: string) => void;
 
   notifications: Ref<Notification[]>;
 }
