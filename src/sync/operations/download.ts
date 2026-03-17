@@ -1,31 +1,88 @@
 import type { RemoteFile, SyncContext, SyncedFile } from '../types';
 import { createSyncedFile } from './synced-file';
+import { resolveContentHash } from './content-hash';
 
 const storedMeta = (stored: SyncedFile | null) => ({
   mtime: stored?.mtime ?? 0,
   size: stored?.size ?? 0,
 });
 
-export const processDownload = async (file: RemoteFile, ctx: SyncContext): Promise<void> => {
-  const stored = await ctx.state.getFile(file.path);
-  const meta = storedMeta(stored);
+const markDownloading = async (
+  file: RemoteFile,
+  stored: SyncedFile | null,
+  ctx: SyncContext
+): Promise<void> => {
+  await ctx.state.setFile(
+    file.path,
+    createSyncedFile(storedMeta(stored), {
+      version: stored?.version,
+      status: 'downloading',
+    })
+  );
+};
 
-  await ctx.state.setFile(file.path, createSyncedFile(meta, { version: stored?.version, status: 'downloading' }));
+const resolveDownloadedMeta = async (
+  file: RemoteFile,
+  ctx: SyncContext
+): Promise<{ mtime: number; size: number; contentHash?: string }> => {
+  const fileInfo = await ctx.fs.fileInfo(file.path);
+  const contentHash = await resolveContentHash(
+    ctx.fs,
+    file.path,
+    file.contentHash
+  );
+
+  return {
+    mtime: fileInfo?.mtime ?? 0,
+    size: fileInfo?.size ?? 0,
+    contentHash,
+  };
+};
+
+const markSynced = async (
+  file: RemoteFile,
+  meta: { mtime: number; size: number; contentHash?: string },
+  ctx: SyncContext
+): Promise<void> => {
+  await ctx.state.setFile(
+    file.path,
+    createSyncedFile(meta, {
+      version: file.version,
+      status: 'synced',
+      syncedAt: ctx.serverTime,
+    })
+  );
+};
+
+const markError = async (
+  file: RemoteFile,
+  stored: SyncedFile | null,
+  error: unknown,
+  ctx: SyncContext
+): Promise<void> => {
+  await ctx.state.setFile(
+    file.path,
+    createSyncedFile(storedMeta(stored), {
+      version: stored?.version,
+      status: 'error',
+      errorMessage: String(error),
+    })
+  );
+};
+
+export const processDownload = async (
+  file: RemoteFile,
+  ctx: SyncContext
+): Promise<void> => {
+  const stored = await ctx.state.getFile(file.path);
+  await markDownloading(file, stored, ctx);
 
   try {
     await ctx.executor.download(file);
-    const fileInfo = await ctx.fs.fileInfo(file.path);
-    const downloadedMeta = { mtime: fileInfo?.mtime ?? 0, size: fileInfo?.size ?? 0 };
-
-    await ctx.state.setFile(
-      file.path,
-      createSyncedFile(downloadedMeta, { version: file.version, status: 'synced', syncedAt: ctx.serverTime })
-    );
+    const downloadedMeta = await resolveDownloadedMeta(file, ctx);
+    await markSynced(file, downloadedMeta, ctx);
   } catch (error) {
-    await ctx.state.setFile(
-      file.path,
-      createSyncedFile(meta, { version: stored?.version, status: 'error', errorMessage: String(error) })
-    );
+    await markError(file, stored, error, ctx);
     throw error;
   }
 };

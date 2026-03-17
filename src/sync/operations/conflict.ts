@@ -1,10 +1,15 @@
 import type { FileSystem } from '../../models/file-system';
 import type { SyncContext, UploadResult } from '../types';
 import { createSyncedFile } from './synced-file';
+import { resolveContentHash } from './content-hash';
+import axios from 'axios';
 
 type ConflictUploadResult = Extract<UploadResult, { status: 'conflict' }>;
 
-export const generateConflictPath = (path: string, deviceName: string = 'device'): string => {
+export const generateConflictPath = (
+  path: string,
+  deviceName: string = 'device'
+): string => {
   const lastDot = path.lastIndexOf('.');
   const ext = lastDot >= 0 ? path.substring(lastDot) : '';
   const base = lastDot >= 0 ? path.substring(0, lastDot) : path;
@@ -13,7 +18,11 @@ export const generateConflictPath = (path: string, deviceName: string = 'device'
   return `${base}.sync-conflict-${timestamp}-${deviceName}${ext}`;
 };
 
-const copyFile = async (fs: FileSystem, src: string, dest: string): Promise<void> => {
+const copyFile = async (
+  fs: FileSystem,
+  src: string,
+  dest: string
+): Promise<void> => {
   if (fs.copyFile) {
     await fs.copyFile(src, dest);
     return;
@@ -24,9 +33,7 @@ const copyFile = async (fs: FileSystem, src: string, dest: string): Promise<void
 };
 
 const isNotFoundError = (error: unknown): boolean => {
-  if (typeof error !== 'object' || error === null) return false;
-  const axiosError = error as { response?: { status?: number } };
-  return axiosError.response?.status === 404;
+  return axios.isAxiosError(error) && error.response?.status === 404;
 };
 
 const tryDownloadServerVersion = async (
@@ -70,7 +77,12 @@ export const handleConflict = async (
   }
 
   const fileInfo = await ctx.fs.fileInfo(path);
-  const meta = { mtime: fileInfo?.mtime ?? 0, size: fileInfo?.size ?? 0 };
+  const contentHash = await resolveContentHash(ctx.fs, path);
+  const meta = {
+    mtime: fileInfo?.mtime ?? 0,
+    size: fileInfo?.size ?? 0,
+    contentHash,
+  };
 
   await ctx.state.setFile(
     path,
