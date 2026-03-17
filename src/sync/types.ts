@@ -3,7 +3,12 @@ import type { FileChange, SyncApiFactory } from '../remote-api';
 
 export type SyncApi = ReturnType<typeof SyncApiFactory>;
 
-export type SyncStatus = 'synced' | 'dirty' | 'uploading' | 'downloading' | 'error';
+export type SyncStatus =
+  | 'synced'
+  | 'dirty'
+  | 'uploading'
+  | 'downloading'
+  | 'error';
 
 export enum SyncOperationType {
   Upload = 'upload',
@@ -15,6 +20,7 @@ export enum SyncOperationType {
 export interface SyncedFile {
   mtime: number;
   size: number;
+  contentHash?: string;
   version?: number;
   status: SyncStatus;
   syncedAt?: string;
@@ -38,9 +44,13 @@ export interface LocalFile {
   path: string;
   mtime: number;
   size: number;
+  contentHash?: string;
 }
 
-export type RemoteFile = Pick<FileChange, 'path' | 'version' | 'deleted' | 'updatedAt'>;
+export type RemoteFile = Pick<
+  FileChange,
+  'path' | 'version' | 'deleted' | 'updatedAt' | 'contentHash'
+>;
 
 export type UploadResult =
   | { status: 'ok'; version: number }
@@ -73,6 +83,7 @@ export interface CreateSyncPlanParams {
   state: SyncState;
   rootPath: string;
   ignorePatterns?: string[];
+  enableContentHashCheck?: boolean;
 }
 
 export interface SyncContext {

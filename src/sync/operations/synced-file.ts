@@ -3,6 +3,7 @@ import type { SyncedFile, SyncStatus } from '../types';
 interface FileMeta {
   mtime: number;
   size: number;
+  contentHash?: string;
 }
 
 export interface SyncedFileOptions {
@@ -13,8 +14,12 @@ export interface SyncedFileOptions {
   conflictPath?: string;
 }
 
-export const createSyncedFile = (meta: FileMeta, options: SyncedFileOptions): SyncedFile => ({
+export const createSyncedFile = (
+  meta: FileMeta,
+  options: SyncedFileOptions
+): SyncedFile => ({
   mtime: meta.mtime,
   size: meta.size,
+  contentHash: meta.contentHash,
   ...options,
 });

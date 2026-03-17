@@ -1,20 +1,57 @@
-import type { CreateSyncPlanParams, SyncPlan } from './types';
+import type { FileSystem } from '../models/file-system';
+import type { CreateSyncPlanParams, LocalFile, SyncPlan } from './types';
 import { scanLocalFiles, findDeletedLocally } from './scan';
 import { fetchRemoteChanges } from './fetch';
 import { createPlan } from './plan';
 import { getOldestSyncedAt } from './utils/oldest-synced-at';
+import { hashContent } from './utils/content-hash';
 
-export async function createSyncPlan(params: CreateSyncPlanParams): Promise<SyncPlan> {
-  const { fs, api, state, rootPath, ignorePatterns } = params;
+const enrichLocalFilesWithHash = async (
+  fs: FileSystem,
+  localFiles: LocalFile[]
+): Promise<LocalFile[]> => {
+  const hashResults = await Promise.allSettled(
+    localFiles.map(async (file) => {
+      const content = await fs.readFile(file.path, 'binary');
+
+      return {
+        ...file,
+        contentHash: await hashContent(content),
+      };
+    })
+  );
+
+  return hashResults.map((result, index) =>
+    result.status === 'fulfilled' ? result.value : localFiles[index]
+  );
+};
+
+export async function createSyncPlan(
+  params: CreateSyncPlanParams
+): Promise<SyncPlan> {
+  const { fs, api, state, rootPath, ignorePatterns, enableContentHashCheck } =
+    params;
 
   const stateData = await state.get();
 
   const localFiles = await scanLocalFiles(fs, rootPath, ignorePatterns);
-  const deletedLocally = findDeletedLocally(localFiles, stateData);
+  const localFilesWithHashes = enableContentHashCheck
+    ? await enrichLocalFilesWithHash(fs, localFiles)
+    : localFiles;
+  const deletedLocally = findDeletedLocally(localFilesWithHashes, stateData);
 
   const since = getOldestSyncedAt(stateData);
 
-  const { files: remoteFiles, serverTime } = await fetchRemoteChanges(api, since);
+  const { files: remoteFiles, serverTime } = await fetchRemoteChanges(
+    api,
+    since
+  );
 
-  return createPlan({ localFiles, deletedLocally, remoteFiles, stateData, serverTime });
+  return createPlan({
+    localFiles: localFilesWithHashes,
+    deletedLocally,
+    remoteFiles,
+    stateData,
+    serverTime,
+  });
 }

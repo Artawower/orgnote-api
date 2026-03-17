@@ -59,4 +59,5 @@ const toRemoteFile = (change: FileChange): RemoteFile => ({
   version: change.version,
   deleted: change.deleted,
   updatedAt: change.updatedAt,
+  contentHash: change.contentHash,
 });
