@@ -48,6 +48,7 @@ export * from './splash-screen';
 export * from './screen-detection';
 export * from './system-info';
 export * from './keyboard-state';
+export * from './app-resume';
 
 // Stores
 export * from './sync-store';

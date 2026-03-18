@@ -34,6 +34,7 @@ import {
   FontStoreDefinition,
   EmbeddedBufferStoreDefinition,
   UseFileContent,
+  UseAppResume,
 } from './models';
 import { WebSocketClient } from './websocket/client';
 import { WidgetType } from './models/widget-type';
@@ -149,16 +150,16 @@ export interface OrgNoteApi {
    */
   infrastructure: Infrastructure;
 
-    /**
-     * Core application stores — the primary way extensions interact with OrgNote.
-     *
-     * Each property is a [Pinia](https://pinia.vuejs.org/) store factory.
-     * Call it to obtain a reactive store instance:
-     * ```typescript
-     * const commands = api.core.useCommands();
-     * const fs = api.core.useFileSystem();
-     * ```
-     */
+  /**
+   * Core application stores — the primary way extensions interact with OrgNote.
+   *
+   * Each property is a [Pinia](https://pinia.vuejs.org/) store factory.
+   * Call it to obtain a reactive store instance:
+   * ```typescript
+   * const commands = api.core.useCommands();
+   * const fs = api.core.useFileSystem();
+   * ```
+   */
   core: {
     /**
      * Register, remove, and execute commands (keyboard shortcuts, command palette actions).
@@ -452,6 +453,8 @@ export interface OrgNoteApi {
      * ```
      */
     buildOrgNoteUrl: BuildOrgNoteUrl;
+
+    useAppResume: UseAppResume;
   };
 
   /**
