@@ -31,6 +31,7 @@ export interface CommonEmbeddedWidget {
   viewUpdater?: (orgNode: OrgNode, newVal: string) => ViewUpdateSchema;
   ignoreEvent?: boolean;
   showRangeOffset?: [number, number];
+  hideOnActiveLine?: boolean;
   priority?: number;
 }
 
