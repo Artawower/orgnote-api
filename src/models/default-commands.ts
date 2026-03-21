@@ -103,6 +103,7 @@ export enum DefaultCommands {
   NEW_FILE_PATH = 'new file path',
   SHOW_MOBILE_FILE_SEARCH = 'show mobile file search',
   HIDE_MOBILE_FILE_SEARCH = 'hide mobile file search',
+  REVEAL_IN_FILE_MANAGER = 'reveal in file manager',
 
   // Notes commands
   OPEN_NOTE = 'open note',
