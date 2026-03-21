@@ -8,6 +8,9 @@ export type CommandContext =
   | 'right-sidebar'
   | 'edit-toolbar'
   | 'editor-actions'
+  | 'file-actions'
+  | 'context-menu-file'
+  | 'context-menu-dir'
   | ({} & string);
 
 export interface PinnedCommandsStore {
