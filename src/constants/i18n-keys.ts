@@ -221,6 +221,10 @@ export enum i18n {
   GRAPH_ERROR_TITLE = 'graph.error.title',
   GRAPH_SELECTED_LABEL = 'graph.selected.label',
   GRAPH_REFRESH = 'graph.refresh',
+  GRAPH_NODES_LABEL = 'graph.nodes.label',
+  GRAPH_EDGES_LABEL = 'graph.edges.label',
+  GRAPH_SETTINGS_TITLE = 'graph.settings.title',
+  GRAPH_SETTINGS_GROUP = 'graph.settings.group',
 }
 
 export const I18N = {

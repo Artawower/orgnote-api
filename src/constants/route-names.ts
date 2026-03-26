@@ -24,6 +24,7 @@ export enum RouteNames {
   ApiSettings = 'ApiSettings',
   AuthenticationSettings = 'AuthenticationSettings',
   SynchronisationSettings = 'SynchronisationSettings',
+  GraphSettings = 'GraphSettings',
   Extensions = 'Extensions',
   Keybindings = 'Keybindings',
   RawEditor = 'Raw editor',

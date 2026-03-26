@@ -67,6 +67,8 @@ export enum DefaultCommands {
   OPEN_NOTE_EDITOR = 'edit mode',
   OPEN_NOTE_VIEWER = 'view mode',
   OPEN_GRAPH = 'graph',
+  GRAPH_SETTINGS = 'graph settings',
+  OPEN_GRAPH_SETTINGS = 'open graph settings',
 
   // Native mobile specific
   SELECT_FILE_PATH = 'select file path',
