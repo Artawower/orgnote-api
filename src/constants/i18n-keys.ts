@@ -226,6 +226,16 @@ export enum i18n {
   GRAPH_SETTINGS_TITLE = 'graph.settings.title',
   GRAPH_SETTINGS_GROUP = 'graph.settings.group',
   LOCAL_GRAPH_TITLE = 'local.graph.title',
+
+  // Development
+  SHOW_PERFORMANCE_REPORT_DESCRIPTION = 'Show boot and extension timing report',
+  SHOW_PERFORMANCE_REPORT = 'Show performance report',
+  CLEAR_PERFORMANCE_REPORT = 'Clear performance measurements',
+  CLEAR_PERFORMANCE_REPORT_DESCRIPTION = 'Clear all recorded performance measurements',
+  MEASUREMENTS = 'measurements',
+  CLEAR_MEASUREMENTS = 'Clear measurements',
+  TOTAL_BOOT_TIME = 'Total boot time',
+  MS = 'ms',
 }
 
 export const I18N = {
