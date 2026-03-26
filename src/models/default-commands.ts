@@ -23,6 +23,7 @@ export enum DefaultCommands {
   OPEN_BACKLINKS = 'open backlinks',
   OPEN_OUTLINE = 'open outline',
   OPEN_LOCAL_GRAPH = 'open local graph',
+  LOCAL_GRAPH = 'local graph',
   TOGGLE_AST_DEBUGGER = 'toggle ast debugger',
 
   // Completion commands
@@ -67,6 +68,8 @@ export enum DefaultCommands {
   OPEN_NOTE_EDITOR = 'edit mode',
   OPEN_NOTE_VIEWER = 'view mode',
   OPEN_GRAPH = 'graph',
+  GRAPH_SETTINGS = 'graph settings',
+  OPEN_GRAPH_SETTINGS = 'open graph settings',
 
   // Native mobile specific
   SELECT_FILE_PATH = 'select file path',
