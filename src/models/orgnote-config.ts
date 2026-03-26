@@ -60,6 +60,16 @@ export const ORG_NOTE_CONFIG_SCHEMA = pipe(
         persistantPanesSaveDelay: number(),
         showFileTitleBar: boolean(),
         dropZoneEdgeRatio: number(),
+        graph: object({
+          nodeRelSize: optional(number()),
+          linkDistance: optional(number()),
+          chargeStrength: optional(number()),
+          warmupTicks: optional(number()),
+          velocityDecay: optional(number()),
+          initialZoom: optional(number()),
+          labelFontSize: optional(number()),
+          linkWidth: optional(number()),
+        }),
         fonts: optional(
           object({
             main: optional(string()),
@@ -93,6 +103,8 @@ export interface DefinedOrgNoteSettings {
 export type OrgNoteSettings = DefinedOrgNoteSettings & {
   [key: string]: unknown;
 };
+
+export type GraphUiConfig = Required<NonNullable<InferOutput<typeof ORG_NOTE_CONFIG_SCHEMA>['ui']['graph']>>;
 
 export type OrgNoteConfig = InferOutput<typeof ORG_NOTE_CONFIG_SCHEMA> & {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

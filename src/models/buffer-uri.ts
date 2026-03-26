@@ -1,4 +1,4 @@
-export type BuiltinBufferScheme = 'file' | 'memory' | 'shared' | 'remote' | 'embedded';
+export type BuiltinBufferScheme = 'file' | 'memory' | 'shared' | 'remote' | 'embedded' | 'builtin';
 export type BufferScheme = BuiltinBufferScheme | (string & {});
 
 export interface BufferUri {
