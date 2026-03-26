@@ -1,0 +1,48 @@
+{
+  "success": true,
+  "clones": [
+    {
+      "fileA": "src/remote-api/configuration.ts",
+      "startA": 3,
+      "fileB": "types/generated/api/configuration.d.ts",
+      "startB": 1,
+      "lines": 20,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/remote-api/configuration.ts",
+      "startA": 27,
+      "fileB": "types/generated/api/configuration.d.ts",
+      "startB": 21,
+      "lines": 41,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/models/widget.ts",
+      "startA": 45,
+      "fileB": "types/models/widget.d.ts",
+      "startB": 30,
+      "lines": 16,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/models/file-meta-store.ts",
+      "startA": 4,
+      "fileB": "src/models/repositories.ts",
+      "startB": 18,
+      "lines": 10,
+      "tokens": 0
+    },
+    {
+      "fileA": "src/models/completion.ts",
+      "startA": 11,
+      "fileB": "types/models/completion.d.ts",
+      "startB": 10,
+      "lines": 15,
+      "tokens": 0
+    }
+  ],
+  "duplicatedLines": 97,
+  "totalLines": 6914,
+  "percentage": 1.4
+}

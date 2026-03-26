@@ -1,0 +1,682 @@
+{
+  "success": true,
+  "issues": [
+    {
+      "type": "file",
+      "name": "docs/astro.config.mjs",
+      "file": "docs/astro.config.mjs"
+    },
+    {
+      "type": "file",
+      "name": "types/api.d.ts",
+      "file": "types/api.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/index.d.ts",
+      "file": "types/index.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "docs/src/content.config.ts",
+      "file": "docs/src/content.config.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/models/command.d.ts",
+      "file": "types/models/command.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/models/completion.d.ts",
+      "file": "types/models/completion.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/models/extension.d.ts",
+      "file": "types/models/extension.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/models/index.d.ts",
+      "file": "types/models/index.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/models/modal.d.ts",
+      "file": "types/models/modal.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/models/note.d.ts",
+      "file": "types/models/note.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/models/theme-variables.d.ts",
+      "file": "types/models/theme-variables.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/models/widget.d.ts",
+      "file": "types/models/widget.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/models/colors.ts",
+      "file": "src/models/colors.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/models/pane-snapshot-repository.ts",
+      "file": "src/models/pane-snapshot-repository.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/types/index.ts",
+      "file": "src/types/index.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/generated/api/api.d.ts",
+      "file": "types/generated/api/api.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/generated/api/base.d.ts",
+      "file": "types/generated/api/base.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/generated/api/common.d.ts",
+      "file": "types/generated/api/common.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/generated/api/configuration.d.ts",
+      "file": "types/generated/api/configuration.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/generated/api/index.d.ts",
+      "file": "types/generated/api/index.d.ts"
+    },
+    {
+      "type": "devDependency",
+      "name": "@rollup/rollup-linux-arm64-gnu",
+      "file": "package.json",
+      "line": 60
+    },
+    {
+      "type": "devDependency",
+      "name": "typescript-transform-paths",
+      "file": "package.json",
+      "line": 69
+    },
+    {
+      "type": "devDependency",
+      "name": "typescript-transformer-esm",
+      "file": "package.json",
+      "line": 70
+    },
+    {
+      "type": "unlisted",
+      "name": "commander",
+      "file": "collect-css-variables.cjs",
+      "line": 7
+    },
+    {
+      "type": "export",
+      "name": "AuthApiAxiosParamCreator",
+      "file": "src/remote-api/api.ts",
+      "line": 585
+    },
+    {
+      "type": "export",
+      "name": "AuthApiFp",
+      "file": "src/remote-api/api.ts",
+      "line": 887
+    },
+    {
+      "type": "export",
+      "name": "AuthApiFactory",
+      "file": "src/remote-api/api.ts",
+      "line": 1010
+    },
+    {
+      "type": "export",
+      "name": "AuthApi",
+      "file": "src/remote-api/api.ts",
+      "line": 1108
+    },
+    {
+      "type": "export",
+      "name": "EventsApiAxiosParamCreator",
+      "file": "src/remote-api/api.ts",
+      "line": 1220
+    },
+    {
+      "type": "export",
+      "name": "EventsApiFp",
+      "file": "src/remote-api/api.ts",
+      "line": 1264
+    },
+    {
+      "type": "export",
+      "name": "EventsApiFactory",
+      "file": "src/remote-api/api.ts",
+      "line": 1287
+    },
+    {
+      "type": "export",
+      "name": "EventsApi",
+      "file": "src/remote-api/api.ts",
+      "line": 1309
+    },
+    {
+      "type": "export",
+      "name": "SyncApiAxiosParamCreator",
+      "file": "src/remote-api/api.ts",
+      "line": 1329
+    },
+    {
+      "type": "export",
+      "name": "SyncApiFp",
+      "file": "src/remote-api/api.ts",
+      "line": 1520
+    },
+    {
+      "type": "export",
+      "name": "SyncApi",
+      "file": "src/remote-api/api.ts",
+      "line": 1646
+    },
+    {
+      "type": "export",
+      "name": "SystemInfoApiAxiosParamCreator",
+      "file": "src/remote-api/api.ts",
+      "line": 1708
+    },
+    {
+      "type": "export",
+      "name": "SystemInfoApiFp",
+      "file": "src/remote-api/api.ts",
+      "line": 1785
+    },
+    {
+      "type": "export",
+      "name": "SystemInfoApiFactory",
+      "file": "src/remote-api/api.ts",
+      "line": 1821
+    },
+    {
+      "type": "export",
+      "name": "SystemInfoApi",
+      "file": "src/remote-api/api.ts",
+      "line": 1853
+    },
+    {
+      "type": "export",
+      "name": "FileUploadResponse",
+      "file": "src/remote-api/api.ts",
+      "line": 86
+    },
+    {
+      "type": "export",
+      "name": "HandlersHttpErrorAny",
+      "file": "src/remote-api/api.ts",
+      "line": 135
+    },
+    {
+      "type": "export",
+      "name": "HandlersHttpResponseArrayModelsAPITokenAny",
+      "file": "src/remote-api/api.ts",
+      "line": 154
+    },
+    {
+      "type": "export",
+      "name": "HandlersHttpResponseFileUploadResponseAny",
+      "file": "src/remote-api/api.ts",
+      "line": 173
+    },
+    {
+      "type": "export",
+      "name": "HandlersHttpResponseHandlersOAuthRedirectDataAny",
+      "file": "src/remote-api/api.ts",
+      "line": 192
+    },
+    {
+      "type": "export",
+      "name": "HandlersHttpResponseModelsAPITokenAny",
+      "file": "src/remote-api/api.ts",
+      "line": 211
+    },
+    {
+      "type": "export",
+      "name": "HandlersHttpResponseModelsFileMetadataAny",
+      "file": "src/remote-api/api.ts",
+      "line": 230
+    },
+    {
+      "type": "export",
+      "name": "HandlersHttpResponseModelsUserPersonalInfoAny",
+      "file": "src/remote-api/api.ts",
+      "line": 249
+    },
+    {
+      "type": "export",
+      "name": "HandlersHttpResponseSyncChangesResponseAny",
+      "file": "src/remote-api/api.ts",
+      "line": 268
+    },
+    {
+      "type": "export",
+      "name": "HandlersOAuthRedirectData",
+      "file": "src/remote-api/api.ts",
+      "line": 287
+    },
+    {
+      "type": "export",
+      "name": "HandlersSubscribeBody",
+      "file": "src/remote-api/api.ts",
+      "line": 300
+    },
+    {
+      "type": "export",
+      "name": "HandlersSystemInfo",
+      "file": "src/remote-api/api.ts",
+      "line": 319
+    },
+    {
+      "type": "export",
+      "name": "ModelsEnvironmentInfo",
+      "file": "src/remote-api/api.ts",
+      "line": 363
+    },
+    {
+      "type": "export",
+      "name": "ModelsFileMetadata",
+      "file": "src/remote-api/api.ts",
+      "line": 376
+    },
+    {
+      "type": "export",
+      "name": "ModelsOrgNoteClientUpdateInfo",
+      "file": "src/remote-api/api.ts",
+      "line": 437
+    },
+    {
+      "type": "export",
+      "name": "VersionConflictResponse",
+      "file": "src/remote-api/api.ts",
+      "line": 560
+    },
+    {
+      "type": "export",
+      "name": "FetchResult",
+      "file": "src/sync/fetch.ts",
+      "line": 6
+    },
+    {
+      "type": "export",
+      "name": "CreatePlanParams",
+      "file": "src/sync/plan.ts",
+      "line": 23
+    },
+    {
+      "type": "export",
+      "name": "SyncedFileOptions",
+      "file": "src/sync/operations/synced-file.ts",
+      "line": 9
+    },
+    {
+      "type": "export",
+      "name": "ConfigurationParameters",
+      "file": "src/remote-api/configuration.ts",
+      "line": 16
+    }
+  ],
+  "unusedExports": [
+    {
+      "type": "export",
+      "name": "AuthApiAxiosParamCreator",
+      "file": "src/remote-api/api.ts",
+      "line": 585
+    },
+    {
+      "type": "export",
+      "name": "AuthApiFp",
+      "file": "src/remote-api/api.ts",
+      "line": 887
+    },
+    {
+      "type": "export",
+      "name": "AuthApiFactory",
+      "file": "src/remote-api/api.ts",
+      "line": 1010
+    },
+    {
+      "type": "export",
+      "name": "AuthApi",
+      "file": "src/remote-api/api.ts",
+      "line": 1108
+    },
+    {
+      "type": "export",
+      "name": "EventsApiAxiosParamCreator",
+      "file": "src/remote-api/api.ts",
+      "line": 1220
+    },
+    {
+      "type": "export",
+      "name": "EventsApiFp",
+      "file": "src/remote-api/api.ts",
+      "line": 1264
+    },
+    {
+      "type": "export",
+      "name": "EventsApiFactory",
+      "file": "src/remote-api/api.ts",
+      "line": 1287
+    },
+    {
+      "type": "export",
+      "name": "EventsApi",
+      "file": "src/remote-api/api.ts",
+      "line": 1309
+    },
+    {
+      "type": "export",
+      "name": "SyncApiAxiosParamCreator",
+      "file": "src/remote-api/api.ts",
+      "line": 1329
+    },
+    {
+      "type": "export",
+      "name": "SyncApiFp",
+      "file": "src/remote-api/api.ts",
+      "line": 1520
+    },
+    {
+      "type": "export",
+      "name": "SyncApi",
+      "file": "src/remote-api/api.ts",
+      "line": 1646
+    },
+    {
+      "type": "export",
+      "name": "SystemInfoApiAxiosParamCreator",
+      "file": "src/remote-api/api.ts",
+      "line": 1708
+    },
+    {
+      "type": "export",
+      "name": "SystemInfoApiFp",
+      "file": "src/remote-api/api.ts",
+      "line": 1785
+    },
+    {
+      "type": "export",
+      "name": "SystemInfoApiFactory",
+      "file": "src/remote-api/api.ts",
+      "line": 1821
+    },
+    {
+      "type": "export",
+      "name": "SystemInfoApi",
+      "file": "src/remote-api/api.ts",
+      "line": 1853
+    },
+    {
+      "type": "export",
+      "name": "FileUploadResponse",
+      "file": "src/remote-api/api.ts",
+      "line": 86
+    },
+    {
+      "type": "export",
+      "name": "HandlersHttpErrorAny",
+      "file": "src/remote-api/api.ts",
+      "line": 135
+    },
+    {
+      "type": "export",
+      "name": "HandlersHttpResponseArrayModelsAPITokenAny",
+      "file": "src/remote-api/api.ts",
+      "line": 154
+    },
+    {
+      "type": "export",
+      "name": "HandlersHttpResponseFileUploadResponseAny",
+      "file": "src/remote-api/api.ts",
+      "line": 173
+    },
+    {
+      "type": "export",
+      "name": "HandlersHttpResponseHandlersOAuthRedirectDataAny",
+      "file": "src/remote-api/api.ts",
+      "line": 192
+    },
+    {
+      "type": "export",
+      "name": "HandlersHttpResponseModelsAPITokenAny",
+      "file": "src/remote-api/api.ts",
+      "line": 211
+    },
+    {
+      "type": "export",
+      "name": "HandlersHttpResponseModelsFileMetadataAny",
+      "file": "src/remote-api/api.ts",
+      "line": 230
+    },
+    {
+      "type": "export",
+      "name": "HandlersHttpResponseModelsUserPersonalInfoAny",
+      "file": "src/remote-api/api.ts",
+      "line": 249
+    },
+    {
+      "type": "export",
+      "name": "HandlersHttpResponseSyncChangesResponseAny",
+      "file": "src/remote-api/api.ts",
+      "line": 268
+    },
+    {
+      "type": "export",
+      "name": "HandlersOAuthRedirectData",
+      "file": "src/remote-api/api.ts",
+      "line": 287
+    },
+    {
+      "type": "export",
+      "name": "HandlersSubscribeBody",
+      "file": "src/remote-api/api.ts",
+      "line": 300
+    },
+    {
+      "type": "export",
+      "name": "HandlersSystemInfo",
+      "file": "src/remote-api/api.ts",
+      "line": 319
+    },
+    {
+      "type": "export",
+      "name": "ModelsEnvironmentInfo",
+      "file": "src/remote-api/api.ts",
+      "line": 363
+    },
+    {
+      "type": "export",
+      "name": "ModelsFileMetadata",
+      "file": "src/remote-api/api.ts",
+      "line": 376
+    },
+    {
+      "type": "export",
+      "name": "ModelsOrgNoteClientUpdateInfo",
+      "file": "src/remote-api/api.ts",
+      "line": 437
+    },
+    {
+      "type": "export",
+      "name": "VersionConflictResponse",
+      "file": "src/remote-api/api.ts",
+      "line": 560
+    },
+    {
+      "type": "export",
+      "name": "FetchResult",
+      "file": "src/sync/fetch.ts",
+      "line": 6
+    },
+    {
+      "type": "export",
+      "name": "CreatePlanParams",
+      "file": "src/sync/plan.ts",
+      "line": 23
+    },
+    {
+      "type": "export",
+      "name": "SyncedFileOptions",
+      "file": "src/sync/operations/synced-file.ts",
+      "line": 9
+    },
+    {
+      "type": "export",
+      "name": "ConfigurationParameters",
+      "file": "src/remote-api/configuration.ts",
+      "line": 16
+    }
+  ],
+  "unusedFiles": [
+    {
+      "type": "file",
+      "name": "docs/astro.config.mjs",
+      "file": "docs/astro.config.mjs"
+    },
+    {
+      "type": "file",
+      "name": "types/api.d.ts",
+      "file": "types/api.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/index.d.ts",
+      "file": "types/index.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "docs/src/content.config.ts",
+      "file": "docs/src/content.config.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/models/command.d.ts",
+      "file": "types/models/command.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/models/completion.d.ts",
+      "file": "types/models/completion.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/models/extension.d.ts",
+      "file": "types/models/extension.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/models/index.d.ts",
+      "file": "types/models/index.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/models/modal.d.ts",
+      "file": "types/models/modal.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/models/note.d.ts",
+      "file": "types/models/note.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/models/theme-variables.d.ts",
+      "file": "types/models/theme-variables.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/models/widget.d.ts",
+      "file": "types/models/widget.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/models/colors.ts",
+      "file": "src/models/colors.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/models/pane-snapshot-repository.ts",
+      "file": "src/models/pane-snapshot-repository.ts"
+    },
+    {
+      "type": "file",
+      "name": "src/types/index.ts",
+      "file": "src/types/index.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/generated/api/api.d.ts",
+      "file": "types/generated/api/api.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/generated/api/base.d.ts",
+      "file": "types/generated/api/base.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/generated/api/common.d.ts",
+      "file": "types/generated/api/common.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/generated/api/configuration.d.ts",
+      "file": "types/generated/api/configuration.d.ts"
+    },
+    {
+      "type": "file",
+      "name": "types/generated/api/index.d.ts",
+      "file": "types/generated/api/index.d.ts"
+    }
+  ],
+  "unusedDeps": [
+    {
+      "type": "devDependency",
+      "name": "@rollup/rollup-linux-arm64-gnu",
+      "file": "package.json",
+      "line": 60
+    },
+    {
+      "type": "devDependency",
+      "name": "typescript-transform-paths",
+      "file": "package.json",
+      "line": 69
+    },
+    {
+      "type": "devDependency",
+      "name": "typescript-transformer-esm",
+      "file": "package.json",
+      "line": 70
+    }
+  ],
+  "unlistedDeps": [
+    {
+      "type": "unlisted",
+      "name": "commander",
+      "file": "collect-css-variables.cjs",
+      "line": 7
+    }
+  ],
+  "summary": "Found 59 issues"
+}
