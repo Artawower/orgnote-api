@@ -212,6 +212,15 @@ export enum i18n {
 
   CLEAR_ALL_NOTIFICATIONS = 'clear all notifications',
   NO_NOTIFICATIONS = 'no notifications',
+
+  // Graph
+  GRAPH_TITLE = 'graph.title',
+  GRAPH_DESCRIPTION = 'graph.description',
+  GRAPH_EMPTY_TITLE = 'graph.empty.title',
+  GRAPH_EMPTY_DESCRIPTION = 'graph.empty.description',
+  GRAPH_ERROR_TITLE = 'graph.error.title',
+  GRAPH_SELECTED_LABEL = 'graph.selected.label',
+  GRAPH_REFRESH = 'graph.refresh',
 }
 
 export const I18N = {
