@@ -37,16 +37,12 @@ jobs:
       - uses: actions/setup-node@v4
         if: steps.check_release.outputs.should_publish == 'true'
         with:
-          node-version: '22'
+          node-version: '24'
 
       - uses: oven-sh/setup-bun@v2
         if: steps.check_release.outputs.should_publish == 'true'
         with:
           bun-version: 1.1.45
-
-      - name: Update npm
-        if: steps.check_release.outputs.should_publish == 'true'
-        run: npm install -g npm@latest
 
       - name: Verify trusted publishing auth
         if: steps.check_release.outputs.should_publish == 'true'
