@@ -9,7 +9,8 @@ export interface ModalConfig<T = any> {
   modalEmits?: Record<string, (params: any) => any>;
   position?: 'top' | 'center' | 'bottom';
   fullScreen?: boolean;
-  noPadding?: boolean;
+  noHeaderPadding?: boolean;
+  noBodyPadding?: boolean;
   wide?: boolean;
   mini?: boolean;
   headerTitleComponent?: VueComponent;
