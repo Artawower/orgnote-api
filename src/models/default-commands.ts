@@ -112,6 +112,8 @@ export enum DefaultCommands {
   OPEN_NOTE = 'open note',
   SHOW_FILE_INFO = 'show file info',
   OPEN_FILE_ACTIONS = 'open file actions',
+  COPY_BUFFER_CONTENT = 'copy buffer content',
+  CLEAR_NOTE = 'clear note',
 
   // Windows & buffers
   TABS = 'show tabs',
