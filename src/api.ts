@@ -84,7 +84,7 @@ type WithNodeType<T> = { nodeType: NodeType } & T;
  * Use {@link WidgetType} to choose the variant:
  * - `Inline` — decorates a single inline node (mark, replace, or widget decoration).
  * - `Multiline` — replaces an entire block node with a custom view.
- * - `LineClass` — attaches a CSS class to a line containing the target node.
+ * - `LineClass` — attaches CSS classes and DOM attributes to a line containing the target node.
  *
  * @see {@link InlineEmbeddedWidget}
  * @see {@link MultilineEmbeddedWidget}

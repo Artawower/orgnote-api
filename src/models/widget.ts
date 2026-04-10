@@ -60,9 +60,12 @@ export type InlineEmbeddedWidgets = {
   [key in NodeType]?: InlineEmbeddedWidget[];
 };
 
+export type LineAttributes = Record<string, string>;
+
 export interface OrgLineClass {
   id: string;
   class: string | ((orgNode: OrgNode) => string);
+  attributes?: LineAttributes | ((orgNode: OrgNode) => LineAttributes | undefined);
   priority?: number;
 }
 
