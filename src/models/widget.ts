@@ -38,6 +38,8 @@ export interface CommonEmbeddedWidget {
 export interface MultilineEmbeddedWidget extends CommonEmbeddedWidget {
   widgetBuilder?: WidgetBuilder;
   component?: Component;
+  actionsComponent?: Component;
+  actionsComponentProps?: Record<string, unknown>;
   suppressEdit?: boolean;
 }
 
