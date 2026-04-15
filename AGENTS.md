@@ -1121,3 +1121,19 @@ When you receive a task, BEFORE starting work:
     -   **find** - File system search
     -   **fd** - Fast file finding (if available)
 
+
+# Project-Specific Rules
+
+
+## Error Handling Convention
+
+-   **PREFER the `to(...)` pattern** for recoverable sync/async operations instead of ad-hoc `try/catch` when the project already handles failures as `Result`-like values
+-   **Use meaningful error messages** in `to(...)` when the failure crosses module boundaries or would be hard to diagnose without context
+
+    const result = await to(fs.add), 'Optional error')(payload);
+    
+    if (result.isErr()) {
+      if (isConstraintError(result.error)) return;
+      throw result.error;
+    }
+
