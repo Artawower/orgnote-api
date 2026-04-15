@@ -1,6 +1,7 @@
 import type { RemoteFile, SyncContext, SyncedFile } from '../types';
 import { createSyncedFile } from './synced-file';
 import { resolveContentHash } from './content-hash';
+import { readBinaryContent } from './read-binary-content';
 
 const storedMeta = (stored: SyncedFile | null) => ({
   mtime: stored?.mtime ?? 0,
@@ -70,6 +71,24 @@ const markError = async (
   );
 };
 
+const refreshBaseStoreAfterDownload = async (
+  path: string,
+  version: number,
+  contentHash: string,
+  ctx: SyncContext
+): Promise<void> => {
+  if (!ctx.baseStore) return;
+
+  const content = await readBinaryContent(ctx.fs, path);
+  await ctx.baseStore.set(path, {
+    path,
+    version,
+    contentHash,
+    content,
+    updatedAt: ctx.serverTime,
+  });
+};
+
 export const processDownload = async (
   file: RemoteFile,
   ctx: SyncContext
@@ -81,6 +100,7 @@ export const processDownload = async (
     await ctx.executor.download(file);
     const downloadedMeta = await resolveDownloadedMeta(file, ctx);
     await markSynced(file, downloadedMeta, ctx);
+    await refreshBaseStoreAfterDownload(file.path, file.version, downloadedMeta.contentHash ?? '', ctx);
   } catch (error) {
     await markError(file, stored, error, ctx);
     throw error;

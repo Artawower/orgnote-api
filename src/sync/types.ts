@@ -92,4 +92,46 @@ export interface SyncContext {
   fs: FileSystem;
   serverTime: string;
   deviceName?: string;
+  isDirtyFile?: (path: string) => Promise<boolean> | boolean;
+  baseStore?: BaseContentStore;
 }
+
+export enum MergeOutcome {
+  Merged = 'merged',
+  Ambiguous = 'ambiguous',
+}
+
+export interface MergeResult {
+  outcome: MergeOutcome;
+  mergedContent?: Uint8Array;
+}
+
+export interface BaseContentEntry {
+  path: string;
+  version: number;
+  contentHash: string;
+  content: Uint8Array;
+  updatedAt: string;
+}
+
+export interface BaseContentStore {
+  get(path: string): Promise<BaseContentEntry | null>;
+  set(path: string, entry: BaseContentEntry): Promise<void>;
+  remove(path: string): Promise<void>;
+}
+
+export interface MergeInputs {
+  base: Uint8Array;
+  local: Uint8Array;
+  remote: Uint8Array;
+}
+
+const MERGEABLE_EXTENSIONS = new Set(['.org', '.md']);
+const MAX_MERGEABLE_SIZE_BYTES = 512 * 1024;
+
+export const isMergeableFile = (path: string, size: number): boolean => {
+  const lastDot = path.lastIndexOf('.');
+  const ext = lastDot >= 0 ? path.substring(lastDot) : '';
+  return MERGEABLE_EXTENSIONS.has(ext) && size <= MAX_MERGEABLE_SIZE_BYTES;
+};
+

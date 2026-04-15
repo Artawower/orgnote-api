@@ -17,7 +17,9 @@ export {
   hasConflict,
 } from './operations';
 
-export { SyncOperationType } from './types';
+export { mergeText } from './merge';
+
+export { SyncOperationType, MergeOutcome, isMergeableFile } from './types';
 
 export type {
   SyncState,
@@ -32,4 +34,8 @@ export type {
   SyncExecutor,
   SyncContext,
   CreateSyncPlanParams,
+  MergeResult,
+  MergeInputs,
+  BaseContentEntry,
+  BaseContentStore,
 } from './types';

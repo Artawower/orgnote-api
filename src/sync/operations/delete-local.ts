@@ -4,6 +4,7 @@ export const processDeleteLocal = async (path: string, ctx: SyncContext): Promis
   try {
     await ctx.fs.deleteFile(path);
     await ctx.state.removeFile(path);
+    await removeBaseStoreEntry(path, ctx);
   } catch (error) {
     const stored = await ctx.state.getFile(path);
     if (stored) {
@@ -15,4 +16,13 @@ export const processDeleteLocal = async (path: string, ctx: SyncContext): Promis
     }
     throw error;
   }
+};
+
+const removeBaseStoreEntry = async (
+  path: string,
+  ctx: SyncContext
+): Promise<void> => {
+  if (!ctx.baseStore) return;
+
+  await ctx.baseStore.remove(path);
 };

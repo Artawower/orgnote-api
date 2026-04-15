@@ -11,9 +11,11 @@ export const processDeleteRemote = async (path: string, ctx: SyncContext): Promi
   try {
     await ctx.executor.deleteRemote(path, stored?.version ?? 0);
     await ctx.state.removeFile(path);
+    await removeBaseStoreEntry(path, ctx);
   } catch (error) {
     if (isNotFoundError(error)) {
       await ctx.state.removeFile(path);
+      await removeBaseStoreEntry(path, ctx);
       return;
     }
 
@@ -26,4 +28,13 @@ export const processDeleteRemote = async (path: string, ctx: SyncContext): Promi
     }
     throw error;
   }
+};
+
+const removeBaseStoreEntry = async (
+  path: string,
+  ctx: SyncContext
+): Promise<void> => {
+  if (!ctx.baseStore) return;
+
+  await ctx.baseStore.remove(path);
 };
