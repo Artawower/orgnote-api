@@ -212,6 +212,12 @@ export enum i18n {
 
   CLEAR_ALL_NOTIFICATIONS = 'clear all notifications',
   NO_NOTIFICATIONS = 'no notifications',
+  SHOW_LATEST_CHANGES = 'show latest changes',
+  LATEST_CHANGES_NOTIFICATION_DESCRIPTION = 'open latest changes notification description',
+  NO_LATEST_CHANGES = 'no latest changes',
+  UPDATED_TO_VERSION = 'updated to version',
+  UPDATED_FROM_VERSION = 'updated from version',
+  OPEN_RELEASE_NOTES = 'open release notes',
 
   // Graph
   GRAPH_TITLE = 'graph.title',

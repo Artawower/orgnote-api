@@ -35,6 +35,7 @@ import {
   EmbeddedBufferStoreDefinition,
   UseFileContent,
   UseAppResume,
+  ClientUpdateStoreDefinition,
 } from './models';
 import { WebSocketClient } from './websocket/client';
 import { WidgetType } from './models/widget-type';
@@ -215,6 +216,7 @@ export interface OrgNoteApi {
      * Also handles API token lifecycle (create, list, revoke).
      */
     useSettings: SettingsStoreDefinition;
+    useClientUpdate: ClientUpdateStoreDefinition;
 
     useConfig: ConfigStoreDefinition;
 

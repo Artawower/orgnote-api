@@ -12,5 +12,6 @@ export interface NotificationConfig {
   icon?: string;
   iconEnabled?: boolean;
   onClick?: () => void;
+  actionCommand?: string;
   stored?: boolean;
 }
