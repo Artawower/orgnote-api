@@ -227,6 +227,27 @@ export enum i18n {
   GRAPH_SETTINGS_GROUP = 'graph.settings.group',
   LOCAL_GRAPH_TITLE = 'local.graph.title',
 
+  // Onboarding
+  ONBOARDING_WELCOME_TITLE = 'Welcome to OrgNote',
+  ONBOARDING_WELCOME_DESCRIPTION = 'Your knowledge, connected. A Zettelkasten note-taking app built around Org-mode.',
+  ONBOARDING_NEXT = 'Next',
+  ONBOARDING_BACK = 'Back',
+  ONBOARDING_SKIP = 'Skip setup',
+  ONBOARDING_SERVER_TITLE = 'Server Configuration',
+  ONBOARDING_SERVER_DESCRIPTION = 'Connect to your self-hosted OrgNote server for synchronization.',
+  ONBOARDING_SERVER_COMING_SOON = 'Self-hosted sync will be available in a future version.',
+  ONBOARDING_SERVER_SUBSCRIPTION_NOTE = 'Sync is available for subscribers and beta testers.',
+  ONBOARDING_AUTH_TITLE = 'Sign in',
+  ONBOARDING_AUTH_DESCRIPTION = 'Sign in to sync your notes across devices and unlock cloud features.',
+  ONBOARDING_AUTH_GITHUB = 'Sign in with GitHub',
+
+  ONBOARDING_EMACS_TITLE = 'Emacs Integration',
+  ONBOARDING_EMACS_DESCRIPTION = 'OrgNote is fully compatible with Emacs Org-mode and Org-roam.',
+  ONBOARDING_EMACS_COPY_CONFIG = 'Copy config',
+  ONBOARDING_EMACS_CONFIG_COPIED = 'Emacs config copied to clipboard',
+  ONBOARDING_EMACS_CONFIG_CONTENT = `Add the following to your Emacs configuration via use-package:`,
+  ONBOARDING_COMPLETED = 'finish',
+
   // Development
   SHOW_PERFORMANCE_REPORT_DESCRIPTION = 'Show boot and extension timing report',
   SHOW_PERFORMANCE_REPORT = 'Show performance report',

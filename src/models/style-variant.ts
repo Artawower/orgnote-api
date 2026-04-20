@@ -4,4 +4,5 @@ export type StyleVariant =
   | 'info'
   | 'warning'
   | 'danger'
-  | 'active';
+  | 'active'
+  | 'link';
