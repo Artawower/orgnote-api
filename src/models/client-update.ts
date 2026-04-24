@@ -1,10 +1,10 @@
-export interface ClientUpdateInfo {
+export interface Changelog {
   version: string;
   changeLog: string;
   url: string;
 }
 
-export interface ClientUpdateRecord extends ClientUpdateInfo {
+export interface ChangelogRecord extends Changelog {
   fromVersion?: string;
   detectedAt: string;
   viewedAt?: string;

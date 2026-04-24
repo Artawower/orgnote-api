@@ -1,6 +1,6 @@
 import { StyleVariant } from './style-variant';
 
-export interface NotificationConfig {
+export interface NotificationConfig<T = unknown> {
   id?: string;
   message: string;
   description?: string;
@@ -13,5 +13,6 @@ export interface NotificationConfig {
   iconEnabled?: boolean;
   onClick?: () => void;
   actionCommand?: string;
+  actionPayload?: T;
   stored?: boolean;
 }

@@ -1,13 +1,13 @@
 import type { ComputedRef } from 'vue';
 import type { StoreDefinition } from './store';
-import type { ClientUpdateRecord } from './client-update';
+import type { ChangelogRecord } from './client-update';
 
 export interface ClientUpdateStore {
-  hasUnreadLatestChange: ComputedRef<boolean>;
-  refreshUnreadState: () => Promise<void>;
-  getLatestChange: () => Promise<ClientUpdateRecord | null>;
-  markLatestChangeAsRead: () => void;
-  getCachedLatestChange: () => ClientUpdateRecord | null;
+  updateChangelog: ComputedRef<ChangelogRecord | null>;
+  unreadUpdateChangelog: ComputedRef<ChangelogRecord | null>;
+  syncUpdateChangelog: () => Promise<void>;
+  loadLatestChangelog: () => Promise<ChangelogRecord | null>;
+  markChangelogAsRead: () => void;
 }
 
 export type ClientUpdateStoreDefinition = StoreDefinition<ClientUpdateStore>;

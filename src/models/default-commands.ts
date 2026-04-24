@@ -9,6 +9,7 @@ export enum DefaultCommands {
   OPEN_SYSTEM_INFO = 'open system info',
   SHOW_LATEST_CHANGES = 'show latest changes',
   SHOW_LOGS = 'show logs',
+  APPLY_PWA_UPDATE = 'apply pwa update',
   CLEAR_LOGS = 'clear logs',
   TOGGLE_SIDEBAR = 'toggle sidebar',
   CLOSE_SIDEBAR = 'close sidebar',

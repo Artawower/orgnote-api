@@ -1709,6 +1709,36 @@ export const SystemInfoApiAxiosParamCreator = function (configuration?: Configur
     return {
         /**
          * 
+         * @summary GetLatestClientUpdate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        systemInfoClientUpdateLatestGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/system-info/client-update/latest`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary GetUpdatesFromVersion
          * @param {string} version provider
          * @param {*} [options] Override http request option.
@@ -1787,6 +1817,18 @@ export const SystemInfoApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary GetLatestClientUpdate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async systemInfoClientUpdateLatestGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ModelsOrgNoteClientUpdateInfo>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.systemInfoClientUpdateLatestGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SystemInfoApi.systemInfoClientUpdateLatestGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @summary GetUpdatesFromVersion
          * @param {string} version provider
          * @param {*} [options] Override http request option.
@@ -1823,6 +1865,15 @@ export const SystemInfoApiFactory = function (configuration?: Configuration, bas
     return {
         /**
          * 
+         * @summary GetLatestClientUpdate
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        systemInfoClientUpdateLatestGet(options?: any): AxiosPromise<ModelsOrgNoteClientUpdateInfo> {
+            return localVarFp.systemInfoClientUpdateLatestGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary GetUpdatesFromVersion
          * @param {string} version provider
          * @param {*} [options] Override http request option.
@@ -1851,6 +1902,17 @@ export const SystemInfoApiFactory = function (configuration?: Configuration, bas
  * @extends {BaseAPI}
  */
 export class SystemInfoApi extends BaseAPI {
+    /**
+     * 
+     * @summary GetLatestClientUpdate
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SystemInfoApi
+     */
+    public systemInfoClientUpdateLatestGet(options?: RawAxiosRequestConfig) {
+        return SystemInfoApiFp(this.configuration).systemInfoClientUpdateLatestGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary GetUpdatesFromVersion
