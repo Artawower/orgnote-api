@@ -1,34 +1,46 @@
 import type { FileSystem, DiskFile } from '../models/file-system';
 import type { LocalFile, SyncStateData } from './types';
-import { toAbsolutePath } from '../utils/to-absolute-path';
+import { toAbsolutePath, toRelativePath } from '../utils/to-absolute-path';
+import picomatch from 'picomatch';
 
-const DEFAULT_IGNORE = [
+const DEFAULT_IGNORE_PATTERNS = [
   '.git',
+  '.jj',
+  '.hg',
+  '.svn',
   '.DS_Store',
   'node_modules',
   '.sync-state',
   '.Trash',
 ];
 
+type IgnoreMatcher = (input: string) => boolean;
+
+const compileMatchers = (patterns: string[]): IgnoreMatcher[] =>
+  patterns.map((p) => picomatch(p, { dot: true }));
+
 export async function scanLocalFiles(
   fs: FileSystem,
   rootPath: string,
   ignorePatterns: string[] = []
 ): Promise<LocalFile[]> {
-  const ignore = [...DEFAULT_IGNORE, ...ignorePatterns];
-  return scanDir(fs, rootPath, ignore);
+  const allPatterns = [...DEFAULT_IGNORE_PATTERNS, ...ignorePatterns];
+  const matchers = compileMatchers(allPatterns);
+  return scanDir(fs, rootPath, matchers);
 }
 
 async function scanDir(
   fs: FileSystem,
-  path: string,
-  ignore: string[]
+  dirPath: string,
+  matchers: IgnoreMatcher[]
 ): Promise<LocalFile[]> {
-  const entries = await fs.readDir(path);
-  const filteredEntries = entries.filter((e) => !shouldIgnore(e.name, ignore));
+  const entries = await fs.readDir(dirPath);
+  const filteredEntries = entries.filter(
+    (e) => !shouldIgnore(e.name, toRelativePath(e.path), matchers)
+  );
 
   const nestedResults = await Promise.all(
-    filteredEntries.map((entry) => processEntry(fs, entry, ignore))
+    filteredEntries.map((entry) => processEntry(fs, entry, matchers))
   );
 
   return nestedResults.flat();
@@ -37,10 +49,10 @@ async function scanDir(
 async function processEntry(
   fs: FileSystem,
   entry: DiskFile,
-  ignore: string[]
+  matchers: IgnoreMatcher[]
 ): Promise<LocalFile[]> {
   if (entry.type === 'directory') {
-    return scanDir(fs, entry.path, ignore);
+    return scanDir(fs, entry.path, matchers);
   }
 
   return [toLocalFile(entry)];
@@ -52,15 +64,12 @@ const toLocalFile = (entry: DiskFile): LocalFile => ({
   size: entry.size,
 });
 
-const shouldIgnore = (name: string, patterns: string[]): boolean =>
-  patterns.some((pattern) => matchPattern(pattern, name));
-
-const matchPattern = (pattern: string, name: string): boolean => {
-  if (!pattern.includes('*')) return name === pattern;
-
-  const regex = new RegExp('^' + pattern.replace(/\*/g, '.*') + '$');
-  return regex.test(name);
-};
+const shouldIgnore = (
+  name: string,
+  relativePath: string,
+  matchers: IgnoreMatcher[]
+): boolean =>
+  matchers.some((match) => match(name) || match(relativePath));
 
 export const findDeletedLocally = (
   localFiles: LocalFile[],

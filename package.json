@@ -1,6 +1,6 @@
 {
   "name": "orgnote-api",
-  "version": "0.42.3",
+  "version": "0.42.5",
   "description": "Official API for creating extensions for OrgNote app",
   "type": "module",
   "main": "./index.js",
@@ -53,6 +53,7 @@
     "openpgp": "6.3.0",
     "org-mode-ast": "0.11.8",
     "partysocket": "1.1.6",
+    "picomatch": "4.0.4",
     "smol-toml": "1.5.2"
   },
   "devDependencies": {
@@ -61,6 +62,7 @@
     "@rollup/rollup-linux-arm64-gnu": "4.14.2",
     "@types/diff-match-patch": "^1.0.36",
     "@types/node": "22.14.1",
+    "@types/picomatch": "4.0.3",
     "eslint": "9.25.1",
     "eslint-plugin-sonarjs": "3.0.5",
     "fix-esm-import-path": "1.10.1",

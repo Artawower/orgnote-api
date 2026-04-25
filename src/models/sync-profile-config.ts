@@ -19,6 +19,7 @@ export const SyncProfileSchema = object({
   debug: optional(boolean(), false),
   backupDir: optional(string(), ''),
   backupCount: optional(number(), 3),
+  ignorePatterns: optional(array(string()), []),
 });
 
 export const SyncProfileConfigSchema = object({
