@@ -29,7 +29,8 @@ export interface WebSocketInfo {
 export interface EnvironmentInfo {
   apiUrl: string;
   authUrl: string;
-  mode: string;
+  buildMode: string;
+  deploymentTarget: string;
 }
 
 export interface PlatformInfo {
