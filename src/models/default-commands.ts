@@ -179,7 +179,6 @@ export enum DefaultCommands {
   EDITOR_INSERT_CHECK_LIST = 'insert check list',
   EDITOR_INSERT_HORIZONTAL_RULE = 'insert horizontal rule',
   EDITOR_INSERT_HTML_BLOCK = 'insert html block',
-  EDITOR_INSERT_CHECKBOX = 'insert checkbox',
   EDITOR_INSERT_TABLE = 'insert table',
   EDITOR_INSERT_TAG = 'insert tag',
   EDITOR_INSERT_DATETIME = 'insert datetime',
