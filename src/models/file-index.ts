@@ -7,4 +7,5 @@ export interface FileIndexMeta {
 export interface StoredIndex {
   version: number;
   files: Record<string, FileIndexMeta>;
+  indexData: Record<string, unknown>;
 }
