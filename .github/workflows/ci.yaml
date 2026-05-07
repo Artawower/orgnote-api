@@ -82,4 +82,4 @@ jobs:
         if: steps.version_change.outputs.changed == 'true'
         uses: justincy/github-action-npm-release@2.0.2
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ github.token }}
