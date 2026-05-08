@@ -127,6 +127,8 @@ export enum i18n {
   ALL_AVAILABLE = 'all available',
   NO_EXTENSIONS_INSTALLED = 'no extensions installed',
   NO_EXTENSIONS_AVAILABLE = 'no extensions available',
+  NO_EXTENSION_SETTINGS = 'no extension settings',
+  EXTENSION_SETTINGS = 'extension settings',
   INSTALL_FROM_URL = 'install from URL',
   ENTER_GIT_REPO_URL = 'enter git repository URL',
   DELETE_EXTENSION = 'delete extension',

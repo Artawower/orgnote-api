@@ -1,5 +1,6 @@
-import type { Ref } from 'vue';
+import type { ComputedRef, Ref } from 'vue';
 import {
+  Extension,
   ExtensionMeta,
   ExtensionSource,
   ExtensionSourceInfo,
@@ -27,6 +28,16 @@ export interface ExtensionStore {
   importExtension: (file: File) => Promise<void>;
 
   deleteExtension: (extensionName: string) => Promise<void>;
+
+  getExtensionConfig: (
+    name: string
+  ) => ComputedRef<Readonly<Record<string, unknown>>>;
+  setExtensionConfig: (
+    name: string,
+    config: Record<string, unknown>
+  ) => Promise<void>;
+  hasExtensionSettings: (name: string) => boolean;
+  getActiveExtensionModule: (name: string) => Extension | undefined;
 }
 
 export type ExtensionStoreDefinition = StoreDefinition<ExtensionStore>;
