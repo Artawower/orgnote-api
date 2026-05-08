@@ -9,7 +9,7 @@
         "diff-match-patch": "^1.0.5",
         "neverthrow": "^8.2.0",
         "openpgp": "6.3.0",
-        "org-mode-ast": "0.11.8",
+        "org-mode-ast": "0.12.1",
         "partysocket": "1.1.6",
         "picomatch": "4.0.4",
         "smol-toml": "1.5.2",
@@ -532,7 +532,7 @@
 
     "ora": ["ora@5.4.1", "", { "dependencies": { "bl": "^4.1.0", "chalk": "^4.1.0", "cli-cursor": "^3.1.0", "cli-spinners": "^2.5.0", "is-interactive": "^1.0.0", "is-unicode-supported": "^0.1.0", "log-symbols": "^4.1.0", "strip-ansi": "^6.0.0", "wcwidth": "^1.0.1" } }, ""],
 
-    "org-mode-ast": ["org-mode-ast@0.11.8", "", {}, ""],
+    "org-mode-ast": ["org-mode-ast@0.12.1", "", {}, "sha512-hc00b2vU8oFuk3Xa5460go9h+4+NT7X1QxpCNbVE92JdaDI32vegNOVhoaEFt2XvdXdRMxFQ7ezUJ5O1rJMNwQ=="],
 
     "os-tmpdir": ["os-tmpdir@1.0.2", "", {}, ""],
 

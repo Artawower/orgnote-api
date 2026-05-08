@@ -1,3 +1,4 @@
+import type { BaseSchema, BaseIssue } from 'valibot';
 import { OrgNoteApi } from '../api';
 
 import {
@@ -64,7 +65,11 @@ const BUILTIN_SOURCE_SCHEMA = object({
   type: literal('builtin'),
 });
 
-const SOURCE_SCHEMA = union([GIT_SOURCE_SCHEMA, LOCAL_SOURCE_SCHEMA, BUILTIN_SOURCE_SCHEMA]);
+const SOURCE_SCHEMA = union([
+  GIT_SOURCE_SCHEMA,
+  LOCAL_SOURCE_SCHEMA,
+  BUILTIN_SOURCE_SCHEMA,
+]);
 
 const COMMAND_SCHEMA = object({
   id: string(),
@@ -141,6 +146,12 @@ export interface Extension {
 
   onMounted: (api: OrgNoteApi) => Promise<void> | void;
   onUnmounted?: (api: OrgNoteApi) => Promise<void> | void;
+  settingsSchema?: BaseSchema<
+    Record<string, unknown>,
+    Record<string, unknown>,
+    BaseIssue<unknown>
+  >;
+  defaultSettings?: Record<string, unknown>;
 }
 
 export interface ExtensionMeta {
