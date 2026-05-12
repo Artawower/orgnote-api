@@ -1,8 +1,12 @@
+import type { OrgDate, ClockEntry } from 'org-mode-ast';
+
 export interface FileMetaFilter {
   limit?: number;
   offset?: number;
   tags?: string[];
 }
+
+export type OrgPriority = string;
 
 export type FileTaskKind =
   | 'list-checkbox'
@@ -18,6 +22,14 @@ export interface FileTask {
   text: string;
   start?: number;
   end?: number;
+  priority?: OrgPriority;
+  tags?: string[];
+  todoKeyword?: string;
+  scheduled?: OrgDate;
+  deadline?: OrgDate;
+  closed?: OrgDate;
+  clocks?: ClockEntry[];
+  isHabit?: boolean;
 }
 
 export interface FileMeta {

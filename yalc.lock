@@ -2,9 +2,9 @@
   "version": "v1",
   "packages": {
     "org-mode-ast": {
-      "signature": "429474660e83631904119a54a3d79395",
+      "signature": "f416862b1504ee577e19e9d479be1c1c",
       "file": true,
-      "replaced": "0.11.7"
+      "replaced": "0.12.2"
     }
   }
 }
