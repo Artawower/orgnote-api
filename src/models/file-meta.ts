@@ -30,6 +30,7 @@ export interface FileTask {
   closed?: OrgDate;
   clocks?: ClockEntry[];
   lastDoneAt?: string;
+  doneDates?: string[];
   isHabit?: boolean;
 }
 
