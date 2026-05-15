@@ -22,6 +22,7 @@ export interface OrgPlanningSlot {
   set(value: Date, options?: OrgPlanningSetOptions): void;
   clear(): void;
   advanceRepeater(from: Date): boolean;
+  rewindRepeater(): boolean;
 }
 
 export interface OrgProperties {

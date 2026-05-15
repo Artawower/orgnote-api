@@ -155,4 +155,37 @@ describe('OrgPlanningSlot — advanceRepeater', () => {
       ).toBe(false);
     });
   });
+
+  test('rewindRepeater inverts a daily advance', () => {
+    const advanced = editOrgDocument(
+      '* TODO Daily\nSCHEDULED: <2026-05-13 Wed +1d>\n',
+      (doc) => {
+        doc
+          .headlineAt(0)
+          ?.scheduled.advanceRepeater(new Date(2026, 4, 13, 12, 0));
+      }
+    );
+    expect(advanced).toContain('SCHEDULED: <2026-05-14 Thu +1d>');
+
+    const next = editOrgDocument(advanced, (doc) => {
+      expect(doc.headlineAt(0)?.scheduled.rewindRepeater()).toBe(true);
+    });
+    expect(next).toBe('* TODO Daily\nSCHEDULED: <2026-05-13 Wed +1d>\n');
+  });
+
+  test('rewindRepeater on monthly date clamps to last day when needed', () => {
+    const next = editOrgDocument(
+      '* TODO Monthly\nSCHEDULED: <2026-03-31 Tue +1m>\n',
+      (doc) => {
+        doc.headlineAt(0)?.scheduled.rewindRepeater();
+      }
+    );
+    expect(next).toBe('* TODO Monthly\nSCHEDULED: <2026-02-28 Sat +1m>\n');
+  });
+
+  test('rewindRepeater returns false when no repeater', () => {
+    editOrgDocument('* TODO Task\nSCHEDULED: <2026-05-13 Wed>\n', (doc) => {
+      expect(doc.headlineAt(0)?.scheduled.rewindRepeater()).toBe(false);
+    });
+  });
 });

@@ -224,6 +224,21 @@ const stepDate = (date: Date, repeater: OrgRepeater): Date => {
   }
 };
 
+const stepDateBackward = (date: Date, repeater: OrgRepeater): Date => {
+  switch (repeater.unit) {
+    case 'h':
+      return new Date(date.getTime() - repeater.value * 3600 * 1000);
+    case 'd':
+      return new Date(date.getTime() - repeater.value * 86400 * 1000);
+    case 'w':
+      return new Date(date.getTime() - repeater.value * 7 * 86400 * 1000);
+    case 'm':
+      return addCalendarMonths(date, -repeater.value);
+    case 'y':
+      return addCalendarYears(date, -repeater.value);
+  }
+};
+
 const ADVANCE_SAFETY_LIMIT = 10000;
 
 const advanceDateByRepeater = (
@@ -320,6 +335,22 @@ export const createPlanningSlot = (
       const baseDate = buildLocalDate(parsed);
       const next = advanceDateByRepeater(baseDate, parsed.repeater, from);
       const stamp = formatOrgStamp(next, {
+        active: parsed.active,
+        withTime: parsed.hasTime,
+        repeater: parsed.repeater,
+        warning: parsed.warning,
+      });
+      setDateStamp(dateNode, stamp);
+      return true;
+    },
+    rewindRepeater: () => {
+      const dateNode = readDateNode();
+      if (!dateNode) return false;
+      const parsed = parseOrgPlanningDate(dateNode.rawValue);
+      if (!parsed?.repeater) return false;
+      const baseDate = buildLocalDate(parsed);
+      const prev = stepDateBackward(baseDate, parsed.repeater);
+      const stamp = formatOrgStamp(prev, {
         active: parsed.active,
         withTime: parsed.hasTime,
         repeater: parsed.repeater,
