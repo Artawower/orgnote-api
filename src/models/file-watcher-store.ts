@@ -11,7 +11,9 @@ export interface FileWatcherWatchOptions {
   recursive?: boolean;
 }
 
-export type FileWatcherListener = (change: FileSystemChange) => void;
+export type FileWatcherListener = (
+  change: FileSystemChange
+) => void | Promise<void>;
 
 export interface FileWatcherStore {
   isWatching: Ref<boolean>;
@@ -23,6 +25,7 @@ export interface FileWatcherStore {
     listener: FileWatcherListener,
     options?: FileWatcherWatchOptions
   ) => () => void;
+  emitChange: (change: FileSystemChange) => Promise<void>;
 }
 
 export type FileWatcherStoreDefinition = StoreDefinition<FileWatcherStore>;
