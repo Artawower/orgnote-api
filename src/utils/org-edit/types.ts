@@ -70,6 +70,7 @@ export interface OrgHeadline {
   readonly closed: OrgPlanningSlot;
   readonly properties: OrgProperties;
   readonly logbook: OrgLogbook;
+  setLevel(level: number): void;
   setTodoKeyword(keyword: string): void;
   clearTodoKeyword(): void;
   setTitle(text: string): void;
