@@ -315,6 +315,21 @@ export const createLogbook = (headline: OrgNode): OrgLogbook => {
     appendClock: ({ start, end }) => {
       insertEntryAtTopOrCreateDrawer(formatClockClosedLine(start, end));
     },
+    removeClock: (isoDate: string): boolean => {
+      const section = ensureSection();
+      const bounds = findLogbookBounds(section);
+      if (!bounds) return false;
+      const contentNodes = getLogbookContentNodes(section, bounds);
+      const matching = contentNodes.find(
+        (n) => n.is(NodeType.Clock) && n.rawValue.includes(isoDate)
+      );
+      if (!matching) return false;
+      const trailingNl = section.childrenList.find(
+        (n) => n.start === matching.end && n.is(NodeType.NewLine)
+      );
+      removeNodes(section, trailingNl ? [matching, trailingNl] : [matching]);
+      return true;
+    },
     clear: () => {
       const section = headline.section;
       if (!section) return;

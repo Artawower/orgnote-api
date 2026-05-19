@@ -1,30 +1,27 @@
-import { describe, expect, test, vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 import { editOrgDocument } from '../edit-org-document';
 
-describe('OrgDocument.findHeadline — short-circuits', () => {
-  test('predicate is invoked at most once per headline up to the match', () => {
-    const content = '* TODO A\n* TODO B\n* DONE C\n* TODO D\n';
-    const predicate = vi.fn(
-      (h: { todoKeyword?: string }) => h.todoKeyword === 'DONE'
-    );
+test('findHeadline_invokesPredicateOnce_perHeadlineUpToMatch', () => {
+  const content = '* TODO A\n* TODO B\n* DONE C\n* TODO D\n';
+  const predicate = vi.fn(
+    (h: { todoKeyword?: string }) => h.todoKeyword === 'DONE'
+  );
 
-    editOrgDocument(content, (doc) => {
-      const found = doc.findHeadline(predicate);
-      expect(found?.todoKeyword).toBe('DONE');
-    });
-
-    // A, B, C → 3 calls, D never visited.
-    expect(predicate).toHaveBeenCalledTimes(3);
+  editOrgDocument(content, (doc) => {
+    const found = doc.findHeadline(predicate);
+    expect(found?.todoKeyword).toBe('DONE');
   });
 
-  test('returns undefined when nothing matches and visits every headline', () => {
-    const content = '* TODO A\n* TODO B\n';
-    const predicate = vi.fn(() => false);
+  expect(predicate).toHaveBeenCalledTimes(3);
+});
 
-    editOrgDocument(content, (doc) => {
-      expect(doc.findHeadline(predicate)).toBeUndefined();
-    });
+test('findHeadline_returnsUndefined_whenNothingMatches', () => {
+  const content = '* TODO A\n* TODO B\n';
+  const predicate = vi.fn(() => false);
 
-    expect(predicate).toHaveBeenCalledTimes(2);
+  editOrgDocument(content, (doc) => {
+    expect(doc.findHeadline(predicate)).toBeUndefined();
   });
+
+  expect(predicate).toHaveBeenCalledTimes(2);
 });

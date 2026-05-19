@@ -170,7 +170,9 @@ export const createOrgHeadline = (node: OrgNode): OrgHeadline => ({
   node,
   start: node.start,
   end: node.end,
-  level: node.level ?? 1,
+  get level() {
+    return node.level ?? 1;
+  },
   scheduled: createPlanningSlot(node, 'SCHEDULED'),
   deadline: createPlanningSlot(node, 'DEADLINE'),
   closed: createPlanningSlot(node, 'CLOSED'),
@@ -219,6 +221,12 @@ export const createOrgHeadline = (node: OrgNode): OrgHeadline => ({
   },
   setTags: () => {
     throw new Error('OrgHeadline.setTags is not implemented in v1');
+  },
+  setLevel: (level) => {
+    if (level < 1) throw new Error('Headline level must be \u2265 1');
+    const current = node.level ?? 1;
+    if (current === level) return;
+    node.setLevel(level);
   },
   setBody: (body) => replaceSectionBody(node, body),
   remove: () => {

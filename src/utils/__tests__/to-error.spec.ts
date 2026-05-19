@@ -1,129 +1,85 @@
-import { describe, it, expect } from 'vitest';
+import { expect, test } from 'vitest';
 import { to } from '../to-error';
 import { ok } from 'neverthrow';
 
-describe('to-error utility', () => {
-  describe('synchronous functions', () => {
-    it('should return Ok(result) when function succeeds', () => {
-      const fn = () => 42;
-      const wrapped = to(fn);
-      const result = wrapped();
-      expect(result).toEqual(ok(42));
-    });
+test('to_returnsOk_whenSyncFunctionSucceeds', () => {
+  const result = to(() => 42)();
+  expect(result).toEqual(ok(42));
+});
 
-    it('should return Err(Error) when function throws', () => {
-      const fn = (): number => {
-        throw new Error('boom');
-      };
-      const wrapped = to(fn);
-      const result = wrapped();
-      expect(result.isErr()).toBe(true);
-      if (result.isErr()) {
-        expect(result.error).toBeInstanceOf(Error);
-        expect(result.error.message).toBe('boom');
-      }
-    });
+test('to_returnsErr_whenSyncFunctionThrows', () => {
+  const result = to((): number => {
+    throw new Error('boom');
+  })();
+  expect(result.isErr()).toBe(true);
+  if (result.isErr()) {
+    expect(result.error).toBeInstanceOf(Error);
+    expect(result.error.message).toBe('boom');
+  }
+});
 
-    it('should use custom error mapper function', () => {
-      const fn = (): number => {
-        throw new Error('boom');
-      };
-      const mapper = (e: unknown) =>
-        new Error(`Custom: ${e instanceof Error ? e.message : e}`);
-      const wrapped = to(fn, mapper);
+test('to_usesCustomMapperFunction_whenProvided', () => {
+  const mapper = (e: unknown) =>
+    new Error(`Custom: ${e instanceof Error ? e.message : e}`);
+  const result = to((): number => {
+    throw new Error('boom');
+  }, mapper)();
+  expect(result.isErr()).toBe(true);
+  if (result.isErr()) expect(result.error.message).toBe('Custom: boom');
+});
 
-      const result = wrapped();
+test('to_wrapsErrorWithMessage_whenStringProvided', () => {
+  const result = to((): number => {
+    throw new Error('original error');
+  }, 'Context message')();
+  expect(result.isErr()).toBe(true);
+  if (result.isErr()) {
+    expect(result.error.message).toBe('Context message');
+    expect((result.error.cause as Error).message).toBe('original error');
+  }
+});
 
-      expect(result.isErr()).toBe(true);
-      if (result.isErr()) {
-        expect(result.error.message).toBe('Custom: boom');
-      }
-    });
+test('to_returnsOk_whenPromiseResolves', async () => {
+  const result = await to(async () => 42)();
+  expect(result).toEqual(ok(42));
+});
 
-    it('should wrap error with message when string is provided', () => {
-      const fn = (): number => {
-        throw new Error('original error');
-      };
-      const wrapped = to(fn, 'Context message');
+test('to_returnsErr_whenPromiseRejects', async () => {
+  const result = await to(async (): Promise<number> => {
+    throw new Error('async boom');
+  })();
+  expect(result.isErr()).toBe(true);
+  if (result.isErr()) expect(result.error.message).toBe('async boom');
+});
 
-      const result = wrapped();
+test('to_mapsAsyncErrors_whenMapperProvided', async () => {
+  const result = await to(
+    async (): Promise<number> => {
+      throw new Error('async boom');
+    },
+    () => new Error('mapped async error')
+  )();
+  expect(result.isErr()).toBe(true);
+  if (result.isErr()) expect(result.error.message).toBe('mapped async error');
+});
 
-      expect(result.isErr()).toBe(true);
-      if (result.isErr()) {
-        expect(result.error.message).toBe('Context message');
-        expect(result.error.cause).toBeInstanceOf(Error);
-        expect((result.error.cause as Error).message).toBe('original error');
-      }
-    });
-  });
+test('to_passesArguments_toOriginalFunction', () => {
+  const result = to((a: number, b: number) => a + b)(2, 3);
+  expect(result).toEqual(ok(5));
+});
 
-  describe('asynchronous functions', () => {
-    it('should return Ok(result) when promise resolves', async () => {
-      const fn = async () => 42;
-      const wrapped = to(fn);
-      const result = await wrapped();
-      expect(result).toEqual(ok(42));
-    });
+test('to_passesArguments_toAsyncFunction', async () => {
+  const result = await to(async (a: string) => `Hello ${a}`)('World');
+  expect(result).toEqual(ok('Hello World'));
+});
 
-    it('should return Err(Error) when promise rejects', async () => {
-      const fn = async () => {
-        throw new Error('async boom');
-      };
-      const wrapped = to(fn);
-      const result = await wrapped();
-      expect(result.isErr()).toBe(true);
-      if (result.isErr()) {
-        expect(result.error).toBeInstanceOf(Error);
-        expect(result.error.message).toBe('async boom');
-      }
-    });
-
-    it('should map async errors', async () => {
-      const fn = async () => {
-        throw new Error('async boom');
-      };
-      const mapper = () => new Error('mapped async error');
-      const wrapped = to(fn, mapper);
-
-      const result = await wrapped();
-
-      expect(result.isErr()).toBe(true);
-      if (result.isErr()) {
-        expect(result.error.message).toBe('mapped async error');
-      }
-    });
-  });
-
-  describe('argument passing', () => {
-    it('should pass arguments to the original function', () => {
-      const fn = (a: number, b: number) => a + b;
-      const wrapped = to(fn);
-      const result = wrapped(2, 3);
-      expect(result).toEqual(ok(5));
-    });
-
-    it('should pass arguments to async function', async () => {
-      const fn = async (a: string) => `Hello ${a}`;
-      const wrapped = to(fn);
-      const result = await wrapped('World');
-      expect(result).toEqual(ok('Hello World'));
-    });
-  });
-
-  describe('context binding', () => {
-    it('should preserve this context', () => {
-      class Calculator {
-        constructor(private multiplier: number) {}
-
-        multiply(value: number) {
-          return value * this.multiplier;
-        }
-      }
-
-      const calc = new Calculator(2);
-      const wrapped = to(calc.multiply.bind(calc));
-
-      expect(wrapped(3)).toEqual(ok(6));
-    });
-  });
+test('to_preservesThisContext', () => {
+  class Calculator {
+    constructor(private multiplier: number) {}
+    multiply(value: number) {
+      return value * this.multiplier;
+    }
+  }
+  const calc = new Calculator(2);
+  expect(to(calc.multiply.bind(calc))(3)).toEqual(ok(6));
 });

@@ -1,6 +1,6 @@
 {
   "name": "orgnote-api",
-  "version": "0.51.2",
+  "version": "0.51.4",
   "description": "Official API for creating extensions for OrgNote app",
   "type": "module",
   "main": "./index.js",
@@ -37,17 +37,9 @@
     "./constants": "./constants/index.js",
     "./sync": "./sync/index.js"
   },
-  "files": [
-    "**"
-  ],
+  "files": ["**"],
   "types": "./index.d.ts",
-  "keywords": [
-    "orgnote",
-    "org-mode",
-    "org-roam",
-    "api",
-    "extensions"
-  ],
+  "keywords": ["orgnote", "org-mode", "org-roam", "api", "extensions"],
   "author": "darkawower <app.orgnote@gmail.com> (https://org-note.com)",
   "license": "GPL-3.0-or-later",
   "bugs": {
@@ -59,7 +51,7 @@
     "diff-match-patch": "^1.0.5",
     "neverthrow": "^8.2.0",
     "openpgp": "6.3.0",
-    "org-mode-ast": "0.13.2",
+    "org-mode-ast": "0.13.5",
     "partysocket": "1.1.6",
     "picomatch": "4.0.4",
     "smol-toml": "1.5.2"

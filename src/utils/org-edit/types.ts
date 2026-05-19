@@ -52,6 +52,7 @@ export interface OrgLogbook {
   openClock(start: Date): void;
   closeClock(input: { start: Date; end: Date }): boolean;
   appendClock(input: { start: Date; end: Date }): void;
+  removeClock(isoDate: string): boolean;
   clear(): void;
 }
 
@@ -70,6 +71,7 @@ export interface OrgHeadline {
   readonly closed: OrgPlanningSlot;
   readonly properties: OrgProperties;
   readonly logbook: OrgLogbook;
+  setLevel(level: number): void;
   setTodoKeyword(keyword: string): void;
   clearTodoKeyword(): void;
   setTitle(text: string): void;
