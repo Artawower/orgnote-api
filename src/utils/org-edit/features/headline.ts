@@ -230,6 +230,6 @@ export const createOrgHeadline = (node: OrgNode): OrgHeadline => ({
   },
   setBody: (body) => replaceSectionBody(node, body),
   remove: () => {
-    throw new Error('OrgHeadline.remove is not implemented in v1');
+    node.parent?.removeNode(node);
   },
 });

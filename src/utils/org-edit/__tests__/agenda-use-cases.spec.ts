@@ -113,3 +113,23 @@ test('changeTaskTitle_changeTaskStatus_changeTaskBody', () => {
   );
   expect(bodied).toBe('* TODO Task\nNew body\n');
 });
+
+test('remove_singleHeadline_returnsEmptyDocument', () => {
+  const result = editOrgDocument('* TODO Buy milk\n', (doc) =>
+    doc.headlineAt(0)?.remove()
+  );
+  expect(result).not.toContain('Buy milk');
+});
+
+test('remove_firstHeadline_keepsSecond', () => {
+  const result = editOrgDocument('* TODO Buy milk\n* TODO Walk dog\n', (doc) =>
+    doc.headlineAt(0)?.remove()
+  );
+  expect(result).not.toContain('Buy milk');
+  expect(result).toContain('Walk dog');
+});
+
+test('remove_missingHeadline_returnsOriginal', () => {
+  const result = editOrgDocument('* TODO Buy milk\n', (doc) => doc.headlineAt(999)?.remove());
+  expect(result).toContain('Buy milk');
+});
