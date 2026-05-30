@@ -19,6 +19,10 @@ const NON_BODY_TYPES = new Set<NodeType>([
   NodeType.Planning,
   NodeType.PropertyDrawer,
   NodeType.Property,
+  NodeType.PlanningKeyword,
+  NodeType.Date,
+  NodeType.DateRange,
+  NodeType.Indent,
 ]);
 
 const findTodoKeywordNode = (headline: OrgNode): OrgNode | undefined =>
