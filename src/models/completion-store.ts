@@ -1,4 +1,4 @@
-import { ComputedRef } from 'vue';
+import { ComputedRef, Ref } from 'vue';
 import {
   Completion,
   CompletionConfig,
@@ -20,6 +20,7 @@ export interface CompletionStore {
   registerInterceptor: <T = unknown>(
     interceptor: CompletionInterceptor<T>,
   ) => () => void;
+  isLoading: Readonly<Ref<boolean>>;
 }
 
 export type CompletionStoreDefinition = StoreDefinition<CompletionStore>;
