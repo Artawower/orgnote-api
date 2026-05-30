@@ -13,4 +13,8 @@ export interface Sidebar {
     cmp: T,
     config?: ComponentConfig<T>
   ) => void;
+  navMenuOpen: Ref<boolean>;
+  openNavMenu: () => void;
+  closeNavMenu: () => void;
+  toggleNavMenu: () => void;
 }
