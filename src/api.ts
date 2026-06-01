@@ -36,6 +36,7 @@ import {
   UseFileContent,
   UseAppResume,
   ClientUpdateStoreDefinition,
+  KeybindingsStoreDefinition,
 } from './models';
 import { WebSocketClient } from './websocket/client';
 import { WidgetType } from './models/widget-type';
@@ -183,6 +184,19 @@ export interface OrgNoteApi {
      * displayed together in the UI (e.g. "Editor", "Navigation").
      */
     useCommandsGroup: CommandsGroupStoreDefinition;
+
+    /**
+     * Manage keyboard shortcuts: user assignments, context scope stack,
+     * conflict detection, and CodeMirror keymap projection for editor commands.
+     *
+     * @example
+     * ```ts
+     * // push a context while a UI element is active
+     * const stop = api.core.useKeybindings().pushContext('completion');
+     * onUnmounted(stop);
+     * ```
+     */
+    useKeybindings: KeybindingsStoreDefinition;
 
     /**
      * Install, enable, disable, and delete extensions at runtime.

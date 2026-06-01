@@ -4,6 +4,7 @@ import { DefaultCommands } from './default-commands';
 import { OrgNoteApi } from 'src/api';
 import { VueComponent } from './vue-component';
 import type { ExecuteCommandOptions } from './commands-store';
+import type { Hotkey, KeybindingContextId } from './keybinding';
 
 export type CommandGroup =
   | (typeof COMMAND_GROUPS)[number]
@@ -30,15 +31,14 @@ export interface CommandPreview {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface CommandMeta<T = any> extends Partial<CommandPreview> {
-  /* Where is this command available, default value is global */
   group?: CommandGroup;
-  allowOnInput?: boolean;
-  interactive?: boolean; // TODO: add support for interactive commands
-  /* When command is system command, it will not be shown for users */
+  defaultHotkeys?: Hotkey[];
+  /* defaults to 'global'; 'editor' context commands are projected into CodeMirror keymap */
+  keybindingContext?: KeybindingContextId;
+  /* shown in Keybindings settings UI and assignable by users */
+  interactive?: boolean;
   system?: boolean;
-  /* Prevent command from being shown in completion menu */
   hide?: (api: OrgNoteApi) => boolean;
-  /* Prevent command from being executed */
   disabled?: (api: OrgNoteApi) => boolean;
   isActive?: (api: OrgNoteApi) => boolean;
   context?: {
@@ -53,4 +53,8 @@ export interface Command<T = any, R = unknown> extends CommandMeta<T> {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type CommandCallback = <T = any>(meta: Command, data: T, options?: ExecuteCommandOptions) => void;
+export type CommandCallback = <T = any>(
+  meta: Command,
+  data: T,
+  options?: ExecuteCommandOptions
+) => void;

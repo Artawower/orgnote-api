@@ -14,6 +14,7 @@ import {
 } from 'valibot';
 import { OrgNoteEncryptionSchema } from './encryption';
 import { LOG_LEVEL_SCHEMA } from './log';
+import { KEYBINDINGS_CONFIG_SCHEMA } from './keybinding-schemas';
 
 export const ORG_NOTE_CONFIG_SCHEMA = pipe(
   objectWithRest(
@@ -90,6 +91,7 @@ export const ORG_NOTE_CONFIG_SCHEMA = pipe(
         sources: array(string()),
       }),
       encryption: OrgNoteEncryptionSchema,
+      keybindings: optional(KEYBINDINGS_CONFIG_SCHEMA),
     },
     unknown()
   )
