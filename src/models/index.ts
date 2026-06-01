@@ -44,6 +44,9 @@ export * from './git';
 export * from './file-guard';
 export * from './file-guard-store';
 
+export * from './keybinding-schemas';
+export * from './keybinding';
+
 // Composables
 export * from './splash-screen';
 export * from './screen-detection';

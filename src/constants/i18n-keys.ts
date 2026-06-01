@@ -70,6 +70,7 @@ export enum i18n {
   EXECUTE_COMMAND = 'execute command',
   ITEMS = 'items',
   NOT_FOUND = 'not found',
+  BLANK = 'blank',
   VISIT_DEBUG_INFO = 'visit debug info on the github',
   ENCRYPT_ACTIVE_NOTE = 'encrypt active note',
   DECRYPT_ACTIVE_NOTE = 'decrypt active note',
