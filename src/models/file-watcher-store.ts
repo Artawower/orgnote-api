@@ -19,6 +19,7 @@ export interface FileWatcherStore {
   isWatching: Ref<boolean>;
 
   start: (options?: FileWatcherStartOptions) => Promise<void>;
+  restart: (options?: FileWatcherStartOptions) => Promise<void>;
   stop: () => Promise<void>;
   watch: (
     path: string,

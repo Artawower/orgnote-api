@@ -9,6 +9,8 @@ export interface FileSystemManagerStore {
   currentFs: ComputedRef<FileSystem | undefined>;
   fileSystems: ComputedRef<FileSystemInfo[]>;
   currentFsName: Ref<string>;
+  fsMounted: Ref<boolean>;
+  isReconciling: Ref<boolean>;
   useFs: (fsName: string) => Promise<void>;
 }
 
