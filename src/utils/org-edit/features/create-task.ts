@@ -1,3 +1,4 @@
+import type { OrgRepeater } from 'org-mode-ast';
 import { format, parseISO } from 'date-fns';
 import { editOrgDocument } from '../edit-org-document';
 
@@ -14,13 +15,23 @@ const promoteSubtaskHeadlines = (body: string): string => {
   });
 };
 
+export type OrgScheduleRepeater = Pick<OrgRepeater, 'type' | 'value' | 'unit'>;
+
+export interface CreateTaskScheduleInput {
+  date: string;
+  to?: string;
+  repeater?: OrgScheduleRepeater;
+  warning?: OrgScheduleRepeater;
+}
+
 export interface CreateTaskInput {
   title: string;
   body?: string;
-  scheduledDate?: string;
+  scheduled?: CreateTaskScheduleInput;
   todoKeyword?: string;
   priority?: string;
   tags?: string[];
+  isHabit?: boolean;
 }
 
 const DEFAULT_TODO_KEYWORD = 'TODO';
@@ -45,10 +56,26 @@ const buildHeadlineLine = (input: CreateTaskInput): string => {
   return `* ${keyword} ${priorityMark}${input.title.trim()}${tagsMark}\n`;
 };
 
-const buildScheduledLine = (date: string): string => `SCHEDULED: <${date} ${getDayName(date)}>\n`;
+const buildRepeaterMark = (repeater: OrgScheduleRepeater | undefined): string =>
+  repeater ? ` ${repeater.type}${repeater.value}${repeater.unit}` : '';
 
-const buildPlanningBlock = (scheduledDate: string | undefined): string =>
-  scheduledDate ? buildScheduledLine(scheduledDate) : '';
+const buildTimestamp = (
+  date: string,
+  repeater: OrgScheduleRepeater | undefined,
+  warning: OrgScheduleRepeater | undefined,
+): string => `<${date} ${getDayName(date)}${buildRepeaterMark(repeater)}${buildRepeaterMark(warning)}>`;
+
+const buildScheduledLine = (scheduled: CreateTaskScheduleInput): string => {
+  const start = buildTimestamp(scheduled.date, scheduled.repeater, scheduled.warning);
+  const end = scheduled.to ? `--${buildTimestamp(scheduled.to, undefined, undefined)}` : '';
+  return `SCHEDULED: ${start}${end}\n`;
+};
+
+const buildPlanningBlock = (scheduled: CreateTaskScheduleInput | undefined): string =>
+  scheduled ? buildScheduledLine(scheduled) : '';
+
+const buildHabitBlock = (isHabit: boolean | undefined): string =>
+  isHabit ? ':PROPERTIES:\n:STYLE: habit\n:END:\n' : '';
 
 const buildBodyBlock = (body: string | undefined): string =>
   body ? `${promoteSubtaskHeadlines(body.trim())}\n` : '';
@@ -56,7 +83,8 @@ const buildBodyBlock = (body: string | undefined): string =>
 export const createTask = (content: string, input: CreateTaskInput): string => {
   const base = normalizeContent(content);
   const headline = buildHeadlineLine(input);
-  const planning = buildPlanningBlock(input.scheduledDate);
+  const planning = buildPlanningBlock(input.scheduled);
+  const habit = buildHabitBlock(input.isHabit);
   const body = buildBodyBlock(input.body);
-  return `${base}${headline}${planning}${body}`;
+  return `${base}${headline}${planning}${habit}${body}`;
 };
