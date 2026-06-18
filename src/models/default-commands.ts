@@ -35,6 +35,7 @@ export enum DefaultCommands {
   EXIT_COMMAND_EXECUTOR = 'exit command executor',
   NEXT_CANDIDATE = 'next candidate',
   PREV_CANDIDATE = 'previous candidate',
+  ACCEPT_COMPLETION_AUTOCOMPLETE = 'accept completion autocomplete',
   EXECUTE_CANDIDATE = 'execute candidate',
 
   // Settings
