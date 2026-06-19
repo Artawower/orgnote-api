@@ -22,6 +22,11 @@ export interface WidgetBuilderParams<TEditorView = EditorView> {
 
 export type WidgetBuilder = (params: WidgetBuilderParams) => EmbeddedWidget;
 
+export interface WidgetRange {
+  from: number;
+  to: number;
+}
+
 export interface CommonEmbeddedWidget {
   id: string;
   satisfied?: (orgNode: OrgNode) => boolean;
@@ -31,7 +36,10 @@ export interface CommonEmbeddedWidget {
   viewUpdater?: (orgNode: OrgNode, newVal: string) => ViewUpdateSchema;
   ignoreEvent?: boolean;
   showRangeOffset?: [number, number];
+  rangeBuilder?: (orgNode: OrgNode, docLength: number) => WidgetRange;
+  editPositionBuilder?: (orgNode: OrgNode, docLength: number) => number;
   hideOnActiveLine?: boolean;
+  showEditAction?: boolean;
   priority?: number;
 }
 
