@@ -10,6 +10,8 @@ export type KeybindingContextId =
 
 export const KEYBINDING_CONTEXTS = {
   GLOBAL: 'global',
+  /* app-shell shortcuts; bypasses editable-target guard */
+  SHELL: 'shell',
   EDITOR: 'editor',
   /* active while completion/command-palette popup is open */
   COMPLETION: 'completion',
