@@ -25,10 +25,18 @@ export interface OrgPlanningSlot {
   rewindRepeater(): boolean;
 }
 
+export interface OrgPropertyEntry {
+  readonly key: string;
+  readonly value: string;
+}
+
 export interface OrgProperties {
   readonly entries: Readonly<Record<string, string>>;
+  readonly items: readonly OrgPropertyEntry[];
+  ensure(): void;
   get(key: string): string | undefined;
   set(key: string, value: string): void;
+  rename(oldKey: string, newKey: string): void;
   remove(key: string): void;
 }
 
@@ -86,6 +94,7 @@ export interface OrgHeadline {
 
 export interface OrgDocument {
   readonly root: OrgNode;
+  readonly properties: OrgProperties;
   headlineAt(offset: number): OrgHeadline | undefined;
   headlines(): OrgHeadline[];
   findHeadline(
