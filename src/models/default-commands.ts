@@ -125,6 +125,7 @@ export enum DefaultCommands {
   SHOW_TAB_SWITCHER = 'show tab switcher',
   CLOSE_TAB = 'close tab',
   NEW_TAB = 'new tab',
+  SELECT_TAB_BY_NUMBER = 'select tab by number',
 
   // Pane resize
   RESIZE_PANE_LEFT = 'resize pane left',
@@ -187,6 +188,13 @@ export enum DefaultCommands {
   EDITOR_CARET_UP = 'caret up',
   EDITOR_CARET_DOWN = 'caret down',
   EDITOR_HIDE_KEYBOARD = 'hide keyboard',
+
+  // History navigation
+  HISTORY_BACK = 'history back',
+  HISTORY_FORWARD = 'history forward',
+
+  // File search
+  OPEN_FILE_SEARCH = 'open file search',
 
   // External commands
   PREVIEW_NOTE = 'preview note',

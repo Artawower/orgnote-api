@@ -1,4 +1,4 @@
-import { array, object, optional, picklist, record, string, InferOutput } from 'valibot';
+import { array, object, optional, picklist, record, string, unknown, InferOutput } from 'valibot';
 
 export const KEYBINDING_MODIFIER_SCHEMA = picklist([
   'Mod',
@@ -12,6 +12,7 @@ export const HOTKEY_SCHEMA = object({
   /* matched against KeyboardEvent.key (case-insensitive) */
   key: string(),
   modifiers: optional(array(KEYBINDING_MODIFIER_SCHEMA)),
+  data: optional(unknown()),
 });
 
 /*
