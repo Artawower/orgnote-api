@@ -16,6 +16,8 @@ export interface CompletionStore {
   activeCompletion: ComputedRef<Completion | undefined>;
   nextCandidate: () => void;
   previousCandidate: () => void;
+  canAcceptAutocomplete: () => boolean;
+  acceptAutocomplete: () => void;
   search: (limit?: number, offset?: number) => void;
   registerInterceptor: <T = unknown>(
     interceptor: CompletionInterceptor<T>,
