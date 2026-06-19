@@ -279,6 +279,16 @@ export enum i18n {
   CLEAR_MEASUREMENTS = 'Clear measurements',
   TOTAL_BOOT_TIME = 'Total boot time',
   MS = 'ms',
+
+  // Property drawer
+  PROPERTIES = 'Properties',
+  PROPERTY_PLACEHOLDER = 'Property',
+  EMPTY_VALUE_PLACEHOLDER = 'Empty',
+  ADD_PROPERTY = 'Add property',
+  PROPERTY_KEY_REQUIRED = 'Property key is required',
+  PROPERTY_KEY_INVALID_CHARS = 'Use letters, digits, _ or -',
+  PROPERTY_KEY_DUPLICATE = 'Property key already exists',
+  PROPERTY_VALUE_MULTILINE = 'Property value must be single-line',
 }
 
 export const I18N = {
