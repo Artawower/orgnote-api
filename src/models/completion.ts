@@ -22,6 +22,14 @@ export type CandidateGetterFn<T = unknown> = (
   offset?: number
 ) => CompletionSearchResult<T> | Promise<CompletionSearchResult<T>>;
 
+export type CompletionInputValidationResult =
+  | { valid: true }
+  | { valid: false; message: string };
+
+export type CompletionInputValidator = (
+  value: string,
+) => CompletionInputValidationResult | Promise<CompletionInputValidationResult>;
+
 interface BaseCompletionConfig<T = unknown> {
   name?: string;
   searchAutocompletions?: string[];
@@ -30,6 +38,7 @@ interface BaseCompletionConfig<T = unknown> {
   itemRenderer?: CompletionItemRenderer<T>;
   searchText?: string;
   onClicked?: (candidate: CompletionCandidate<T>) => void;
+  validateInput?: CompletionInputValidator;
 }
 
 interface InputCompletionConfig<T = unknown> extends BaseCompletionConfig<T> {
@@ -67,6 +76,7 @@ export type Completion<T = any, TResult = any> = CompletionConfig<T> & {
   selectedCandidateIndex?: number;
   total?: number;
   searchQuery: string;
+  validationError?: string;
   result: Promise<TResult>;
 };
 

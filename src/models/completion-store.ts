@@ -8,7 +8,7 @@ import { StoreDefinition } from './store';
 
 export interface CompletionStore {
   restore: () => void;
-  close: <TData = unknown>(data?: TData) => void;
+  close: <TData = unknown>(data?: TData) => Promise<boolean>;
   closeAll: () => void;
   open: <TItem, TReturn = void>(
     config: CompletionConfig<TItem>,
