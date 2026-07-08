@@ -231,6 +231,11 @@ export enum i18n {
   UPDATED_TO_VERSION = 'updated to version',
   UPDATED_FROM_VERSION = 'updated from version',
   OPEN_RELEASE_NOTES = 'open release notes',
+  ELECTRON_UPDATE_READY = 'electron update ready',
+  ELECTRON_UPDATE_RESTART_TO_INSTALL = 'electron update restart to install',
+  ELECTRON_UPDATE_VERSION_READY = 'electron update version ready',
+  ELECTRON_UPDATE_INSTALL_FAILED = 'electron update install failed',
+  ELECTRON_UPDATE_FAILED = 'electron update failed',
 
   // Graph
   GRAPH_TITLE = 'graph.title',
