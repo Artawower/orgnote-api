@@ -6,6 +6,7 @@ export interface NotificationConfig<T = unknown> {
   description?: string;
   group?: boolean;
   timeout?: number;
+  throttleMs?: number;
   level?: StyleVariant;
   caption?: string;
   closable?: boolean;

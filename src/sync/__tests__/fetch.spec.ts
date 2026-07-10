@@ -2,30 +2,87 @@ import { expect, test } from 'vitest';
 import { fetchRemoteChanges } from '../fetch';
 import type { SyncApi } from '../types';
 
+const validChange = {
+  id: '1',
+  path: '/a.org',
+  version: 1,
+  deleted: false,
+  updatedAt: '2024-01-01T00:00:00Z',
+  contentHash: 'hash-1',
+};
+
+const createApi = (data: unknown): SyncApi =>
+  ({
+    syncChangesGet: async () => data,
+  }) as unknown as SyncApi;
+
+const createSyncResponse = (data: unknown): unknown => ({ data: { data } });
+
+const expectInvalidSyncResponse = async (data: unknown, reason: string): Promise<void> => {
+  await expect(fetchRemoteChanges(createApi(createSyncResponse(data)))).rejects.toMatchObject({
+    name: 'InvalidSyncChangesResponseError',
+    details: {
+      operation: 'syncChangesGet',
+      reason,
+      responseKind: 'json-object',
+      topLevelKeys: ['data'],
+    },
+  });
+};
+
 test('fetchRemoteChanges maps contentHash from API changes', async () => {
-  const api = {
-    syncChangesGet: async () => ({
-      data: {
-        data: {
-          changes: [
-            {
-              id: '1',
-              path: '/a.org',
-              version: 1,
-              deleted: false,
-              updatedAt: '2024-01-01T00:00:00Z',
-              contentHash: 'hash-1',
-            },
-          ],
-          hasMore: false,
-          serverTime: '2024-01-01T00:00:00Z',
-        },
-      },
+  const api = createApi(
+    createSyncResponse({
+      changes: [validChange],
+      hasMore: false,
+      serverTime: '2024-01-01T00:00:00Z',
     }),
-  } as unknown as SyncApi;
+  );
 
   const result = await fetchRemoteChanges(api);
 
   expect(result.files).toHaveLength(1);
   expect(result.files[0].contentHash).toBe('hash-1');
+});
+
+test('fetchRemoteChanges reports invalid HTML response diagnostics', async () => {
+  const api = createApi({
+    status: 200,
+    headers: { 'content-type': 'text/html; charset=utf-8' },
+    data: '<!doctype html><a href="https://example.com/user@example.com">app</a>',
+  });
+
+  await expect(fetchRemoteChanges(api)).rejects.toMatchObject({
+    name: 'InvalidSyncChangesResponseError',
+    details: {
+      operation: 'syncChangesGet',
+      reason: 'missing_data',
+      responseKind: 'html',
+      status: 200,
+      contentType: 'text/html; charset=utf-8',
+      topLevelKeys: [],
+      dataKeys: [],
+    },
+  });
+});
+
+test('fetchRemoteChanges rejects response without changes', async () => {
+  await expectInvalidSyncResponse(
+    {
+      hasMore: false,
+      serverTime: '2024-01-01T00:00:00Z',
+    },
+    'missing_changes',
+  );
+});
+
+test('fetchRemoteChanges rejects paginated response without cursor', async () => {
+  await expectInvalidSyncResponse(
+    {
+      changes: [validChange],
+      hasMore: true,
+      serverTime: '2024-01-01T00:00:00Z',
+    },
+    'missing_cursor',
+  );
 });

@@ -55,6 +55,7 @@ export const ORG_NOTE_CONFIG_SCHEMA = pipe(
         lightThemeName: optional(union([string(), literal(null)])),
         enableAnimations: boolean(),
         notificationTimeout: optional(number()),
+        notificationThrottleMs: optional(number()),
         tooltipDelay: optional(number()),
         minNotificationLevel: optional(LOG_LEVEL_SCHEMA),
         persistantPanes: optional(boolean()),

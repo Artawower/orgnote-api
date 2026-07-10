@@ -53,6 +53,7 @@ export enum i18n {
   ENCRYPTED_NOTES_KEY_CHANGE_WARNING = 'you have encrypted notes. Changing encryption keys will make them unreadable unless you re-encrypt them manually. Continue?',
   SYNC_FILES = 'sync files',
   SYNC_FILES_DESCRIPTION = 'synchronize all local files with the remote server',
+  SYNC_INVALID_API_RESPONSE = 'sync invalid API response',
   GENERATE_GPG_KEYS = 'generate new GPG keys',
   UPLOAD = 'upload',
   AVAILABLE_FOR_SUBSCRIPTION = 'this functionality is only available to registered users with an active subscription.',
