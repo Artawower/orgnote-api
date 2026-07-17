@@ -7,6 +7,7 @@ export interface LayoutStore {
   layout: ShallowRef<LayoutNode | undefined>;
 
   initLayout: (layout?: LayoutNode) => Promise<void>;
+  ensureLayout: () => Promise<void>;
 
   splitPaneInLayout: (
     paneId: string,
