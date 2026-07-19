@@ -151,6 +151,7 @@ export enum DefaultCommands {
   IMPORT_EXTENSION = 'import extension',
   OPEN_EXTENSIONS_MANAGER = 'open extensions manager',
   OPEN_EXTENSION_SETTINGS = 'extension settings',
+  TOGGLE_EXTENSIONS = 'toggle extensions',
 
   // Notifications
   OPEN_NOTIFICATIONS = 'open notifications',
