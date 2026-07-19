@@ -7,11 +7,13 @@ import {
 } from './command';
 import { StoreDefinition } from './store';
 import type { OrgNoteApi } from 'src/api';
+import type { CommandExecutionOrigin } from 'src/constants/command-execution-origin';
 
 export type CommandUnsubscribFn = () => void;
 
 export interface ExecuteCommandOptions {
   interactive?: boolean;
+  origin?: CommandExecutionOrigin;
 }
 
 export interface CommandWrapperContext<TData = unknown, TResult = unknown> {
