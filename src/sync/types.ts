@@ -1,5 +1,6 @@
 import type { FileSystem } from '../models/file-system';
 import type { FileChange, SyncApiFactory } from '../remote-api';
+import { isOrgNoteConfigPath } from './config-path';
 
 export type SyncApi = ReturnType<typeof SyncApiFactory>;
 
@@ -8,7 +9,9 @@ export type SyncStatus =
   | 'dirty'
   | 'uploading'
   | 'downloading'
-  | 'error';
+  | 'error'
+  | 'pending'
+  | 'conflict';
 
 export enum SyncOperationType {
   Upload = 'upload',
@@ -59,6 +62,7 @@ export type UploadResult =
 export interface SyncExecutor {
   upload: (file: LocalFile, expectedVersion?: number) => Promise<UploadResult>;
   download: (file: RemoteFile) => Promise<void>;
+  fetchContent: (file: RemoteFile) => Promise<Uint8Array>;
   deleteLocal: (path: string) => Promise<void>;
   deleteRemote: (path: string, expectedVersion: number) => Promise<void>;
 }
@@ -130,8 +134,11 @@ const MERGEABLE_EXTENSIONS = new Set(['.org', '.md']);
 const MAX_MERGEABLE_SIZE_BYTES = 512 * 1024;
 
 export const isMergeableFile = (path: string, size: number): boolean => {
+  if (size > MAX_MERGEABLE_SIZE_BYTES) return false;
+  if (isOrgNoteConfigPath(path)) return true;
+
   const lastDot = path.lastIndexOf('.');
-  const ext = lastDot >= 0 ? path.substring(lastDot) : '';
-  return MERGEABLE_EXTENSIONS.has(ext) && size <= MAX_MERGEABLE_SIZE_BYTES;
+  const extension = lastDot >= 0 ? path.substring(lastDot) : '';
+  return MERGEABLE_EXTENSIONS.has(extension);
 };
 

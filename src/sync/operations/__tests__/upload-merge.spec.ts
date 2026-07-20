@@ -239,6 +239,84 @@ test('merge-retry flow: merge succeeds but retry conflicts → fallback', async 
   expect(stored?.conflictPath).toContain('.sync-conflict-');
 });
 
+test('ambiguous config merge retries local content with current server version', async () => {
+  const path = '/.orgnote/config.toml';
+  const baseContent = new TextEncoder().encode('[network]\napiUrl = "base"\n');
+  const localContent = new TextEncoder().encode('[network]\napiUrl = "local"\n');
+  const remoteContent = new TextEncoder().encode('[network]\napiUrl = "remote"\n');
+  const baseStore = createBaseStore({
+    path,
+    version: 2,
+    contentHash: 'old-hash',
+    content: baseContent,
+    updatedAt: '2024-01-01T00:00:00Z',
+  });
+  const upload = vi.fn()
+    .mockResolvedValueOnce({ status: 'conflict' as const, serverVersion: 3 })
+    .mockResolvedValueOnce({ status: 'ok' as const, version: 4 });
+  const writeFile = vi.fn(async () => undefined);
+  const ctx = createUploadContext({
+    fs: {
+      fileInfo: vi.fn(async () => ({ mtime: 100, size: localContent.length })),
+      readFile: vi.fn(async () => localContent),
+      writeFile,
+    },
+    executor: {
+      upload,
+      fetchContent: vi.fn(async () => remoteContent),
+    },
+    baseStore,
+  });
+
+  await processUpload({ ...LOCAL_FILE, path }, ctx);
+
+  expect(upload).toHaveBeenNthCalledWith(2, expect.objectContaining({ path }), 3);
+  expect(writeFile).toHaveBeenCalledWith(
+    expect.stringContaining('.sync-conflict-'),
+    remoteContent
+  );
+  expect(writeFile).not.toHaveBeenCalledWith(path, localContent);
+  expect(await ctx.state.getFile(path)).toEqual(
+    expect.objectContaining({ status: 'synced', version: 4 })
+  );
+});
+
+test('ambiguous config merge stops after a second conflict', async () => {
+  const path = '/.orgnote/config.toml';
+  const baseContent = new TextEncoder().encode('[network]\napiUrl = "base"\n');
+  const localContent = new TextEncoder().encode('[network]\napiUrl = "local"\n');
+  const remoteContent = new TextEncoder().encode('[network]\napiUrl = "remote"\n');
+  const baseStore = createBaseStore({
+    path,
+    version: 2,
+    contentHash: 'old-hash',
+    content: baseContent,
+    updatedAt: '2024-01-01T00:00:00Z',
+  });
+  const upload = vi.fn()
+    .mockResolvedValueOnce({ status: 'conflict' as const, serverVersion: 3 })
+    .mockResolvedValueOnce({ status: 'conflict' as const, serverVersion: 4 });
+  const ctx = createUploadContext({
+    fs: {
+      fileInfo: vi.fn(async () => ({ mtime: 100, size: localContent.length })),
+      readFile: vi.fn(async () => localContent),
+      writeFile: vi.fn(async () => undefined),
+    },
+    executor: {
+      upload,
+      fetchContent: vi.fn(async () => remoteContent),
+    },
+    baseStore,
+  });
+
+  await processUpload({ ...LOCAL_FILE, path }, ctx);
+
+  expect(upload).toHaveBeenCalledTimes(2);
+  expect(await ctx.state.getFile(path)).toEqual(
+    expect.objectContaining({ status: 'pending', version: 4 })
+  );
+});
+
 test('upload error stores error status and rethrows', async () => {
   const ctx = createUploadContext({
     fs: {},

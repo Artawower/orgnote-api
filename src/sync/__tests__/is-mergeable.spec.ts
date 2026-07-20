@@ -9,6 +9,10 @@ test('accepts .md files within size limit', () => {
   expect(isMergeableFile('readme.md', 2048)).toBe(true);
 });
 
+test('accepts OrgNote config TOML within size limit', () => {
+  expect(isMergeableFile('/.orgnote/config.toml', 2048)).toBe(true);
+});
+
 test('rejects non-text extensions', () => {
   expect(isMergeableFile('photo.png', 1024)).toBe(false);
   expect(isMergeableFile('data.json', 500)).toBe(false);

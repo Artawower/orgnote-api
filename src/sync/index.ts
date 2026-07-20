@@ -1,7 +1,8 @@
 export { createSyncPlan } from './create-sync-plan';
 export { createPlan } from './plan';
 export { createMemorySyncState } from './memory-state';
-export { scanLocalFiles, findDeletedLocally } from './scan';
+export { createSyncPathIgnore, scanLocalFiles, findDeletedLocally } from './scan';
+export { isSyncConflictPath } from './conflict-path';
 export { fetchRemoteChanges, InvalidSyncChangesResponseError } from './fetch';
 export type { InvalidSyncChangesResponseDetails } from './fetch';
 export { recoverState } from './recovery';
@@ -18,7 +19,7 @@ export {
   hasConflict,
 } from './operations';
 
-export { mergeText } from './merge';
+export { mergeFile, mergeText, mergeToml } from './merge';
 
 export { SyncOperationType, MergeOutcome, isMergeableFile } from './types';
 

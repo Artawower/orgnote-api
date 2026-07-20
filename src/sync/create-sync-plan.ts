@@ -1,6 +1,6 @@
 import type { FileSystem } from '../models/file-system';
 import type { CreateSyncPlanParams, LocalFile, SyncPlan } from './types';
-import { scanLocalFiles, findDeletedLocally } from './scan';
+import { createSyncPathIgnore, scanLocalFiles, findDeletedLocally } from './scan';
 import { fetchRemoteChanges } from './fetch';
 import { createPlan } from './plan';
 import { getOldestSyncedAt } from './utils/oldest-synced-at';
@@ -33,18 +33,26 @@ export async function createSyncPlan(
     params;
 
   const stateData = await state.get();
+  const shouldIgnorePath = createSyncPathIgnore(ignorePatterns);
 
   const localFiles = await scanLocalFiles(fs, rootPath, ignorePatterns);
   const localFilesWithHashes = enableContentHashCheck
     ? await enrichLocalFilesWithHash(fs, localFiles)
     : localFiles;
-  const deletedLocally = findDeletedLocally(localFilesWithHashes, stateData);
+  const deletedLocally = findDeletedLocally(
+    localFilesWithHashes,
+    stateData,
+    shouldIgnorePath
+  );
 
   const since = getOldestSyncedAt(stateData);
 
-  const { files: remoteFiles, serverTime } = await fetchRemoteChanges(
+  const { files: fetchedRemoteFiles, serverTime } = await fetchRemoteChanges(
     api,
     since
+  );
+  const remoteFiles = fetchedRemoteFiles.filter(
+    (file) => !shouldIgnorePath(file.path)
   );
 
   return createPlan({

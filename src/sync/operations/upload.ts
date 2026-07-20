@@ -1,10 +1,11 @@
-import type { LocalFile, SyncContext } from '../types';
+import type { LocalFile, SyncContext, UploadResult } from '../types';
 import { handleConflict, tryMergeConflict } from './conflict';
 import { createSyncedFile } from './synced-file';
 import { resolveContentHash } from './content-hash';
 import { readBinaryContent } from './read-binary-content';
 import { hashContent } from '../utils/content-hash';
 import { to } from '../../utils/to-error';
+import { isOrgNoteConfigPath } from '../config-path';
 
 const persistErrorState = async (
   file: LocalFile,
@@ -64,6 +65,40 @@ const executeUpload = async (
   await persistSyncedSnapshot(file.path, result.version, ctx);
 };
 
+type ConflictUploadResult = Extract<UploadResult, { status: 'conflict' }>;
+
+const createCurrentLocalFile = async (
+  file: LocalFile,
+  ctx: SyncContext
+): Promise<LocalFile> => {
+  const content = await readBinaryContent(ctx.fs, file.path);
+  const fileInfo = await ctx.fs.fileInfo(file.path);
+  return {
+    ...file,
+    mtime: fileInfo?.mtime ?? file.mtime,
+    size: fileInfo?.size ?? content.length,
+    contentHash: await hashContent(content),
+  };
+};
+
+const retryLocalConfigUpload = async (
+  file: LocalFile,
+  conflictResult: ConflictUploadResult,
+  ctx: SyncContext
+): Promise<void> => {
+  await handleConflict(file.path, conflictResult, ctx);
+  const currentFile = await createCurrentLocalFile(file, ctx);
+  const retryResult = await ctx.executor.upload(
+    currentFile,
+    conflictResult.serverVersion
+  );
+  if (retryResult.status !== 'ok') {
+    await handleConflict(file.path, retryResult, ctx);
+    return;
+  }
+  await persistSyncedSnapshot(file.path, retryResult.version, ctx);
+};
+
 const executeUploadWithMergeRetry = async (
   file: LocalFile,
   expectedVersion: number | undefined,
@@ -86,6 +121,10 @@ const executeUploadWithMergeRetry = async (
   );
 
   if (!mergedContent) {
+    if (isOrgNoteConfigPath(file.path)) {
+      await retryLocalConfigUpload(file, result, ctx);
+      return;
+    }
     await handleConflict(file.path, result, ctx);
     return;
   }

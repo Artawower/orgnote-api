@@ -165,6 +165,8 @@ const resolveNewRemote = (remote: RemoteFile): FileAction =>
 const isLocalChanged = (local: LocalFile, stored?: SyncedFile): boolean =>
   !stored ||
   stored.status === 'error' ||
+  stored.status === 'pending' ||
+  stored.status === 'conflict' ||
   (local.contentHash && stored.contentHash
     ? local.contentHash !== stored.contentHash
     : local.mtime !== stored.mtime);
