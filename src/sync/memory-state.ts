@@ -18,6 +18,13 @@ export function createMemorySyncState(initial?: Partial<SyncStateData>): SyncSta
       data.files[path] = { ...file };
     },
 
+    async setSyncedAt(paths, syncedAt) {
+      paths.forEach((path) => {
+        const file = data.files[path];
+        if (file) data.files[path] = { ...file, syncedAt };
+      });
+    },
+
     async removeFile(path) {
       delete data.files[path];
     },

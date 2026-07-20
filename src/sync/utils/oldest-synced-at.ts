@@ -1,13 +1,21 @@
 import type { SyncStateData } from '../types';
 
-export const getOldestSyncedAt = (stateData: SyncStateData): string | undefined => {
-  const syncedTimes = Object.values(stateData.files)
-    .map((f) => f.syncedAt)
-    .filter((t): t is string => Boolean(t));
+type ShouldIgnorePath = (path: string) => boolean;
 
-  if (syncedTimes.length === 0) {
-    return undefined;
-  }
+const isTimestamp = (value: string | undefined): value is string =>
+  Boolean(value);
+
+export const getOldestSyncedAt = (
+  stateData: SyncStateData,
+  shouldIgnorePath: ShouldIgnorePath = () => false
+): string | undefined => {
+  const trackedFiles = Object.entries(stateData.files).filter(
+    ([path]) => !shouldIgnorePath(path)
+  );
+  if (trackedFiles.length === 0) return undefined;
+
+  const syncedTimes = trackedFiles.map(([, file]) => file.syncedAt);
+  if (!syncedTimes.every(isTimestamp)) return undefined;
 
   return syncedTimes.reduce((oldest, current) =>
     new Date(current) < new Date(oldest) ? current : oldest

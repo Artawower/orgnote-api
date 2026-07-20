@@ -12,6 +12,7 @@ type FileAction =
   | { type: SyncOperationType.Download; file: RemoteFile }
   | { type: SyncOperationType.DeleteLocal; path: string }
   | { type: SyncOperationType.DeleteRemote; path: string }
+  | { type: 'unchanged'; path: string }
   | { type: 'none' };
 
 interface FileIndex {
@@ -85,6 +86,7 @@ const buildPlanFromActions = (
     toDownload: [],
     toDeleteLocal: [],
     toDeleteRemote: [],
+    unchangedPaths: [],
     serverTime,
   });
 
@@ -112,6 +114,10 @@ const actionHandlers: {
     ...plan,
     toDeleteRemote: [...plan.toDeleteRemote, action.path],
   }),
+  unchanged: (plan, action) => ({
+    ...plan,
+    unchangedPaths: [...plan.unchangedPaths, action.path],
+  }),
   none: (plan) => plan,
 };
 
@@ -126,7 +132,7 @@ const resolveLocalFile = (
   const localChanged = isLocalChanged(local, stored);
 
   if (!remote) {
-    return localChanged ? upload(local) : none();
+    return localChanged ? upload(local) : unchanged(local.path);
   }
 
   if (remote.deleted) {
@@ -142,7 +148,7 @@ const resolveLocalFile = (
   if (localChanged) return upload(local);
   if (remoteChanged) return download(remote);
 
-  return none();
+  return unchanged(local.path);
 };
 
 const resolveDeletedLocally = (
@@ -165,6 +171,8 @@ const resolveNewRemote = (remote: RemoteFile): FileAction =>
 const isLocalChanged = (local: LocalFile, stored?: SyncedFile): boolean =>
   !stored ||
   stored.status === 'error' ||
+  stored.status === 'pending' ||
+  stored.status === 'conflict' ||
   (local.contentHash && stored.contentHash
     ? local.contentHash !== stored.contentHash
     : local.mtime !== stored.mtime);
@@ -188,4 +196,5 @@ const deleteRemote = (path: string): FileAction => ({
   type: SyncOperationType.DeleteRemote,
   path,
 });
+const unchanged = (path: string): FileAction => ({ type: 'unchanged', path });
 const none = (): FileAction => ({ type: 'none' });

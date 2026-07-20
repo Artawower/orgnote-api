@@ -67,6 +67,14 @@ test('processDownload stores error status and rethrows when download fails', asy
     }),
   } as unknown as SyncExecutor;
   const ctx = createContext({ fs, executor });
+  const previousSyncedAt = '2023-12-01T00:00:00Z';
+  await ctx.state.setFile('/d.org', {
+    mtime: 10,
+    size: 10,
+    version: 2,
+    status: 'synced',
+    syncedAt: previousSyncedAt,
+  });
   const file: RemoteFile = {
     path: '/d.org',
     version: 3,
@@ -79,5 +87,6 @@ test('processDownload stores error status and rethrows when download fails', asy
   const stored = await ctx.state.getFile('/d.org');
 
   expect(stored?.status).toBe('error');
+  expect(stored?.syncedAt).toBe(previousSyncedAt);
   expect(stored?.errorMessage).toContain('network');
 });

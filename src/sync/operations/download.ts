@@ -18,6 +18,7 @@ const markDownloading = async (
     createSyncedFile(storedMeta(stored), {
       version: stored?.version,
       status: 'downloading',
+      syncedAt: stored?.syncedAt,
     })
   );
 };
@@ -66,6 +67,7 @@ const markError = async (
     createSyncedFile(storedMeta(stored), {
       version: stored?.version,
       status: 'error',
+      syncedAt: stored?.syncedAt,
       errorMessage: String(error),
     })
   );

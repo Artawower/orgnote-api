@@ -58,6 +58,7 @@ test('unchanged file → skip', () => {
 
   expect(plan.toUpload).toHaveLength(0);
   expect(plan.toDownload).toHaveLength(0);
+  expect(plan.unchangedPaths).toEqual(['c.org']);
 });
 
 test('local changed → upload', () => {
@@ -381,4 +382,67 @@ test('local hash present, stored hash absent, different mtime → upload', () =>
 
   expect(plan.toUpload).toHaveLength(1);
   expect(plan.toUpload[0].path).toBe('p.org');
+});
+
+test('unchanged pending file retries the local upload', () => {
+  const path = '/.orgnote/config.toml';
+  const localFiles: LocalFile[] = [
+    { path, mtime: 1000, size: 100, contentHash: 'local-hash' },
+  ];
+  const remoteFiles: RemoteFile[] = [
+    { path, version: 8, deleted: false, updatedAt: '' },
+  ];
+  const stateData: SyncStateData = {
+    files: {
+      [path]: {
+        mtime: 1000,
+        size: 100,
+        version: 7,
+        status: 'pending',
+        contentHash: 'local-hash',
+      },
+    },
+  };
+
+  const plan = createPlan({
+    localFiles,
+    deletedLocally: [],
+    remoteFiles,
+    stateData,
+    serverTime,
+  });
+
+  expect(plan.toDownload).toHaveLength(0);
+  expect(plan.toUpload).toHaveLength(1);
+});
+
+test('legacy conflict state retries the local upload', () => {
+  const path = '/.orgnote/config.toml';
+  const localFiles: LocalFile[] = [
+    { path, mtime: 1000, size: 100, contentHash: 'local-hash' },
+  ];
+  const remoteFiles: RemoteFile[] = [
+    { path, version: 7, deleted: false, updatedAt: '' },
+  ];
+  const stateData: SyncStateData = {
+    files: {
+      [path]: {
+        mtime: 1000,
+        size: 100,
+        version: 7,
+        status: 'conflict',
+        contentHash: 'local-hash',
+      },
+    },
+  };
+
+  const plan = createPlan({
+    localFiles,
+    deletedLocally: [],
+    remoteFiles,
+    stateData,
+    serverTime,
+  });
+
+  expect(plan.toUpload).toHaveLength(1);
 });

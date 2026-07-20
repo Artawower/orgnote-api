@@ -32,7 +32,7 @@ test('returns oldest syncedAt from files', () => {
   expect(getOldestSyncedAt(state)).toBe('2024-01-01T00:00:00Z');
 });
 
-test('ignores files without syncedAt', () => {
+test('returns undefined when a tracked file has no syncedAt', () => {
   const state: SyncStateData = {
     files: {
       '/a.org': createFile('2024-01-02T00:00:00Z'),
@@ -40,5 +40,18 @@ test('ignores files without syncedAt', () => {
       '/c.org': createFile('2024-01-03T00:00:00Z'),
     },
   };
-  expect(getOldestSyncedAt(state)).toBe('2024-01-02T00:00:00Z');
+  expect(getOldestSyncedAt(state)).toBeUndefined();
+});
+
+test('ignores excluded state paths', () => {
+  const state: SyncStateData = {
+    files: {
+      '/a.org': createFile('2024-01-02T00:00:00Z'),
+      '/ignored.org': createFile(),
+    },
+  };
+
+  expect(getOldestSyncedAt(state, (path) => path === '/ignored.org')).toBe(
+    '2024-01-02T00:00:00Z'
+  );
 });

@@ -185,3 +185,59 @@ test('reads local content before downloading remote', async () => {
 
   expect(callOrder.indexOf('readLocal')).toBeLessThan(callOrder.indexOf('download'));
 });
+
+test('restores local content when merge is ambiguous', async () => {
+  const local = new TextEncoder().encode('* Local\n');
+  const remote = new TextEncoder().encode('* Remote\n');
+  const writeFile = vi.fn(async () => undefined);
+  const ctx = createMergeContext({
+    fs: {
+      fileInfo: vi.fn(async () => ({ mtime: 1, size: 200 })),
+      readFile: vi.fn().mockResolvedValueOnce(local).mockResolvedValueOnce(remote),
+      writeFile,
+    },
+    executor: {
+      download: vi.fn(async () => undefined),
+    },
+  });
+
+  const result = await tryMergeConflict(
+    '/note.org',
+    CONFLICT_RESULT,
+    BASE_CONTENT,
+    ctx
+  );
+
+  expect(result).toBeNull();
+  expect(writeFile).toHaveBeenCalledWith('/note.org', local);
+});
+
+test('merges non-overlapping OrgNote config changes', async () => {
+  const base = new TextEncoder().encode('[network]\napiUrl = "old"\n');
+  const local = new TextEncoder().encode('[network]\napiUrl = "correct"\n');
+  const remote = new TextEncoder().encode(
+    '[network]\napiUrl = "old"\n\n[synchronization]\ntype = "api"\n'
+  );
+  const writeFile = vi.fn(async () => undefined);
+  const ctx = createMergeContext({
+    fs: {
+      fileInfo: vi.fn(async () => ({ mtime: 1, size: 200 })),
+      readFile: vi.fn().mockResolvedValueOnce(local).mockResolvedValueOnce(remote),
+      writeFile,
+    },
+    executor: {
+      download: vi.fn(async () => undefined),
+    },
+  });
+
+  const result = await tryMergeConflict(
+    '/.orgnote/config.toml',
+    CONFLICT_RESULT,
+    base,
+    ctx
+  );
+
+  expect(result).toBeTruthy();
+  expect(new TextDecoder().decode(result ?? new Uint8Array())).toContain('apiUrl = "correct"');
+  expect(new TextDecoder().decode(result ?? new Uint8Array())).toContain('type = "api"');
+});

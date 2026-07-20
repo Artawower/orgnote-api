@@ -5,24 +5,16 @@ import { MergeOutcome } from '../types';
 import { createSyncedFile } from './synced-file';
 import { resolveContentHash } from './content-hash';
 import { readBinaryContent } from './read-binary-content';
-import { mergeText } from '../merge/text-merge';
+import { mergeFile } from '../merge/file-merge';
 import { isMergeableFile } from '../types';
 import { to } from '../../utils/to-error';
+import { generateConflictPath } from '../conflict-path';
+import { keepLocalConfig, shouldKeepLocalConfig } from './config-conflict';
+import { createRemoteFile, downloadRemoteContent } from './remote-content';
+
+export { generateConflictPath } from '../conflict-path';
 
 type ConflictUploadResult = Extract<UploadResult, { status: 'conflict' }>;
-
-export const generateConflictPath = (
-  path: string,
-  deviceName: string = 'device'
-): string => {
-  const lastDot = path.lastIndexOf('.');
-  const ext = lastDot >= 0 ? path.substring(lastDot) : '';
-  const base = lastDot >= 0 ? path.substring(0, lastDot) : path;
-  const timestamp = Date.now();
-  const safeDeviceName = deviceName.replace(/[^a-zA-Z0-9_-]/g, '_');
-
-  return `${base}.sync-conflict-${timestamp}-${safeDeviceName}${ext}`;
-};
 
 const copyFile = async (
   fs: FileSystem,
@@ -68,26 +60,6 @@ const removeBaseStoreEntry = async (
   if (!ctx.baseStore) return;
 
   await ctx.baseStore.remove(path);
-};
-
-const downloadRemoteContent = async (
-  path: string,
-  version: number,
-  ctx: SyncContext
-): Promise<Uint8Array | null> => {
-  const result = await to(ctx.executor.download)({
-    path,
-    version,
-    deleted: false,
-    updatedAt: new Date().toISOString(),
-  });
-
-  if (result.isErr()) {
-    if (isAxiosNotFound(result.error)) return null;
-    throw result.error;
-  }
-
-  return readBinaryContent(ctx.fs, path);
 };
 
 const isDirty = async (path: string, ctx: SyncContext): Promise<boolean> => {
@@ -154,12 +126,13 @@ export const tryMergeConflict = async (
     remote: remoteContent,
   };
 
-  const mergeResult = mergeText(inputs);
+  const mergeResult = mergeFile(path, inputs);
 
   if (
     mergeResult.outcome !== MergeOutcome.Merged ||
     !mergeResult.mergedContent
   ) {
+    if (!ctx.executor.fetchContent) await ctx.fs.writeFile(path, localContent);
     return null;
   }
 
@@ -172,12 +145,9 @@ const tryDownloadServerVersion = async (
   serverVersion: number,
   ctx: SyncContext
 ): Promise<boolean> => {
-  const result = await to(ctx.executor.download)({
-    path,
-    version: serverVersion,
-    deleted: false,
-    updatedAt: new Date().toISOString(),
-  });
+  const result = await to(ctx.executor.download)(
+    createRemoteFile(path, serverVersion)
+  );
 
   if (result.isErr()) {
     if (isAxiosNotFound(result.error)) return false;
@@ -187,28 +157,21 @@ const tryDownloadServerVersion = async (
   return true;
 };
 
-export const handleConflict = async (
+const removeMissingServerFile = async (
   path: string,
-  conflictResult: ConflictUploadResult,
   ctx: SyncContext
 ): Promise<void> => {
-  const conflictPath = generateConflictPath(path, ctx.deviceName);
+  await ctx.fs.deleteFile(path);
+  await ctx.state.removeFile(path);
+  await removeBaseStoreEntry(path, ctx);
+};
 
-  await copyFile(ctx.fs, path, conflictPath);
-
-  const downloaded = await tryDownloadServerVersion(
-    path,
-    conflictResult.serverVersion,
-    ctx
-  );
-
-  if (!downloaded) {
-    await ctx.fs.deleteFile(path);
-    await ctx.state.removeFile(path);
-    await removeBaseStoreEntry(path, ctx);
-    return;
-  }
-
+const storeDownloadedConflict = async (
+  path: string,
+  conflictPath: string,
+  serverVersion: number,
+  ctx: SyncContext
+): Promise<void> => {
   const fileInfo = await ctx.fs.fileInfo(path);
   const contentHash = await resolveContentHash(ctx.fs, path);
   const meta = {
@@ -216,17 +179,38 @@ export const handleConflict = async (
     size: fileInfo?.size ?? 0,
     contentHash,
   };
+  await ctx.state.setFile(path, createSyncedFile(meta, {
+    version: serverVersion,
+    status: 'synced',
+    syncedAt: ctx.serverTime,
+    conflictPath,
+  }));
+  await refreshBaseStore(path, serverVersion, contentHash, ctx);
+};
 
-  await ctx.state.setFile(
+const handleRegularConflict = async (
+  path: string,
+  conflictResult: ConflictUploadResult,
+  ctx: SyncContext
+): Promise<void> => {
+  const conflictPath = generateConflictPath(path, ctx.deviceName);
+  await copyFile(ctx.fs, path, conflictPath);
+  const downloaded = await tryDownloadServerVersion(
     path,
-    createSyncedFile(meta, {
-      version: conflictResult.serverVersion,
-      status: 'synced',
-      conflictPath,
-    })
+    conflictResult.serverVersion,
+    ctx
   );
+  if (!downloaded) return removeMissingServerFile(path, ctx);
+  await storeDownloadedConflict(path, conflictPath, conflictResult.serverVersion, ctx);
+};
 
-  await refreshBaseStore(path, conflictResult.serverVersion, contentHash, ctx);
+export const handleConflict = async (
+  path: string,
+  conflictResult: ConflictUploadResult,
+  ctx: SyncContext
+): Promise<void> => {
+  if (shouldKeepLocalConfig(path)) return keepLocalConfig(path, conflictResult, ctx);
+  await handleRegularConflict(path, conflictResult, ctx);
 };
 
 export const hasConflict = (file: { conflictPath?: string }): boolean =>

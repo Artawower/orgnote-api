@@ -34,6 +34,21 @@ test('getFile returns null for missing', async () => {
   expect(file).toBeNull();
 });
 
+test('setSyncedAt updates only existing paths', async () => {
+  const state = createMemorySyncState({
+    files: {
+      'a.org': { mtime: 1000, size: 100, status: 'synced' },
+      'b.org': { mtime: 2000, size: 200, status: 'pending' },
+    },
+  });
+
+  await state.setSyncedAt(['a.org', 'missing.org'], '2024-01-02T00:00:00Z');
+
+  expect((await state.getFile('a.org'))?.syncedAt).toBe('2024-01-02T00:00:00Z');
+  expect((await state.getFile('b.org'))?.syncedAt).toBeUndefined();
+  expect(await state.getFile('missing.org')).toBeNull();
+});
+
 test('removeFile', async () => {
   const state = createMemorySyncState();
   await state.setFile('c.org', { mtime: 1000, size: 100, status: 'synced' });

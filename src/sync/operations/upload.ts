@@ -1,14 +1,16 @@
-import type { LocalFile, SyncContext } from '../types';
+import type { LocalFile, SyncContext, UploadResult } from '../types';
 import { handleConflict, tryMergeConflict } from './conflict';
 import { createSyncedFile } from './synced-file';
 import { resolveContentHash } from './content-hash';
 import { readBinaryContent } from './read-binary-content';
 import { hashContent } from '../utils/content-hash';
 import { to } from '../../utils/to-error';
+import { isOrgNoteConfigPath } from '../config-path';
 
 const persistErrorState = async (
   file: LocalFile,
   expectedVersion: number | undefined,
+  previousSyncedAt: string | undefined,
   error: unknown,
   ctx: SyncContext
 ): Promise<void> => {
@@ -17,6 +19,7 @@ const persistErrorState = async (
     createSyncedFile(file, {
       version: expectedVersion,
       status: 'error',
+      syncedAt: previousSyncedAt,
       errorMessage: String(error),
     })
   );
@@ -31,7 +34,11 @@ export const processUpload = async (
 
   await ctx.state.setFile(
     file.path,
-    createSyncedFile(file, { version: expectedVersion, status: 'uploading' })
+    createSyncedFile(file, {
+      version: expectedVersion,
+      status: 'uploading',
+      syncedAt: stored?.syncedAt,
+    })
   );
 
   const execute = ctx.baseStore
@@ -45,7 +52,13 @@ export const processUpload = async (
 
   if (result.isOk()) return;
 
-  await persistErrorState(file, expectedVersion, result.error, ctx);
+  await persistErrorState(
+    file,
+    expectedVersion,
+    stored?.syncedAt,
+    result.error,
+    ctx
+  );
   throw result.error;
 };
 
@@ -62,6 +75,40 @@ const executeUpload = async (
   }
 
   await persistSyncedSnapshot(file.path, result.version, ctx);
+};
+
+type ConflictUploadResult = Extract<UploadResult, { status: 'conflict' }>;
+
+const createCurrentLocalFile = async (
+  file: LocalFile,
+  ctx: SyncContext
+): Promise<LocalFile> => {
+  const content = await readBinaryContent(ctx.fs, file.path);
+  const fileInfo = await ctx.fs.fileInfo(file.path);
+  return {
+    ...file,
+    mtime: fileInfo?.mtime ?? file.mtime,
+    size: fileInfo?.size ?? content.length,
+    contentHash: await hashContent(content),
+  };
+};
+
+const retryLocalConfigUpload = async (
+  file: LocalFile,
+  conflictResult: ConflictUploadResult,
+  ctx: SyncContext
+): Promise<void> => {
+  await handleConflict(file.path, conflictResult, ctx);
+  const currentFile = await createCurrentLocalFile(file, ctx);
+  const retryResult = await ctx.executor.upload(
+    currentFile,
+    conflictResult.serverVersion
+  );
+  if (retryResult.status !== 'ok') {
+    await handleConflict(file.path, retryResult, ctx);
+    return;
+  }
+  await persistSyncedSnapshot(file.path, retryResult.version, ctx);
 };
 
 const executeUploadWithMergeRetry = async (
@@ -86,6 +133,10 @@ const executeUploadWithMergeRetry = async (
   );
 
   if (!mergedContent) {
+    if (isOrgNoteConfigPath(file.path)) {
+      await retryLocalConfigUpload(file, result, ctx);
+      return;
+    }
     await handleConflict(file.path, result, ctx);
     return;
   }
