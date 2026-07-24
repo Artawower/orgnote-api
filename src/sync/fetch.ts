@@ -1,5 +1,13 @@
 import type { FileChange, SyncChangesResponse } from '../remote-api';
 import type { SyncApi, RemoteFile } from './types';
+import { getHttpHeader, isRecord } from './utils/http-headers';
+import {
+  InvalidSyncResponseError,
+  type InvalidSyncResponseDetails,
+} from './invalid-response-error';
+
+const DEFAULT_LIMIT = 100;
+const SYNC_CHANGES_OPERATION = 'syncChangesGet';
 
 type ServerFields = Pick<SyncChangesResponse, 'serverTime' | 'cursor'>;
 
@@ -7,28 +15,30 @@ export interface FetchResult extends ServerFields {
   files: RemoteFile[];
 }
 
-export interface InvalidSyncChangesResponseDetails {
-  operation: string;
-  reason: string;
-  responseKind: string;
-  status?: number;
-  contentType?: string;
+export type InvalidSyncChangesResponseReason =
+  | 'missing_data'
+  | 'missing_changes'
+  | 'invalid_server_time'
+  | 'invalid_has_more'
+  | 'missing_cursor'
+  | 'invalid_response_shape';
+
+export interface InvalidSyncChangesResponseDetails extends InvalidSyncResponseDetails {
+  operation: typeof SYNC_CHANGES_OPERATION;
+  reason: InvalidSyncChangesResponseReason;
   topLevelKeys: string[];
   dataKeys: string[];
 }
 
-export class InvalidSyncChangesResponseError extends Error {
-  readonly details: InvalidSyncChangesResponseDetails;
-
+export class InvalidSyncChangesResponseError extends InvalidSyncResponseError<InvalidSyncChangesResponseDetails> {
   constructor(details: InvalidSyncChangesResponseDetails) {
-    super('Invalid sync changes response. Check the configured API URL.', { cause: details });
-    this.name = 'InvalidSyncChangesResponseError';
-    this.details = details;
+    super(
+      'Invalid sync changes response. Check the configured API URL.',
+      'InvalidSyncChangesResponseError',
+      details,
+    );
   }
 }
-
-const DEFAULT_LIMIT = 100;
-const SYNC_CHANGES_OPERATION = 'syncChangesGet';
 
 export const fetchRemoteChanges = async (
   api: SyncApi,
@@ -76,9 +86,6 @@ const fetchPage = async (
   };
 };
 
-const isRecord = (value: unknown): value is Record<string, unknown> =>
-  typeof value === 'object' && value !== null;
-
 const getDataField = (body: unknown): unknown => (isRecord(body) ? body.data : undefined);
 
 const getKeys = (value: unknown): string[] => (isRecord(value) ? Object.keys(value) : []);
@@ -88,7 +95,9 @@ const getSyncChangesData = (body: unknown): SyncChangesResponse | null => {
   return getDataField(body) as SyncChangesResponse;
 };
 
-const getInvalidSyncChangesReason = (body: unknown): string | undefined => {
+const getInvalidSyncChangesReason = (
+  body: unknown,
+): InvalidSyncChangesResponseReason | undefined => {
   const data = getDataField(body);
   if (!isRecord(data)) return 'missing_data';
   if (!Array.isArray(data.changes)) return 'missing_changes';
@@ -127,23 +136,7 @@ const getResponseStatus = (response: unknown): number | undefined => {
 
 const getContentType = (response: unknown): string | undefined => {
   if (!isRecord(response)) return undefined;
-  return getHeader(response.headers, 'content-type');
-};
-
-const getHeader = (headers: unknown, name: string): string | undefined => {
-  if (hasHeaderGetter(headers)) return toHeaderValue(headers.get(name));
-  if (!isRecord(headers)) return undefined;
-  const entry = Object.entries(headers).find(([key]) => key.toLowerCase() === name);
-  return toHeaderValue(entry?.[1]);
-};
-
-const hasHeaderGetter = (headers: unknown): headers is { get: (name: string) => unknown } =>
-  isRecord(headers) && typeof headers.get === 'function';
-
-const toHeaderValue = (value: unknown): string | undefined => {
-  if (typeof value === 'string') return value;
-  if (typeof value === 'number' || typeof value === 'boolean') return String(value);
-  return undefined;
+  return getHttpHeader(response.headers, 'content-type');
 };
 
 const mapChangesToFiles = (changes: FileChange[]): RemoteFile[] =>

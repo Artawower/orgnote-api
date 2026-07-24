@@ -1,5 +1,10 @@
 import { expect, test } from 'vitest';
-import { fetchRemoteChanges } from '../fetch';
+import {
+  fetchRemoteChanges,
+  InvalidSyncChangesResponseError,
+  type InvalidSyncChangesResponseReason,
+} from '../fetch';
+import { InvalidSyncResponseError } from '../invalid-response-error';
 import type { SyncApi } from '../types';
 
 const validChange = {
@@ -18,7 +23,10 @@ const createApi = (data: unknown): SyncApi =>
 
 const createSyncResponse = (data: unknown): unknown => ({ data: { data } });
 
-const expectInvalidSyncResponse = async (data: unknown, reason: string): Promise<void> => {
+const expectInvalidSyncResponse = async (
+  data: unknown,
+  reason: InvalidSyncChangesResponseReason,
+): Promise<void> => {
   await expect(fetchRemoteChanges(createApi(createSyncResponse(data)))).rejects.toMatchObject({
     name: 'InvalidSyncChangesResponseError',
     details: {
@@ -29,6 +37,18 @@ const expectInvalidSyncResponse = async (data: unknown, reason: string): Promise
     },
   });
 };
+
+test('InvalidSyncChangesResponseError exposes common sync response contract', () => {
+  const error = new InvalidSyncChangesResponseError({
+    operation: 'syncChangesGet',
+    reason: 'missing_data',
+    responseKind: 'json-object',
+    topLevelKeys: [],
+    dataKeys: [],
+  });
+
+  expect(error).toBeInstanceOf(InvalidSyncResponseError);
+});
 
 test('fetchRemoteChanges maps contentHash from API changes', async () => {
   const api = createApi(
