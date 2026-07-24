@@ -8,6 +8,7 @@ export enum DefaultCommands {
   REPORT_BUG = 'report bug',
   OPEN_SYSTEM_INFO = 'open system info',
   SHOW_LATEST_CHANGES = 'show latest changes',
+  CHECK_FOR_UPDATES = 'check for updates',
   SHOW_LOGS = 'show logs',
   APPLY_PWA_UPDATE = 'apply pwa update',
   CLEAR_LOGS = 'clear logs',
