@@ -41,6 +41,7 @@ export type {
   LocalFile,
   RemoteFile,
   UploadResult,
+  DeleteResult,
   SyncPlan,
   SyncTask,
   SyncExecutor,

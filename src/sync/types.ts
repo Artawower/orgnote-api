@@ -60,12 +60,16 @@ export type UploadResult =
   | { status: 'ok'; version: number }
   | { status: 'conflict'; serverVersion: number };
 
+export type DeleteResult =
+  | { status: 'ok' }
+  | { status: 'conflict'; serverVersion: number };
+
 export interface SyncExecutor {
   upload: (file: LocalFile, expectedVersion?: number) => Promise<UploadResult>;
   download: (file: RemoteFile) => Promise<void>;
   fetchContent: (file: RemoteFile) => Promise<Uint8Array>;
   deleteLocal: (path: string) => Promise<void>;
-  deleteRemote: (path: string, expectedVersion: number) => Promise<void>;
+  deleteRemote: (path: string, expectedVersion: number) => Promise<DeleteResult>;
 }
 
 export interface SyncPlan {
