@@ -18,7 +18,7 @@ export interface CompletionStore {
   previousCandidate: () => void;
   canAcceptAutocomplete: () => boolean;
   acceptAutocomplete: () => void;
-  search: (limit?: number, offset?: number) => void;
+  search: (limit?: number, offset?: number) => Promise<void>;
   registerInterceptor: <T = unknown>(
     interceptor: CompletionInterceptor<T>,
   ) => () => void;
