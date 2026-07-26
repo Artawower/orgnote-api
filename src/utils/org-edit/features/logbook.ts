@@ -38,7 +38,7 @@ const getLogbookContentNodes = (
   );
 };
 
-const findHeadTrailingNewLine = (
+const findTrailingNewLine = (
   section: OrgNode,
   head: OrgNode
 ): OrgNode | undefined =>
@@ -60,6 +60,28 @@ const findPlanningTrailingNewLine = (section: OrgNode): OrgNode | undefined => {
   return section.childrenList.find(
     (n) => n.start === planning.end && n.is(NodeType.NewLine)
   );
+};
+
+interface NewDrawerInsertion {
+  anchor?: OrgNode;
+  needsLeadingNewLine: boolean;
+}
+
+const resolveNewDrawerInsertion = (section: OrgNode): NewDrawerInsertion => {
+  const propertyDrawer = section.childrenList.find((node) =>
+    node.is(NodeType.PropertyDrawer)
+  );
+  if (!propertyDrawer) {
+    return {
+      anchor: findPlanningTrailingNewLine(section),
+      needsLeadingNewLine: false,
+    };
+  }
+  const trailingNewLine = findTrailingNewLine(section, propertyDrawer);
+  return {
+    anchor: trailingNewLine ?? propertyDrawer,
+    needsLeadingNewLine: trailingNewLine === undefined,
+  };
 };
 
 interface ParsedSnippet {
@@ -204,19 +226,20 @@ export const createLogbook = (headline: OrgNode): OrgLogbook => {
     const section = ensureSection();
     const bounds = findLogbookBounds(section);
     if (bounds) {
-      const trailing = findHeadTrailingNewLine(section, bounds.head);
+      const trailing = findTrailingNewLine(section, bounds.head);
       const newNodes = buildEntrySnippetNodes(entrySnippet);
       insertNodesAfter(section, trailing ?? bounds.head, newNodes);
       return;
     }
-    const drawer = `${LOGBOOK_HEAD}\n${entrySnippet}${LOGBOOK_END}\n`;
+    const insertion = resolveNewDrawerInsertion(section);
+    const leadingNewLine = insertion.needsLeadingNewLine ? '\n' : '';
+    const drawer = `${leadingNewLine}${LOGBOOK_HEAD}\n${entrySnippet}${LOGBOOK_END}\n`;
     const drawerNodes = buildEntrySnippetNodes(drawer);
-    const planningNl = findPlanningTrailingNewLine(section);
-    if (planningNl) {
-      insertNodesAfter(section, planningNl, drawerNodes);
-    } else {
-      insertNodesAtStart(section, drawerNodes);
+    if (insertion.anchor) {
+      insertNodesAfter(section, insertion.anchor, drawerNodes);
+      return;
     }
+    insertNodesAtStart(section, drawerNodes);
   };
 
   const removeStateChangeEntry = (filter: {
@@ -250,7 +273,7 @@ export const createLogbook = (headline: OrgNode): OrgLogbook => {
   };
 
   const removeDrawer = (section: OrgNode, bounds: LogbookBounds): void => {
-    const headNl = findHeadTrailingNewLine(section, bounds.head);
+    const headNl = findTrailingNewLine(section, bounds.head);
     const endNl = findEndTrailingNewLine(section, bounds.end);
     const contentNodes = getLogbookContentNodes(section, bounds);
     const toRemove = [bounds.head];

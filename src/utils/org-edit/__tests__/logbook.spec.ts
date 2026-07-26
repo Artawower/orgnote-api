@@ -30,6 +30,38 @@ test('appendStateChange_insertsDrawer_afterPlanningLine', () => {
   );
 });
 
+test('appendStateChange_insertsDrawer_afterPropertyDrawer', () => {
+  const next = editOrgDocument(
+    '* TODO Habit\n:PROPERTIES:\n:STYLE: habit\n:END:\nBody\n',
+    (doc) => {
+      doc.headlineAt(0)?.logbook.appendStateChange({
+        from: 'TODO',
+        to: 'DONE',
+        at: new Date(2026, 4, 13, 10, 53),
+      });
+    }
+  );
+  expect(next).toBe(
+    '* TODO Habit\n:PROPERTIES:\n:STYLE: habit\n:END:\n:LOGBOOK:\n- State "DONE" from "TODO" [2026-05-13 Wed 10:53]\n:END:\nBody\n'
+  );
+});
+
+test('appendStateChange_separatesDrawerAfterPropertyDrawerAtEndOfFile', () => {
+  const next = editOrgDocument(
+    '* TODO Habit\n:PROPERTIES:\n:STYLE: habit\n:END:',
+    (doc) => {
+      doc.headlineAt(0)?.logbook.appendStateChange({
+        from: 'TODO',
+        to: 'DONE',
+        at: new Date(2026, 4, 13, 10, 53),
+      });
+    }
+  );
+  expect(next).toBe(
+    '* TODO Habit\n:PROPERTIES:\n:STYLE: habit\n:END:\n:LOGBOOK:\n- State "DONE" from "TODO" [2026-05-13 Wed 10:53]\n:END:\n'
+  );
+});
+
 test('appendStateChange_prependsEntry_toExistingDrawer', () => {
   const content =
     '* TODO Task\n:LOGBOOK:\n- State "DONE" from "TODO" [2026-05-12 Tue 09:00]\n:END:\n';
