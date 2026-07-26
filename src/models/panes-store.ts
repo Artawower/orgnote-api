@@ -3,6 +3,27 @@ import { StoreDefinition } from './store';
 import { InitialTabParams, Tab, Pane, PaneSnapshot } from './pane';
 import type { RouteLocationRaw, RouteLocationNormalizedLoaded } from 'vue-router';
 
+export interface ActiveBufferSnapshot {
+  readonly paneId?: string;
+  readonly tabId?: string;
+  readonly uri?: string;
+}
+
+export interface BufferActivatedEvent {
+  readonly current: ActiveBufferSnapshot;
+  readonly previous?: ActiveBufferSnapshot;
+}
+
+export interface BufferActivationSubscriptionOptions {
+  readonly immediate?: boolean;
+}
+
+export type BufferActivationCallback = (
+  event: BufferActivatedEvent
+) => void | Promise<void>;
+
+export type BufferActivationUnsubscribe = () => void;
+
 export interface PaneStore {
   panes: Ref<Record<string, ShallowRef<Pane>>>;
   activePaneId: Ref<string | undefined>;
@@ -11,6 +32,10 @@ export interface PaneStore {
   activeRoute: ComputedRef<RouteLocationNormalizedLoaded | undefined>;
   activeBufferUri: ComputedRef<string | undefined>;
   activeTabTitle: ComputedRef<string>;
+  afterBufferActivated: (
+    callback: BufferActivationCallback,
+    options?: BufferActivationSubscriptionOptions
+  ) => BufferActivationUnsubscribe;
 
   createPane: (params?: Partial<Pane>) => Promise<Pane>;
   getPane: (id: string) => ShallowRef<Pane | undefined>;

@@ -9,6 +9,10 @@ export interface Sidebar {
   close: () => void;
   open: () => void;
   toggle: () => void;
+  setComponent: <T extends VueComponent>(
+    cmp: T,
+    config?: ComponentConfig<T>
+  ) => void;
   openComponent: <T extends VueComponent>(
     cmp: T,
     config?: ComponentConfig<T>

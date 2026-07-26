@@ -60,6 +60,7 @@ export const ORG_NOTE_CONFIG_SCHEMA = pipe(
         minNotificationLevel: optional(LOG_LEVEL_SCHEMA),
         persistantPanes: optional(boolean()),
         persistantPanesSaveDelay: number(),
+        followActiveBufferInSidebar: optional(boolean()),
         showFileTitleBar: boolean(),
         dropZoneEdgeRatio: number(),
         graph: object({
