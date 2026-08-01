@@ -38,7 +38,7 @@ export interface PaneStore {
   ) => BufferActivationUnsubscribe;
 
   createPane: (params?: Partial<Pane>) => Promise<Pane>;
-  getPane: (id: string) => ShallowRef<Pane | undefined>;
+  getPane: (id: string) => ShallowRef<Pane>;
   closePane: (paneId: string) => void;
   setActivePane: (paneId: string) => void;
 
