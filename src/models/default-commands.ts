@@ -127,6 +127,7 @@ export enum DefaultCommands {
   CLOSE_TAB = 'close tab',
   NEW_TAB = 'new tab',
   SELECT_TAB_BY_NUMBER = 'select tab by number',
+  SHOW_OR_OPEN_BUFFER = 'show or open buffer',
 
   // Pane resize
   RESIZE_PANE_LEFT = 'resize pane left',

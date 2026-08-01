@@ -61,6 +61,7 @@ export const ORG_NOTE_CONFIG_SCHEMA = pipe(
         persistantPanes: optional(boolean()),
         persistantPanesSaveDelay: number(),
         followActiveBufferInSidebar: optional(boolean()),
+        reuseExistingBuffers: optional(boolean()),
         showFileTitleBar: boolean(),
         dropZoneEdgeRatio: number(),
         graph: object({

@@ -26,6 +26,8 @@ export interface BufferViewerStore {
   getViewer: (path: string) => BufferViewerEntry | undefined;
 
   open: (uri: string) => Promise<void>;
+
+  showOrOpen: (uri: string) => Promise<void>;
 }
 
 export type BufferViewerStoreDefinition = StoreDefinition<BufferViewerStore>;
