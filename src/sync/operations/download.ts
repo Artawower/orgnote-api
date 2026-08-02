@@ -1,4 +1,5 @@
 import type { RemoteFile, SyncContext, SyncedFile } from '../types';
+import { hashContent } from '../utils/content-hash';
 import { createSyncedFile } from './synced-file';
 import { resolveContentHash } from './content-hash';
 import { readBinaryContent } from './read-binary-content';
@@ -23,16 +24,20 @@ const markDownloading = async (
   );
 };
 
+const resolveDownloadedHash = (
+  content: Uint8Array | void,
+  file: RemoteFile,
+  ctx: SyncContext
+): Promise<string | undefined> =>
+  content ? hashContent(content) : resolveContentHash(ctx.fs, file.path);
+
 const resolveDownloadedMeta = async (
   file: RemoteFile,
+  content: Uint8Array | void,
   ctx: SyncContext
 ): Promise<{ mtime: number; size: number; contentHash?: string }> => {
   const fileInfo = await ctx.fs.fileInfo(file.path);
-  const contentHash = await resolveContentHash(
-    ctx.fs,
-    file.path,
-    file.contentHash
-  );
+  const contentHash = await resolveDownloadedHash(content, file, ctx);
 
   return {
     mtime: fileInfo?.mtime ?? 0,
@@ -99,8 +104,8 @@ export const processDownload = async (
   await markDownloading(file, stored, ctx);
 
   try {
-    await ctx.executor.download(file);
-    const downloadedMeta = await resolveDownloadedMeta(file, ctx);
+    const content = await ctx.executor.download(file);
+    const downloadedMeta = await resolveDownloadedMeta(file, content, ctx);
     await markSynced(file, downloadedMeta, ctx);
     await refreshBaseStoreAfterDownload(file.path, file.version, downloadedMeta.contentHash ?? '', ctx);
   } catch (error) {

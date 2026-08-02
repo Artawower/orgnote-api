@@ -188,7 +188,7 @@ const storeDownloadedConflict = async (
   await refreshBaseStore(path, serverVersion, contentHash, ctx);
 };
 
-const handleRegularConflict = async (
+export const handleRemoteAuthoritativeConflict = async (
   path: string,
   conflictResult: ConflictUploadResult,
   ctx: SyncContext
@@ -210,7 +210,7 @@ export const handleConflict = async (
   ctx: SyncContext
 ): Promise<void> => {
   if (shouldKeepLocalConfig(path)) return keepLocalConfig(path, conflictResult, ctx);
-  await handleRegularConflict(path, conflictResult, ctx);
+  await handleRemoteAuthoritativeConflict(path, conflictResult, ctx);
 };
 
 export const hasConflict = (file: { conflictPath?: string }): boolean =>

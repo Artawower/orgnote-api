@@ -4,15 +4,16 @@ import type { RemoteFile, SyncExecutor } from '../../types';
 import { processDownload } from '../download';
 import { createContext, SHA256_OF_ABC } from './fixtures';
 
-test('processDownload stores remote contentHash when provided', async () => {
+test('processDownload stores the downloaded hash when remote metadata is stale', async () => {
+  const content = new TextEncoder().encode('abc');
   const fs = {
-    fileInfo: vi.fn(async () => ({ mtime: 42, size: 10 })),
+    fileInfo: vi.fn(async () => ({ mtime: 42, size: 3 })),
     readFile: vi.fn(async () => {
       throw new Error('must not be called');
     }),
   } as unknown as FileSystem;
   const executor = {
-    download: vi.fn(async () => undefined),
+    download: vi.fn(async () => content),
   } as unknown as SyncExecutor;
   const ctx = createContext({ fs, executor });
   const file: RemoteFile = {
@@ -20,14 +21,14 @@ test('processDownload stores remote contentHash when provided', async () => {
     version: 2,
     deleted: false,
     updatedAt: '2024-01-01T00:00:00Z',
-    contentHash: 'remote-hash',
+    contentHash: 'stale-remote-hash',
   };
 
   await processDownload(file, ctx);
 
   const stored = await ctx.state.getFile('/a.org');
 
-  expect(stored?.contentHash).toBe('remote-hash');
+  expect(stored?.contentHash).toBe(SHA256_OF_ABC);
   expect(fs.readFile).toHaveBeenCalledTimes(0);
 });
 

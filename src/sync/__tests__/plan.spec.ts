@@ -4,6 +4,8 @@ import type { LocalFile, RemoteFile, SyncStateData } from '../types';
 
 const emptyState: SyncStateData = { files: {} };
 const serverTime = '2024-01-01T00:00:00Z';
+const LOWERCASE_HASH = 'a'.repeat(64);
+const UPPERCASE_HASH = LOWERCASE_HASH.toUpperCase();
 
 test('new local file → upload', () => {
   const localFiles: LocalFile[] = [{ path: 'a.org', mtime: 1000, size: 100 }];
@@ -18,6 +20,66 @@ test('new local file → upload', () => {
 
   expect(plan.toUpload).toHaveLength(1);
   expect(plan.toUpload[0].path).toBe('a.org');
+});
+
+test.each([
+  ['/.orgnote/config.toml', LOWERCASE_HASH],
+  ['/same.org', LOWERCASE_HASH],
+  ['/uppercase.org', UPPERCASE_HASH],
+])(
+  'matching local and remote content without state → download %s',
+  (path, remoteHash) => {
+    const localFiles: LocalFile[] = [
+      { path, mtime: 1000, size: 100, contentHash: LOWERCASE_HASH },
+    ];
+    const remoteFiles: RemoteFile[] = [
+      {
+        path,
+        version: 8,
+        deleted: false,
+        updatedAt: '',
+        contentHash: remoteHash,
+      },
+    ];
+
+    const plan = createPlan({
+      localFiles,
+      deletedLocally: [],
+      remoteFiles,
+      stateData: emptyState,
+      serverTime,
+    });
+
+    expect(plan.toUpload).toHaveLength(0);
+    expect(plan.toDownload).toEqual(remoteFiles);
+  }
+);
+
+test('different local and remote content without state → upload local', () => {
+  const path = '/.orgnote/config.toml';
+  const localFiles: LocalFile[] = [
+    { path, mtime: 1000, size: 100, contentHash: 'local-hash' },
+  ];
+  const remoteFiles: RemoteFile[] = [
+    {
+      path,
+      version: 8,
+      deleted: false,
+      updatedAt: '',
+      contentHash: 'remote-hash',
+    },
+  ];
+
+  const plan = createPlan({
+    localFiles,
+    deletedLocally: [],
+    remoteFiles,
+    stateData: emptyState,
+    serverTime,
+  });
+
+  expect(plan.toUpload).toEqual(localFiles);
+  expect(plan.toDownload).toHaveLength(0);
 });
 
 test('new remote file → download', () => {

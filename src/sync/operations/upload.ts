@@ -1,5 +1,9 @@
 import type { LocalFile, SyncContext, UploadResult } from '../types';
-import { handleConflict, tryMergeConflict } from './conflict';
+import {
+  handleConflict,
+  handleRemoteAuthoritativeConflict,
+  tryMergeConflict,
+} from './conflict';
 import { createSyncedFile } from './synced-file';
 import { resolveContentHash } from './content-hash';
 import { readBinaryContent } from './read-binary-content';
@@ -62,6 +66,13 @@ export const processUpload = async (
   throw result.error;
 };
 
+const shouldPreferRemoteConfig = (
+  file: LocalFile,
+  expectedVersion: number | undefined,
+  hasBase: boolean
+): boolean =>
+  isOrgNoteConfigPath(file.path) && expectedVersion === undefined && !hasBase;
+
 const executeUpload = async (
   file: LocalFile,
   expectedVersion: number | undefined,
@@ -69,12 +80,17 @@ const executeUpload = async (
 ): Promise<void> => {
   const result = await ctx.executor.upload(file, expectedVersion);
 
-  if (result.status !== 'ok') {
-    await handleConflict(file.path, result, ctx);
+  if (result.status === 'ok') {
+    await persistSyncedSnapshot(file.path, result.version, ctx);
     return;
   }
 
-  await persistSyncedSnapshot(file.path, result.version, ctx);
+  if (shouldPreferRemoteConfig(file, expectedVersion, false)) {
+    await handleRemoteAuthoritativeConflict(file.path, result, ctx);
+    return;
+  }
+
+  await handleConflict(file.path, result, ctx);
 };
 
 type ConflictUploadResult = Extract<UploadResult, { status: 'conflict' }>;
@@ -124,6 +140,10 @@ const executeUploadWithMergeRetry = async (
   }
 
   const baseEntry = ctx.baseStore ? await ctx.baseStore.get(file.path) : null;
+  if (shouldPreferRemoteConfig(file, expectedVersion, Boolean(baseEntry))) {
+    await handleRemoteAuthoritativeConflict(file.path, result, ctx);
+    return;
+  }
 
   const mergedContent = await tryMergeConflict(
     file.path,
@@ -132,11 +152,12 @@ const executeUploadWithMergeRetry = async (
     ctx
   );
 
+  if (!mergedContent && isOrgNoteConfigPath(file.path)) {
+    await retryLocalConfigUpload(file, result, ctx);
+    return;
+  }
+
   if (!mergedContent) {
-    if (isOrgNoteConfigPath(file.path)) {
-      await retryLocalConfigUpload(file, result, ctx);
-      return;
-    }
     await handleConflict(file.path, result, ctx);
     return;
   }

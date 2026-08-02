@@ -240,6 +240,39 @@ test('merge-retry flow: merge succeeds but retry conflicts → fallback', async 
   expect(stored?.conflictPath).toContain('.sync-conflict-');
 });
 
+test.each([false, true])(
+  'initial config conflict keeps remote authoritative with baseStore=%s',
+  async (hasBaseStore) => {
+    const path = '/.orgnote/config.toml';
+    const localContent = new TextEncoder().encode('[network]\napiUrl = "local-default"\n');
+    const remoteContent = new TextEncoder().encode('[network]\napiUrl = "remote"\n');
+    const upload = vi.fn()
+      .mockResolvedValueOnce({ status: 'conflict' as const, serverVersion: 48 })
+      .mockResolvedValueOnce({ status: 'ok' as const, version: 49 });
+    const copyFile = vi.fn(async () => undefined);
+    const download = vi.fn(async () => remoteContent);
+    const ctx = createUploadContext({
+      fs: {
+        copyFile,
+        fileInfo: vi.fn(async () => ({ mtime: 100, size: remoteContent.length })),
+        readFile: vi.fn(async () => remoteContent),
+        writeFile: vi.fn(async () => undefined),
+      },
+      executor: { upload, download, fetchContent: vi.fn(async () => remoteContent) },
+      baseStore: hasBaseStore ? createBaseStore() : undefined,
+    });
+
+    await processUpload({ ...LOCAL_FILE, path, size: localContent.length }, ctx);
+
+    expect(upload).toHaveBeenCalledTimes(1);
+    expect(copyFile).toHaveBeenCalledWith(path, expect.stringContaining('.sync-conflict-'));
+    expect(download).toHaveBeenCalledWith(expect.objectContaining({ path, version: 48 }));
+    expect(await ctx.state.getFile(path)).toEqual(
+      expect.objectContaining({ status: 'synced', version: 48 })
+    );
+  }
+);
+
 test('ambiguous config merge retries local content with current server version', async () => {
   const path = '/.orgnote/config.toml';
   const baseContent = new TextEncoder().encode('[network]\napiUrl = "base"\n');

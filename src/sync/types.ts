@@ -66,7 +66,7 @@ export type DeleteResult =
 
 export interface SyncExecutor {
   upload: (file: LocalFile, expectedVersion?: number) => Promise<UploadResult>;
-  download: (file: RemoteFile) => Promise<void>;
+  download: (file: RemoteFile) => Promise<Uint8Array | void>;
   fetchContent: (file: RemoteFile) => Promise<Uint8Array>;
   deleteLocal: (path: string) => Promise<void>;
   deleteRemote: (path: string, expectedVersion: number) => Promise<DeleteResult>;

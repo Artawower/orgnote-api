@@ -124,6 +124,18 @@ const actionHandlers: {
 const applyAction = (plan: SyncPlan, action: FileAction): SyncPlan =>
   actionHandlers[action.type](plan, action as never);
 
+const normalizeContentHash = (contentHash?: string): string =>
+  contentHash?.trim().toLowerCase() ?? '';
+
+const hasMatchingContentHash = (
+  localHash: string | undefined,
+  remoteHash: string | undefined
+): boolean => {
+  const normalizedLocalHash = normalizeContentHash(localHash);
+  if (!normalizedLocalHash) return false;
+  return normalizedLocalHash === normalizeContentHash(remoteHash);
+};
+
 const resolveLocalFile = (
   local: LocalFile,
   remote: RemoteFile | undefined,
@@ -137,6 +149,10 @@ const resolveLocalFile = (
 
   if (remote.deleted) {
     return localChanged ? upload(local) : deleteLocal(local.path);
+  }
+
+  if (!stored && hasMatchingContentHash(local.contentHash, remote.contentHash)) {
+    return download(remote);
   }
 
   const remoteChanged = isRemoteChanged(remote, stored);
@@ -174,7 +190,7 @@ const isLocalChanged = (local: LocalFile, stored?: SyncedFile): boolean =>
   stored.status === 'pending' ||
   stored.status === 'conflict' ||
   (local.contentHash && stored.contentHash
-    ? local.contentHash !== stored.contentHash
+    ? !hasMatchingContentHash(local.contentHash, stored.contentHash)
     : local.mtime !== stored.mtime);
 
 const isRemoteChanged = (remote: RemoteFile, stored?: SyncedFile): boolean =>
