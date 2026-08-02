@@ -48,6 +48,10 @@ export interface BufferViewerStore {
 
   open: (uri: string) => Promise<void>;
 
+  openInNewTab: (uri: string) => Promise<void>;
+
+  openInAdjacentPane: (uri: string) => Promise<void>;
+
   showOrOpen: (uri: string) => Promise<void>;
 }
 

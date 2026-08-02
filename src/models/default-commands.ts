@@ -121,6 +121,11 @@ export enum DefaultCommands {
   COPY_BUFFER_CONTENT = 'copy buffer content',
   CLEAR_NOTE = 'clear note',
 
+  // Link actions
+  COPY_LINK = 'copy link',
+  OPEN_LINK_IN_NEW_TAB = 'open link in new tab',
+  OPEN_LINK_IN_ADJACENT_PANE = 'open link in adjacent pane',
+
   // Windows & buffers
   TABS = 'show tabs',
   SHOW_TAB_SWITCHER = 'show tab switcher',
