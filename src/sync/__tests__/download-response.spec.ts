@@ -113,23 +113,16 @@ test('validateSyncFileResponse rejects body hash mismatch', async () => {
   });
 });
 
-test('validateSyncFileResponse rejects metadata and response hash mismatch', async () => {
-  const content = new TextEncoder().encode('remote content');
+test('validateSyncFileResponse accepts a newer response than the metadata snapshot', async () => {
+  const content = new TextEncoder().encode('newer remote content');
   const responseHash = await hashBytes(content);
 
-  await expect(
-    validateSyncFileResponse(createResponse(content.buffer, responseHash), {
-      ...remoteFile,
-      contentHash: '0'.repeat(64),
-    }),
-  ).rejects.toMatchObject({
-    name: 'InvalidSyncFileResponseError',
-    details: {
-      reason: 'content_hash_mismatch',
-      expectedHash: '0'.repeat(64),
-      actualHash: responseHash,
-    },
+  const result = await validateSyncFileResponse(createResponse(content.buffer, responseHash), {
+    ...remoteFile,
+    contentHash: '0'.repeat(64),
   });
+
+  expect(result).toEqual(content);
 });
 
 test('validateSyncFileResponse accepts matching metadata, response, and body hashes', async () => {

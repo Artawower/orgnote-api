@@ -124,19 +124,6 @@ const parseResponseContentHash = (
   });
 };
 
-const assertMetadataContentHash = (
-  file: RemoteContentIdentity,
-  response: unknown,
-  responseHash: string
-): void => {
-  if (!file.contentHash) return;
-  if (file.contentHash.toLowerCase() === responseHash) return;
-  throw createError(file, 'content_hash_mismatch', response, {
-    expectedHash: file.contentHash,
-    actualHash: responseHash,
-  });
-};
-
 const assertBodyContentHash = async (
   file: RemoteContentIdentity,
   response: unknown,
@@ -166,7 +153,6 @@ export const validateSyncFileResponse = async (
     response,
     parsed.output.headers
   );
-  assertMetadataContentHash(file, response, responseHash);
   await assertBodyContentHash(file, response, content, responseHash);
   return content;
 };
