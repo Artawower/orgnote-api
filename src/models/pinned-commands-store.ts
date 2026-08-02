@@ -11,6 +11,8 @@ export type CommandContext =
   | 'file-actions'
   | 'context-menu-file'
   | 'context-menu-dir'
+  | 'context-menu-org-link'
+  | 'context-menu-external-link'
   | ({} & string);
 
 export interface PinnedCommandsStore {
