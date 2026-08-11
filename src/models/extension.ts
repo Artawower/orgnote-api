@@ -1,5 +1,6 @@
 import type { BaseSchema, BaseIssue } from 'valibot';
 import { OrgNoteApi } from '../api';
+import { EXTENSION_ASSETS_SCHEMA } from './extension-assets';
 
 import {
   object,
@@ -126,6 +127,7 @@ export const EXTENSION_MANIFEST_SCHEMA = object({
   activationEvents: optional(array(ACTIVATION_EVENT_SCHEMA)),
 
   dependencies: optional(record(string(), string())),
+  assets: optional(EXTENSION_ASSETS_SCHEMA),
 
   configSchema: optional(CONFIG_SCHEMA_SCHEMA),
 });

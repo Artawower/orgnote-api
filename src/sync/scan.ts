@@ -13,6 +13,7 @@ const DEFAULT_IGNORE_PATTERNS = [
   'node_modules',
   '.sync-state',
   '.Trash',
+  '.orgnote/extensions/**',
 ];
 
 type IgnoreMatcher = (input: string) => boolean;

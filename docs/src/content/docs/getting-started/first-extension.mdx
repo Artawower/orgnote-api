@@ -9,7 +9,7 @@ This guide walks you through creating a minimal OrgNote extension that registers
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) 18+ or [Bun](https://bun.sh/)
+- [Bun](https://bun.sh/)
 - Basic TypeScript knowledge
 
 ## Create the extension
@@ -20,8 +20,8 @@ This guide walks you through creating a minimal OrgNote extension that registers
 
    ```bash
    mkdir my-orgnote-extension && cd my-orgnote-extension
-   npm init -y
-   npm install orgnote-api
+   bun init -y
+   bun add orgnote-api
    ```
 
 2. **Create the entry point**
@@ -68,13 +68,16 @@ This guide walks you through creating a minimal OrgNote extension that registers
      version: '1.0.0',
      category: 'extension',
      description: 'A simple Hello World extension',
-     sourceType: 'git',
+     source: {
+       type: 'git',
+       repo: 'https://example.com/hello-world',
+     },
    };
    ```
 
 4. **Build and test**
 
-   Bundle your extension into a single `index.js` file (using your preferred bundler) and load it in OrgNote.
+   Bundle your extension into a single `index.js` file (using your preferred bundler) and load it in OrgNote. See [Extension Assets](/guides/extension-assets/) when the extension also ships fonts or images.
 
 </Steps>
 

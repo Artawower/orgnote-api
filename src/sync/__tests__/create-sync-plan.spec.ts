@@ -120,6 +120,50 @@ test('createSyncPlan advances only unchanged file syncedAt', async () => {
   expect((await state.getFile('/b.org'))?.syncedAt).toBe(oldSyncedAt);
 });
 
+test('createSyncPlan ignores local extension runtime files', async () => {
+  const fs = createFsMock(
+    [
+      {
+        name: 'extensions',
+        path: '/.orgnote/extensions',
+        type: 'directory',
+        size: 0,
+        mtime: 10,
+      },
+    ],
+    async () => new Uint8Array(),
+  );
+
+  const plan = await createSyncPlan({
+    fs,
+    api: createSyncApiMock(),
+    state: createMemorySyncState(),
+    rootPath: '/',
+  });
+
+  expect(plan.toUpload).toHaveLength(0);
+  expect(fs.readDir).toHaveBeenCalledTimes(1);
+});
+
+test('createSyncPlan ignores remote extension runtime files', async () => {
+  const extensionPath = '/.orgnote/extensions/drawing-viewer/1.0.0/index.js';
+  const remoteFile: RemoteFile = {
+    path: extensionPath,
+    version: 1,
+    deleted: false,
+    updatedAt: '2024-01-01T00:00:00Z',
+  };
+
+  const plan = await createSyncPlan({
+    fs: createFsMock([], async () => new Uint8Array()),
+    api: createSyncApiMock([remoteFile]),
+    state: createMemorySyncState(),
+    rootPath: '/',
+  });
+
+  expect(plan.toDownload).toHaveLength(0);
+});
+
 test('createSyncPlan ignores local conflict artifacts', async () => {
   const conflictPath = '/note.sync-conflict-100-device.org';
   const fs = createFsMock(

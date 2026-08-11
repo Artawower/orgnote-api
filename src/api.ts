@@ -72,6 +72,14 @@ import { UseConfirmationModal } from './models/confirmation-modal';
 import { FileSystemManagerStoreDefinition } from './models/file-system-manager-store';
 import { ConfigStoreDefinition } from './models/config-store';
 import { Router } from 'vue-router';
+import type {
+  defineComponent,
+  h,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  watch,
+} from 'vue';
 import { CronStoreDefinition } from './models/cron-store';
 import { GitStoreDefinition } from './models/git-store';
 import { ExtensionRegistryStoreDefinition } from './models/extension-registry-store';
@@ -540,5 +548,11 @@ export interface OrgNoteApi {
      * ```
      */
     router: Router;
+    defineComponent: typeof defineComponent;
+    h: typeof h;
+    ref: typeof ref;
+    watch: typeof watch;
+    onMounted: typeof onMounted;
+    onBeforeUnmount: typeof onBeforeUnmount;
   };
 }

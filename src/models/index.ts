@@ -3,6 +3,7 @@ export * from './file-index';
 export * from './command';
 export * from './completion';
 export * from './extension';
+export * from './extension-assets';
 export * from './theme-variables';
 export * from './widget';
 export * from './modal';
