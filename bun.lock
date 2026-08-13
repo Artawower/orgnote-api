@@ -6,6 +6,7 @@
       "name": "orgnote-api",
       "dependencies": {
         "axios": "1.8.4",
+        "date-fns": "2.30.0",
         "diff-match-patch": "^1.0.5",
         "neverthrow": "^8.2.0",
         "openpgp": "6.3.0",
