@@ -84,6 +84,10 @@ import { CronStoreDefinition } from './models/cron-store';
 import { GitStoreDefinition } from './models/git-store';
 import { ExtensionRegistryStoreDefinition } from './models/extension-registry-store';
 import { parseToml, stringifyToml } from './utils';
+import type {
+  OrgNoteFileSystemApi,
+  OrgNoteLoggerApi,
+} from './models/core-api';
 
 /** @internal */
 type WithNodeType<T> = { nodeType: NodeType } & T;
@@ -114,43 +118,17 @@ export type WidgetMeta =
 export type Infrastructure = Repositories & { websocket: WebSocketClient };
 
 /**
- * Main API facade provided to every OrgNote extension.
- *
- * Received as the sole argument of the {@link Extension.onMounted} lifecycle hook.
- * Groups all available services into four namespaces:
- * - `core` — application stores (commands, files, encryption, sync, buffers)
- * - `utils` — platform helpers, CSS manipulation, clipboard, logging, parsers
- * - `ui` — modals, sidebars, themes, fonts, screen detection
- * - `vue` — Vue Router instance
- *
- * @example
- * ```typescript
- * import type { Extension, OrgNoteApi } from 'orgnote-api';
- *
- * const extension: Extension = {
- *   async onMounted(api: OrgNoteApi) {
- *     const commands = api.core.useCommands();
- *     commands.add({
- *       command: 'hello-world',
- *       title: 'Hello World',
- *       handler: () => {
- *         const notifications = api.core.useNotifications();
- *         notifications.notify({ message: 'Hello from extension!' });
- *       },
- *     });
- *   },
- *
- *   async onUnmounted(api: OrgNoteApi) {
- *     // cleanup is automatic for commands registered via `add`
- *   },
- * };
- *
- * export default extension;
- * ```
+ * Environment-neutral services available on the host and through worker RPC.
  */
-export interface OrgNoteApi {
-  [key: string]: unknown;
+export interface OrgNoteCoreApi {
+  readonly files: OrgNoteFileSystemApi;
+  readonly logger: OrgNoteLoggerApi;
+}
 
+/**
+ * Main-thread application services available to UI extensions.
+ */
+export interface OrgNoteHostApi {
   /**
    * Low-level infrastructure: data repositories and WebSocket client.
    *
@@ -555,4 +533,11 @@ export interface OrgNoteApi {
     onMounted: typeof onMounted;
     onBeforeUnmount: typeof onBeforeUnmount;
   };
+}
+
+/**
+ * Complete API facade provided to every OrgNote extension lifecycle hook.
+ */
+export interface OrgNoteApi extends OrgNoteCoreApi, OrgNoteHostApi {
+  [key: string]: unknown;
 }

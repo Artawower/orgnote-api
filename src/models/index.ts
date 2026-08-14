@@ -44,6 +44,7 @@ export * from './platform-detection';
 export * from './git';
 export * from './file-guard';
 export * from './file-guard-store';
+export * from './core-api';
 
 export * from './keybinding-schemas';
 export * from './keybinding';
