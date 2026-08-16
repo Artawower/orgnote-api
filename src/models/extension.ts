@@ -1,6 +1,7 @@
 import type { BaseSchema, BaseIssue } from 'valibot';
 import { OrgNoteApi } from '../api';
 import { EXTENSION_ASSETS_SCHEMA } from './extension-assets';
+import { EXTENSION_WORKERS_SCHEMA } from './extension-worker';
 
 import {
   object,
@@ -12,6 +13,8 @@ import {
   record,
   unknown,
   literal,
+  check,
+  pipe,
   type InferOutput,
 } from 'valibot';
 
@@ -97,7 +100,7 @@ const CONFIG_SCHEMA_SCHEMA = object({
   properties: record(string(), JSON_SCHEMA_PROPERTY_SCHEMA),
 });
 
-export const EXTENSION_MANIFEST_SCHEMA = object({
+const EXTENSION_MANIFEST_BASE_SCHEMA = object({
   name: string(),
   version: string(),
   category: CATEGORY_SCHEMA,
@@ -128,9 +131,26 @@ export const EXTENSION_MANIFEST_SCHEMA = object({
 
   dependencies: optional(record(string(), string())),
   assets: optional(EXTENSION_ASSETS_SCHEMA),
+  workers: optional(EXTENSION_WORKERS_SCHEMA),
 
   configSchema: optional(CONFIG_SCHEMA_SCHEMA),
 });
+
+const WORKER_MEDIA_TYPES = new Set(['text/javascript', 'application/javascript']);
+
+type ExtensionManifestOutput = InferOutput<typeof EXTENSION_MANIFEST_BASE_SCHEMA>;
+
+const hasDeclaredWorkerAssets = (manifest: ExtensionManifestOutput): boolean =>
+  (manifest.workers ?? []).every((worker) =>
+    manifest.assets?.some(
+      (asset) => asset.path === worker.path && WORKER_MEDIA_TYPES.has(asset.mediaType),
+    ),
+  );
+
+export const EXTENSION_MANIFEST_SCHEMA = pipe(
+  EXTENSION_MANIFEST_BASE_SCHEMA,
+  check(hasDeclaredWorkerAssets),
+);
 
 export type ExtensionManifest = InferOutput<typeof EXTENSION_MANIFEST_SCHEMA>;
 export type ExtensionCategory = InferOutput<typeof CATEGORY_SCHEMA>;

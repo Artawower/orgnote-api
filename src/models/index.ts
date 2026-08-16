@@ -45,6 +45,9 @@ export * from './git';
 export * from './file-guard';
 export * from './file-guard-store';
 export * from './core-api';
+export * from './worker-contract';
+export * from './worker-store';
+export * from './extension-worker';
 
 export * from './keybinding-schemas';
 export * from './keybinding';

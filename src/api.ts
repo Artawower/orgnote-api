@@ -37,6 +37,7 @@ import {
   UseAppResume,
   ClientUpdateStoreDefinition,
   KeybindingsStoreDefinition,
+  WorkerStoreDefinition,
 } from './models';
 import { WebSocketClient } from './websocket/client';
 import { WidgetType } from './models/widget-type';
@@ -189,6 +190,11 @@ export interface OrgNoteHostApi {
      * Also provides the list of currently loaded extensions.
      */
     useExtensions: ExtensionStoreDefinition;
+
+    /**
+     * Spawn and communicate with background workers declared by the host.
+     */
+    useWorkers: WorkerStoreDefinition;
 
     /**
      * Virtual file system abstraction (read, write, delete, mkdir, etc.).

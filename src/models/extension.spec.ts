@@ -18,6 +18,19 @@ const ASSET = {
   integrity: `sha256-${'a'.repeat(43)}=`,
 };
 
+const WORKER_ASSET = {
+  path: 'workers/indexer.js',
+  mediaType: 'text/javascript',
+  size: 2048,
+  integrity: `sha256-${'b'.repeat(43)}=`,
+};
+
+const WORKER = {
+  id: 'drawing-viewer.indexer',
+  path: WORKER_ASSET.path,
+  capabilities: ['files:read'] as const,
+};
+
 const createManifest = () => ({
   name: 'drawing-viewer',
   version: '1.0.0',
@@ -32,6 +45,47 @@ test('extension manifest preserves declared assets', () => {
   expect(result.success).toBe(true);
   if (!result.success) return;
   expect(result.output.assets).toEqual([ASSET]);
+});
+
+test('extension manifest preserves declared workers', () => {
+  const result = safeParse(EXTENSION_MANIFEST_SCHEMA, {
+    ...createManifest(),
+    assets: [ASSET, WORKER_ASSET],
+    workers: [WORKER],
+  });
+
+  expect(result.success).toBe(true);
+  if (!result.success) return;
+  expect(result.output.workers).toEqual([WORKER]);
+});
+
+test('extension manifest rejects undeclared worker assets', () => {
+  const result = safeParse(EXTENSION_MANIFEST_SCHEMA, {
+    ...createManifest(),
+    workers: [WORKER],
+  });
+
+  expect(result.success).toBe(false);
+});
+
+test('extension manifest rejects non-JavaScript worker assets', () => {
+  const result = safeParse(EXTENSION_MANIFEST_SCHEMA, {
+    ...createManifest(),
+    assets: [ASSET, { ...WORKER_ASSET, mediaType: 'application/octet-stream' }],
+    workers: [WORKER],
+  });
+
+  expect(result.success).toBe(false);
+});
+
+test('extension manifest rejects duplicate worker ids', () => {
+  const result = safeParse(EXTENSION_MANIFEST_SCHEMA, {
+    ...createManifest(),
+    assets: [ASSET, WORKER_ASSET],
+    workers: [WORKER, { ...WORKER }],
+  });
+
+  expect(result.success).toBe(false);
 });
 
 test('extension manifest rejects unsafe asset paths', () => {
