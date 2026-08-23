@@ -11,6 +11,7 @@ import {
   string,
   type InferOutput,
 } from 'valibot';
+import { ORGNOTE_EXTENSION_RUNTIME_ROOT_PATH } from '../constants/system-paths';
 
 const MEDIA_TYPE_PATTERN = /^[a-z0-9][a-z0-9!#$&^_.+-]*\/[a-z0-9][a-z0-9!#$&^_.+-]*$/i;
 const SHA256_INTEGRITY_PATTERN = /^sha256-[A-Za-z0-9+/]{43}=$/;
@@ -45,7 +46,6 @@ interface ExtensionRuntimeIdentity {
   readonly assets?: readonly ExtensionAssetDescriptor[];
 }
 
-const EXTENSION_RUNTIME_ROOT = '.orgnote/extensions';
 const ENTRY_FILE_NAME = 'index.js';
 const ASSET_DIRECTORY = 'assets';
 
@@ -58,10 +58,10 @@ export class ExtensionAssetNotDeclaredError extends Error {
   }
 }
 
-export const getExtensionRuntimeRootPath = (): string => EXTENSION_RUNTIME_ROOT;
+export const getExtensionRuntimeRootPath = (): string => ORGNOTE_EXTENSION_RUNTIME_ROOT_PATH;
 
 export const getExtensionRootPath = (extensionName: string): string =>
-  `${EXTENSION_RUNTIME_ROOT}/${encodePathSegment(extensionName)}`;
+  `${ORGNOTE_EXTENSION_RUNTIME_ROOT_PATH}/${encodePathSegment(extensionName)}`;
 
 export const getExtensionRuntimePath = (extension: ExtensionRuntimeIdentity): string =>
   `${getExtensionRootPath(extension.name)}/${encodePathSegment(extension.version)}`;
