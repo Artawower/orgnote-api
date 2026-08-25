@@ -1,6 +1,6 @@
 {
   "name": "orgnote-api",
-  "version": "0.66.0",
+  "version": "0.67.1",
   "description": "Official API for creating extensions for OrgNote app",
   "type": "module",
   "main": "./index.js",
@@ -53,6 +53,7 @@
     "neverthrow": "^8.2.0",
     "openpgp": "6.3.0",
     "org-mode-ast": "0.13.5",
+    "orgnote-api": "0.67.0",
     "partysocket": "1.1.6",
     "picomatch": "4.0.4",
     "smol-toml": "1.5.2"
