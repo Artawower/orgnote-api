@@ -57,3 +57,12 @@ test('hashContent handles binary bytes', async () => {
   );
   expect(digest).toMatch(/^[0-9a-f]{64}$/);
 });
+
+test('hashContent handles SharedArrayBuffer-backed subviews', async () => {
+  const bytes = new Uint8Array(new SharedArrayBuffer(5), 1, 3);
+  bytes.set(toBytes('abc'));
+
+  const digest = await hashContent(bytes);
+
+  expect(digest).toBe('ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad');
+});
